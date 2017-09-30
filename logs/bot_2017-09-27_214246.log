@@ -1,0 +1,1693 @@
+New Connection id ::  9gOxAfbMp4TjkkiBNq85lQ==
+Client [bot] started, listening to WebSocket 127.0.0.1:1337
+27 Sep 21:42:47 - Success clearing bitfinex_transactions table
+27 Sep 21:42:47 - Success clearing bitfinex_live_price table
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tBTCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tLTCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tETHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tETCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tDSHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tIOTUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tEOSUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tOMGUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tBCHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tBTCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tLTCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tETHUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tETCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tDSHUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tIOTUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tEOSUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tOMGUSD' }
+27 Sep 21:42:47 - { event: 'subscribe', channel: 'ticker', symbol: 'tBCHUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tBTCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tLTCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tETHUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tETCUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tDSHUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tIOTUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tEOSUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tOMGUSD' }
+27 Sep 21:42:47 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tBCHUSD' }
+New Connection id ::  ZrcYAaTxD1DPRJ8x9YyaEA==
+Received client [public_books]'s id: ZrcYAaTxD1DPRJ8x9YyaEA==
+Client [public] started, listening to WebSocket 127.0.0.1:1337
+Received client [bot]'s id: 9gOxAfbMp4TjkkiBNq85lQ==
+27 Sep 21:42:47 - --------------------------------------
+INFO: undefined 
+undefined
+--------------------------------------
+27 Sep 21:42:48 - Insert into live price table success: BTCUSD,4165,4164.9,97.95451045,4165,101.91677354,4229.5,3892.6,50427.10408417,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: LTCUSD,56.438,56.438,1390.18519338,56.448,2424.54670954,57.571,52.06,436873.22939298,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: ETHUSD,307.19,307.16,137.80720504,307.2,52.90173507,315.51,286.93,215227.08009329,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: ETCUSD,12.785,12.771,8761.89907504,12.8,2922.35212375,13.3,11.41,731528.91758133,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: DSHUSD,350,348.4,113.18622717,349.61,37.20958003,355,335.7,9851.4062702,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: IOTUSD,0.54784,0.54711,141994.13926234,0.5477,309634.87852634,0.5544,0.505,16146775.28207356,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: EOSUSD,0.63712,0.63603,658663.20837543,0.63713,81094.73344128,0.6394,0.55531,7646033.46428561,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: BCHUSD,462,460.7,437.21691126,462,873.88974244,470,435.96,43579.73030664,2017-09-27 21:42:48
+27 Sep 21:42:48 - Insert into live price table success: OMGUSD,10.214,10.202,8083.3193586,10.212,3497.48328562,10.599,9.7742,1598394.5348715,2017-09-27 21:42:48
+27 Sep 21:42:52 - ************* Buy | 1.4285714285714286 DSHUSD @ 350 *************
+27 Sep 21:42:52 - -------------------- Summary ----------------------------
+27 Sep 21:42:52 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  }
+}
+27 Sep 21:42:52 - =====> Market Value: 500.00
+27 Sep 21:42:52 - Fiat Wallet: $9499.00
+27 Sep 21:42:52 - Starting Value: 10000
+27 Sep 21:42:52 - Total Value: 9999.00
+27 Sep 21:42:52 - ---------------------------------------------------------
+
+
+27 Sep 21:42:52 - Insert into transaction table success: DSHUSD,350,1.4285714285714286,1,2017-09-27 21:42:52
+27 Sep 21:42:54 - ************* Buy | 8.859279209043551 LTCUSD @ 56.438 *************
+27 Sep 21:42:54 - -------------------- Summary ----------------------------
+27 Sep 21:42:54 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  }
+}
+27 Sep 21:42:54 - =====> Market Value: 1000.00
+27 Sep 21:42:54 - Fiat Wallet: $8998.00
+27 Sep 21:42:54 - Starting Value: 10000
+27 Sep 21:42:54 - Total Value: 9998.00
+27 Sep 21:42:54 - ---------------------------------------------------------
+
+
+27 Sep 21:42:54 - Insert into transaction table success: LTCUSD,56.438,8.859279209043551,1,2017-09-27 21:42:54
+27 Sep 21:42:54 - ************* Buy | 0.12004801920768307 BTCUSD @ 4165 *************
+27 Sep 21:42:54 - -------------------- Summary ----------------------------
+27 Sep 21:42:54 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  }
+}
+27 Sep 21:42:54 - =====> Market Value: 1500.00
+27 Sep 21:42:54 - Fiat Wallet: $8497.00
+27 Sep 21:42:54 - Starting Value: 10000
+27 Sep 21:42:54 - Total Value: 9997.00
+27 Sep 21:42:54 - ---------------------------------------------------------
+
+
+27 Sep 21:42:54 - Insert into transaction table success: BTCUSD,4165,0.12004801920768307,1,2017-09-27 21:42:54
+27 Sep 21:42:56 - Insert into live price table success: DSHUSD,350,348.18,122.20291473,349.61,43.39183503,355,335.7,9851.4062702,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: EOSUSD,0.63604,0.63604,661932.01831285,0.63712,82154.2649028,0.6394,0.55531,7646063.46428561,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: IOTUSD,0.54784,0.5475,154830.62279741,0.5477,302319.41209874,0.5544,0.505,16146775.28207356,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: BCHUSD,462,460.6,456.89877677,462,337.43643199,470,435.96,43584.08755464,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: ETCUSD,12.771,12.771,8865.16255738,12.793,2633.62321456,13.3,11.41,731539.50475233,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: OMGUSD,10.214,10.202,7994.9537272,10.21,3934.52198383,10.599,9.7742,1598394.5348715,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: LTCUSD,56.449,56.438,1306.95174449,56.444,2289.30378134,57.571,52.06,436876.22939298,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: ETHUSD,307.2,307.2,170.1619397,307.38,46.11871085,315.51,286.93,215238.80567729,2017-09-27 21:42:56
+27 Sep 21:42:56 - Insert into live price table success: BTCUSD,4165,4164.9,111.26440823,4165,95.92281208,4229.5,3892.6,50429.78544902,2017-09-27 21:42:56
+27 Sep 21:42:58 - ************* Buy | 912.6752336448599 IOTUSD @ 0.54784 *************
+27 Sep 21:42:58 - -------------------- Summary ----------------------------
+27 Sep 21:42:58 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 912.6752336448599,
+    "price": 0.54784
+  }
+}
+27 Sep 21:42:58 - =====> Market Value: 2000.10
+27 Sep 21:42:58 - Fiat Wallet: $7996.00
+27 Sep 21:42:58 - Starting Value: 10000
+27 Sep 21:42:58 - Total Value: 9996.10
+27 Sep 21:42:58 - ---------------------------------------------------------
+
+
+27 Sep 21:42:58 - Insert into transaction table success: IOTUSD,0.54784,912.6752336448599,1,2017-09-27 21:42:58
+27 Sep 21:43:06 - Insert into live price table success: EOSUSD,0.63602,0.63601,663999.34037629,0.63712,82194.1649028,0.6394,0.55531,7646083.56428561,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: IOTUSD,0.5475,0.54711,142908.02170805,0.5478,287507.30064054,0.5544,0.505,16147175.28207356,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: BCHUSD,462.39,462,424.56588826,462.37,828.8692381,470,435.96,43591.10693364,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: LTCUSD,56.449,56.438,1202.12172319,56.443,2367.21662952,57.571,52.06,436876.22939298,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: ETCUSD,12.771,12.771,9056.28988773,12.795,2136.90823915,13.3,11.41,731539.50475233,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: DSHUSD,350,348.56,153.40569582,349.6,43.27595092,355,335.7,9851.4062702,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: OMGUSD,10.214,10.203,4841.35407196,10.204,4148.36450392,10.599,9.7742,1598394.5348715,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: ETHUSD,307.2,307.17,149.40386319,307.42,191.65880899,315.51,286.93,215250.38021929,2017-09-27 21:43:06
+27 Sep 21:43:06 - Insert into live price table success: BTCUSD,4166.5,4166.6,83.93567792,4168,109.13961775,4229.5,3892.6,50435.53737714,2017-09-27 21:43:06
+27 Sep 21:43:07 - ************* Buy | 913.2420091324201 IOTUSD @ 0.5475 *************
+27 Sep 21:43:07 - -------------------- Summary ----------------------------
+27 Sep 21:43:07 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 1825.91724277728,
+    "price": 0.5476699472309967
+  },
+  "EOSUSD": {
+    "qty": 0,
+    "price": 0
+  }
+}
+27 Sep 21:43:07 - =====> Market Value: 2499.97
+27 Sep 21:43:07 - Fiat Wallet: $7495.00
+27 Sep 21:43:07 - Starting Value: 10000
+27 Sep 21:43:07 - Total Value: 9994.97
+27 Sep 21:43:07 - ---------------------------------------------------------
+
+
+27 Sep 21:43:07 - Insert into transaction table success: IOTUSD,0.5475,913.2420091324201,1,2017-09-27 21:43:07
+27 Sep 21:43:08 - ************* Buy | 1.6276041666666667 ETHUSD @ 307.2 *************
+27 Sep 21:43:08 - -------------------- Summary ----------------------------
+27 Sep 21:43:08 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 1.6276041666666667,
+    "price": 307.2
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 1825.91724277728,
+    "price": 0.5476699472309967
+  },
+  "EOSUSD": {
+    "qty": 0,
+    "price": 0
+  }
+}
+27 Sep 21:43:08 - =====> Market Value: 2999.97
+27 Sep 21:43:08 - Fiat Wallet: $6994.00
+27 Sep 21:43:08 - Starting Value: 10000
+27 Sep 21:43:08 - Total Value: 9993.97
+27 Sep 21:43:08 - ---------------------------------------------------------
+
+
+27 Sep 21:43:08 - Insert into transaction table success: ETHUSD,307.2,1.6276041666666667,1,2017-09-27 21:43:08
+27 Sep 21:43:16 - Insert into live price table success: EOSUSD,0.63603,0.63605,656356.38590428,0.63712,82194.1649028,0.6394,0.55531,7646088.56428561,2017-09-27 21:43:16
+27 Sep 21:43:16 - ************* Buy | 913.2420091324201 IOTUSD @ 0.5475 *************
+27 Sep 21:43:16 - -------------------- Summary ----------------------------
+27 Sep 21:43:16 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 1.6276041666666667,
+    "price": 307.2
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 2739.1592519097003,
+    "price": 0.5476132864324054
+  },
+  "EOSUSD": {
+    "qty": 0,
+    "price": 0
+  }
+}
+27 Sep 21:43:16 - =====> Market Value: 3499.97
+27 Sep 21:43:16 - Fiat Wallet: $6493.00
+27 Sep 21:43:16 - Starting Value: 10000
+27 Sep 21:43:16 - Total Value: 9992.97
+27 Sep 21:43:16 - ---------------------------------------------------------
+
+
+27 Sep 21:43:16 - Insert into transaction table success: IOTUSD,0.5475,913.2420091324201,1,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: DSHUSD,350,348.06,121.0640124,349.59,37.33376381,355,335.7,9851.4062702,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: BCHUSD,462.39,462.01,430.72480448,462.35,847.48977265,470,435.96,43591.10693364,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: IOTUSD,0.5475,0.54711,160223.71567363,0.5478,295949.59520234,0.5544,0.505,16147175.28207356,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: ETCUSD,12.771,12.771,9134.54567941,12.79,1860.55825011,13.3,11.41,731539.50475233,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: LTCUSD,56.444,56.438,1274.90916425,56.444,2364.24396113,57.571,52.06,436880.22939298,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: OMGUSD,10.214,10.203,4787.978948,10.204,4137.46044268,10.599,9.7742,1598394.5348715,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: ETHUSD,307.38,307.21,196.54322849,307.32,95.87267269,315.51,286.93,215262.82897037,2017-09-27 21:43:16
+27 Sep 21:43:16 - Insert into live price table success: BTCUSD,4167,4167.1,77.17078637,4168,57.86973556,4229.5,3892.6,50437.85889554,2017-09-27 21:43:16
+27 Sep 21:43:17 - ************* Buy | 786.1264405767024 EOSUSD @ 0.63603 *************
+27 Sep 21:43:17 - -------------------- Summary ----------------------------
+27 Sep 21:43:17 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 1.6276041666666667,
+    "price": 307.2
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 2739.1592519097003,
+    "price": 0.5476132864324054
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:43:17 - =====> Market Value: 4000.28
+27 Sep 21:43:17 - Fiat Wallet: $5992.00
+27 Sep 21:43:17 - Starting Value: 10000
+27 Sep 21:43:17 - Total Value: 9992.28
+27 Sep 21:43:17 - ---------------------------------------------------------
+
+
+27 Sep 21:43:17 - Insert into transaction table success: EOSUSD,0.63603,786.1264405767024,1,2017-09-27 21:43:17
+27 Sep 21:43:24 - ************* Buy | 913.2420091324201 IOTUSD @ 0.5475 *************
+27 Sep 21:43:24 - -------------------- Summary ----------------------------
+27 Sep 21:43:24 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 1.6276041666666667,
+    "price": 307.2
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:43:24 - =====> Market Value: 4500.28
+27 Sep 21:43:24 - Fiat Wallet: $5491.00
+27 Sep 21:43:24 - Starting Value: 10000
+27 Sep 21:43:24 - Total Value: 9991.28
+27 Sep 21:43:24 - ---------------------------------------------------------
+
+
+27 Sep 21:43:24 - Insert into transaction table success: IOTUSD,0.5475,913.2420091324201,1,2017-09-27 21:43:24
+27 Sep 21:43:24 - ************* Buy | 39.151201941899615 ETCUSD @ 12.771 *************
+27 Sep 21:43:24 - -------------------- Summary ----------------------------
+27 Sep 21:43:24 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 1.6276041666666667,
+    "price": 307.2
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:43:24 - =====> Market Value: 5000.28
+27 Sep 21:43:24 - Fiat Wallet: $4990.00
+27 Sep 21:43:24 - Starting Value: 10000
+27 Sep 21:43:24 - Total Value: 9990.28
+27 Sep 21:43:24 - ---------------------------------------------------------
+
+
+27 Sep 21:43:24 - Insert into transaction table success: ETCUSD,12.771,39.151201941899615,1,2017-09-27 21:43:24
+27 Sep 21:43:26 - Insert into live price table success: IOTUSD,0.5475,0.54711,141993.94016207,0.5474,309471.39520234,0.5544,0.505,16145290.88706256,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: LTCUSD,56.45,56.443,1234.86838034,56.448,2557.45948742,57.571,52.06,436908.38134361,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: DSHUSD,350,348.42,121.00373475,349.58,45.69941365,355,335.7,9851.3562702,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: EOSUSD,0.63603,0.63603,655049.70936359,0.63711,82208.8649028,0.6394,0.55531,7646130.25080929,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: ETHUSD,307.06,307.25,135.41593475,307.32,148.55278896,315.51,286.93,215270.33347037,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: BCHUSD,462.39,462.01,460.85552772,462.35,794.61362119,470,435.96,43591.10693364,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: BTCUSD,4167.9,4166.2,100.41597848,4168,61.53152371,4229.5,3892.6,50468.62186543,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: OMGUSD,10.21,10.203,5308.04522617,10.208,4556.4303964,10.599,9.7742,1598037.18926583,2017-09-27 21:43:26
+27 Sep 21:43:26 - Insert into live price table success: ETCUSD,12.771,12.771,9276.88970108,12.796,1890.74175827,13.3,11.41,731539.50475233,2017-09-27 21:43:26
+27 Sep 21:43:30 - ************* Buy | 1.628346251546929 ETHUSD @ 307.06 *************
+27 Sep 21:43:30 - -------------------- Summary ----------------------------
+27 Sep 21:43:30 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 3.2559504182135957,
+    "price": 307.1299840458438
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:43:30 - =====> Market Value: 5499.92
+27 Sep 21:43:30 - Fiat Wallet: $4489.00
+27 Sep 21:43:30 - Starting Value: 10000
+27 Sep 21:43:30 - Total Value: 9988.92
+27 Sep 21:43:30 - ---------------------------------------------------------
+
+
+27 Sep 21:43:30 - Insert into transaction table success: ETHUSD,307.06,1.628346251546929,1,2017-09-27 21:43:30
+27 Sep 21:43:33 - ************* Buy | 1.628346251546929 ETHUSD @ 307.06 *************
+27 Sep 21:43:33 - -------------------- Summary ----------------------------
+27 Sep 21:43:33 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.12004801920768307,
+    "price": 4165
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:43:33 - =====> Market Value: 5999.92
+27 Sep 21:43:33 - Fiat Wallet: $3988.00
+27 Sep 21:43:33 - Starting Value: 10000
+27 Sep 21:43:33 - Total Value: 9987.92
+27 Sep 21:43:33 - ---------------------------------------------------------
+
+
+27 Sep 21:43:33 - Insert into transaction table success: ETHUSD,307.06,1.628346251546929,1,2017-09-27 21:43:33
+27 Sep 21:43:36 - Insert into live price table success: LTCUSD,56.45,56.443,1236.43132564,56.444,2100.21222448,57.571,52.06,436908.38134361,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: DSHUSD,350,348.78,124.24040921,349.54,37.37061489,355,335.7,9851.3562702,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: EOSUSD,0.63608,0.63609,654457.89476741,0.63711,82208.8649028,0.6394,0.55531,7646145.25080929,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: BCHUSD,462.39,462.02,442.79461318,462.35,870.21307214,470,435.96,43591.10693364,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: ETCUSD,12.771,12.771,8780.06983804,12.788,1882.54265374,13.3,11.41,731539.50475233,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: IOTUSD,0.5475,0.54711,150844.21296821,0.5474,310339.61520234,0.5544,0.505,16145290.88706256,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: OMGUSD,10.21,10.203,5039.75322617,10.205,3984.24297599,10.599,9.7742,1598037.18926583,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: ETHUSD,307.1,307.1,151.16755805,307.33,84.30588664,315.51,286.93,215270.65907037,2017-09-27 21:43:36
+27 Sep 21:43:36 - Insert into live price table success: BTCUSD,4168,4166.1,105.51350167,4167.6,79.47689609,4229.5,3892.6,50468.8123477,2017-09-27 21:43:36
+27 Sep 21:43:46 - Insert into live price table success: DSHUSD,350,348.45,162.9502532,349.54,42.95413863,355,335.7,9851.3562702,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: ETCUSD,12.771,12.771,9345.93798006,12.789,2459.05264426,13.3,11.41,731539.50475233,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: OMGUSD,10.21,10.203,5218.01385818,10.207,4776.85404718,10.599,9.7742,1598037.18926583,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: LTCUSD,56.443,56.443,1340.33507079,56.444,2092.55097456,57.571,52.06,436919.24736661,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: EOSUSD,0.63709,0.63611,661426.13024122,0.63709,82280.15543399,0.6394,0.55531,7646145.55080929,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: BCHUSD,462.03,462.03,409.51233932,462.35,842.70707604,470,435.96,43597.99029964,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: IOTUSD,0.5475,0.54711,154841.00183113,0.5474,311852.01520234,0.5544,0.505,16145290.88706256,2017-09-27 21:43:46
+27 Sep 21:43:46 - Insert into live price table success: ETHUSD,307.15,307.2,143.12599326,307.36,280.92042363,315.51,286.93,215275.74008149,2017-09-27 21:43:46
+27 Sep 21:43:47 - Insert into live price table success: BTCUSD,4166.1,4166.2,80.29002353,4167.3,61.90798692,4229.5,3892.6,50498.7901877,2017-09-27 21:43:47
+27 Sep 21:43:55 - Insert into live price table success: DSHUSD,350,348.58,90.32017049,349.53,29.62193863,355,335.7,9814.9981612,2017-09-27 21:43:55
+27 Sep 21:43:56 - Insert into live price table success: EOSUSD,0.63709,0.63609,664406.12201591,0.63709,83738.11267043,0.6394,0.55531,7648165.75080929,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: ETCUSD,12.771,12.771,8905.30825348,12.788,1819.04773565,13.3,11.41,731490.71275233,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: BCHUSD,462.03,462.03,413.37611733,462.35,406.59884689,470,435.96,43597.99029964,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: IOTUSD,0.5475,0.54711,154841.00183113,0.5474,310339.61520234,0.5544,0.505,16135290.88706256,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: OMGUSD,10.21,10.204,5016.39822617,10.205,4851.70729645,10.599,9.7742,1598037.18926583,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: ETHUSD,307.34,307.34,162.66106975,307.35,227.0735504,315.51,286.93,215285.40773876,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: LTCUSD,56.443,56.443,1285.18195814,56.444,2411.51678498,57.571,52.06,436919.24736661,2017-09-27 21:43:56
+27 Sep 21:43:56 - Insert into live price table success: BTCUSD,4165.6,4165.6,94.91402774,4166.9,73.68675497,4229.5,3892.6,50495.52976346,2017-09-27 21:43:56
+27 Sep 21:44:06 - Insert into live price table success: DSHUSD,350,348.22,122.96854944,349.52,42.92829871,355,335.7,9813.4142612,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: BCHUSD,462.35,462.03,397.38936283,462.35,428.2961183,470,435.96,43603.39029964,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: ETCUSD,12.79,12.773,9284.65445098,12.787,2826.56734086,13.3,11.41,731516.72092233,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: EOSUSD,0.63602,0.63602,660192.87801092,0.63707,82792.28939054,0.6394,0.55531,7648195.85080929,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: OMGUSD,10.202,10.165,6321.36812191,10.201,4472.30841145,10.599,9.7742,1598371.98983343,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: IOTUSD,0.5475,0.54711,154841.00183113,0.5474,310339.61520234,0.5544,0.505,16135290.88706256,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: LTCUSD,56.443,56.443,1228.75701256,56.444,2468.25401543,57.571,52.06,436919.24736661,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: ETHUSD,306.97,306.97,168.67239882,306.98,508.989851,315.51,286.93,215313.52503403,2017-09-27 21:44:06
+27 Sep 21:44:06 - Insert into live price table success: BTCUSD,4161,4164.8,93.30054484,4165.7,71.36177581,4229.5,3892.6,50520.50084735,2017-09-27 21:44:06
+27 Sep 21:44:07 - ************* Buy | 0.1201634222542658 BTCUSD @ 4161 *************
+27 Sep 21:44:07 - -------------------- Summary ----------------------------
+27 Sep 21:44:07 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.24021144146194887,
+    "price": 4162.999039154456
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:07 - =====> Market Value: 6499.32
+27 Sep 21:44:07 - Fiat Wallet: $3487.00
+27 Sep 21:44:07 - Starting Value: 10000
+27 Sep 21:44:07 - Total Value: 9986.32
+27 Sep 21:44:07 - ---------------------------------------------------------
+
+
+27 Sep 21:44:07 - Insert into transaction table success: BTCUSD,4161,0.1201634222542658,1,2017-09-27 21:44:07
+27 Sep 21:44:08 - ************* Buy | 0.1201634222542658 BTCUSD @ 4161 *************
+27 Sep 21:44:08 - -------------------- Summary ----------------------------
+27 Sep 21:44:08 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.36037486371621463,
+    "price": 4162.332479385158
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:08 - =====> Market Value: 6999.32
+27 Sep 21:44:08 - Fiat Wallet: $2986.00
+27 Sep 21:44:08 - Starting Value: 10000
+27 Sep 21:44:08 - Total Value: 9985.32
+27 Sep 21:44:08 - ---------------------------------------------------------
+
+
+27 Sep 21:44:08 - Insert into transaction table success: BTCUSD,4161,0.1201634222542658,1,2017-09-27 21:44:08
+27 Sep 21:44:10 - ************* Buy | 0.1201634222542658 BTCUSD @ 4161 *************
+27 Sep 21:44:10 - -------------------- Summary ----------------------------
+27 Sep 21:44:10 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.4805382859704804,
+    "price": 4161.999279538905
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:10 - =====> Market Value: 7499.32
+27 Sep 21:44:10 - Fiat Wallet: $2485.00
+27 Sep 21:44:10 - Starting Value: 10000
+27 Sep 21:44:10 - Total Value: 9984.32
+27 Sep 21:44:10 - ---------------------------------------------------------
+
+
+27 Sep 21:44:10 - Insert into transaction table success: BTCUSD,4161,0.1201634222542658,1,2017-09-27 21:44:10
+27 Sep 21:44:12 - ************* Buy | 0.1201634222542658 BTCUSD @ 4161 *************
+27 Sep 21:44:12 - -------------------- Summary ----------------------------
+27 Sep 21:44:12 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.6007017082247462,
+    "price": 4161.7993852360605
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:12 - =====> Market Value: 7999.32
+27 Sep 21:44:12 - Fiat Wallet: $1984.00
+27 Sep 21:44:12 - Starting Value: 10000
+27 Sep 21:44:12 - Total Value: 9983.32
+27 Sep 21:44:12 - ---------------------------------------------------------
+
+
+27 Sep 21:44:12 - Insert into transaction table success: BTCUSD,4161,0.1201634222542658,1,2017-09-27 21:44:12
+27 Sep 21:44:16 - Insert into live price table success: ETCUSD,12.79,12.772,9104.20422241,12.789,1923.30532672,13.3,11.41,731516.72092233,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: OMGUSD,10.185,10.165,7985.23853793,10.185,4547.89619074,10.599,9.7742,1598514.58652243,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: LTCUSD,56.44,56.44,1272.22725011,56.45,2497.39884145,57.571,52.06,437161.07419269,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: IOTUSD,0.5475,0.54711,142496.11725814,0.5474,304708.02936554,0.5544,0.505,16135290.88706256,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: DSHUSD,350,348.58,137.50869959,349.51,30.81253144,355,335.7,9810.1412612,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: BCHUSD,462.35,462.03,399.84831527,462.35,813.44687548,470,435.96,43603.39029964,2017-09-27 21:44:16
+27 Sep 21:44:16 - ************* Buy | 0.1201634222542658 BTCUSD @ 4161 *************
+27 Sep 21:44:16 - -------------------- Summary ----------------------------
+27 Sep 21:44:16 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.720865130479012,
+    "price": 4161.6661330345
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:16 - =====> Market Value: 8499.30
+27 Sep 21:44:16 - Fiat Wallet: $1483.00
+27 Sep 21:44:16 - Starting Value: 10000
+27 Sep 21:44:16 - Total Value: 9982.30
+27 Sep 21:44:16 - ---------------------------------------------------------
+
+
+27 Sep 21:44:16 - Insert into transaction table success: BTCUSD,4161,0.1201634222542658,1,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: EOSUSD,0.63704,0.63603,654320.98528303,0.63704,83083.52817677,0.6394,0.55531,7648195.95080929,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: ETHUSD,306.89,306.89,118.03167812,306.95,401.71481978,315.51,286.93,215338.52806963,2017-09-27 21:44:16
+27 Sep 21:44:16 - Insert into live price table success: BTCUSD,4165.4,4165.3,74.9686913,4165.4,76.74299889,4229.5,3892.6,50523.26193747,2017-09-27 21:44:16
+27 Sep 21:44:26 - Insert into live price table success: DSHUSD,350,348.7,150.22739517,348.9,27.50818644,355,335.7,9810.1412612,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: LTCUSD,56.44,56.444,1122.00303249,56.447,2378.98549838,57.571,52.06,437161.07419269,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: EOSUSD,0.63602,0.63602,664197.37739629,0.63702,84625.92037299,0.6394,0.55531,7648215.95080929,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: IOTUSD,0.5475,0.54711,142132.89747165,0.5474,301220.47057874,0.5544,0.505,16134694.88706256,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: OMGUSD,10.187,10.182,7345.50231137,10.194,5004.8873469,10.599,9.7742,1598519.58652243,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: BCHUSD,462.35,462.03,429.6330015,462.35,807.96209139,470,435.96,43603.39029964,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: ETCUSD,12.79,12.77,9654.76276931,12.782,2477.26859681,13.3,11.41,731516.72092233,2017-09-27 21:44:26
+27 Sep 21:44:26 - Insert into live price table success: ETHUSD,306.88,306.89,190.14044958,306.9,261.81323563,315.51,286.93,215338.84376963,2017-09-27 21:44:26
+27 Sep 21:44:27 - Insert into live price table success: BTCUSD,4165.3,4163.6,85.82322188,4167.2,61.91509326,4229.5,3892.6,50523.91835647,2017-09-27 21:44:27
+27 Sep 21:44:30 - ************* Buy | 49.08216354176892 OMGUSD @ 10.187 *************
+27 Sep 21:44:30 - -------------------- Summary ----------------------------
+27 Sep 21:44:30 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.720865130479012,
+    "price": 4161.6661330345
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 49.08216354176892,
+    "price": 10.187
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:30 - =====> Market Value: 9001.96
+27 Sep 21:44:30 - Fiat Wallet: $982.00
+27 Sep 21:44:30 - Starting Value: 10000
+27 Sep 21:44:30 - Total Value: 9983.96
+27 Sep 21:44:30 - ---------------------------------------------------------
+
+
+27 Sep 21:44:30 - Insert into transaction table success: OMGUSD,10.187,49.08216354176892,1,2017-09-27 21:44:30
+27 Sep 21:44:36 - Insert into live price table success: ETCUSD,12.79,12.77,9816.8118702,12.787,2509.81648477,13.3,11.41,731516.72092233,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: EOSUSD,0.63602,0.63602,660204.73223104,0.637,85728.46486848,0.6394,0.55531,7648415.95080929,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: DSHUSD,350,348.7,159.52848476,348.9,31.61918644,355,335.7,9810.1412612,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: OMGUSD,10.187,10.182,7948.7082407,10.192,3767.43668506,10.599,9.7742,1598519.58652243,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: LTCUSD,56.449,56.444,958.85163114,56.449,2199.80775136,57.571,52.06,437162.07419269,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: BCHUSD,462,462,429.60632313,462.35,865.5831335,470,435.96,43605.87091864,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: IOTUSD,0.5475,0.54711,154962.98959105,0.5474,310339.61520234,0.5544,0.505,16134694.88706256,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: ETHUSD,306.76,306.73,106.00371123,306.76,215.24494174,315.51,286.93,215340.50137506,2017-09-27 21:44:36
+27 Sep 21:44:36 - Insert into live price table success: BTCUSD,4167,4164.6,97.69968373,4166.9,95.43064032,4229.5,3892.6,50525.34260447,2017-09-27 21:44:36
+27 Sep 21:44:46 - Insert into live price table success: DSHUSD,350,348.82,143.70559272,349.52,70.23348644,355,335.7,9810.1412612,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: LTCUSD,56.44,56.44,1154.35929835,56.443,2217.91483583,57.571,52.06,437259.55767369,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: BCHUSD,462,462,411.92379778,462.24,503.0008616,470,435.96,43607.76836335,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: IOTUSD,0.5475,0.54711,146940.37792119,0.5474,305210.49057873,0.5544,0.505,16130549.20641056,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: EOSUSD,0.63601,0.63601,660640.6924905,0.637,85551.66096948,0.6394,0.55531,7648729.17394729,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: OMGUSD,10.182,10.182,7613.4068648,10.196,4539.81757067,10.599,9.7742,1598623.42817443,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: ETCUSD,12.79,12.77,19555.59774109,12.781,2536.45165038,13.3,11.41,731490.97892233,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: ETHUSD,306.72,306.72,130.0131651,306.73,453.89296283,315.51,286.93,215342.49192065,2017-09-27 21:44:46
+27 Sep 21:44:46 - Insert into live price table success: BTCUSD,4160.8,4160.7,66.32080898,4161,65.6487816,4229.5,3892.6,50579.42325643,2017-09-27 21:44:46
+27 Sep 21:44:47 - ************* Buy | 0.1201691982311094 BTCUSD @ 4160.8 *************
+27 Sep 21:44:47 - -------------------- Summary ----------------------------
+27 Sep 21:44:47 - Currency Wallet: {
+  "ETHUSD": {
+    "qty": 4.884296669760524,
+    "price": 307.1066524862718
+  },
+  "DSHUSD": {
+    "qty": 1.4285714285714286,
+    "price": 350
+  },
+  "ETCUSD": {
+    "qty": 39.151201941899615,
+    "price": 12.771
+  },
+  "LTCUSD": {
+    "qty": 8.859279209043551,
+    "price": 56.438
+  },
+  "BTCUSD": {
+    "qty": 0.8410343287101214,
+    "price": 4161.542377667133
+  },
+  "BCHUSD": {
+    "qty": 0,
+    "price": 0
+  },
+  "OMGUSD": {
+    "qty": 49.08216354176892,
+    "price": 10.187
+  },
+  "IOTUSD": {
+    "qty": 3652.4012610421205,
+    "price": 0.547584960429389
+  },
+  "EOSUSD": {
+    "qty": 786.1264405767024,
+    "price": 0.63603
+  }
+}
+27 Sep 21:44:47 - =====> Market Value: 9497.68
+27 Sep 21:44:47 - Fiat Wallet: $481.00
+27 Sep 21:44:47 - Starting Value: 10000
+27 Sep 21:44:47 - Total Value: 9978.68
+27 Sep 21:44:47 - ---------------------------------------------------------
+
+
+27 Sep 21:44:47 - Insert into transaction table success: BTCUSD,4160.8,0.1201691982311094,1,2017-09-27 21:44:47
+27 Sep 21:44:56 - Insert into live price table success: EOSUSD,0.63601,0.63601,663822.16719529,0.637,85551.66096948,0.6394,0.55531,7650081.88578229,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: DSHUSD,350,348.22,447.77116801,349.52,47.18310304,355,335.7,9810.1412612,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: OMGUSD,10.182,10.182,6320.90205942,10.201,3826.04086664,10.599,9.7742,1598623.42817443,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: ETCUSD,12.79,12.77,19371.13811271,12.778,2541.38073662,13.3,11.41,731490.97892233,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: BCHUSD,462,462,422.74538955,462.35,899.94430087,470,435.96,43607.94872271,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: IOTUSD,0.5475,0.54711,149217.87689739,0.5474,312882.4820252,0.5544,0.505,16109165.74478052,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: LTCUSD,56.322,56.324,1003.59338241,56.445,2458.77652428,57.571,52.06,437291.99585569,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: ETHUSD,306.71,306.7,160.1948141,306.71,547.07652524,315.51,286.93,215346.88506109,2017-09-27 21:44:56
+27 Sep 21:44:56 - Insert into live price table success: BTCUSD,4166.4,4161,53.86611681,4166.3,87.67195603,4229.5,3892.6,50580.56884505,2017-09-27 21:44:56
+27 Sep 21:45:05 - Insert into live price table success: DSHUSD,350,348.48,444.84108028,349.52,50.16017023,355,335.7,9810.1412612,2017-09-27 21:45:05
+27 Sep 21:45:06 - Insert into live price table success: BCHUSD,462.34,460.61,436.48578102,462.31,859.31436161,470,435.96,43618.0905325,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: EOSUSD,0.637,0.63601,662606.15429187,0.637,85550.16096948,0.6394,0.55531,7650103.18578229,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: IOTUSD,0.5475,0.54711,149912.74175726,0.5474,310154.1985381,0.5544,0.505,16107365.74478052,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: ETCUSD,12.79,12.77,8720.69460168,12.788,1605.97561876,13.3,11.41,731490.97892233,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: LTCUSD,56.322,56.321,893.81097923,56.399,2205.55896777,57.571,52.06,437291.99585569,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: OMGUSD,10.187,10.182,6304.93700318,10.189,4925.31965137,10.599,9.7742,1598623.43317443,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: ETHUSD,306.7,306.7,155.4099941,306.71,354.37408992,315.51,286.93,215357.41787795,2017-09-27 21:45:06
+27 Sep 21:45:06 - Insert into live price table success: BTCUSD,4165,4161.8,37.84975933,4164.8,72.08395421,4229.5,3892.6,50606.26979203,2017-09-27 21:45:06
+27 Sep 21:45:16 - Insert into live price table success: ETCUSD,12.79,12.77,8656.51268375,12.785,1553.51779303,13.3,11.41,731482.97892233,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: OMGUSD,10.187,10.182,7121.11417984,10.189,4850.35383363,10.599,9.7742,1598623.43317443,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: DSHUSD,350,348.84,116.20293593,349.52,53.88573038,355,335.7,9809.6375722,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: BCHUSD,462.34,460.6,442.94463797,462.2,875.28312526,470,435.96,43618.0905325,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: IOTUSD,0.54711,0.547,161112.54165439,0.54711,307453.62520059,0.5544,0.505,16108157.23572352,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: LTCUSD,56.399,56.399,1172.40774912,56.445,2498.21707597,57.571,52.06,437302.44673294,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: ETHUSD,306.7,306.69,114.8586168,306.7,401.99792456,315.51,286.93,215402.33385279,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: EOSUSD,0.63601,0.63601,663398.1806555,0.63698,85677.40819079,0.6394,0.55531,7649761.91763211,2017-09-27 21:45:16
+27 Sep 21:45:16 - Insert into live price table success: BTCUSD,4163.3,4163.3,50.71204477,4164.5,81.54936491,4229.5,3892.6,50611.45120438,2017-09-27 21:45:16
+27 Sep 21:45:26 - Insert into live price table success: ETCUSD,12.78,12.78,9206.29274312,12.781,1634.23224461,13.3,11.41,731572.37120375,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: LTCUSD,56.399,56.406,982.6253156,56.445,2191.45147488,57.571,52.06,437302.68093294,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: DSHUSD,348.9,348.59,90.26916002,349.52,81.31574377,355,335.7,9809.6375722,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: IOTUSD,0.54711,0.547,146079.38560598,0.54701,307483.08104776,0.5544,0.505,16108157.23572352,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: OMGUSD,10.182,10.182,7515.51287597,10.188,4500.09006809,10.599,9.7742,1598623.15704343,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: EOSUSD,0.63601,0.63601,663398.1806555,0.63698,85522.58096779,0.6394,0.55531,7650179.03963352,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: BCHUSD,462.34,460.6,395.54332716,461.99,834.70599682,470,435.96,43618.0905325,2017-09-27 21:45:26
+27 Sep 21:45:26 - Insert into live price table success: ETHUSD,306.6,306.69,130.6380198,306.7,405.98219132,315.51,286.93,215402.83385279,2017-09-27 21:45:26
+27 Sep 21:45:27 - Insert into live price table success: BTCUSD,4159.6,4159.1,52.84992256,4159.6,65.11581884,4229.5,3892.6,50648.30789096,2017-09-27 21:45:27
+27 Sep 21:45:36 - Insert into live price table success: DSHUSD,348.9,348.23,90.82102418,349.51,36.54488515,355,335.7,9809.6375722,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: EOSUSD,0.63601,0.63601,663248.72596282,0.63698,86021.58096779,0.6394,0.55531,7650210.62615721,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: BCHUSD,462.34,460.6,403.3467156,461.83,799.21311751,470,435.96,43618.0905325,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: IOTUSD,0.54711,0.547,157891.41179682,0.54701,306797.6561449,0.5544,0.505,16107120.13513952,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: OMGUSD,10.182,10.182,6291.83638621,10.185,4152.92606522,10.599,9.7742,1598742.89690691,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: ETCUSD,12.78,12.78,9576.12492266,12.789,2442.8786169,13.3,11.41,731532.89180375,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: LTCUSD,56.406,56.406,958.89201236,56.435,2443.2170276,57.571,52.06,437318.78115794,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: ETHUSD,306.51,306.51,137.43661194,306.67,274.79069005,315.51,286.93,215408.37839168,2017-09-27 21:45:36
+27 Sep 21:45:36 - Insert into live price table success: BTCUSD,4155,4155.3,35.34160495,4160.7,88.47455288,4229.5,3892.6,50674.12356366,2017-09-27 21:45:36
+27 Sep 21:45:46 - Insert into live price table success: IOTUSD,0.54711,0.547,157894.00670176,0.54701,309047.69076059,0.5544,0.505,16107020.13513952,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: DSHUSD,348.9,348.38,73.12536169,349.51,58.43997599,355,335.7,9809.6375722,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: EOSUSD,0.63601,0.63601,658387.2248944,0.63696,90450.61096948,0.6394,0.55531,7651330.62615721,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: BCHUSD,462.34,460.6,386.26926119,461.59,376.29886436,470,435.96,43618.0905325,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: OMGUSD,10.183,10.182,6045.84654559,10.183,4087.84629391,10.599,9.7742,1598791.89690691,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: ETCUSD,12.78,12.78,8782.44678196,12.785,2381.93037892,13.3,11.41,731640.27437275,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: LTCUSD,56.402,56.399,1056.26467239,56.402,2266.48915782,57.571,52.06,437373.21852744,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: ETHUSD,306.68,306.52,237.30887213,306.56,141.46143786,315.51,286.93,215418.83846944,2017-09-27 21:45:46
+27 Sep 21:45:46 - Insert into live price table success: BTCUSD,4159.3,4159,33.34665493,4159.3,83.67686114,4229.5,3892.6,50678.1982632,2017-09-27 21:45:46
+27 Sep 21:45:56 - Insert into live price table success: DSHUSD,348.9,348.64,101.87153513,349.5,47.27381816,355,335.7,9809.6375722,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: ETCUSD,12.78,12.78,8687.13730073,12.781,2082.39211791,13.3,11.41,731673.72597275,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: EOSUSD,0.63601,0.63601,657575.25125803,0.63696,90450.61096948,0.6394,0.55531,7651335.62615721,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: BCHUSD,462.34,460.6,386.31498532,461.44,688.00167511,470,435.96,43618.0905325,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: LTCUSD,56.402,56.399,1019.70132829,56.401,2366.90963149,57.571,52.06,437372.01852744,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: OMGUSD,10.185,10.182,5999.67901785,10.183,5073.96283465,10.599,9.7742,1598816.89690691,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: ETHUSD,306.68,306.52,185.68737117,306.53,175.17927189,315.51,286.93,215418.83846944,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: IOTUSD,0.547,0.547,151897.75138318,0.5475,309120.51843053,0.5544,0.505,16109420.13513952,2017-09-27 21:45:56
+27 Sep 21:45:56 - Insert into live price table success: BTCUSD,4159.1,4159,17.25730391,4159.1,80.30594939,4229.5,3892.6,50682.7855494,2017-09-27 21:45:56
+27 Sep 21:46:06 - Insert into live price table success: EOSUSD,0.63601,0.63601,656675.69959919,0.63696,90450.61096948,0.6394,0.55531,7651355.62615721,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: BCHUSD,462.34,461.44,391.18198532,461.47,689.52890828,470,435.96,43582.4892925,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: ETCUSD,12.78,12.77,9659.29096195,12.773,2654.41224497,13.3,11.41,731438.61944675,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: DSHUSD,348,347.7,418.35928287,348,34.38476903,355,335.7,9827.83692157,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: OMGUSD,10.183,10.182,5216.42523573,10.2,4809.70077017,10.599,9.7742,1598598.42446291,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: IOTUSD,0.547,0.547,142017.22693587,0.5474,297224.92619472,0.5544,0.505,16111920.13513952,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: ETHUSD,306.56,306.52,219.78365596,306.55,380.4539569,315.51,286.93,215438.19403084,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: LTCUSD,56.399,56.321,936.37949722,56.356,2322.46007764,57.571,52.06,437418.45755019,2017-09-27 21:46:06
+27 Sep 21:46:06 - Insert into live price table success: BTCUSD,4158.9,4151,72.94731912,4158.2,69.19288414,4229.5,3892.6,50712.12641805,2017-09-27 21:46:06
+27 Sep 21:46:16 - Insert into live price table success: BCHUSD,460.3,461.44,405.51337216,461.48,709.60889792,470,435.96,43588.2272925,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: OMGUSD,10.183,10.182,2298.29510515,10.183,4082.13787939,10.599,9.7742,1598599.37536323,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: DSHUSD,349.34,347.7,137.80641592,349.09,62.97642762,355,335.7,9824.82252157,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: IOTUSD,0.547,0.547,146071.8210499,0.54742,293769.33730281,0.5544,0.505,16120506.67665952,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: EOSUSD,0.63601,0.63601,652633.2248944,0.63694,90551.19518679,0.6394,0.55531,7651385.62615721,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: LTCUSD,56.274,56.282,1197.6033676,56.377,2244.4025326,57.571,52.06,437412.18034714,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: ETCUSD,12.777,12.77,9730.53398002,12.775,2913.87736796,13.3,11.41,731473.20734675,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: ETHUSD,306.59,306.57,123.87263531,306.69,248.48123442,315.51,286.93,215498.63597914,2017-09-27 21:46:16
+27 Sep 21:46:16 - Insert into live price table success: BTCUSD,4159.9,4157.5,86.09758625,4159.9,57.66845023,4229.5,3892.6,50721.90739397,2017-09-27 21:46:16
+27 Sep 21:46:26 - Insert into live price table success: DSHUSD,349.34,347.7,76.85585251,349.07,50.65925058,355,335.7,9824.82252157,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: EOSUSD,0.63601,0.63601,655965.19853077,0.63694,90431.72596948,0.6394,0.55531,7651351.62615721,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: BCHUSD,460.3,460.21,411.91602741,461.4,864.912374,470,435.96,43588.2272925,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: OMGUSD,10.182,10.182,3091.98858289,10.183,3691.60637986,10.599,9.7742,1598623.42446291,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: IOTUSD,0.547,0.547,145734.9473788,0.54741,297224.92619472,0.5544,0.505,16109616.49548497,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: ETCUSD,12.777,12.77,10682.13626474,12.774,2973.78651497,13.3,11.41,731473.20734675,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: LTCUSD,56.274,56.356,1124.82295206,56.376,2376.76956158,57.571,52.06,437412.18034714,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: ETHUSD,306.63,306.58,102.98653531,306.62,253.52395246,315.51,286.93,215500.46207914,2017-09-27 21:46:26
+27 Sep 21:46:26 - Insert into live price table success: BTCUSD,4157.8,4157.8,50.74703663,4159.9,62.95431634,4229.5,3892.6,50753.97152757,2017-09-27 21:46:26
+27 Sep 21:46:36 - Insert into live price table success: ETCUSD,12.78,12.77,9128.98885067,12.783,1951.46379943,13.3,11.41,731474.23754675,2017-09-27 21:46:36
+27 Sep 21:46:36 - Insert into live price table success: BCHUSD,460.3,460,412.7647136,461.61,385.15371295,470,435.96,43588.2272925,2017-09-27 21:46:36
+27 Sep 21:46:36 - Insert into live price table success: EOSUSD,0.63601,0.63601,653517.96709109,0.63694,90583.23451848,0.6394,0.55531,7651371.62615721,2017-09-27 21:46:36
+27 Sep 21:46:36 - Insert into live price table success: DSHUSD,349.34,347.7,123.5893348,348.88,53.06111533,355,335.7,9824.82252157,2017-09-27 21:46:36
+27 Sep 21:46:36 - Insert into live price table success: ETHUSD,306.56,306.55,92.32304945,306.56,408.21488433,315.51,286.93,215504.1717809,2017-09-27 21:46:36
+27 Sep 21:46:36 - Insert into live price table success: IOTUSD,0.547,0.547,158166.22498007,0.54741,303374.05081832,0.5544,0.505,16107079.23218486,2017-09-27 21:46:36
+27 Sep 21:46:37 - Insert into live price table success: OMGUSD,10.182,10.182,3073.29458289,10.183,4290.86703134,10.599,9.7742,1598623.42446291,2017-09-27 21:46:36
+27 Sep 21:46:37 - Insert into live price table success: LTCUSD,56.356,56.356,776.52553564,56.359,2160.30732831,57.571,52.06,437412.66434714,2017-09-27 21:46:36
+27 Sep 21:46:37 - Insert into live price table success: BTCUSD,4158.1,4158.3,60.33612699,4159.5,64.61648955,4229.5,3892.6,50758.9731335,2017-09-27 21:46:37
+27 Sep 21:46:46 - Insert into live price table success: ETCUSD,12.78,12.77,8921.20653909,12.781,1914.4992836,13.3,11.41,731474.23754675,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: LTCUSD,56.356,56.322,990.75804364,56.35,2417.89903225,57.571,52.06,437489.38034714,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: DSHUSD,349.34,347.72,128.59454846,349.07,58.37698578,355,335.7,9824.82252157,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: IOTUSD,0.547,0.547,155493.24543839,0.5473,300838.79282665,0.5544,0.505,16112266.55734579,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: BCHUSD,460.3,460.2,397.89609462,461.4,802.8306591,470,435.96,43588.2272925,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: EOSUSD,0.63601,0.63601,657589.25125803,0.63694,90583.23451848,0.6394,0.55531,7651392.62615721,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: OMGUSD,10.189,10.182,2829.72422785,10.188,5207.07259676,10.599,9.7742,1598975.58948675,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: BTCUSD,4158.3,4158.1,57.46402528,4158.4,71.86859545,4229.5,3892.6,50763.68767061,2017-09-27 21:46:46
+27 Sep 21:46:46 - Insert into live price table success: ETHUSD,306.51,306.51,85.80194713,306.52,463.07456337,315.51,286.93,215510.36342822,2017-09-27 21:46:46
+27 Sep 21:46:56 - Insert into live price table success: DSHUSD,349.34,347.73,219.10928124,349.07,54.30362661,355,335.7,9824.82252157,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: ETCUSD,12.78,12.77,8742.55903366,12.778,2533.75263568,13.3,11.41,731474.23754675,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: LTCUSD,56.356,56.322,1047.75409451,56.35,2250.68351595,57.571,52.06,437489.38034714,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: BCHUSD,460.3,460.3,398.33378474,461.49,489.08373385,470,435.96,43588.2272925,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: EOSUSD,0.63601,0.63601,652654.96709109,0.63692,94390.00756879,0.6394,0.55531,7651402.62615721,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: OMGUSD,10.189,10.182,1925.78666471,10.188,5351.35729246,10.599,9.7742,1598975.58948675,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: ETHUSD,306.52,306.51,109.16732984,306.52,265.28688433,315.51,286.93,215511.76588547,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: IOTUSD,0.547,0.547,145730.67655325,0.5472,303374.05081832,0.5544,0.505,16112266.55734579,2017-09-27 21:46:56
+27 Sep 21:46:56 - Insert into live price table success: BTCUSD,4159.7,4158.1,56.72942336,4159.7,74.47028842,4229.5,3892.6,50766.06694061,2017-09-27 21:46:56
+27 Sep 21:47:06 - Insert into live price table success: LTCUSD,56.251,56.25,962.14398623,56.348,2179.1056488,57.571,52.06,437539.61444714,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: ETCUSD,12.761,12.721,10460.41104582,12.784,884.51632643,13.3,11.41,731818.70763975,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: DSHUSD,349.34,347.74,118.47974968,349.07,79.78281327,355,335.7,9824.82252157,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: ETHUSD,306.54,306.57,174.50349364,306.66,249.4875853,315.51,286.93,215511.86588547,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: BCHUSD,461.28,460.3,397.10290805,461.27,262.70844682,470,435.96,43593.8272925,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: EOSUSD,0.63601,0.63601,652488.49527846,0.6369,90545.50051679,0.6394,0.55531,7651418.42615721,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: OMGUSD,10.187,10.182,1935.78666471,10.187,5360.34963379,10.599,9.7742,1599062.63858643,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: IOTUSD,0.547,0.547,151790.20442287,0.54742,301111.99282665,0.5544,0.505,16112266.55734579,2017-09-27 21:47:06
+27 Sep 21:47:06 - Insert into live price table success: BTCUSD,4158.1,4155,64.71505302,4158.1,64.02214386,4229.5,3892.6,50780.38169793,2017-09-27 21:47:06
+27 Sep 21:47:16 - Insert into live price table success: EOSUSD,0.63601,0.63601,655569.25201335,0.6369,88047.30051679,0.6394,0.55531,7651758.42615721,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: IOTUSD,0.5472,0.547,152414.03065499,0.5472,286411.93872536,0.5544,0.505,16112268.50546279,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: DSHUSD,349.34,347.74,147.66971728,349.07,54.59108825,355,335.7,9824.82252157,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: ETCUSD,12.785,12.727,10690.91561256,12.784,2782.04512771,13.3,11.41,731911.25897375,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: LTCUSD,56.213,56.236,913.64945395,56.339,2157.72836422,57.571,52.06,437718.04884714,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: BCHUSD,461.28,460.31,424.41220145,461.26,787.06834981,470,435.96,43593.8272925,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: OMGUSD,10.187,10.183,7053.88732684,10.187,10150.38789215,10.599,9.7742,1599062.63858643,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: ETHUSD,306.66,306.66,545.19465429,306.69,320.12697847,315.51,286.93,215590.50042447,2017-09-27 21:47:16
+27 Sep 21:47:16 - Insert into live price table success: BTCUSD,4161.6,4160.5,92.53470305,4163.5,60.27645709,4229.5,3892.6,50790.0043731,2017-09-27 21:47:16
+27 Sep 21:47:26 - Insert into live price table success: DSHUSD,349.34,347.74,152.22018827,349.06,56.88329362,355,335.7,9824.82252157,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: EOSUSD,0.63601,0.63601,652143.49527846,0.6369,90394.99196779,0.6394,0.55531,7651763.42615721,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: BCHUSD,461.28,460.34,390.59251126,461.25,759.52211521,470,435.96,43593.8272925,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: OMGUSD,10.182,10.182,6317.78190471,10.186,9254.5007471,10.599,9.7742,1599162.63858643,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: IOTUSD,0.5472,0.547,145481.75487926,0.54708,289259.0729343,0.5544,0.505,16112268.50546279,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: ETCUSD,12.785,12.733,11385.58786372,12.786,2847.39832771,13.3,11.41,731829.74261475,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: ETHUSD,306.67,306.66,459.55126132,306.67,398.76545333,315.51,286.93,215592.50042447,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: LTCUSD,56.213,56.213,1072.45183242,56.336,758.45100546,57.571,52.06,437738.04884714,2017-09-27 21:47:26
+27 Sep 21:47:26 - Insert into live price table success: BTCUSD,4159.8,4160.2,67.12809223,4163.8,60.17355597,4229.5,3892.6,50790.18261009,2017-09-27 21:47:26
+27 Sep 21:47:36 - Insert into live price table success: DSHUSD,349.34,347.75,113.3044745,349.06,63.43957573,355,335.7,9824.82252157,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: OMGUSD,10.182,10.182,6734.38902371,10.184,5243.12966898,10.599,9.7742,1599162.63858643,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: ETCUSD,12.785,12.738,10519.45070754,12.784,2247.35850964,13.3,11.41,731759.21545375,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: BCHUSD,461.28,460.36,400.57560175,461.14,329.59760123,470,435.96,43593.8272925,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: LTCUSD,56.213,56.217,1053.21270877,56.338,560.34100465,57.571,52.06,437738.04884714,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: IOTUSD,0.547,0.547,152047.70333438,0.54862,301771.50335725,0.5544,0.505,16123502.15752279,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: ETHUSD,306.62,306.27,452.00167322,306.6,406.84945854,315.51,286.93,215583.72312647,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: EOSUSD,0.63601,0.63601,652970.52575659,0.63688,90548.63182179,0.6394,0.55531,7651763.42615721,2017-09-27 21:47:36
+27 Sep 21:47:36 - Insert into live price table success: BTCUSD,4160.9,4160.9,79.49678986,4163.1,56.45035597,4229.5,3892.6,50840.06973695,2017-09-27 21:47:36
+27 Sep 21:47:46 - Insert into live price table success: LTCUSD,56.217,56.217,742.93881136,56.336,621.1793351,57.571,52.06,437728.28344714,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: DSHUSD,349.34,347.75,108.67853324,349.04,70.08303491,355,335.7,9824.82252157,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: ETHUSD,306.52,306.34,477.23374027,306.52,274.81439804,315.51,286.93,215585.82312647,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: EOSUSD,0.63601,0.63601,653963.285766,0.63686,90736.63488679,0.6394,0.55531,7651783.42615721,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: BCHUSD,461.28,460.37,388.41753153,461.15,705.21758603,470,435.96,43593.8272925,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: OMGUSD,10.182,10.182,6496.33269371,10.186,4082.21421803,10.599,9.7742,1599162.63858643,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: ETCUSD,12.785,12.739,10549.07249934,12.779,2645.48693665,13.3,11.41,731760.24815375,2017-09-27 21:47:46
+27 Sep 21:47:46 - Insert into live price table success: IOTUSD,0.547,0.54714,159633.1723014,0.54862,304684.34730538,0.5544,0.505,16122677.41411523,2017-09-27 21:47:46
+27 Sep 21:47:47 - Insert into live price table success: BTCUSD,4161.4,4161.4,66.7499163,4162.6,50.43091342,4229.5,3892.6,50841.43375415,2017-09-27 21:47:47
+27 Sep 21:47:57 - Insert into live price table success: ETCUSD,12.786,12.741,10338.30690095,12.783,2254.29132878,13.3,11.41,731761.26585375,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: EOSUSD,0.63601,0.63601,653081.92573015,0.63685,90789.51286179,0.6394,0.55531,7651803.42615721,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: IOTUSD,0.547,0.54714,139816.64857986,0.54899,304908.71374491,0.5544,0.505,16122086.16936937,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: BCHUSD,461.28,460.37,400.40648095,461.15,703.63791606,470,435.96,43593.8272925,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: DSHUSD,349.34,347.75,79.71745266,349.04,39.80880977,355,335.7,9824.82252157,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: OMGUSD,10.182,10.182,6577.80117981,10.186,5121.7886193,10.599,9.7742,1599162.63858643,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: LTCUSD,56.217,56.217,982.30502453,56.338,276.59723648,57.571,52.06,437728.51464714,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: ETHUSD,306.52,306.4,502.78384015,306.5,286.98709684,315.51,286.93,215584.76219347,2017-09-27 21:47:57
+27 Sep 21:47:57 - Insert into live price table success: BTCUSD,4161.4,4161.5,62.06188695,4163.8,46.93038014,4229.5,3892.6,50841.43375415,2017-09-27 21:47:57
+27 Sep 21:48:06 - Insert into live price table success: DSHUSD,349.34,347.75,109.32201817,349.06,59.77117073,355,335.7,9824.82252157,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: IOTUSD,0.54872,0.54714,149048.91625465,0.5472,299252.89037661,0.5544,0.505,16122194.16936937,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: EOSUSD,0.636,0.636,650472.14416388,0.63684,90398.55182179,0.6394,0.55531,7654818.42615721,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: BCHUSD,461.28,460.39,419.81234709,461.15,752.60374374,470,435.96,43593.8272925,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: OMGUSD,10.182,10.182,6300.17658671,10.189,9088.43232905,10.599,9.7742,1599162.63858643,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: ETCUSD,12.786,12.747,10520.33351943,12.784,2187.62099364,13.3,11.41,731761.26585375,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: LTCUSD,56.445,56.328,846.74465971,56.339,2767.39355388,57.571,52.06,438379.51464714,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: BTCUSD,4164.4,4161.8,73.56146895,4164.6,54.35867393,4229.5,3892.6,50841.7865118,2017-09-27 21:48:06
+27 Sep 21:48:06 - Insert into live price table success: ETHUSD,306.15,306.16,763.98088326,306.41,308.85397077,315.51,286.93,215543.36935375,2017-09-27 21:48:06
+27 Sep 21:48:16 - Insert into live price table success: ETCUSD,12.778,12.75,8137.63124969,12.781,1937.37739364,13.3,11.41,731762.28155375,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: OMGUSD,10.182,10.182,6110.60034429,10.186,6055.04361316,10.599,9.7742,1599136.31675543,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: LTCUSD,56.219,56.221,1073.86775135,56.339,2434.68571384,57.571,52.06,438320.35122614,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: DSHUSD,349.34,347.75,143.71655484,349.05,27.30579266,355,335.7,9824.82252157,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: BCHUSD,461.15,460.4,400.23640354,461.15,358.63311489,470,435.96,43599.4272925,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: EOSUSD,0.636,0.636,650530.89468941,0.6368,90591.30782179,0.6394,0.55531,7654858.42615721,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: ETHUSD,306.41,306.41,504.46165952,306.43,369.72950975,315.51,286.93,215504.0112566,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: IOTUSD,0.54872,0.54714,139930.08463278,0.5472,301889.48066207,0.5544,0.505,16122194.16936937,2017-09-27 21:48:16
+27 Sep 21:48:16 - Insert into live price table success: BTCUSD,4162.5,4162,70.30705054,4162.5,47.03704277,4229.5,3892.6,50843.28509373,2017-09-27 21:48:16
+27 Sep 21:48:26 - Insert into live price table success: ETCUSD,12.778,12.727,11010.25205729,12.785,1508.31333744,13.3,11.41,731754.56825375,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: DSHUSD,349.34,347.75,135.73880971,348.93,32.31307349,355,335.7,9824.82252157,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: EOSUSD,0.636,0.636,651373.5416307,0.63678,90966.29462273,0.6394,0.55531,7654873.42615721,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: BCHUSD,460.42,460.43,395.97846954,461.14,288.60647177,470,435.96,43593.9144605,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: LTCUSD,56.339,56.339,1141.83789535,56.347,2362.89476589,57.571,52.06,438309.45660406,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: OMGUSD,10.182,10.182,6488.61383301,10.183,5007.4960545,10.599,9.7742,1599136.31675543,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: ETHUSD,306.42,306.41,473.25271571,306.42,447.04996368,315.51,286.93,215499.20213327,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: IOTUSD,0.54872,0.547,148408.91633362,0.5471,301018.48924359,0.5544,0.505,16116837.90015537,2017-09-27 21:48:26
+27 Sep 21:48:26 - Insert into live price table success: BTCUSD,4165.3,4162.5,67.8596847,4166,56.7455093,4229.5,3892.6,50845.18778787,2017-09-27 21:48:26
+27 Sep 21:48:36 - Insert into live price table success: BCHUSD,460.42,460.45,404.64054594,461.14,778.20016271,470,435.96,43593.9144605,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: EOSUSD,0.636,0.636,653954.80657528,0.63676,93939.66062479,0.6394,0.55531,7654873.42615721,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: OMGUSD,10.184,10.182,6489.92528601,10.183,6784.84667628,10.599,9.7742,1599273.55641363,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: DSHUSD,349.34,347.78,149.0411122,349.06,36.01438238,355,335.7,9824.82252157,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: IOTUSD,0.54872,0.547,153238.706997,0.5471,301079.77943659,0.5544,0.505,16116837.90015537,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: ETHUSD,306.42,306.41,472.51862409,306.42,428.85793579,315.51,286.93,215502.21957477,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: LTCUSD,56.23,56.231,1120.1875934,56.343,2007.53610259,57.571,52.06,438387.3302629,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: ETCUSD,12.777,12.732,9870.11293962,12.773,1908.06382065,13.3,11.41,731755.58375375,2017-09-27 21:48:36
+27 Sep 21:48:36 - Insert into live price table success: BTCUSD,4162.7,4162.8,76.15911607,4164.7,56.91826561,4229.5,3892.6,50845.60368058,2017-09-27 21:48:36
+27 Sep 21:48:46 - Insert into live price table success: EOSUSD,0.636,0.636,649706.45692805,0.63674,90402.6285818,0.6394,0.55531,7654903.42615721,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: IOTUSD,0.54872,0.547,144814.57152433,0.5471,291960.63481299,0.5544,0.505,16116837.90015537,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: OMGUSD,10.184,10.182,6354.54790001,10.183,6864.23104627,10.599,9.7742,1599273.55641363,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: DSHUSD,349.34,347.8,154.34087469,349.06,35.04671155,355,335.7,9824.82252157,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: BCHUSD,460.42,460.31,412.71685046,461.14,887.45697599,470,435.96,43593.9144605,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: ETCUSD,12.777,12.737,11042.61850603,12.785,1957.09675579,13.3,11.41,731755.58375375,2017-09-27 21:48:46
+27 Sep 21:48:46 - Insert into live price table success: LTCUSD,56.348,56.234,1197.17203798,56.34,2366.00461089,57.571,52.06,438377.3204629,2017-09-27 21:48:46
+27 Sep 21:48:47 - Insert into live price table success: ETHUSD,306.42,306.41,484.75657199,306.42,394.49751085,315.51,286.93,215503.55337477,2017-09-27 21:48:47
+27 Sep 21:48:47 - Insert into live price table success: BTCUSD,4164.3,4162.8,74.49132597,4165.1,42.07356768,4229.5,3892.6,50845.69047549,2017-09-27 21:48:47
+27 Sep 21:48:56 - Insert into live price table success: DSHUSD,349.34,347.99,269.46570951,349.06,26.69558238,355,335.7,9824.82252157,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: IOTUSD,0.54872,0.547,153719.08137327,0.5471,301079.77943659,0.5544,0.505,16116837.90015537,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: LTCUSD,56.239,56.22,1138.87364492,56.343,2066.23500373,57.571,52.06,438376.8633629,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: EOSUSD,0.636,0.636,649137.06828088,0.63673,90412.16298114,0.6394,0.55531,7654928.42615721,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: ETCUSD,12.742,12.743,10525.25238717,12.776,925.73588668,13.3,11.41,731756.70125375,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: OMGUSD,10.184,10.182,6360.13062833,10.183,6839.80751698,10.599,9.7742,1599273.55641363,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: BTCUSD,4164.3,4163.4,81.46414513,4164.1,55.64111389,4229.5,3892.6,50846.50817549,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: ETHUSD,306.42,306.41,505.17021018,306.42,375.71309529,315.51,286.93,215503.91287077,2017-09-27 21:48:56
+27 Sep 21:48:56 - Insert into live price table success: BCHUSD,460.42,460.3,395.25138403,461.14,343.84394012,470,435.96,43593.9144605,2017-09-27 21:48:56
+27 Sep 21:49:06 - Insert into live price table success: DSHUSD,349.34,347.99,238.71740751,349.05,54.94465588,355,335.7,9824.82252157,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: ETCUSD,12.743,12.745,10239.45898641,12.778,1915.78263941,13.3,11.41,731759.70125375,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: BCHUSD,461.14,461.14,403.15984492,461.99,830.71466577,470,435.96,43593.9193595,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: IOTUSD,0.549,0.547,157614.76389541,0.54886,303923.43693789,0.5544,0.505,16126272.20944086,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: EOSUSD,0.636,0.636,654058.33019985,0.63672,90169.30096779,0.6394,0.55531,7654928.42615721,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: OMGUSD,10.186,10.184,6167.70118371,10.186,6532.27641657,10.599,9.7742,1599455.88768863,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: BTCUSD,4162.4,4162.8,84.64684333,4163.9,44.56034266,4229.5,3892.6,50848.32166062,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: LTCUSD,56.343,56.242,1080.01151172,56.343,1966.23451387,57.571,52.06,438344.51695276,2017-09-27 21:49:06
+27 Sep 21:49:06 - Insert into live price table success: ETHUSD,306.25,306.25,495.14569078,306.38,266.56953958,315.51,286.93,215501.25563577,2017-09-27 21:49:06
+27 Sep 21:49:16 - Insert into live price table success: ETCUSD,12.78,12.75,8992.97045675,12.778,1116.63290025,13.3,11.41,731760.71845375,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: OMGUSD,10.186,10.184,6167.57305879,10.185,6793.53216806,10.599,9.7742,1599406.98654763,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: DSHUSD,349.34,348,238.43576254,349.02,58.85090028,355,335.7,9824.82252157,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: ETHUSD,306.37,306.31,759.36254791,306.32,179.63260303,315.51,286.93,215510.8289634,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: IOTUSD,0.549,0.54728,158512.68753684,0.54899,304734.18376686,0.5544,0.505,16126272.20944086,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: EOSUSD,0.636,0.636,652659.05404321,0.63671,90354.37396779,0.6394,0.55531,7659991.47765121,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: BCHUSD,461.14,461.15,398.44231478,461.97,791.32525414,470,435.96,43593.9193595,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: LTCUSD,56.342,56.343,1045.56989896,56.344,2243.42466697,57.571,52.06,438348.75196719,2017-09-27 21:49:16
+27 Sep 21:49:16 - Insert into live price table success: BTCUSD,4163.7,4164.1,77.12094387,4164.6,54.84788255,4229.5,3892.6,50848.53802184,2017-09-27 21:49:16
+27 Sep 21:49:26 - Insert into live price table success: EOSUSD,0.636,0.636,644902.05549769,0.6367,90764.35364768,0.6394,0.55531,7659991.47765121,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: LTCUSD,56.343,56.343,1086.20304263,56.344,1923.69937404,57.571,52.06,438327.64436719,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: ETCUSD,12.78,12.753,7976.1094178,12.782,1838.1153437,13.3,11.41,731760.71845375,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: DSHUSD,349.34,348.01,86.90688915,349.01,40.77452337,355,335.7,9824.82252157,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: ETHUSD,306.4,306.39,769.06688995,306.4,276.0951876,315.51,286.93,215508.9677634,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: BCHUSD,461.14,461.14,415.00793747,461.96,831.1772058,470,435.96,43603.9193595,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: IOTUSD,0.549,0.54728,156899.11680276,0.54899,304734.18376686,0.5544,0.505,16126272.20944086,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: BTCUSD,4166.6,4164.5,98.70442551,4166.2,47.84538962,4229.5,3892.6,50849.69125656,2017-09-27 21:49:26
+27 Sep 21:49:26 - Insert into live price table success: OMGUSD,10.186,10.182,6744.97005879,10.185,6432.04802381,10.599,9.7742,1599417.935034,2017-09-27 21:49:26
+27 Sep 21:49:35 - Insert into live price table success: OMGUSD,10.186,10.182,7340.41130579,10.183,7625.39716607,10.599,9.7742,1598168.607267,2017-09-27 21:49:35
+27 Sep 21:49:36 - Insert into live price table success: EOSUSD,0.636,0.636,644991.2685409,0.6367,90764.35364768,0.6394,0.55531,7659991.47765121,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: IOTUSD,0.547,0.547,157320.83057187,0.54774,300783.45306569,0.5544,0.505,16127072.20944086,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: DSHUSD,349.34,348.01,136.54745891,348.99,34.39633307,355,335.7,9824.82252157,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: BCHUSD,461.14,461.14,416.6625429,461.91,275.205011,470,435.96,43603.9193595,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: ETCUSD,12.78,12.759,8108.16671025,12.784,2094.02530122,13.3,11.41,731754.11845375,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: ETHUSD,306.4,306.31,543.57597665,306.39,250.93263773,315.51,286.93,215505.2816634,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: LTCUSD,56.343,56.343,1071.54302119,56.344,1923.69937404,57.571,52.06,438305.62096719,2017-09-27 21:49:36
+27 Sep 21:49:36 - Insert into live price table success: BTCUSD,4164.6,4164.7,56.30594678,4167.7,62.39467321,4229.5,3892.6,50855.95773681,2017-09-27 21:49:36
+27 Sep 21:49:46 - Insert into live price table success: DSHUSD,349.34,348.03,126.30336527,348.98,24.90431641,355,335.7,9824.82252157,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: ETCUSD,12.784,12.761,10482.72820929,12.784,2193.33897555,13.3,11.41,731795.13315375,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: BCHUSD,461.14,461.14,416.6625429,461.9,256.36569944,470,435.96,43603.9193595,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: EOSUSD,0.636,0.636,645734.05549769,0.6367,90764.35364768,0.6394,0.55531,7659991.47765121,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: LTCUSD,56.353,56.343,1005.78914028,56.351,2148.22389575,57.571,52.06,438284.58996719,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: OMGUSD,10.186,10.182,7092.18562432,10.183,6697.83275087,10.599,9.7742,1598168.607267,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: IOTUSD,0.547,0.5475,153637.12366909,0.54774,306423.83975454,0.5544,0.505,16127072.20944086,2017-09-27 21:49:46
+27 Sep 21:49:46 - Insert into live price table success: BTCUSD,4167.2,4164.8,45.14562386,4167,48.97503205,4229.5,3892.6,50856.25773681,2017-09-27 21:49:46
+27 Sep 21:49:47 - Insert into live price table success: ETHUSD,306.39,306.33,728.03048164,306.39,227.37056233,315.51,286.93,215500.21798137,2017-09-27 21:49:46
+27 Sep 21:49:56 - Insert into live price table success: EOSUSD,0.636,0.636,646245.43260986,0.6367,90764.35364768,0.6394,0.55531,7659996.94765121,2017-09-27 21:49:56
+27 Sep 21:49:57 - Insert into live price table success: OMGUSD,10.186,10.182,6967.22136742,10.186,5954.29847608,10.599,9.7742,1598243.65422753,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: DSHUSD,349.34,348.07,204.00963837,348.98,36.48203552,355,335.7,9824.82252157,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: BCHUSD,461.14,461.14,406.12925773,461.88,437.87429367,470,435.96,43603.9193595,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: LTCUSD,56.343,56.343,1077.96200706,56.351,1836.09569146,57.571,52.06,438273.80326719,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: ETCUSD,12.784,12.753,10309.90135626,12.786,1926.288514,13.3,11.41,731795.13315375,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: IOTUSD,0.547,0.5475,153579.5829371,0.54774,306423.83975454,0.5544,0.505,16127072.20944086,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: ETHUSD,306.5,306.39,500.00747751,306.5,224.95444014,315.51,286.93,215500.25648047,2017-09-27 21:49:57
+27 Sep 21:49:57 - Insert into live price table success: BTCUSD,4165.4,4164.8,37.63896286,4167.7,56.90501932,4229.5,3892.6,50856.44137881,2017-09-27 21:49:57
+27 Sep 21:50:06 - Insert into live price table success: DSHUSD,349.34,348.08,118.24295716,348.99,28.55256595,355,335.7,9824.82252157,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: LTCUSD,56.343,56.343,1000.10167133,56.344,1864.43499294,57.571,52.06,438237.2152428,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: EOSUSD,0.636,0.636,645728.54845791,0.63679,90581.48217479,0.6394,0.55531,7659996.94765121,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: BCHUSD,461.14,461.14,423.47945812,461.87,868.45031301,470,435.96,43603.9193595,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: IOTUSD,0.54774,0.5475,153579.62729648,0.54774,302559.87585851,0.5544,0.505,16127068.94220301,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: OMGUSD,10.186,10.182,6721.80917381,10.185,6288.96160966,10.599,9.7742,1598243.65422753,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: ETHUSD,306.5,306.43,703.40984281,306.5,258.86523805,315.51,286.93,215494.27688047,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: ETCUSD,12.786,12.756,10499.26521223,12.786,2093.78826786,13.3,11.41,731796.14895375,2017-09-27 21:50:06
+27 Sep 21:50:06 - Insert into live price table success: BTCUSD,4168,4165.4,48.99439818,4167.9,57.50878088,4229.5,3892.6,50859.41587881,2017-09-27 21:50:06
+27 Sep 21:50:16 - Insert into live price table success: DSHUSD,349.34,348.08,121.64892765,348.99,47.29572066,355,335.7,9824.82252157,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: EOSUSD,0.636,0.636,645397.33216667,0.63679,90581.48217479,0.6394,0.55531,7660016.94765121,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: IOTUSD,0.54774,0.5475,154926.04585344,0.54774,303818.65775455,0.5544,0.505,16127068.94220301,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: ETCUSD,12.784,12.74,10304.43232661,12.785,1597.07780649,13.3,11.41,731797.14895375,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: BCHUSD,461.87,461.15,425.25954724,461.87,441.5866906,470,435.96,43608.5190895,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: LTCUSD,56.343,56.343,1028.77169843,56.351,1834.85238154,57.571,52.06,438186.6192428,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: OMGUSD,10.186,10.182,6876.61263756,10.183,6039.26535867,10.599,9.7742,1598243.65422753,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: ETHUSD,306.5,306.5,543.12038316,306.64,176.84238479,315.51,286.93,215523.86545054,2017-09-27 21:50:16
+27 Sep 21:50:16 - Insert into live price table success: BTCUSD,4167.6,4165.4,59.59918202,4167.5,57.52248222,4229.5,3892.6,50859.39387881,2017-09-27 21:50:16
+27 Sep 21:50:26 - Insert into live price table success: DSHUSD,349.34,348.08,86.42577216,348.98,25.50296932,355,335.7,9824.82252157,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: LTCUSD,56.344,56.344,1146.8444335,56.351,1825.79022821,57.571,52.06,438164.7864428,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: ETCUSD,12.783,12.747,10096.30115916,12.78,1828.60001707,13.3,11.41,731790.43523275,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: BCHUSD,461.87,461.15,461.89596121,461.87,437.63442363,470,435.96,43608.5190895,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: IOTUSD,0.54774,0.54774,157039.26677144,0.549,403755.82175255,0.5544,0.505,16127131.77820501,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: EOSUSD,0.636,0.636,648781.28096601,0.63679,90404.92944679,0.6394,0.55531,7660046.94765121,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: OMGUSD,10.186,10.182,6829.44419294,10.186,6027.44935867,10.599,9.7742,1598443.65422753,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: BTCUSD,4167.6,4166.1,61.9478133,4167,53.00166374,4229.5,3892.6,50858.95299194,2017-09-27 21:50:26
+27 Sep 21:50:26 - Insert into live price table success: ETHUSD,306.58,306.5,536.60212074,306.59,400.25642175,315.51,286.93,215520.87965054,2017-09-27 21:50:26
+27 Sep 21:50:36 - Insert into live price table success: ETCUSD,12.784,12.753,10006.17858833,12.784,2203.99247414,13.3,11.41,731791.46583275,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: DSHUSD,349.34,348.09,156.74699895,348.98,29.76205537,355,335.7,9824.82252157,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: BCHUSD,461.87,461.14,433.75863638,461.87,835.97104752,470,435.96,43608.5190895,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: EOSUSD,0.636,0.636,648781.24096601,0.6368,86789.88596779,0.6394,0.55531,7660046.98765121,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: IOTUSD,0.54778,0.54778,156100.83042021,0.54897,308169.82175254,0.5544,0.505,16127853.77820501,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: OMGUSD,10.186,10.182,6252.43622594,10.185,6101.12686666,10.599,9.7742,1598443.65422753,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: BTCUSD,4168,4166.8,64.80944301,4167.7,56.16099938,4229.5,3892.6,50859.63749194,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: ETHUSD,306.6,306.5,518.13063427,306.59,176.97473335,315.51,286.93,215510.79378154,2017-09-27 21:50:36
+27 Sep 21:50:36 - Insert into live price table success: LTCUSD,56.344,56.344,1132.02192782,56.351,967.01456294,57.571,52.06,438141.0431428,2017-09-27 21:50:36
+27 Sep 21:50:46 - Insert into live price table success: OMGUSD,10.185,10.183,7151.11856806,10.185,6182.90376666,10.599,9.7742,1598477.71941653,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: BCHUSD,461.14,461.14,468.23821497,461.87,867.82110805,470,435.96,43609.69696094,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: DSHUSD,349.34,348.09,87.74425391,348.98,20.49696532,355,335.7,9824.82252157,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: EOSUSD,0.636,0.636,647939.2368508,0.6368,86789.88596779,0.6394,0.55531,7660056.98765121,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: ETCUSD,12.784,12.756,10283.49324435,12.778,2414.65366627,13.3,11.41,731791.46583275,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: LTCUSD,56.352,56.344,1131.72504826,56.352,1174.57058288,57.571,52.06,438109.6275428,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: IOTUSD,0.5489,0.54778,159680.09306434,0.54897,295122.25048255,0.5544,0.505,16127882.77820501,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: ETHUSD,306.6,306.52,513.28491128,306.62,256.84768231,315.51,286.93,215482.09500779,2017-09-27 21:50:46
+27 Sep 21:50:46 - Insert into live price table success: BTCUSD,4168,4167,83.16876151,4168,60.03086206,4229.5,3892.6,50858.61349194,2017-09-27 21:50:46
+27 Sep 21:50:56 - Insert into live price table success: DSHUSD,349.34,348.09,193.07931322,348.99,53.72154752,355,335.7,9824.82252157,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: EOSUSD,0.63601,0.63679,650398.90311029,0.63768,36932.27918001,0.6394,0.55531,7710076.98765121,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: LTCUSD,56.344,56.344,1106.01970029,56.352,1229.89876329,57.571,52.06,438010.9903428,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: ETCUSD,12.778,12.749,11837.59888115,12.778,2206.18617414,13.3,11.41,731792.49663275,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: BCHUSD,461.14,461.14,442.90958436,461.87,817.11054198,470,435.96,43609.69696094,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: OMGUSD,10.185,10.184,6817.61150661,10.186,6027.44935867,10.599,9.7742,1598532.76230453,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: ETHUSD,306.5,306.5,499.5339696,306.62,142.85943932,315.51,286.93,215482.9454987,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: IOTUSD,0.5489,0.54778,159758.57442034,0.54897,293476.29872229,0.5544,0.505,16124083.38679201,2017-09-27 21:50:56
+27 Sep 21:50:56 - Insert into live price table success: BTCUSD,4168,4167.8,43.91564661,4168,51.7244174,4229.5,3892.6,50858.56349194,2017-09-27 21:50:56
+27 Sep 21:51:06 - Insert into live price table success: DSHUSD,349.34,348.11,200.03134761,348.99,55.69380819,355,335.7,9824.82252157,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: LTCUSD,56.344,56.344,1182.1926032,56.351,1221.09278139,57.571,52.06,437999.9710428,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: EOSUSD,0.638,0.638,663821.1122383,0.6384,8631.80413967,0.6394,0.55531,7744780.38560224,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: BCHUSD,461.14,461.14,417.57531951,461.87,317.88379305,470,435.96,43609.69696094,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: IOTUSD,0.5489,0.54778,156645.00368626,0.54893,293805.39098813,0.5544,0.505,16119770.69973201,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: ETCUSD,12.778,12.753,12109.02684493,12.778,1853.46077999,13.3,11.41,731792.49663275,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: OMGUSD,10.185,10.185,6849.90244673,10.186,6027.44935867,10.599,9.7742,1598794.58524677,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: ETHUSD,306.65,306.56,483.72186,306.66,232.0019701,315.51,286.93,215483.39320868,2017-09-27 21:51:06
+27 Sep 21:51:06 - Insert into live price table success: BTCUSD,4168,4167.9,55.04363175,4168,44.01718096,4229.5,3892.6,50858.29267094,2017-09-27 21:51:06
+27 Sep 21:51:16 - Insert into live price table success: DSHUSD,349.34,348.11,132.10146975,348.99,31.92620908,355,335.7,9824.82252157,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: IOTUSD,0.5489,0.54778,156645.00368626,0.54897,293476.29872229,0.5544,0.505,16119770.69973201,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: EOSUSD,0.638,0.638,662368.20176967,0.6384,8489.89453767,0.6394,0.55531,7742490.60965401,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: BCHUSD,461.87,461.87,407.54466682,462.15,801.14916212,470,435.96,43612.69049475,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: ETCUSD,12.778,12.753,11796.85091328,12.778,2041.00226084,13.3,11.41,731832.49663275,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: LTCUSD,56.344,56.344,1108.65370931,56.351,1140.12013268,57.571,52.06,437988.9365428,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: OMGUSD,10.186,10.185,6844.71324001,10.186,5824.10670766,10.599,9.7742,1598942.82789777,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: ETHUSD,306.66,306.56,573.21113517,306.66,225.9411403,315.51,286.93,215479.96529937,2017-09-27 21:51:16
+27 Sep 21:51:16 - Insert into live price table success: BTCUSD,4168,4167.9,51.30484891,4168,56.3019074,4229.5,3892.6,50861.25544151,2017-09-27 21:51:16
+27 Sep 21:51:26 - Insert into live price table success: DSHUSD,349.34,348.11,146.0440975,348.99,42.17221802,355,335.7,9810.58852157,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: ETCUSD,12.778,12.747,12028.08856856,12.777,1318.08511173,13.3,11.41,731845.52753275,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: EOSUSD,0.638,0.638,663387.24133428,0.6384,8489.89453767,0.6394,0.55531,7742530.64965401,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: LTCUSD,56.351,56.351,1031.25214241,56.352,1164.80499102,57.571,52.06,438018.37961269,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: IOTUSD,0.5489,0.54778,143762.17787465,0.54852,293425.84873109,0.5544,0.505,16119520.69973201,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: BCHUSD,461.87,461.16,424.96205365,462.15,858.65489063,470,435.96,43615.89696075,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: OMGUSD,10.19,10.185,6832.48724,10.19,6490.12385504,10.599,9.7742,1598979.82789777,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: ETHUSD,306.67,306.66,623.50180724,306.67,242.38149187,315.51,286.93,215485.93293523,2017-09-27 21:51:26
+27 Sep 21:51:26 - Insert into live price table success: BTCUSD,4167.9,4167.9,49.78720506,4168,38.95551564,4229.5,3892.6,50859.85483771,2017-09-27 21:51:26
+27 Sep 21:51:35 - Insert into live price table success: DSHUSD,349.34,348.11,139.06463614,348.99,20.40955304,355,335.7,9810.58852157,2017-09-27 21:51:35
+27 Sep 21:51:36 - Insert into live price table success: EOSUSD,0.638,0.638,659829.5597316,0.6384,8489.89453767,0.6394,0.55531,7742547.23617769,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: BCHUSD,461.87,461.14,413.1846908,462.15,840.08134415,470,435.96,43615.89696075,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: OMGUSD,10.19,10.185,7033.26473171,10.189,6651.42646179,10.599,9.7742,1598979.82789777,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: IOTUSD,0.54773,0.547,145383.92194143,0.5475,304013.20253446,0.5544,0.505,16121737.74768011,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: LTCUSD,56.235,56.235,951.23839803,56.352,1169.9003161,57.571,52.06,438117.77961269,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: ETCUSD,12.778,12.751,12249.86420722,12.78,1180.87804937,13.3,11.41,731798.57913275,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: BTCUSD,4168,4167.9,59.68695315,4168,50.3344014,4229.5,3892.6,50859.80482596,2017-09-27 21:51:36
+27 Sep 21:51:36 - Insert into live price table success: ETHUSD,306.7,306.66,597.95474196,306.7,262.01341664,315.51,286.93,215496.54796804,2017-09-27 21:51:36
+27 Sep 21:51:46 - Insert into live price table success: IOTUSD,0.54773,0.5473,158000.77886111,0.5475,314013.20253446,0.5544,0.505,16121737.74768011,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: DSHUSD,349.34,348.11,179.93793613,348.99,30.87230554,355,335.7,9802.82252157,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: EOSUSD,0.638,0.638,664714.45608397,0.6384,8489.89453767,0.6394,0.55531,7742547.23617769,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: BCHUSD,461.87,460.56,407.3955477,462.1,305.25265935,470,435.96,43615.89696075,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: OMGUSD,10.19,10.185,7011.1577216,10.19,6420.94847516,10.599,9.7742,1599162.66043177,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: ETCUSD,12.782,12.777,12803.65802032,12.782,2095.8483872,13.3,11.41,731357.71249375,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: LTCUSD,56.352,56.344,726.10613813,56.352,1181.53631609,57.571,52.06,438110.12241269,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: ETHUSD,306.47,306.57,533.35556077,306.73,227.23955191,315.51,286.93,215498.55556294,2017-09-27 21:51:46
+27 Sep 21:51:46 - Insert into live price table success: BTCUSD,4167.9,4167.9,72.90936688,4168,53.78787607,4229.5,3892.6,50859.34526095,2017-09-27 21:51:46
+27 Sep 21:51:56 - Insert into live price table success: DSHUSD,349.34,348.12,171.5186981,348.99,52.16049869,355,335.7,9781.26740457,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: EOSUSD,0.638,0.638,660556.64608398,0.6384,8489.89453767,0.6394,0.55531,7742554.04617769,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: ETCUSD,12.782,12.777,9858.37598519,12.779,1067.87668168,13.3,11.41,731357.71249375,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: OMGUSD,10.19,10.185,7085.68395672,10.19,6474.19550678,10.599,9.7742,1599215.55694677,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: BCHUSD,461.87,460.71,472.99704238,462.1,847.77492854,470,435.96,43615.01636075,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: LTCUSD,56.246,56.227,1052.26640854,56.342,1108.0329632,57.571,52.06,438110.35641269,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: IOTUSD,0.54773,0.5473,144993.32194143,0.5475,305936.09587879,0.5544,0.505,16121737.74768011,2017-09-27 21:51:56
+27 Sep 21:51:56 - Insert into live price table success: ETHUSD,306.7,306.38,444.27353916,306.67,260.980471,315.51,286.93,215495.55556294,2017-09-27 21:51:56
+27 Sep 21:51:57 - Insert into live price table success: BTCUSD,4167.9,4167.9,108.86384661,4168,45.47767607,4229.5,3892.6,50857.41996423,2017-09-27 21:51:57
+27 Sep 21:52:06 - Insert into live price table success: ETCUSD,12.782,12.777,9884.18801387,12.778,1144.39376569,13.3,11.41,730802.71249375,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: DSHUSD,349.34,348.15,194.80157589,348.99,42.04226536,355,335.7,9781.26740457,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: BCHUSD,460.74,462.1,427.20142143,462.15,879.46558754,470,435.96,43621.29153975,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: EOSUSD,0.638,0.638,664772.94924761,0.6384,8637.47065667,0.6394,0.55531,7742554.04617769,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: IOTUSD,0.54773,0.5473,148959.86757037,0.5475,292947.5303568,0.5544,0.505,16121737.74768011,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: OMGUSD,10.186,10.186,6635.7878503,10.19,6532.7935068,10.599,9.7742,1599236.55694677,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: LTCUSD,56.246,56.235,1000.83366458,56.338,1013.53987048,57.571,52.06,438110.35641269,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: ETHUSD,306.7,306.33,474.12193784,306.59,184.23577899,315.51,286.93,215493.32115648,2017-09-27 21:52:06
+27 Sep 21:52:06 - Insert into live price table success: BTCUSD,4168,4167.9,101.52262904,4168,38.87738026,4229.5,3892.6,50863.11934438,2017-09-27 21:52:06
+27 Sep 21:52:16 - Insert into live price table success: BCHUSD,460.74,460.3,433.07464511,462.14,457.46127854,470,435.96,43621.29153975,2017-09-27 21:52:16
+27 Sep 21:52:16 - Insert into live price table success: OMGUSD,10.186,10.185,6604.07167282,10.19,6532.7935068,10.599,9.7742,1599236.55694677,2017-09-27 21:52:16
+27 Sep 21:52:16 - Insert into live price table success: DSHUSD,349.34,348.15,175.03286636,349.24,38.8540557,355,335.7,9754.83754536,2017-09-27 21:52:16
+27 Sep 21:52:16 - Insert into live price table success: EOSUSD,0.638,0.638,665022.20594018,0.6384,8623.47065667,0.6394,0.55531,7742554.04617769,2017-09-27 21:52:16
+27 Sep 21:52:16 - Insert into live price table success: ETCUSD,12.782,12.744,12585.95061146,12.776,3707.84195986,13.3,11.41,730712.39031275,2017-09-27 21:52:16
+27 Sep 21:52:17 - Insert into live price table success: IOTUSD,0.54773,0.5473,152479.68302189,0.5475,314289.02572646,0.5544,0.505,16121737.74768011,2017-09-27 21:52:17
+27 Sep 21:52:17 - Insert into live price table success: LTCUSD,56.338,56.338,915.24571588,56.351,1192.4764678,57.571,52.06,438173.99295337,2017-09-27 21:52:17
+27 Sep 21:52:17 - Insert into live price table success: BTCUSD,4168,4169.1,66.4322963,4171.8,49.7703551,4229.5,3892.6,50873.43038822,2017-09-27 21:52:17
+27 Sep 21:52:17 - Insert into live price table success: ETHUSD,306.34,306.43,710.5802222,306.56,258.77187585,315.51,286.93,215722.53454822,2017-09-27 21:52:17
+27 Sep 21:52:25 - Insert into live price table success: DSHUSD,349.34,348.17,130.99777402,349.23,39.03166763,355,335.7,9754.83754536,2017-09-27 21:52:25
+27 Sep 21:52:26 - Insert into live price table success: IOTUSD,0.54773,0.5473,149040.56757037,0.5475,314289.02572646,0.5544,0.505,16121737.74768011,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: BCHUSD,460.74,460.3,421.72961534,462.04,814.89196454,470,435.96,43621.29153975,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: ETCUSD,12.782,12.747,12242.62569212,12.774,2191.29952667,13.3,11.41,730712.39031275,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: EOSUSD,0.638,0.638,664992.20594018,0.6384,8623.47065667,0.6394,0.55531,7742584.04617769,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: OMGUSD,10.186,10.189,6128.53285562,10.19,6532.7935068,10.599,9.7742,1599206.76174245,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: LTCUSD,56.24,56.24,968.40665357,56.342,871.37150235,57.571,52.06,438182.94885337,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: ETHUSD,306.34,306.3,467.65640097,306.31,286.23341329,315.51,286.93,215720.54204822,2017-09-27 21:52:26
+27 Sep 21:52:26 - Insert into live price table success: BTCUSD,4169.3,4168.8,44.35894353,4170,63.81021061,4229.5,3892.6,50873.57935622,2017-09-27 21:52:26
+27 Sep 21:52:36 - Insert into live price table success: ETCUSD,12.783,12.748,11889.11239426,12.782,1906.2758547,13.3,11.41,730714.45741275,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: LTCUSD,56.245,56.245,842.66626961,56.338,661.0892219,57.571,52.06,438172.37765337,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: IOTUSD,0.5475,0.5473,145078.69120729,0.5475,301759.90110286,0.5544,0.505,16125237.74768011,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: EOSUSD,0.63615,0.63615,653735.01769061,0.6379,9219.42964488,0.6394,0.55531,7756858.33186694,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: DSHUSD,349.34,348.18,151.208862,349.23,51.68253664,355,335.7,9754.53814536,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: ETHUSD,306.3,306.26,510.0480032,306.3,277.05402028,315.51,286.93,215703.50220922,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: OMGUSD,10.186,10.185,5455.9297203,10.19,5687.65414814,10.599,9.7742,1599206.76174245,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: BCHUSD,460.74,460.3,482.45531281,462.04,863.44345828,470,435.96,43621.29153975,2017-09-27 21:52:36
+27 Sep 21:52:36 - Insert into live price table success: BTCUSD,4169.8,4169.4,59.87737891,4172.6,62.18301931,4229.5,3892.6,50878.92832422,2017-09-27 21:52:36
+27 Sep 21:52:46 - Insert into live price table success: BCHUSD,460.74,460.71,418.03614545,462.04,863.43783229,470,435.96,43621.29153975,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: DSHUSD,348.18,348.19,189.38959756,349.23,48.73874132,355,335.7,9754.79814536,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: IOTUSD,0.5475,0.54746,154243.15375598,0.5475,300789.02572646,0.5544,0.505,16125237.74768011,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: ETCUSD,12.78,12.752,12944.92400456,12.786,1139.70676831,13.3,11.41,730724.42093975,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: LTCUSD,56.222,56.223,1008.69320458,56.336,930.77114967,57.571,52.06,438153.82305637,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: OMGUSD,10.19,10.185,5921.0837203,10.19,6402.72558546,10.599,9.7742,1599226.76174245,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: EOSUSD,0.63615,0.63617,648816.7376756,0.638,9218.45372825,0.6394,0.55531,7756248.56960666,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: ETHUSD,306.23,306.13,604.99967524,306.23,304.71071683,315.51,286.93,215701.75667394,2017-09-27 21:52:46
+27 Sep 21:52:46 - Insert into live price table success: BTCUSD,4170,4169.6,61.31681406,4172.2,52.33937434,4229.5,3892.6,50880.30951045,2017-09-27 21:52:46
+27 Sep 21:52:55 - Insert into live price table success: BCHUSD,460.74,460.73,391.67465577,462.04,842.03121383,470,435.96,43621.29153975,2017-09-27 21:52:55
+27 Sep 21:52:56 - Insert into live price table success: OMGUSD,10.19,10.189,5895.5843203,10.19,5613.55414813,10.599,9.7742,1599226.76174245,2017-09-27 21:52:56
+27 Sep 21:52:56 - Insert into live price table success: ETCUSD,12.78,12.754,12499.60056715,12.782,2128.75256675,13.3,11.41,730724.42093975,2017-09-27 21:52:56
+27 Sep 21:52:56 - Insert into live price table success: EOSUSD,0.638,0.63616,644087.67888592,0.638,9218.45372825,0.6394,0.55531,7756320.12730966,2017-09-27 21:52:56
+27 Sep 21:52:56 - Insert into live price table success: IOTUSD,0.5475,0.54746,154611.44872169,0.54897,285869.61184808,0.5544,0.505,16125187.74768011,2017-09-27 21:52:56
+27 Sep 21:52:56 - Insert into live price table success: LTCUSD,56.345,56.231,884.89959555,56.335,828.12030092,57.571,52.06,438137.42515637,2017-09-27 21:52:56
+27 Sep 21:52:57 - Insert into live price table success: DSHUSD,348.18,348.19,174.93042661,349.23,36.3075342,355,335.7,9754.79814536,2017-09-27 21:52:56
+27 Sep 21:52:57 - Insert into live price table success: BTCUSD,4170,4169.6,48.57514692,4171.3,57.77963166,4229.5,3892.6,50880.30451045,2017-09-27 21:52:56
+27 Sep 21:52:57 - Insert into live price table success: ETHUSD,306.23,306.13,604.38466566,306.22,300.01281197,315.51,286.93,215698.49547394,2017-09-27 21:52:56
+27 Sep 21:53:06 - Insert into live price table success: ETCUSD,12.78,12.755,12437.95146692,12.778,906.21257793,13.3,11.41,730724.42093975,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: DSHUSD,348.18,348.2,158.12345832,349.24,44.04784961,355,335.7,9754.79814536,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: IOTUSD,0.5475,0.54746,154712.31239797,0.54822,295893.07367456,0.5544,0.505,16125187.74768011,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: LTCUSD,56.345,56.242,879.80236576,56.339,1138.06730247,57.571,52.06,438106.45775637,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: OMGUSD,10.19,10.189,6364.24770544,10.19,6772.05562747,10.599,9.7742,1599226.76174245,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: BTCUSD,4170,4170.6,48.94113515,4170.7,31.95657988,4229.5,3892.6,50880.03787475,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: ETHUSD,306.17,306.16,605.25237525,306.33,325.49745504,315.51,286.93,215725.73472829,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: EOSUSD,0.63619,0.63619,650423.13773623,0.638,9186.89602525,0.6394,0.55531,7756335.12730966,2017-09-27 21:53:06
+27 Sep 21:53:06 - Insert into live price table success: BCHUSD,462.04,462.04,390.25650828,462.18,872.37871414,470,435.96,43626.18286726,2017-09-27 21:53:06
+27 Sep 21:53:16 - Insert into live price table success: LTCUSD,56.339,56.239,809.94651967,56.342,1291.41267548,57.571,52.06,438163.58345637,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: IOTUSD,0.54746,0.54746,144832.55205632,0.54822,295893.07367456,0.5544,0.505,16125197.62968011,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: EOSUSD,0.63619,0.63619,650423.13773623,0.638,9186.89602525,0.6394,0.55531,7756335.12730966,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: BCHUSD,462.04,462.04,384.20367259,462.14,813.12578632,470,435.96,43626.18286726,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: ETCUSD,12.785,12.758,12505.25161738,12.781,1821.44435879,13.3,11.41,730725.45333975,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: DSHUSD,348.18,348.21,89.75842392,349.23,29.87359239,355,335.7,9754.79814536,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: OMGUSD,10.19,10.189,6379.24770544,10.19,6775.64852747,10.599,9.7742,1598750.68795527,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: ETHUSD,306.33,306.21,603.68277525,306.33,273.32395539,315.51,286.93,215736.54182829,2017-09-27 21:53:16
+27 Sep 21:53:16 - Insert into live price table success: BTCUSD,4170.5,4170.7,59.62376567,4171.3,41.48540237,4229.5,3892.6,50880.06021726,2017-09-27 21:53:16
+27 Sep 21:53:26 - Insert into live price table success: EOSUSD,0.63619,0.63619,650418.03773623,0.638,9186.89602525,0.6394,0.55531,7756340.22730966,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: ETCUSD,12.785,12.743,11445.85612357,12.786,2146.03854648,13.3,11.41,730725.45333975,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: IOTUSD,0.54746,0.5475,146596.01628412,0.54822,286773.94905096,0.5544,0.505,16125197.62968011,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: LTCUSD,56.339,56.237,808.352914,56.313,1126.80930525,57.571,52.06,438060.24865637,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: BCHUSD,462.04,462.04,391.12751044,462.3,846.88033039,470,435.96,43626.18286726,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: DSHUSD,349.24,348.23,68.26795207,349.38,33.6685307,355,335.7,9754.91386651,2017-09-27 21:53:26
+27 Sep 21:53:26 - Insert into live price table success: ETHUSD,306.33,306.18,576.32325306,306.34,187.42467191,315.51,286.93,215731.18842829,2017-09-27 21:53:26
+27 Sep 21:53:27 - Insert into live price table success: OMGUSD,10.19,10.189,6409.38183979,10.19,6781.5850235,10.599,9.7742,1598751.64145924,2017-09-27 21:53:27
+27 Sep 21:53:27 - Insert into live price table success: BTCUSD,4170.8,4171.1,76.81926988,4173.6,34.34683245,4229.5,3892.6,50880.61735226,2017-09-27 21:53:27
+27 Sep 21:53:36 - Insert into live price table success: ETCUSD,12.785,12.746,12371.59598741,12.783,2060.89320421,13.3,11.41,730725.45333975,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: DSHUSD,349.24,348.23,114.0531002,349.39,54.44499271,355,335.7,9754.91386651,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: LTCUSD,56.227,56.239,825.92631278,56.272,965.21282267,57.571,52.06,438073.19315637,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: EOSUSD,0.63619,0.63619,649585.03773623,0.638,9186.89602525,0.6394,0.55531,7756340.22730966,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: BCHUSD,462.04,462.04,417.01674617,462.28,849.68926536,470,435.96,43626.18286726,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: IOTUSD,0.54746,0.5475,144982.44555004,0.54822,286773.94905096,0.5544,0.505,16125168.09246711,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: OMGUSD,10.19,10.189,7437.41058816,10.19,6781.5850235,10.599,9.7742,1598751.64145924,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: ETHUSD,306.33,306.25,625.23997858,306.33,267.11254487,315.51,286.93,215729.19752829,2017-09-27 21:53:36
+27 Sep 21:53:36 - Insert into live price table success: BTCUSD,4173,4171.4,88.75338719,4173.4,42.99245496,4229.5,3892.6,50880.76505225,2017-09-27 21:53:36
+27 Sep 21:53:46 - Insert into live price table success: BCHUSD,462.04,462.04,410.80551911,462.28,455.18122947,470,435.96,43623.74786726,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: OMGUSD,10.19,10.19,8669.92391886,10.193,6652.07771141,10.599,9.7742,1598973.2333412,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: DSHUSD,348.81,348.81,128.36707007,349.54,47.54255984,355,335.7,9758.93129751,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: EOSUSD,0.63619,0.63619,648758.0113726,0.638,9186.89602525,0.6394,0.55531,7756340.22730966,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: IOTUSD,0.54746,0.54786,152922.36243311,0.54818,296705.16621386,0.5544,0.505,16125168.09246711,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: ETCUSD,12.785,12.75,12119.15292109,12.779,2113.15074648,13.3,11.41,730170.45333975,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: LTCUSD,56.272,56.242,793.66871416,56.272,689.74095874,57.571,52.06,438047.50515637,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: ETHUSD,306.33,306.26,511.80337299,306.34,331.99959813,315.51,286.93,215725.71252829,2017-09-27 21:53:46
+27 Sep 21:53:46 - Insert into live price table success: BTCUSD,4171.6,4172.2,75.86307732,4173.3,34.91032357,4229.5,3892.6,50881.92403725,2017-09-27 21:53:46
+27 Sep 21:53:56 - Insert into live price table success: LTCUSD,56.243,56.25,784.02428252,56.27,588.0632241,57.571,52.06,438017.97565637,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: IOTUSD,0.5485,0.54786,156851.88687728,0.5485,291906.84909012,0.5544,0.505,16125239.48016793,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: DSHUSD,349.54,349.54,190.51898938,349.55,56.86508218,355,335.7,9758.63239751,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: EOSUSD,0.63619,0.63619,650598.86613823,0.638,9186.89602525,0.6394,0.55531,7756350.22730966,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: BCHUSD,462.04,462.04,407.21798335,462.28,453.41656402,470,435.96,43621.44786726,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: OMGUSD,10.198,10.19,7575.14654975,10.198,6508.54870982,10.599,9.7742,1598992.4490982,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: ETCUSD,12.785,12.755,12001.92795748,12.78,1136.35626964,13.3,11.41,730171.48613975,2017-09-27 21:53:56
+27 Sep 21:53:56 - Insert into live price table success: ETHUSD,306.33,306.28,543.45676146,306.32,393.16570005,315.51,286.93,215721.72672829,2017-09-27 21:53:56
+27 Sep 21:53:57 - Insert into live price table success: BTCUSD,4173,4171.1,78.98260193,4172.6,47.98205608,4229.5,3892.6,50882.31642215,2017-09-27 21:53:57
+27 Sep 21:54:06 - Insert into live price table success: DSHUSD,349.55,349.55,149.81551647,349.57,41.67669158,355,335.7,9756.95574923,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: IOTUSD,0.5485,0.54786,146066.81421929,0.54848,290563.75091337,0.5544,0.505,16125239.48016793,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: EOSUSD,0.63619,0.63619,649741.8397746,0.638,9186.89602525,0.6394,0.55531,7756390.22730966,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: BCHUSD,462.24,460.9,407.6976512,462.24,841.81522417,470,435.96,43609.64786726,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: ETCUSD,12.785,12.746,11567.08472036,12.771,2021.41648452,13.3,11.41,729762.1518661,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: OMGUSD,10.198,10.191,3963.84599262,10.198,5024.37542048,10.599,9.7742,1599043.9478722,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: LTCUSD,56.243,56.25,788.98668707,56.265,871.26084562,57.571,52.06,438007.61295637,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: ETHUSD,306.32,306.29,612.75803527,306.33,273.89707054,315.51,286.93,215734.74261529,2017-09-27 21:54:06
+27 Sep 21:54:06 - Insert into live price table success: BTCUSD,4172.1,4172.2,87.30190754,4173.8,40.09930187,4229.5,3892.6,50882.98269932,2017-09-27 21:54:06
+27 Sep 21:54:16 - Insert into live price table success: IOTUSD,0.5485,0.54786,152202.30508699,0.54847,290672.48026345,0.5544,0.505,16125239.48016793,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: EOSUSD,0.63619,0.63619,648891.8397746,0.638,9186.89602525,0.6394,0.55531,7753698.77297188,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: BCHUSD,462.24,461.2,425.25204336,462.24,458.14795872,470,435.96,43609.64786726,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: DSHUSD,349.55,348.98,124.09288201,349.57,43.27158114,355,335.7,9753.68234923,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: ETCUSD,12.746,12.745,12499.09998216,12.773,1909.626116,13.3,11.41,729989.5903151,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: LTCUSD,56.243,56.25,592.80136347,56.263,875.93993353,57.571,52.06,438007.61295637,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: OMGUSD,10.198,10.193,8056.42421429,10.198,5490.12789848,10.599,9.7742,1599043.9478722,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: ETHUSD,306.33,306.33,618.35037525,306.34,360.79978018,315.51,286.93,215740.88141529,2017-09-27 21:54:16
+27 Sep 21:54:16 - Insert into live price table success: BTCUSD,4173.8,4173.8,74.83731057,4173.9,49.81131077,4229.5,3892.6,50883.58644995,2017-09-27 21:54:16
+27 Sep 21:54:26 - Insert into live price table success: EOSUSD,0.63619,0.63619,653800.92394154,0.63749,10217.17095641,0.6394,0.55531,7751360.78550062,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: OMGUSD,10.2,10.193,7655.95735854,10.2,6494.7756734,10.599,9.7742,1599246.1478722,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: ETCUSD,12.78,12.743,12112.47771008,12.776,1179.36644648,13.3,11.41,729990.5903151,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: DSHUSD,349.57,349.57,216.54897783,349.59,33.12175721,355,335.7,9753.58988844,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: IOTUSD,0.5485,0.54786,155330.10040489,0.54849,287504.13839501,0.5544,0.505,16125239.48016793,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: BCHUSD,462.24,460.43,403.10350924,462.24,460.04262653,470,435.96,43609.35338826,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: BTCUSD,4173.8,4173.8,75.17248458,4173.9,48.47934652,4229.5,3892.6,50883.60584995,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: LTCUSD,56.265,56.265,820.86139766,56.266,1000.88049937,57.571,52.06,438026.65799114,2017-09-27 21:54:26
+27 Sep 21:54:26 - Insert into live price table success: ETHUSD,306.33,306.33,664.61151789,306.34,257.07293576,315.51,286.93,215736.93449862,2017-09-27 21:54:26
+27 Sep 21:54:35 - Insert into live price table success: BCHUSD,462.24,460.6,406.07477991,462.24,438.37751826,470,435.96,43609.35338826,2017-09-27 21:54:35
+27 Sep 21:54:36 - Insert into live price table success: DSHUSD,349.59,347.69,418.14163,349.72,48.10590104,355,335.7,9753.60272444,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: OMGUSD,10.2,10.196,7764.18635854,10.2,3583.40367423,10.599,9.7742,1599249.4478722,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: EOSUSD,0.63619,0.63619,650546.8633226,0.63748,10213.89100025,0.6394,0.55531,7751360.78550062,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: ETCUSD,12.78,12.747,11712.34746728,12.776,879.77484648,13.3,11.41,729870.6748041,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: IOTUSD,0.5485,0.54786,145430.31823744,0.5485,295721.68597374,0.5544,0.505,16125239.48016793,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: ETHUSD,306.33,306.33,576.70426897,306.34,326.4679725,315.51,286.93,215739.98832294,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: BTCUSD,4174.1,4174,81.93558437,4175,46.40322395,4229.5,3892.6,50886.57095048,2017-09-27 21:54:36
+27 Sep 21:54:36 - Insert into live price table success: LTCUSD,56.265,56.25,832.9763586,56.266,822.56784727,57.571,52.06,438054.22289114,2017-09-27 21:54:36
+27 Sep 21:54:46 - Insert into live price table success: IOTUSD,0.5485,0.54786,149232.47147595,0.5485,290304.93241706,0.5544,0.505,16125146.49842863,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: DSHUSD,349.59,349.6,86.43208615,349.73,31.07633121,355,335.7,9669.60272444,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: EOSUSD,0.63748,0.63619,652973.09476228,0.63748,10198.34002825,0.6394,0.55531,7751376.33647262,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: BCHUSD,460.62,460.73,392.99230081,462.23,328.11146917,470,435.96,43609.60206526,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: LTCUSD,56.269,56.251,822.35208803,56.269,915.74577836,57.571,52.06,438033.80619114,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: OMGUSD,10.2,10.196,8527.8049842,10.2,3821.96516856,10.599,9.7742,1599249.4478722,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: ETCUSD,12.78,12.751,11664.14694713,12.779,889.53281598,13.3,11.41,729850.6748041,2017-09-27 21:54:46
+27 Sep 21:54:46 - Insert into live price table success: ETHUSD,306.33,306.33,582.70426897,306.34,325.5174586,315.51,286.93,215736.00332294,2017-09-27 21:54:46
+27 Sep 21:54:47 - Insert into live price table success: BTCUSD,4174,4174,89.00652483,4175,58.9275454,4229.5,3892.6,50884.37983818,2017-09-27 21:54:47
+27 Sep 21:54:56 - Insert into live price table success: DSHUSD,349.7,348.09,135.93771583,349.72,44.14202987,355,335.7,9588.2103224,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: BCHUSD,460.62,460.82,439.16453605,462.14,446.29446917,470,435.96,43609.60206526,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: IOTUSD,0.5485,0.54786,154902.18692747,0.5485,294701.29625873,0.5544,0.505,16127078.49842863,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: EOSUSD,0.63619,0.63619,652955.09065276,0.63749,10063.89502525,0.6394,0.55531,7751396.33647262,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: OMGUSD,10.2,10.201,7465.12575056,10.21,3293.52340256,10.599,9.7742,1600151.1499399,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: ETCUSD,12.78,12.754,12164.45752858,12.786,1256.97266986,13.3,11.41,729851.6748041,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: LTCUSD,56.269,56.252,904.85002927,56.26,525.49672045,57.571,52.06,438011.69519114,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: ETHUSD,306.33,306.33,585.17777019,306.34,300.88566141,315.51,286.93,215704.00792178,2017-09-27 21:54:56
+27 Sep 21:54:56 - Insert into live price table success: BTCUSD,4174.2,4175,86.50269827,4175.4,56.14292327,4229.5,3892.6,50879.6085582,2017-09-27 21:54:56
+27 Sep 21:55:06 - Insert into live price table success: ETCUSD,12.78,12.758,12272.50662497,12.784,1783.19578705,13.3,11.41,729851.6748041,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: DSHUSD,349.73,349.73,216.00294651,349.75,34.77415616,355,335.7,9588.22601327,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: EOSUSD,0.63619,0.63619,652734.88855376,0.63749,10063.89502525,0.6394,0.55531,7751431.33647262,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: BCHUSD,460.62,460.78,403.03063559,462.24,454.33579217,470,435.96,43609.60206526,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: IOTUSD,0.5485,0.54786,151423.07147595,0.54847,286483.74868,0.5544,0.505,16127078.49842863,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: OMGUSD,10.21,10.206,8442.71569168,10.249,3639.17086697,10.599,9.7742,1600154.6479399,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: LTCUSD,56.25,56.25,830.91571023,56.26,501.18223836,57.571,52.06,438029.58619114,2017-09-27 21:55:06
+27 Sep 21:55:06 - Insert into live price table success: ETHUSD,306.33,306.33,513.4640063,306.34,300.5186366,315.51,286.93,215701.01522088,2017-09-27 21:55:06
+27 Sep 21:55:07 - Insert into live price table success: BTCUSD,4174.8,4174.7,77.68867038,4175.2,58.19752955,4229.5,3892.6,50879.76646114,2017-09-27 21:55:07
+27 Sep 21:55:15 - Insert into live price table success: DSHUSD,349.73,348.24,95.73887407,349.79,34.8515862,355,335.7,9588.22601327,2017-09-27 21:55:15
+27 Sep 21:55:16 - Insert into live price table success: LTCUSD,56.25,56.249,842.76672696,56.25,532.48471879,57.571,52.06,438097.83969114,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: EOSUSD,0.63619,0.63619,653562.88855376,0.63749,10063.89502525,0.6394,0.55531,7751431.33647262,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: BCHUSD,460.62,462.14,446.78328408,462.2,447.05990517,470,435.96,43609.60206526,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: IOTUSD,0.5485,0.54786,155615.75850531,0.54848,288583.9724122,0.5544,0.505,16127128.49842863,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: OMGUSD,10.21,10.215,8207.95354044,10.249,3609.05688697,10.599,9.7742,1600154.6479399,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: ETCUSD,12.78,12.741,12637.61064768,12.786,1226.39404007,13.3,11.41,729851.6748041,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: ETHUSD,306.34,306.21,586.49217873,306.34,303.30033572,315.51,286.93,215713.05963407,2017-09-27 21:55:16
+27 Sep 21:55:16 - Insert into live price table success: BTCUSD,4175.2,4174.7,93.79716422,4175.3,60.79002955,4229.5,3892.6,50880.66084714,2017-09-27 21:55:16
+27 Sep 21:55:26 - Insert into live price table success: ETCUSD,12.758,12.746,9729.62525089,12.758,2949.99768992,13.3,11.41,729861.6748041,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: IOTUSD,0.5485,0.54786,141630.24598872,0.54849,288481.93917208,0.5544,0.505,16127230.49842863,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: DSHUSD,349.73,348.39,190.68886638,349.78,33.63541104,355,335.7,9588.22601327,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: BCHUSD,461,461.11,460.70117694,462.2,364.95681617,470,435.96,43619.80206526,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: EOSUSD,0.63619,0.63619,649773.38085313,0.63749,10063.89502525,0.6394,0.55531,7751461.33647262,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: LTCUSD,56.23,56.261,830.53602398,56.268,436.60399173,57.571,52.06,438194.39950414,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: OMGUSD,10.21,10.22,8240.49869112,10.249,3653.88778697,10.599,9.7742,1600154.6479399,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: ETHUSD,306.34,306.29,628.13123111,306.34,221.92789869,315.51,286.93,215711.77986744,2017-09-27 21:55:26
+27 Sep 21:55:26 - Insert into live price table success: BTCUSD,4178.1,4178.1,97.45975207,4178.4,47.57657057,4229.5,3892.6,50898.27364911,2017-09-27 21:55:26
+27 Sep 21:55:36 - Insert into live price table success: BCHUSD,461,460.9,488.84042111,462.2,459.8059565,470,435.96,43619.80206526,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: LTCUSD,56.231,56.228,483.46264638,56.231,582.89510451,57.571,52.06,438194.15600414,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: DSHUSD,349.79,348.76,158.54400044,349.81,33.2153992,355,335.7,9587.29456232,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: EOSUSD,0.63619,0.63619,653487.86203083,0.63749,10063.89502525,0.6394,0.55531,7751486.33647262,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: ETCUSD,12.758,12.746,10406.89159,12.758,2908.1337681,13.3,11.41,729867.6748041,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: IOTUSD,0.54846,0.54786,155840.99226344,0.54848,289291.36119836,0.5544,0.505,16127330.49842863,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: OMGUSD,10.267,10.226,9090.2780735,10.273,3027.14493221,10.599,9.7742,1600192.0642719,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: BTCUSD,4178.2,4178.2,90.64858007,4178.4,60.8147052,4229.5,3892.6,50900.13212875,2017-09-27 21:55:36
+27 Sep 21:55:36 - Insert into live price table success: ETHUSD,306.34,306.33,599.2009833,306.34,324.67939536,315.51,286.93,215712.10389193,2017-09-27 21:55:36
+27 Sep 21:55:46 - Insert into live price table success: EOSUSD,0.63619,0.63619,653488.98947657,0.63749,10063.89502525,0.6394,0.55531,7751486.33647262,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: IOTUSD,0.54846,0.54786,153950.56988069,0.54846,289143.54945707,0.5544,0.505,16127476.4641668,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: DSHUSD,349.79,349.01,136.35339448,349.81,27.3073992,355,335.7,9587.29456232,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: BCHUSD,461,461.12,475.34793235,462.19,862.89510996,470,435.96,43619.80206526,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: OMGUSD,10.249,10.22,8812.90730848,10.249,4907.14493221,10.599,9.7742,1600212.0642719,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: LTCUSD,56.231,56.228,886.81110304,56.229,582.75374892,57.571,52.06,438193.46520414,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: ETHUSD,306.33,306.33,609.5995339,306.34,288.97064733,315.51,286.93,215712.24851164,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: ETCUSD,12.758,12.748,12683.64867708,12.758,1638.9161901,13.3,11.41,730597.0158041,2017-09-27 21:55:46
+27 Sep 21:55:46 - Insert into live price table success: BTCUSD,4178,4178,78.16626715,4178.2,46.15749946,4229.5,3892.6,50906.5106532,2017-09-27 21:55:46
+27 Sep 21:55:56 - Insert into live price table success: LTCUSD,56.231,56.228,820.75880247,56.229,809.12739782,57.571,52.06,438193.46520414,2017-09-27 21:55:56
+27 Sep 21:55:56 - Insert into live price table success: ETCUSD,12.75,12.75,10587.07732975,12.758,2528.26852585,13.3,11.41,730598.1158041,2017-09-27 21:55:56
+27 Sep 21:55:56 - Insert into live price table success: BCHUSD,461,461.03,485.0155554,462.19,849.35347896,470,435.96,43619.80206526,2017-09-27 21:55:56
+27 Sep 21:55:56 - Insert into live price table success: EOSUSD,0.63619,0.63619,651827.11949047,0.63749,10063.89502525,0.6394,0.55531,7751486.33647262,2017-09-27 21:55:56
+27 Sep 21:55:56 - Insert into live price table success: DSHUSD,349.79,349.13,178.04020719,349.81,31.0144622,355,335.7,9587.29456232,2017-09-27 21:55:56
+27 Sep 21:55:56 - Insert into live price table success: OMGUSD,10.249,10.22,8955.84384414,10.273,4852.57774905,10.599,9.7742,1600211.5642719,2017-09-27 21:55:56
+27 Sep 21:55:57 - Insert into live price table success: IOTUSD,0.54846,0.54786,150337.16445054,0.54846,289143.54945707,0.5544,0.505,16127476.4641668,2017-09-27 21:55:57
+27 Sep 21:55:57 - Insert into live price table success: ETHUSD,306.33,306.33,605.1845339,306.34,314.65575858,315.51,286.93,215709.59396447,2017-09-27 21:55:57
+27 Sep 21:55:57 - Insert into live price table success: BTCUSD,4178.4,4178,104.93308514,4178.4,51.12910543,4229.5,3892.6,50906.6616532,2017-09-27 21:55:57
+27 Sep 21:56:06 - Insert into live price table success: ETCUSD,12.758,12.752,11986.25840681,12.758,1395.32155089,13.3,11.41,730598.2588041,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: DSHUSD,349.79,349.36,123.49152557,349.81,48.3627929,355,335.7,9587.29456232,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: IOTUSD,0.54846,0.54829,154055.86733996,0.54846,288993.45222118,0.5544,0.505,16127626.56140269,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: BCHUSD,462.15,460.9,488.30032782,462.14,454.86315285,470,435.96,43624.81357617,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: EOSUSD,0.63619,0.63619,653497.22471527,0.63749,10063.89502525,0.6394,0.55531,7751493.96647262,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: LTCUSD,56.231,56.228,546.13680398,56.229,841.64410289,57.571,52.06,438183.10250414,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: OMGUSD,10.249,10.226,8609.46817569,10.273,3003.55434621,10.599,9.7742,1600211.5642719,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: ETHUSD,306.33,306.21,597.02460123,306.32,245.28766807,315.51,286.93,215707.90536512,2017-09-27 21:56:06
+27 Sep 21:56:06 - Insert into live price table success: BTCUSD,4178.1,4178,85.65821172,4178.1,61.88889703,4229.5,3892.6,50908.83167328,2017-09-27 21:56:06
+27 Sep 21:56:16 - Insert into live price table success: ETCUSD,12.758,12.752,9788.71379473,12.758,2588.78504344,13.3,11.41,730588.7588041,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: DSHUSD,349.79,347.82,107.02456901,349.78,43.91441225,355,335.7,9587.29456232,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: BCHUSD,462.15,462.19,433.07742695,462.2,839.51731118,470,435.96,43624.81357617,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: EOSUSD,0.63619,0.63622,650396.65931276,0.63749,10063.89502525,0.6394,0.55531,7751493.96647262,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: OMGUSD,10.249,10.231,8572.19500688,10.273,3745.06134621,10.599,9.7742,1600151.5642719,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: LTCUSD,56.229,56.21,1061.58077389,56.229,619.63197451,57.571,52.06,438303.21802465,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: IOTUSD,0.54846,0.54829,145310.80556502,0.54846,288843.40217112,0.5544,0.505,16127826.61145275,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: BTCUSD,4177.9,4176.2,88.46288364,4177.2,56.63271562,4229.5,3892.6,50910.83607645,2017-09-27 21:56:16
+27 Sep 21:56:16 - Insert into live price table success: ETHUSD,306.32,306.32,609.89527365,306.33,246.52419488,315.51,286.93,215710.68400271,2017-09-27 21:56:16
+27 Sep 21:56:26 - Insert into live price table success: ETCUSD,12.758,12.752,9864.0998576,12.758,2523.7735281,13.3,11.41,730588.7588041,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: DSHUSD,349.79,347.98,120.51483937,349.78,34.32198411,355,335.7,9587.29456232,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: EOSUSD,0.63749,0.63622,649208.75893426,0.63749,9863.09502525,0.6394,0.55531,7751494.76647262,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: BCHUSD,462.15,462.19,447.57856294,462.3,843.88760039,470,435.96,43624.81357617,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: BTCUSD,4178.8,4176.3,86.46673835,4178.4,56.37398521,4229.5,3892.6,50910.04726545,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: LTCUSD,56.21,56.211,869.08933582,56.26,1140.57850313,57.571,52.06,438412.26558965,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: IOTUSD,0.54846,0.54829,140668.39175062,0.54846,288793.40217112,0.5544,0.505,16126872.57719092,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: ETHUSD,306.32,306.32,668.06210352,306.33,201.98370995,315.51,286.93,215721.56000897,2017-09-27 21:56:26
+27 Sep 21:56:26 - Insert into live price table success: OMGUSD,10.269,10.234,9441.19438637,10.273,3420.90234621,10.599,9.7742,1600231.5642719,2017-09-27 21:56:26

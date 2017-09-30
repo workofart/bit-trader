@@ -1,0 +1,27 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://127.0.0.1:3000/",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "bufferutil": "^3.0.2",
+    "highcharts": "^5.0.14",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "react-scripts": "1.0.13",
+    "recharts": "^1.0.0-apha.5",
+    "underscore": "^1.8.3",
+    "utf-8-validate": "^3.0.3",
+    "ws": "^3.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
