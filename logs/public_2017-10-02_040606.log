@@ -1,0 +1,99 @@
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tBTCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tLTCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tETHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tETCUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tDSHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tIOTUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tEOSUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tOMGUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'book',
+  symbol: 'tBCHUSD',
+  prec: 'P0',
+  freq: 'F0',
+  len: '100' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tBTCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tLTCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tETHUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tETCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tDSHUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tIOTUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tEOSUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tOMGUSD' }
+2 Oct 04:06:07 - { event: 'subscribe', channel: 'ticker', symbol: 'tBCHUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tBTCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tLTCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tETHUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tETCUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tDSHUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tIOTUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tEOSUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tOMGUSD' }
+2 Oct 04:06:07 - { event: 'subscribe',
+  channel: 'candles',
+  key: 'trade:1m:tBCHUSD' }
+Client [public] started, listening to WebSocket 127.0.0.1:1337
+Received client [bot]'s id: /tRz8Gt1gxCuw4DqHpCkYw==
+events.js:182
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: read ECONNRESET
+    at _errnoException (util.js:1041:11)
+    at TLSWrap.onread (net.js:606:25)

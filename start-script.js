@@ -12,14 +12,14 @@ const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 /*******************************************/
 var logfile = `./logs/SocketServer_${currentTime}.log`;
 console.log(logfile)
-var openFileStream = fs.createWriteStream(logfile, {flags: 'a'});
-openFileStream.on('open', () => {
+var openFileStream_socket = fs.createWriteStream(logfile, {flags: 'a'});
+openFileStream_socket.on('open', () => {
     var process = child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
-    process.stdout.pipe(openFileStream)
-    process.stderr.pipe(openFileStream)
+    process.stdout.pipe(openFileStream_socket)
+    process.stderr.pipe(openFileStream_socket)
 })
 
-openFileStream.on('error', (err)=> {
+openFileStream_socket.on('error', (err)=> {
     console.log(err)
 })
 /*******************************************/
@@ -27,14 +27,14 @@ openFileStream.on('error', (err)=> {
 /*******************************************/
 var logfile = `./logs/public_${currentTime}.log`;
 console.log(logfile)
-var openFileStream = fs.createWriteStream(logfile, {flags: 'a'});
-openFileStream.on('open', () => {
+var openFileStream_public = fs.createWriteStream(logfile, {flags: 'a'});
+openFileStream_public.on('open', () => {
     var process = child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
-    process.stdout.pipe(openFileStream)
-    process.stderr.pipe(openFileStream)
+    process.stdout.pipe(openFileStream_public)
+    process.stderr.pipe(openFileStream_public)
 })
 
-openFileStream.on('error', (err)=> {
+openFileStream_public.on('error', (err)=> {
     console.log(err)
 })
 /*******************************************/
@@ -43,14 +43,14 @@ openFileStream.on('error', (err)=> {
 /*******************************************/
 var logfile = `./logs/bot_${currentTime}.log`;
 console.log(logfile)
-var openFileStream = fs.createWriteStream(logfile, {flags: 'a'});
-openFileStream.on('open', () => {
+var openFileStream_bot = fs.createWriteStream(logfile, {flags: 'a'});
+openFileStream_bot.on('open', () => {
     var process = child.spawn('node', ['bot.js'], {cwd: 'algo', shell: true});
-    process.stdout.pipe(openFileStream)
-    process.stderr.pipe(openFileStream)
+    process.stdout.pipe(openFileStream_bot)
+    process.stderr.pipe(openFileStream_bot)
 })
 
-openFileStream.on('error', (err)=> {
+openFileStream_bot.on('error', (err)=> {
     console.log(err)
 })
 /*******************************************/

@@ -17,9 +17,6 @@ var connection;
 /***************************************************/
 
 /**************** WebSocket Server (to UI) *****************/
-const verifyClient = () => {
-    {origin: "*"}
-}
 const connection_to_client = new WebSocket.Server({host: '127.0.0.1', port: 1338})
 connection_to_client.on('request', (req) => {
     req.accept();
@@ -75,23 +72,23 @@ process.on('SIGINT', function() {
     process.exit();
 });
 /************************************************/
-STARTWS_UI()
+// STARTWS_UI()
 
-function STARTWS_UI() {
-    connection_to_client.on('open', () => {
-        console.log('Server [bot] started, connected to WebSocket 127.0.0.1:1338')
-    })
-    connection_to_client.setMaxListeners(15)
+// function STARTWS_UI() {
+//     connection_to_client.on('open', () => {
+//         console.log('Server [bot] started, connected to WebSocket 127.0.0.1:1338')
+//     })
+//     connection_to_client.setMaxListeners(15)
     
-    connection_to_client.on('connection', function(w, req) {
-        clientWS = w;
-        isClientDead = false;
-    })
-    connection_to_client.on('close', () => {
-        isClientDead = true;
-        console.log('Server [bot] to UI connection closed, reopening')
-    })
-}
+//     connection_to_client.on('connection', function(w, req) {
+//         clientWS = w;
+//         isClientDead = false;
+//     })
+//     connection_to_client.on('close', () => {
+//         isClientDead = true;
+//         console.log('Server [bot] to UI connection closed, reopening')
+//     })
+// }
 
 connection = new WebSocket('ws://127.0.0.1:1337');
 connection.on('open', () => {
