@@ -53,7 +53,7 @@ class App extends Component {
         {
           tickers.map((item) => {
               return (
-                <PriceChart ticker={item} data={this.state.data} key={item}/>
+                <PriceChart ticker={item} key={item}/>
             )
           })
         }

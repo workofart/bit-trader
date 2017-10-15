@@ -140,19 +140,20 @@ module.exports.insertBooks = function(req, res) {
 
 module.exports.getBotTrades = function(req, res) {
     var query = `SELECT * FROM BITFINEX_TRANSACTIONS WHERE TICKER='${req.params.ticker}';`;
-    // console.log(query)
+    console.log(query)
     db.pool.connect((err, client, done) => {
         if (err) throw err
         client.query(
             query, (err, result) => {
+                done();
                 if (err && err.code != 23505) {
                     console.log(err)
                     sendJsonResponse(res, 500, 'Server error');
                 }
                 else {
+                    console.log(`Returned [${result.rows.length}] bot trades`);
                     sendJsonResponse(res, 200, result.rows);
                 }
-                done()
             })
     })
 }
@@ -170,16 +171,18 @@ module.exports.getLivePrices = function(req, res) {
     var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
     db.pool.connect((err, client, done) => {
         if (tickerCursors[ticker] == undefined) {
+            done();
             console.log(`Started initial load for [${ticker}]`);
             const cursor = client.query(new Cursor(query))
             tickerCursors[ticker] = cursor;
         }
         // handle done
-        else if(tickerCursors[ticker] === -1) {
+        if(tickerCursors[ticker] === -1) {
+            done();
             console.log('Nothing to load ' + ticker)
             sendJsonResponse(res, 200, []);
         }
-        else if (tickerCursors[ticker] != -1) {
+        else {
             // console.log(tickerCursors);
             tickerCursors[ticker].read(500, (err, rows) => {
                 done();
@@ -188,7 +191,7 @@ module.exports.getLivePrices = function(req, res) {
                     throw err;
                 }
                 if (rows.length > 0) {
-                    console.log(`Row count: ${rows.length}`)
+                    console.log(`[${ticker}] Row count: ${rows.length}`)
                     sendJsonResponse(res, 200, rows);
                 }
                 else {

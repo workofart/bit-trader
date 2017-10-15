@@ -11,6 +11,13 @@ const MAX_ELEMENTS = 2000;
 const URL = 'http://127.0.0.1:3001/api/';
 
 var isDoneLoading = false;
+var timestamps;
+
+const closest = (arr, goal) => {
+        return arr.reduce(function(prev, curr) {
+        return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+    });
+}
 
 
 var renderChart = (ticker, that) => {
@@ -45,24 +52,6 @@ var renderChart = (ticker, that) => {
                             // series.addPoint([moment(currentPoint[0]).valueOf(), currentPoint[1]], true, false);
                             // console.log(series)
                         // }
-                        
-                        // $.ajax(
-                        //     URL+'getBotTrades/' + that.props.ticker,
-                        //     {
-                        //         success: (data) => {
-                        //             if (data.length > 0) {
-                        //                 this.hideLoading();
-                        //                 data.forEach((item)=> {
-                        //                     if (!_.contains(that.ids, item.id)) {
-                        //                         that.trades.push(item)
-                        //                         signalSeries.addPoint({x: moment(item.itemstamp).local().valueOf(), title: item.side ? 'Buy': 'Sell', text: `${item.qty} [${item.ticker}] @ ${item.price}`}, true, false)
-                        //                         that.ids.push(item.id)
-                        //                     }
-                        //                 })
-                        //             }
-                        //         }
-                        //     }
-                        // )
 
                         $.ajax(
                             URL+'getLivePrices/' + that.props.ticker,
@@ -71,12 +60,38 @@ var renderChart = (ticker, that) => {
                                     if (data.length > 0) {
                                         this.hideLoading();
                                         _.forEach(data, (price) => {
-                                            series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
+                                            series.addPoint([moment(price.timestamp).valueOf(), price.price], false, false);
                                         })
                                         this.redraw();
                                     }
                                     else {
-                                        console.log(data);
+                                        if (that.timestamps.length === 0) {
+                                            that.timestamps = series.data.map((item) => {
+                                                return item.x;
+                                            })
+                                            console.log(that.timestamps);
+                                        }
+                                        $.ajax(
+                                            URL+'getBotTrades/' + that.props.ticker,
+                                            {
+                                                success: (data) => {                                                    
+                                                    if (data.length > 0) {
+                                                        // this.hideLoading();
+                                                        data.forEach((item)=> {
+                                                            if (!_.contains(that.ids, item.id)) {
+                                                                console.log('Adding bot trades to the graph...')
+                                                                // that.trades.push(item)
+                                                                var goal = item.timestamp;
+                                                                console.log(`goal: ${goal} | existing: ${closest(that.timestamps, goal)}`);
+                                                                signalSeries.addPoint({x: moment(item.itemstamp).valueOf(), title: item.side ? 'Buy': 'Sell', text: `${item.qty} [${item.ticker}] @ ${item.price}`}, true, false)
+                                                                that.ids.push(item.id)
+                                                                // this.redraw();
+                                                            }
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        ) // end getBotTrades API call
                                     }
                                 },
                                 fail: () => {
@@ -85,7 +100,9 @@ var renderChart = (ticker, that) => {
                             }
                         )
 
-                    }.bind(this), 2000);
+                    }.bind(this), 1000);
+                    
+                    
                 }
             }
         },
@@ -112,11 +129,15 @@ var renderChart = (ticker, that) => {
                 type: 'hour',
                 text: '1H'
             }, {
+                count: 4,
+                type: 'hour',
+                text: '4H'
+            }, {    
                 type: 'all',
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 4
+            selected: 5
         },
 
         yAxis: {
@@ -141,16 +162,22 @@ var renderChart = (ticker, that) => {
         series: [{
             type: 'line',
             marker: {
-                enabled: true
+                enabled: false
             },
             name: 'Price',
             id: 'Price',
+            dataGrouping: {
+                enabled: false
+            },
             data: []
         },
         {
             type: 'flags',
             onSeries: 'Price',
-            data: []
+            data: [],
+            dataGrouping: {
+                enabled: false
+            }
         }]
     });
 }
@@ -160,21 +187,22 @@ class PriceChart extends Component {
     data = []; // contains the latest prices for a given ticker
     trades = []; // contains the transactions the bot made
     ids = []; // contains the trade ids for detecting duplicates
+    timestamps = [];
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps != this.props) {
-            var filteredData = _.filter(nextProps.data, (item) => {
-                return item.ticker == nextProps.ticker;
-            })
+        // if (nextProps != this.props) {
+        //     var filteredData = _.filter(nextProps.data, (item) => {
+        //         return item.ticker == nextProps.ticker;
+        //     })
 
-            // console.log(filteredData)
+        //     // console.log(filteredData)
 
-            if (filteredData.length > 0) {
-                this.data = filteredData.map((item) => {
-                    return [item.time, item.price, item.signal]
-                })
-            }
-        }
+        //     if (filteredData.length > 0) {
+        //         this.data = filteredData.map((item) => {
+        //             return [item.time, item.price, item.signal]
+        //         })
+        //     }
+        // }
     }
 
     componentDidMount() {

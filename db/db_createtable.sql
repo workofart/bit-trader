@@ -47,7 +47,7 @@ create table bitfinex_transactions (
     qty float not null,
     side boolean not null,
     timestamp timestamp not null
-)
+);
 
 
 create table bitfinex_live_price (
@@ -62,4 +62,4 @@ create table bitfinex_live_price (
     low float not null,
     volume float not null,
     timestamp timestamp not null
-)
+);
