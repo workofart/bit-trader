@@ -11,6 +11,13 @@ const MAX_ELEMENTS = 2000;
 const URL = 'http://127.0.0.1:3001/api/';
 
 var isDoneLoading = false;
+var timestamps;
+
+const closest = (arr, goal) => {
+        return arr.reduce(function(prev, curr) {
+        return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+    });
+}
 
 
 var renderChart = (ticker, that, trades) => {
@@ -35,8 +42,6 @@ var renderChart = (ticker, that, trades) => {
                     var signalSeries = this.series[1];
                     var count = 0;
                     this.showLoading();
-
-
                     $.ajax(
                         URL + 'getLivePrices/' + that.props.ticker,
                         {
@@ -50,6 +55,7 @@ var renderChart = (ticker, that, trades) => {
                                 }
                                 else {
                                     console.log(data);
+
                                 }
                             },
                             fail: () => {
@@ -94,11 +100,15 @@ var renderChart = (ticker, that, trades) => {
                 type: 'hour',
                 text: '1H'
             }, {
+                count: 4,
+                type: 'hour',
+                text: '4H'
+            }, {    
                 type: 'all',
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 4
+            selected: 5
         },
 
         yAxis: {
@@ -123,7 +133,7 @@ var renderChart = (ticker, that, trades) => {
         series: [{
             type: 'line',
             marker: {
-                enabled: true
+                enabled: false
             },
             name: 'Price',
             id: 'Price',
@@ -143,6 +153,7 @@ class PriceChart extends Component {
     data = []; // contains the latest prices for a given ticker
     trades = []; // contains the transactions the bot made
     ids = []; // contains the trade ids for detecting duplicates
+    timestamps = [];
 
     // Use this because the <div id={this.props.ticker}> contains the current ticker as the id
     // must wait until the render update is finished before initializing the HighStock charts
@@ -154,8 +165,6 @@ class PriceChart extends Component {
             this.refreshChart(this.props.ticker, this.props.data)
         }
     }
-
-    compo
 
     componentDidMount() {
         if (this.props.data !== [] && this.props.data.length > 0) {

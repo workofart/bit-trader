@@ -6,19 +6,26 @@ var flag = {
     'DEMA_SMA_CROSS' : true,
     'PSAR' : true
 }
+const {
+        RSI, ADM, ADX_STRONG_MULTIPLIER, ADX_WEAK_MULTIPLIER,
+        SMA, DEMA, PSAR_STEP, PSAR_MAX, PSAR_BASE_SCORE, RSI_BASE_SCORE, DEMA_SMA_CROSS_SCORE
+    } = require('./parameters');
 
+console.log(`${RSI}, ${ADM}, ${ADX_STRONG_MULTIPLIER}, ${ADX_WEAK_MULTIPLIER},
+${SMA}, ${DEMA}, ${PSAR_STEP}, ${PSAR_MAX}, ${PSAR_BASE_SCORE}, ${RSI_BASE_SCORE}, ${DEMA_SMA_CROSS_SCORE}`)
 /************** Indicators Parameters **************/
-const RSI = 15;
-const ADM = 10;
-const ADX_STRONG_MULTIPLIER = 1.3;
-const ADX_WEAK_MULTIPLIER = 0.8;
-const SMA = 6;
-const DEMA = 26;
-const PSAR_STEP = 0.03;
-const PSAR_MAX = 0.2;
-const PSAR_BASE_SCORE = 2;
-const RSI_BASE_SCORE = 5;
-const DEMA_SMA_CROSS_SCORE = 3;
+// const RSI = 15;
+// const ADM = 10;
+// const ADX_STRONG_MULTIPLIER = 1.3;
+// const ADX_WEAK_MULTIPLIER = 0.8;
+// const SMA = 6;
+// const DEMA = 26;
+// const PSAR_STEP = 0.03;
+// const PSAR_MAX = 0.2;
+// const PSAR_BASE_SCORE = 2;
+// const RSI_BASE_SCORE = 5;
+// const DEMA_SMA_CROSS_SCORE = 3;
+
 /***************************************************/
 
 util.log('------------------ Indicator Paramters ------------------')
