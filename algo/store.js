@@ -35,7 +35,7 @@ exports.storeTransactionToDB = (ticker, price, qty, side) => {
                     console.err('There was a error when inserting into transactions table')
                 }
                 else {
-                    util.log('Insert into transaction table success: ' + params)
+                    util.log(`Store transaction | ${params[3] ? 'Bought' : 'Sold'} ${params[2]} [${params[0]}] @ ${params[1]}`)
                 }
             })
     })
@@ -55,7 +55,7 @@ exports.storeLivePrice = (ticker, price, bid, bid_size, ask, ask_size, high, low
                     console.error('There was a error when inserting into live price table')
                 }
                 else {
-                    util.log('Insert into live price table success: ' + params)
+                    util.log(`Store price | [${ticker}] @ $${price}`)
                 }
             })
     })

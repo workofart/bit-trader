@@ -1,5 +1,5 @@
 const tulind = require('tulind');
-
+const util = require('util');
 var flag = {
     'ADX' : true,
     'RSI' : true,
@@ -20,6 +20,9 @@ const PSAR_BASE_SCORE = 2;
 const RSI_BASE_SCORE = 5;
 const DEMA_SMA_CROSS_SCORE = 3;
 /***************************************************/
+
+util.log('------------------ Indicator Paramters ------------------')
+util.log(`\nRSI: ${RSI}\nADM: ${ADM}\nADX_STRONG_MULTIPLIER: ${ADX_STRONG_MULTIPLIER}\nADX_WEAK_MULTIPLIER: ${ADX_WEAK_MULTIPLIER}\nSMA: ${SMA}\nDEMA: ${DEMA}\nPSAR_STEP: ${PSAR_STEP}\nPSAR_MAX: ${PSAR_MAX}\nPSAR_BASE_SCORE: ${PSAR_BASE_SCORE}\nRSI_BASE_SCORE: ${RSI_BASE_SCORE}\nDEMA_SMA_CROSS_SCORE: ${DEMA_SMA_CROSS_SCORE}`)
 
 exports.initIndicators = (flag) => {
     flag = flag;
@@ -81,6 +84,7 @@ exports.calculatePSAR = (high, low, close, subscore) => {
 }
 
 exports.calculateADX = (high, low, close, subscore) => {
+    trendStrength = -1;
     if (high.length > 1 && low.length > 1 && close.length > 1 && flag.ADM) {
         tulind.indicators.adx.indicator([high, low, close], [ADX], function(err, results) {
             var adx = results[0];
@@ -91,10 +95,11 @@ exports.calculateADX = (high, low, close, subscore) => {
             else if (adx[adx.length - 1] < 20) {
                 subscore *= ADX_WEAK_MULTIPLIER;
             }
+            trendStrength = adx[adx.length - 1];
             return subscore;
         })
     }
-    return subscore;
+    return subscore, trendStrength;
 }
 
 // if (Array.isArray(indicatorStorage.sma) && 

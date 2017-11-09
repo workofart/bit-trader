@@ -9,6 +9,8 @@ const tulind = require('tulind');
 const indicators = require('./indicators');
 const utilities = require('./util');
 const db = require('./store');
+const executor = require('./executor');
+const automation = require('./automation');
 /***************************************************/
 
 /**************** WebSocket Client (From Bitfinex) *****************/
@@ -41,6 +43,9 @@ const SPREAD_THRESHOLD = 0.01; // 1% of bid/ask average, volatile if pass this t
 const AGGREGATE_SUPPLY_DEMAND_BASE = 1; // the base score for this subsignal
 /***************************************************/
 
+util.log('--------------- OrderBook Parameters --------------')
+util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
+
 /************** Investment Parameters **************/
 var wallet = 10000;
 var currencyWallet = {};
@@ -51,8 +56,12 @@ const BUY_SIGNAL_TRIGGER = 50; // if score > this, buy
 const SELL_SIGNAL_TRIGGER = -50; // if score < this, sell
 const TRADING_FEE = 0.002; // 0.X% for all buys/sells
 const MIN_PROFIT_PERCENTAGE = 0.005; // 0.X% for min profit to make a move
+const MAX_SCORE_INTERVAL = 90; // The maximum number of data points before making a decision then resetting all signals
+const IS_BUY_IMMEDIATELY = false; // if entry point is carefully selected, enable this. Else, disable.
 /***************************************************/
 
+util.log('---------------- Investment Parameters --------------')
+util.log(`\nINITIAL_INVESTMENT: ${INITIAL_INVESTMENT}\nINVEST_PERCENTAGE: ${INVEST_PERCENTAGE}\nBUY_SIGNAL_TRIGGER: ${BUY_SIGNAL_TRIGGER}\nSELL_SIGNAL_TRIGGER: ${SELL_SIGNAL_TRIGGER}\nTRADING_FEE: ${TRADING_FEE}\nMIN_PROFIT_PERCENTAGE: ${MIN_PROFIT_PERCENTAGE}\nMAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}`)
 var orderBook_Bid = [];
 var orderBook_Ask = [];
 var candles = {};
@@ -63,13 +72,13 @@ const isCandleEnabled = false;
 const isTickerPriceEnabled = true;
 const isOrderBookEnabled = true;
 
-const MAX_SCORE_INTERVAL = 90; // The maximum number of data points before making a decision then resetting all signals
 var storedCounts = {};
 var storedWeightedSignalScore = {};
 var clientWS;
 var isClientDead = true;
 /************ Pre-Termination Summary ***********/
 process.on('SIGINT', function() {
+    console.log('Caught termination signal');
 
     utilities.printWalletStatus(INITIAL_INVESTMENT, wallet, currencyWallet, latestPrice);
     process.exit();
@@ -98,6 +107,10 @@ connection.on('open', () => {
     console.log('Client [bot] started, listening to WebSocket 127.0.0.1:1337')
     db.clearTable('bitfinex_transactions')
     db.clearTable('bitfinex_live_price')
+    
+    // clear the orderbooks to prevent stale prices from keeping the TOB
+    orderBook_Bid = [];
+    orderBook_Ask = [];
 });
 connection.setMaxListeners(15)
 
@@ -118,6 +131,7 @@ connection.on('message', (msg) => {
         }
 })
 
+setInterval(()=>{automation.raceTheBook('BTCUSD', 'buy', orderBook_Ask, orderBook_Bid)}, 500)
 
 /***************************************************/
 /*              Main Processor                     */
@@ -228,7 +242,7 @@ function sellPositionCheck(ticker, qty, price,score) {
 
 
 // Checks the long position on hand and evaluate whether
-// it's logical to exit the position
+// it's logical to enter the position
 function buyPositionCheck(ticker, qty, price, score) {
     var lastPrice = currencyWallet[ticker].price;
 
@@ -355,6 +369,7 @@ var processTickerPrice = (ticker, data) => {
         }
         db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume)
         if (clientWS != undefined && !isClientDead) {
+            console.log('Sending price data to client through websocket....');
             clientWS.send(JSON.stringify({
                 'ticker': ticker,
                 'price': last_price,
@@ -400,7 +415,7 @@ function computeIndicators (ticker, data) {
     subscore = indicators.calculateRSI(close, subscore);
     subscore = indicators.calculateDEMA_SMA_CROSS(close, subscore);
     subscore = indicators.calculatePSAR(high, low, close, subscore);
-    subscore = indicators.calculateADX(high, low, close, subscore);
+    subscore, trendStrength = indicators.calculateADX(high, low, close, subscore);
     return subscore;
 }
 

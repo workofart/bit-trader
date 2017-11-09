@@ -10,9 +10,10 @@ exports.printWalletStatus = (INITIAL_INVESTMENT, wallet, currencyWallet, latestP
 
     util.log(`-------------------- Summary ----------------------------`)
     util.log(`Currency Wallet: ${JSON.stringify(currencyWallet, null, 2)}`)
-    util.log(`=====> Market Value: ${currencyValue.toFixed(2)}`)
-    util.log(`Fiat Wallet: $${wallet.toFixed(2)}`)
     util.log(`Starting Value: ${INITIAL_INVESTMENT}`)
-    util.log(`Total Value: ${(currencyValue + wallet).toFixed(2)}`)
+    util.log(`---------------------------------`)
+    util.log(`  Market Value: $ ${currencyValue.toFixed(2)}`)
+    util.log(`+ Fiat Wallet:  $ ${wallet.toFixed(2)}`)
+    util.log(`= Total Value:  $ ${(currencyValue + wallet).toFixed(2)}`)
     util.log('---------------------------------------------------------\n\n')
 }
