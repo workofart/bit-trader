@@ -13,7 +13,7 @@ const URL = 'http://127.0.0.1:3001/api/';
 var isDoneLoading = false;
 
 
-var renderChart = (ticker, that) => {
+var renderChart = (ticker, that, trades) => {
     Highcharts.setOptions({
         global: {
             useUTC: false
@@ -35,57 +35,39 @@ var renderChart = (ticker, that) => {
                     var signalSeries = this.series[1];
                     var count = 0;
                     this.showLoading();
-                    setInterval(function () {
 
-                        // while (that.data.length > 0) {
-                            
-                            // console.log(that.data);
-                            // var currentPoint = that.data.shift();
-                            // console.log([moment(that.data[0][0]).valueOf(), that.data[0][1]])
-                            // series.addPoint([moment(currentPoint[0]).valueOf(), currentPoint[1]], true, false);
-                            // console.log(series)
-                        // }
-                        
-                        // $.ajax(
-                        //     URL+'getBotTrades/' + that.props.ticker,
-                        //     {
-                        //         success: (data) => {
-                        //             if (data.length > 0) {
-                        //                 this.hideLoading();
-                        //                 data.forEach((item)=> {
-                        //                     if (!_.contains(that.ids, item.id)) {
-                        //                         that.trades.push(item)
-                        //                         signalSeries.addPoint({x: moment(item.itemstamp).local().valueOf(), title: item.side ? 'Buy': 'Sell', text: `${item.qty} [${item.ticker}] @ ${item.price}`}, true, false)
-                        //                         that.ids.push(item.id)
-                        //                     }
-                        //                 })
-                        //             }
-                        //         }
-                        //     }
-                        // )
 
-                        $.ajax(
-                            URL+'getLivePrices/' + that.props.ticker,
-                            {
-                                success: (data) => {
-                                    if (data.length > 0) {
-                                        this.hideLoading();
-                                        _.forEach(data, (price) => {
-                                            series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
-                                        })
-                                        this.redraw();
-                                    }
-                                    else {
-                                        console.log(data);
-                                    }
-                                },
-                                fail: () => {
-                                    console.log('Failed getting live prices')
+                    $.ajax(
+                        URL + 'getLivePrices/' + that.props.ticker,
+                        {
+                            success: (data) => {
+                                if (data.length > 0) {
+                                    this.hideLoading();
+                                    _.forEach(data, (price) => {
+                                        series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
+                                    })
+                                    this.redraw();
                                 }
+                                else {
+                                    console.log(data);
+                                }
+                            },
+                            fail: () => {
+                                console.log('Failed getting live prices')
                             }
-                        )
-
-                    }.bind(this), 2000);
+                        }
+                    )
+                    console.log('Render graph called.')
+                    if (that.props.data != []) {
+                        this.hideLoading();
+                        that.props.data.forEach((item) => {
+                            // if (!_.contains(that.ids, item.id)) {
+                                // that.trades.push(item)
+                                signalSeries.addPoint({ x: moment(item.timestamp).local().valueOf(), title: item.side ? 'Buy' : 'Sell', text: `${item.qty} [${item.ticker}] @ ${item.price}` }, true, false)
+                                // that.ids.push(item.id)
+                            // }
+                        })
+                    }
                 }
             }
         },
@@ -137,7 +119,7 @@ var renderChart = (ticker, that) => {
         title: {
             text: `${ticker} Prices`
         },
-        
+
         series: [{
             type: 'line',
             marker: {
@@ -145,12 +127,13 @@ var renderChart = (ticker, that) => {
             },
             name: 'Price',
             id: 'Price',
-            data: []
+            data: [],
         },
         {
             type: 'flags',
             onSeries: 'Price',
-            data: []
+            data: [],
+            stackDistance: 20
         }]
     });
 }
@@ -161,43 +144,36 @@ class PriceChart extends Component {
     trades = []; // contains the transactions the bot made
     ids = []; // contains the trade ids for detecting duplicates
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps != this.props) {
-            var filteredData = _.filter(nextProps.data, (item) => {
-                return item.ticker == nextProps.ticker;
-            })
-
-            // console.log(filteredData)
-
-            if (filteredData.length > 0) {
-                this.data = filteredData.map((item) => {
-                    return [item.time, item.price, item.signal]
-                })
-            }
+    // Use this because the <div id={this.props.ticker}> contains the current ticker as the id
+    // must wait until the render update is finished before initializing the HighStock charts
+    componentDidUpdate(prevProps) {
+        // check if the ticker has changed, if so, allow price reload
+        if (prevProps.ticker != this.props.ticker) {
+            console.log('prepare for next ticker: ' + this.props.ticker)
+            // console.log('Trade data: ' + JSON.stringify(this.props.data))
+            this.refreshChart(this.props.ticker, this.props.data)
         }
     }
 
+    compo
+
     componentDidMount() {
-        $.ajax(
-            URL+'resetLivePriceFlag',
-            {
-                success: (data) => {
-                    renderChart(this.props.ticker, this);
-                }
-            }
-        )
+        if (this.props.data !== [] && this.props.data.length > 0) {
+            console.log(this.props.data)
+            renderChart(this.props.ticker, this, this.props.data);
+
+        }
     }
 
-
+    refreshChart(ticker, data) {
+        renderChart(ticker, this, data);
+    }
 
     render() {
-
-
         return (
             <div id={this.props.ticker} key={this.props.ticker} />
         )
     }
-
 }
 
 export default PriceChart;

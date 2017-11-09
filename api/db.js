@@ -16,13 +16,15 @@ module.exports.getCandlePrice = function(req, res) {
         if (err) throw err
         client.query(
             query, (err, result) => {
-                done()
+                
                 if (err && err.code != 23505) {
                     console.log(err)
+                    done(err)
                     sendJsonResponse(res, 500, 'Server error');
                 }
                 else {
                     sendJsonResponse(res, 200, result.rows);
+                    done();
                 }
             })
     })
@@ -35,12 +37,14 @@ module.exports.getTickerPrice = function(req, res) {
         if (err) throw err
         client.query(
             query, (err, result) => {
-                done()
+                
                 if (err && err.code != 23505) {
                     console.log(err)
+                    done(err)
                     sendJsonResponse(res, 500, 'Server error');
                 }
                 else {
+                    done()
                     sendJsonResponse(res, 200, result.rows);
                 }
             })
@@ -54,12 +58,13 @@ module.exports.getBooks = function(req, res) {
         if (err) throw err
         client.query(
             query, (err, result) => {
-                done()
                 if (err && err.code != 23505) {
                     console.log(err)
+                    done(err)
                     sendJsonResponse(res, 500, 'Server error');
                 }
                 else {
+                    done()
                     sendJsonResponse(res, 200, result.rows);
                 }
             })
@@ -140,7 +145,7 @@ module.exports.insertBooks = function(req, res) {
 
 module.exports.getBotTrades = function(req, res) {
     var query = `SELECT * FROM BITFINEX_TRANSACTIONS WHERE TICKER='${req.params.ticker}';`;
-    // console.log(query)
+    console.log(query)
     db.pool.connect((err, client, done) => {
         if (err) throw err
         client.query(
@@ -162,48 +167,80 @@ module.exports.resetLivePriceFlag = function(req, res) {
     for (var ticker in tickerCursors) {
         tickerCursors[ticker] = undefined;
     }
-    sendJsonResponse(res, 200, '')
+    sendJsonResponse(res, 200, [])
 }
+
+// module.exports.getLivePrices = function(req, res) {
+//     var ticker = req.params.ticker;
+//     var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
+//     console.log('getLivePrices api called')
+//     if(tickerCursors[ticker] === -1) {
+//         console.log('Nothing to load ' + ticker)
+//         sendJsonResponse(res, 200, []);
+//         return;
+//     }
+//     db.pool.connect((err, client, done) => {
+//         if (tickerCursors[ticker] === undefined) {
+//             console.log(`Started initial load for [${ticker}]`);
+//             const cursor = client.query(new Cursor(query))
+//             tickerCursors[ticker] = cursor;
+//         }
+//         // handle done
+//         // else if(tickerCursors[ticker] === -1) {
+//         //     console.log('Nothing to load ' + ticker)
+//         //     sendJsonResponse(res, 200, []);
+//         // }
+//         if (tickerCursors[ticker] != -1) {
+//             // console.log(tickerCursors);
+//             tickerCursors[ticker].read(3000, (err, rows) => {
+//                 done()
+//                 if(err) {
+//                     console.log(err);
+//                     sendJsonResponse(res, 500, 'DB error');
+//                     throw err;
+//                 }
+//                 if (rows.length > 0) {
+//                     console.log(`Row count: ${rows.length}`)
+//                     sendJsonResponse(res, 200, rows);
+//                 }
+//                 else {
+//                     console.log(`All data finished loading for [${ticker}]`)
+//                     sendJsonResponse(res, 200, []);
+//                     tickerCursors[ticker] = -1;
+//                     // tickerCursors[ticker].close((err) => {
+//                     //     if (err) {
+//                     //         console.log(err);
+//                     //     }
+//                     // });
+//                 }
+//             })
+            
+//         }
+//     });
+// }
+
 
 module.exports.getLivePrices = function(req, res) {
     var ticker = req.params.ticker;
     var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
+    console.log('getLivePrices api called: ' + query)
     db.pool.connect((err, client, done) => {
-        if (tickerCursors[ticker] == undefined) {
-            console.log(`Started initial load for [${ticker}]`);
-            const cursor = client.query(new Cursor(query))
-            tickerCursors[ticker] = cursor;
+        if(err) {
+            console.log(err);
+            sendJsonResponse(res, 500, 'DB connection error');
+            throw err;
         }
-        // handle done
-        else if(tickerCursors[ticker] === -1) {
-            console.log('Nothing to load ' + ticker)
-            sendJsonResponse(res, 200, []);
-        }
-        else if (tickerCursors[ticker] != -1) {
-            // console.log(tickerCursors);
-            tickerCursors[ticker].read(500, (err, rows) => {
-                done();
-                if(err) {
-                    console.log(err);
-                    throw err;
-                }
-                if (rows.length > 0) {
-                    console.log(`Row count: ${rows.length}`)
-                    sendJsonResponse(res, 200, rows);
-                }
-                else {
-                    console.log(`All data finished loading for [${ticker}]`)
-                    sendJsonResponse(res, 200, []);
-                    tickerCursors[ticker] = -1;
-                    // tickerCursors[ticker].close((err) => {
-                    //     if (err) {
-                    //         console.log(err);
-                    //     }
-                    // });
-                }
-            })
-            
-        }
+        client.query(query, (err, result) => {
+            done()
+            if(err) {
+                console.log(err.stack);
+                sendJsonResponse(res, 500, 'db query error');
+            }
+            else {
+                var rows = result.rows;
+                console.log(`Row count: ${rows.length}`)
+                sendJsonResponse(res, 200, rows);
+            }
+        })
     });
 }
-
