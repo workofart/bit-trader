@@ -150,14 +150,15 @@ module.exports.getBotTrades = function(req, res) {
         if (err) throw err
         client.query(
             query, (err, result) => {
+                done();
                 if (err && err.code != 23505) {
                     console.log(err)
                     sendJsonResponse(res, 500, 'Server error');
                 }
                 else {
+                    console.log(`Returned [${result.rows.length}] bot trades`);
                     sendJsonResponse(res, 200, result.rows);
                 }
-                done()
             })
     })
 }
