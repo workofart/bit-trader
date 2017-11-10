@@ -53,7 +53,7 @@ const BUY_SIGNAL_TRIGGER = 50; // if score > this, buy
 const SELL_SIGNAL_TRIGGER = -50; // if score < this, sell
 const TRADING_FEE = 0.002; // 0.X% for all buys/sells
 const MIN_PROFIT_PERCENTAGE = 0.005; // 0.X% for min profit to make a move
-const MAX_SCORE_INTERVAL = 90; // The maximum number of data points before making a decision then resetting all signals
+var MAX_SCORE_INTERVAL = {}; // The maximum number of data points before making a decision then resetting all signals
 const IS_BUY_IMMEDIATELY = false; // if entry point is carefully selected, enable this. Else, disable.
 /***************************************************/
 
@@ -64,6 +64,7 @@ var orderBook_Ask = [];
 var candles = {};
 var tickerPrices = {};
 var indicatorStorage = {};
+var trendStrength = {};
 
 const isCandleEnabled = false;
 const isTickerPriceEnabled = true;
@@ -142,10 +143,15 @@ var mainProcessor = (ticker, data) => {
 
     // Initialize the scores/counts for a given ticker
     storedWeightedSignalScore[ticker] = storedWeightedSignalScore[ticker] != undefined ? storedWeightedSignalScore[ticker] : 0;
+    MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] != undefined ? MAX_SCORE_INTERVAL[ticker] : 90;
     storedCounts[ticker] = storedCounts[ticker] != undefined ? storedCounts[ticker] : 0;
 
+    if (trendStrength[ticker] > 50) {
+        MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] + 45
+        util.log('Strong strength, extending signal collection period:' + MAX_SCORE_INTERVAL[ticker])
+    }
     // reset signal score and make decision
-    if (storedCounts[ticker] >= MAX_SCORE_INTERVAL) {
+    if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
         if (storedWeightedSignalScore[ticker] != 0 && storedWeightedSignalScore[ticker] != Infinity) {
             // util.log('------------------------------------------------\n\n')
             // util.log(`[${ticker} | Weighted Signal Score: ${storedWeightedSignalScore[ticker].toFixed(4)}\n`)
@@ -154,7 +160,9 @@ var mainProcessor = (ticker, data) => {
         }
         storedWeightedSignalScore[ticker] = 0;
         storedCounts[ticker] = 0;
+        MAX_SCORE_INTERVAL[ticker] = 90;
     }
+    // util.log(`MAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}`)
 
     // Order books
     if (data.datasource === 'book' && isOrderBookEnabled) {
@@ -412,7 +420,7 @@ function computeIndicators (ticker, data) {
     subscore = indicators.calculateRSI(close, subscore);
     subscore = indicators.calculateDEMA_SMA_CROSS(close, subscore);
     subscore = indicators.calculatePSAR(high, low, close, subscore);
-    subscore, trendStrength = indicators.calculateADX(high, low, close, subscore);
+    subscore, trendStrength[ticker] = indicators.calculateADX(high, low, close, subscore);
     return subscore;
 }
 
