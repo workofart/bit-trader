@@ -7,15 +7,15 @@ var flag = {
     'PSAR' : true
 }
 const {
-        RSI, ADM, ADX_STRONG_MULTIPLIER, ADX_WEAK_MULTIPLIER,
+        RSI, ADX, ADX_STRONG_MULTIPLIER, ADX_WEAK_MULTIPLIER,
         SMA, DEMA, PSAR_STEP, PSAR_MAX, PSAR_BASE_SCORE, RSI_BASE_SCORE, DEMA_SMA_CROSS_SCORE
     } = require('./parameters');
 
-console.log(`${RSI}, ${ADM}, ${ADX_STRONG_MULTIPLIER}, ${ADX_WEAK_MULTIPLIER},
+console.log(`${RSI}, ${ADX}, ${ADX_STRONG_MULTIPLIER}, ${ADX_WEAK_MULTIPLIER},
 ${SMA}, ${DEMA}, ${PSAR_STEP}, ${PSAR_MAX}, ${PSAR_BASE_SCORE}, ${RSI_BASE_SCORE}, ${DEMA_SMA_CROSS_SCORE}`)
 /************** Indicators Parameters **************/
 // const RSI = 15;
-// const ADM = 10;
+// const ADX = 10;
 // const ADX_STRONG_MULTIPLIER = 1.3;
 // const ADX_WEAK_MULTIPLIER = 0.8;
 // const SMA = 6;
@@ -29,7 +29,7 @@ ${SMA}, ${DEMA}, ${PSAR_STEP}, ${PSAR_MAX}, ${PSAR_BASE_SCORE}, ${RSI_BASE_SCORE
 /***************************************************/
 
 util.log('------------------ Indicator Paramters ------------------')
-util.log(`\nRSI: ${RSI}\nADM: ${ADM}\nADX_STRONG_MULTIPLIER: ${ADX_STRONG_MULTIPLIER}\nADX_WEAK_MULTIPLIER: ${ADX_WEAK_MULTIPLIER}\nSMA: ${SMA}\nDEMA: ${DEMA}\nPSAR_STEP: ${PSAR_STEP}\nPSAR_MAX: ${PSAR_MAX}\nPSAR_BASE_SCORE: ${PSAR_BASE_SCORE}\nRSI_BASE_SCORE: ${RSI_BASE_SCORE}\nDEMA_SMA_CROSS_SCORE: ${DEMA_SMA_CROSS_SCORE}`)
+util.log(`\nRSI: ${RSI}\nADX: ${ADX}\nADX_STRONG_MULTIPLIER: ${ADX_STRONG_MULTIPLIER}\nADX_WEAK_MULTIPLIER: ${ADX_WEAK_MULTIPLIER}\nSMA: ${SMA}\nDEMA: ${DEMA}\nPSAR_STEP: ${PSAR_STEP}\nPSAR_MAX: ${PSAR_MAX}\nPSAR_BASE_SCORE: ${PSAR_BASE_SCORE}\nRSI_BASE_SCORE: ${RSI_BASE_SCORE}\nDEMA_SMA_CROSS_SCORE: ${DEMA_SMA_CROSS_SCORE}`)
 
 exports.initIndicators = (flag) => {
     flag = flag;
@@ -92,7 +92,7 @@ exports.calculatePSAR = (high, low, close, subscore) => {
 
 exports.calculateADX = (high, low, close, subscore) => {
     trendStrength = -1;
-    if (high.length > 1 && low.length > 1 && close.length > 1 && flag.ADM) {
+    if (high.length > 1 && low.length > 1 && close.length > 1 && flag.ADX) {
         tulind.indicators.adx.indicator([high, low, close], [ADX], function(err, results) {
             var adx = results[0];
             // Strong trend

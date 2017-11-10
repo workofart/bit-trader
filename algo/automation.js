@@ -19,14 +19,14 @@ module.exports.raceTheBook = (ticker, side, orderBook_Ask, orderBook_Bid) => {
         if (side === 'buy') {
             var targetPrice = _babyStep(buyTOB, side);
             if (targetPrice < sellTOB) {
-                console.log(`Buy @ [${targetPrice}] | sellTOB=${sellTOB}`);
+                // console.log(`Buy @ [${targetPrice}] | sellTOB=${sellTOB}`);
             }
             // console.log(JSON.stringify(_.sortBy(Object.keys(orderBook_Bid[ticker]))))
         }
         else {
             var targetPrice = _babyStep(sellTOB, side);
             if (targetPrice > buyTOB) {
-                console.log(`Sell @ [${targetPrice}] | buyTOB=${buyTOB}`);
+                // console.log(`Sell @ [${targetPrice}] | buyTOB=${buyTOB}`);
             }
         }
     }

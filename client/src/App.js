@@ -73,6 +73,9 @@ class App extends Component {
               })
               that.setState({ trades: currentTrades, ticker: ticker })
             }
+            else {
+              that.setState({trades: [], ticker: ticker})
+            }
           },
           error: (data, status, err) => {
             console.log(err);
