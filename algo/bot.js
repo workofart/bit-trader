@@ -44,13 +44,13 @@ util.log('--------------- OrderBook Parameters --------------')
 util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
 
 /************** Investment Parameters **************/
-var wallet = 10000;
+var wallet = 1000;
 var currencyWallet = {};
 var latestPrice = {};
-const INITIAL_INVESTMENT = 10000;
+const INITIAL_INVESTMENT = 1000;
 const INVEST_PERCENTAGE = 0.05;
-const BUY_SIGNAL_TRIGGER = 50; // if score > this, buy
-const SELL_SIGNAL_TRIGGER = -50; // if score < this, sell
+const BUY_SIGNAL_TRIGGER = 800; // if score > this, buy
+const SELL_SIGNAL_TRIGGER = -800; // if score < this, sell
 const TRADING_FEE = 0.002; // 0.X% for all buys/sells
 const MIN_PROFIT_PERCENTAGE = 0.005; // 0.X% for min profit to make a move
 var MAX_SCORE_INTERVAL = {}; // The maximum number of data points before making a decision then resetting all signals
@@ -153,8 +153,8 @@ var mainProcessor = (ticker, data) => {
     // reset signal score and make decision
     if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
         if (storedWeightedSignalScore[ticker] != 0 && storedWeightedSignalScore[ticker] != Infinity) {
-            // util.log('------------------------------------------------\n\n')
-            // util.log(`[${ticker} | Weighted Signal Score: ${storedWeightedSignalScore[ticker].toFixed(4)}\n`)
+            util.log('------------------------------------------------\n\n')
+            util.log(`[${ticker} | Weighted Signal Score: ${storedWeightedSignalScore[ticker].toFixed(4)}\n`)
 
             invest(storedWeightedSignalScore[ticker], ticker)
         }
