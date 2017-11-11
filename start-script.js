@@ -6,38 +6,12 @@ const logStream = [ 'SocketServer', 'public', 'bot' ];
 const moment = require('moment');
 const child = require('child_process');
 const fs = require('fs');
-
+const path = require('path');
 const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 
-/*******************************************/
-var logfile = `./logs/SocketServer_${currentTime}.log`;
-console.log(logfile)
-var openFileStream_socket = fs.createWriteStream(logfile, {flags: 'a'});
-openFileStream_socket.on('open', () => {
-    var process = child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
-    process.stdout.pipe(openFileStream_socket)
-    process.stderr.pipe(openFileStream_socket)
-})
+child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
 
-openFileStream_socket.on('error', (err)=> {
-    console.log(err)
-})
-/*******************************************/
-
-/*******************************************/
-var logfile = `./logs/public_${currentTime}.log`;
-console.log(logfile)
-var openFileStream_public = fs.createWriteStream(logfile, {flags: 'a'});
-openFileStream_public.on('open', () => {
-    var process = child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
-    process.stdout.pipe(openFileStream_public)
-    process.stderr.pipe(openFileStream_public)
-})
-
-openFileStream_public.on('error', (err)=> {
-    console.log(err)
-})
-/*******************************************/
+child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
 
 
 /*******************************************/
@@ -54,3 +28,7 @@ openFileStream_bot.on('error', (err)=> {
     console.log(err)
 })
 /*******************************************/
+
+// Create symbolic link for easy log scanning
+fs.symlinkSync(`bot_${currentTime}.log`, './logs/stdout_bk');
+fs.renameSync('./logs/stdout_bk', './logs/stdout');
