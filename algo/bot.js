@@ -11,8 +11,16 @@ const utilities = require('./util');
 const db = require('./store');
 const executor = require('./executor');
 const automation = require('./automation');
-const MIN_AMOUNT = require('./minOrder')
+
+const {
+    INITIAL_INVESTMENT, MAX_SCORE_INTERVAL, IS_BUY_IMMEDIATELY, STOP_LOSS
+} = require('./invest_constants');
+
+global.wallet = 600,
+global.currencyWallet = {},
+global.latestPrice = {};
 /***************************************************/
+const { invest } = require('./investment');
 
 /**************** WebSocket Client (From Bitfinex) *****************/
 const URL = 'http://127.0.0.1:3001/api/';
@@ -45,26 +53,12 @@ console.log('=                     =')
 console.log('=  WE ARE LIVE BABY   =')
 console.log('=                     =')
 console.log('=======================')
-util.log('--------------- OrderBook Parameters --------------')
-util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
-
-/************** Investment Parameters **************/
-var wallet = 600;
-var currencyWallet = {};
-var latestPrice = {};
-const INITIAL_INVESTMENT = 600;
-const INVEST_PERCENTAGE = 0.1;
-const BUY_SIGNAL_TRIGGER = 10; // if score > this, buy
-const SELL_SIGNAL_TRIGGER = -10; // if score < this, sell
-const TRADING_FEE = 0.002; // 0.X% for all buys/sells
-const MIN_PROFIT_PERCENTAGE = 0.015; // 0.X% for min profit to make a move
-var MAX_SCORE_INTERVAL = {}; // The maximum number of data points before making a decision then resetting all signals
-const IS_BUY_IMMEDIATELY = false; // if entry point is carefully selected, enable this. Else, disable.
-const STOP_LOSS = 1; // sell if lost more than X%
+// util.log('--------------- OrderBook Parameters --------------')
+// util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
 /***************************************************/
 
-util.log('---------------- Investment Parameters --------------')
-util.log(`\nINITIAL_INVESTMENT: ${INITIAL_INVESTMENT}\nINVEST_PERCENTAGE: ${INVEST_PERCENTAGE}\nBUY_SIGNAL_TRIGGER: ${BUY_SIGNAL_TRIGGER}\nSELL_SIGNAL_TRIGGER: ${SELL_SIGNAL_TRIGGER}\nTRADING_FEE: ${TRADING_FEE}\nMIN_PROFIT_PERCENTAGE: ${MIN_PROFIT_PERCENTAGE}\nMAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}\n STOP_LOSS: ${STOP_LOSS}`)
+// util.log('---------------- Investment Parameters --------------')
+// util.log(`\nINITIAL_INVESTMENT: ${INITIAL_INVESTMENT}\nINVEST_PERCENTAGE: ${INVEST_PERCENTAGE}\nBUY_SIGNAL_TRIGGER: ${BUY_SIGNAL_TRIGGER}\nSELL_SIGNAL_TRIGGER: ${SELL_SIGNAL_TRIGGER}\nTRADING_FEE: ${TRADING_FEE}\nMIN_PROFIT_PERCENTAGE: ${MIN_PROFIT_PERCENTAGE}\nMAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}\n STOP_LOSS: ${STOP_LOSS}`)
 var orderBook_Bid = [];
 var orderBook_Ask = [];
 var candles = {};
@@ -85,7 +79,7 @@ var isClientDead = true;
 process.on('SIGINT', function () {
     console.log('Caught termination signal');
 
-    utilities.printWalletStatus(INITIAL_INVESTMENT, wallet, currencyWallet, latestPrice);
+    utilities.printWalletStatus(INITIAL_INVESTMENT, global.wallet, global.currencyWallet, global.latestPrice);
     process.exit();
 });
 
@@ -203,7 +197,7 @@ var mainProcessor = (ticker, data) => {
             // util.log(`[${ticker}] RSI: ${value}`)
             invest(storedWeightedSignalScore[ticker], ticker)
             storedCounts[ticker] += 1;
-        })
+        }).catch((reason) => util.error(reason))
     }
 
     // Candles
@@ -237,127 +231,6 @@ var mainProcessor = (ticker, data) => {
 
     // }
 
-}
-
-
-/***************************************************/
-/*              Investment Functions               */
-/***************************************************/
-function invest(score, ticker) {
-    if (latestPrice[ticker] != undefined) {
-        var price = latestPrice[ticker];
-        var qty = INVEST_PERCENTAGE * INITIAL_INVESTMENT / price;
-        // util.log(`${ticker} : ${price}`)
-
-        currencyWallet[ticker] = currencyWallet[ticker] != undefined ? currencyWallet[ticker] : {}
-        currencyWallet[ticker].qty = currencyWallet[ticker].qty != undefined ? currencyWallet[ticker].qty : 0
-        currencyWallet[ticker].price = currencyWallet[ticker].price != undefined ? currencyWallet[ticker].price : 0
-
-        // util.log(`qty: ${qty} | wallet: ${wallet} | price: ${JSON.stringify(price)}`)
-        // util.log(`Qty in [${ticker}] wallet: ${currencyWallet[ticker].qty}`)
-        // util.log(`Price in [${ticker}] wallet: ${currencyWallet[ticker].price}`)
-
-        // BUY
-        if (buyPositionCheck(ticker, qty, price, score)) {
-            var minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size;
-            var times = (qty / minAmount).toFixed(0);
-            qty = minAmount * times;
-            executor.submitMarket(ticker, qty, 'buy').then((res) => {
-                res = JSON.parse(res);
-                var executedPrice = parseFloat(res.price);
-                var avgExecutedPrice = res.avg_execution_price;
-                delete res.is_cancelled;
-                delete res.exchange;
-                delete res.was_forced;
-                delete res.is_live;
-                delete res.is_hidden;
-                util.log('executedPrice: ' + executedPrice)
-
-                wallet -= qty * executedPrice * (1 + TRADING_FEE);
-                currencyWallet[ticker].price = (executedPrice * qty + currencyWallet[ticker].qty * currencyWallet[ticker].price) / (qty + currencyWallet[ticker].qty); // calculate the weighted average price of all positions
-                currencyWallet[ticker].qty += qty;
-    
-                // util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`)
-                util.log(`\n****************************************************`)
-                util.log(res)
-                util.log(`****************************************************\n`)
-                utilities.printWalletStatus(INITIAL_INVESTMENT, wallet, currencyWallet, latestPrice);
-                db.storeTransactionToDB(ticker, executedPrice, qty, 1);
-                storedWeightedSignalScore[ticker] = 0; // clear score
-            }).catch((reason) => {
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!')
-                util.error(reason)
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!')
-            })
-            
-        }
-
-        // SELL
-        else if (sellPositionCheck(ticker, price, score)) {
-            executor.submitMarket(ticker, currencyWallet[ticker].qty, 'sell').then((res) => {
-                res = JSON.parse(res);
-                var executedPrice = parseFloat(res.price);
-                var avgExecutedPrice = res.avg_execution_price;
-                delete res.is_cancelled;
-                delete res.exchange;
-                delete res.was_forced;
-                delete res.is_live;
-                delete res.is_hidden;
-
-                wallet += currencyWallet[ticker].qty * executedPrice * (1 - TRADING_FEE);
-                // util.log(`************ Sell | ${currencyWallet[ticker].qty
-                util.log(`\n****************************************************`)
-                util.log(res)
-                util.log(`****************************************************\n`)
-                db.storeTransactionToDB(ticker, executedPrice, currencyWallet[ticker].qty, 0);
-                currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
-                currencyWallet[ticker].price = 0; // clear the price after sold
-                storedWeightedSignalScore[ticker] = 0; // clear score
-                utilities.printWalletStatus(INITIAL_INVESTMENT, wallet, currencyWallet, latestPrice);
-            }).catch((reason) => {
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!')
-                util.error(reason)
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!')
-            })
-        }
-    }
-
-}
-
-// Checks the long position on hand and evaluate whether
-// it's logical to exit the position
-function sellPositionCheck(ticker, price, score) {
-    var lastPrice = currencyWallet[ticker].price;
-
-    // util.log(`Checking sell position ${lastPrice}`)
-    // Can it maintain the min profit requirement and trading fee
-    if ((score <= SELL_SIGNAL_TRIGGER &&
-        currencyWallet[ticker].qty > 0 &&
-        (price > lastPrice * (1 + MIN_PROFIT_PERCENTAGE + TRADING_FEE))) ||
-        price < lastPrice * (1 - STOP_LOSS)) {
-        return true
-    }
-    else {
-        return false
-    }
-}
-
-
-// Checks the long position on hand and evaluate whether
-// it's logical to enter the position
-function buyPositionCheck(ticker, qty, price, score) {
-    var lastPrice = currencyWallet[ticker].price;
-
-    // util.log(`Checking buy [${ticker}] position ${lastPrice}`)
-    // Can it maintain the min profit requirement and trading fee
-    if (score >= BUY_SIGNAL_TRIGGER &&
-        wallet >= qty * price &&
-        (lastPrice == 0 || price.toFixed(4) < lastPrice.toFixed(4) * 0.99)) {
-        return true
-    }
-    else {
-        return false
-    }
 }
 
 /***************************************************/
@@ -515,7 +388,7 @@ var processTickerPrice = (ticker, data, subscore) => {
 
     // Store the latest price into storage for investment decisions
     // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
-    latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].last_price;
+    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].last_price;
     return promise;
 }
 
