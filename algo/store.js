@@ -55,7 +55,7 @@ exports.storeLivePrice = (ticker, price, bid, bid_size, ask, ask_size, high, low
                     console.error('There was a error when inserting into live price table')
                 }
                 else {
-                    util.log(`Store price | [${ticker}] @ $${price}`)
+                    util.log(`[${ticker}] price: $${price}`)
                 }
             })
     })

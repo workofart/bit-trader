@@ -1,5 +1,5 @@
 const _ = require('underscore');
-const request = require('request')
+const request = require('request-promise')
 const util = require('util')
 const $ = require('jquery')
 const moment = require('moment')
@@ -46,24 +46,20 @@ const getOptions = (url, body, queryParams = {}) => {
     }
 }
 
-_getAccountInfo = (callback) => {
+const _getAccountInfo = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'account_infos'
     const body = {
         request: '/v1/account_infos',
         nonce
     }
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    );
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 
 }
 
 
-_getTradingSummary = (callback) => {
+const _getTradingSummary = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'summary'
     const body = {
@@ -71,16 +67,12 @@ _getTradingSummary = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
 
-_getMarginSummary = (callback) => {
+const _getMarginSummary = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'margin_infos'
     const body = {
@@ -88,15 +80,11 @@ _getMarginSummary = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
-_getWalletBalance = (callback) => {
+const _getWalletBalance = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'balances'
     const body = {
@@ -104,15 +92,11 @@ _getWalletBalance = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
-_getActivePositions = (callback) => {
+const _getActivePositions = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'positions'
     const body = {
@@ -120,15 +104,11 @@ _getActivePositions = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
-_getActiveOrders = (callback) => {
+const _getActiveOrders = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'orders'
     const body = {
@@ -136,16 +116,12 @@ _getActiveOrders = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
 
-_getLedgerEntries = (callback) => {
+const _getLedgerEntries = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'history'
     const body = {
@@ -154,15 +130,11 @@ _getLedgerEntries = (callback) => {
         nonce
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
-_getPastTrades = (callback) => {
+const _getPastTrades = async () => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'mytrades'
     const body = {
@@ -174,15 +146,11 @@ _getPastTrades = (callback) => {
 
     util.debug(moment().subtract(7, 'days').unix())
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body))
+    return res;
 }
 
-_postNewOrder = (params, callback) => {
+const _postNewOrder = async (params) => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'order/new'
     const { ticker, amount, price, side, type } = params;
@@ -204,16 +172,11 @@ _postNewOrder = (params, callback) => {
     }
 
     // util.log(body);
-
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body));
+    return res;
 }
 
-_getOrderStatus = (id, callback) => {
+const _getOrderStatus = async (id) => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'order/status'
 
@@ -223,15 +186,11 @@ _getOrderStatus = (id, callback) => {
         order_id: id,
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body));
+    return res
 }
 
-_cancelOrder = (id, callback) => {
+const _cancelOrder = async (id) => {
     const nonce = (Date.now() * 10000).toString()
     const completeURL = URL + 'order/cancel'
 
@@ -241,60 +200,23 @@ _cancelOrder = (id, callback) => {
         order_id: id,
     }
 
-    return request.post(
-        getOptions(completeURL, body),
-        function (error, response, body) {
-            callback(JSON.parse(body))
-        }
-    )
+    let res = await request.post(getOptions(completeURL, body));
+    return res
 }
 
 /*********************************************************
  *                  Exported API end points
  *********************************************************/
-
-
-module.exports.getAccountInfo = (callback) => {
-    _getAccountInfo(callback);
-}
-
-
-module.exports.getTradingSummary = (callback) => {
-    _getTradingSummary(callback)
-}
-
-module.exports.getMarginSummary = (callback) => {
-    _getMarginSummary(callback)
-}
-
-module.exports.getWalletBalance = (callback) => {
-    _getWalletBalance(callback)
-}
-
-module.exports.getActivePositions = (callback) => {
-    _getActivePositions(callback)
-}
-
-module.exports.getActiveOrders = (callback) => {
-    _getActiveOrders(callback)
-}
-
-module.exports.getLedgerEntries = (callback) => {
-    _getLedgerEntries(callback)
-}
-
-module.exports.getPastTrades = (callback) => {
-    _getPastTrades(callback)
-}
-
-module.exports.postNewOrder = (params, callback) => {
-    _postNewOrder(params, callback)
-}
-
-module.exports.getOrderStatus = (id, callback) => {
-    _getOrderStatus(id, callback)
-}
-
-module.exports.cancelOrder = (id, callback) => {
-    _cancelOrder(id, callback)
+module.exports = {
+    getAccountInfo : _getAccountInfo,
+    getTradingSummary : _getTradingSummary,
+    getMarginSummary : _getMarginSummary,
+    getWalletBalance : _getWalletBalance,
+    getActivePositions : _getActivePositions,
+    getActiveOrders : _getActiveOrders,
+    getLedgerEntries : _getLedgerEntries,
+    getPastTrades : _getPastTrades,
+    postNewOrder : _postNewOrder,
+    getOrderStatus : _getOrderStatus,
+    cancelOrder : _cancelOrder
 }
