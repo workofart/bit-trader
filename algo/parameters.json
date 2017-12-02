@@ -1,13 +1,13 @@
 {
-    "RSI" : 15,
+    "RSI" : 31,
     "ADX" : 10,
     "ADX_STRONG_MULTIPLIER" : 1.3,
     "ADX_WEAK_MULTIPLIER" : 0.8,
-    "SMA" : 11,
-    "DEMA" : 26,
-    "PSAR_STEP" : 0.03,
+    "SMA" : 9,
+    "DEMA" : 21,
+    "PSAR_STEP" : 0.02,
     "PSAR_MAX" : 0.2,
-    "PSAR_BASE_SCORE" : 4,
-    "RSI_BASE_SCORE" : 5,
+    "PSAR_BASE_SCORE" : 0.3,
+    "RSI_BASE_SCORE" : 2,
     "DEMA_SMA_CROSS_SCORE" : 3
 }

@@ -6,7 +6,18 @@ const executor = require('./executor');
 const _ = require('underscore');
 const MIN_AMOUNT = require('./minOrder');
 
-module.exports.raceTheBook = (ticker, side, orderBook_Ask, orderBook_Bid) => {
+
+var latestActiveBuyOrders = {},
+    latestActiveSellOrders = {};
+
+
+module.exports.raceTheBook = (ticker, side, orderBook_Ask, orderBook_Bid, qty) => {
+    if (latestActiveBuyOrders[ticker] === undefined) {
+        latestActiveBuyOrders[ticker] = 0;
+    }
+    if (latestActiveSellOrders[ticker] === undefined) {
+        latestActiveSellOrders[ticker] = 999999;
+    }
     var precision = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()});
     var pricePrecision = precision.price_precision;
     // console.log(`Min Amount [${ticker}]: ${precision.minimum_order_size}`)
@@ -18,15 +29,19 @@ module.exports.raceTheBook = (ticker, side, orderBook_Ask, orderBook_Bid) => {
         // console.log(`BuyTOB: ${buyTOB}\nSellTOB: ${sellTOB}\nSpread: ${_spread(buyTOB, sellTOB)}`)
         if (side === 'buy') {
             var targetPrice = _babyStep(buyTOB, side);
-            if (targetPrice < sellTOB) {
-                // console.log(`Buy @ [${targetPrice}] | sellTOB=${sellTOB}`);
+            if (targetPrice < sellTOB && targetPrice > latestActiveBuyOrders[ticker]) {
+                latestActiveBuyOrders[ticker] = targetPrice;
+                console.log(`Buy @ [${targetPrice}] | buyTOB=${buyTOB} | sellTOB=${sellTOB}`);
+                executor.cancelPreviousSubmitNew(ticker.toLowerCase(), targetPrice.toString(), qty, side).then((data) => {console.log(data.price)});
             }
             // console.log(JSON.stringify(_.sortBy(Object.keys(orderBook_Bid[ticker]))))
         }
         else {
             var targetPrice = _babyStep(sellTOB, side);
-            if (targetPrice > buyTOB) {
-                // console.log(`Sell @ [${targetPrice}] | buyTOB=${buyTOB}`);
+            if (targetPrice > buyTOB && targetPrice < latestActiveBuyOrders[ticker]) {
+                latestActiveSellOrders[ticker] = targetPrice;
+                console.log(`Sell @ [${targetPrice}] | sellTOB=${sellTOB} | buyTOB=${buyTOB}`);
+                executor.cancelPreviousSubmitNew(ticker.toLowerCase(), targetPrice.toString(), qty, side).then((data) => {console.log(data.price)});
             }
         }
     }
