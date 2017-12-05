@@ -1,41 +1,41 @@
-const tickers = require('./mapping');
-const util = require('util');
-const WebSocket = require('ws');
-const moment = require('moment');
-const _ = require('underscore');
-const tulind = require('tulind');
+const tickers = require('./mapping'),
+      util = require('util'),
+      WebSocket = require('ws'),
+      moment = require('moment'),
+      _ = require('underscore');
 
 /************ Custom Functions **********/
-const indicators = require('./indicators');
-const utilities = require('./util');
-const db = require('./store');
-const executor = require('./executor');
-const automation = require('./automation');
+const indicators = require('./indicators'),
+      utilities = require('./util'),
+      db = require('./store'),
+      executor = require('./executor'),
+      automation = require('./automation');
 
 const {
     INITIAL_INVESTMENT, MAX_SCORE_INTERVAL, IS_BUY_IMMEDIATELY, STOP_LOSS
 } = require('./invest_constants');
 
-global.wallet = 600,
-global.currencyWallet = {},
+global.wallet = 600;
+global.currencyWallet = {};
 global.latestPrice = {};
+global.storedWeightedSignalScore = {};
 /***************************************************/
 const { invest } = require('./investment');
 
 /**************** WebSocket Client (From Bitfinex) *****************/
 const URL = 'http://127.0.0.1:3001/api/';
-var connection;
+let connection;
 /***************************************************/
 
 /**************** WebSocket Server (to UI) *****************/
-const connection_to_client = new WebSocket.Server({ host: '127.0.0.1', port: 1338 })
+const connection_to_client = new WebSocket.Server({ host: '127.0.0.1', port: 1338 });
 connection_to_client.on('request', (req) => {
     req.accept();
 })
 
 /***************************************************/
 
-var indicatorFlags = {
+let indicatorFlags = {
     'ADX': true,
     'RSI': true,
     'DEMA_SMA_CROSS': true,
@@ -43,38 +43,34 @@ var indicatorFlags = {
 }
 
 /************** OrderBook Parameters **************/
-const DEMAND_SUPPLY_SPREAD_MULTIPLIER = 1.1;
-const DEMAND_SUPPLY_DISTANCE = 3; // Demand is N times Supply, vice versa
-const SPREAD_THRESHOLD = 0.01; // 1% of bid/ask average, volatile if pass this threshold
-const AGGREGATE_SUPPLY_DEMAND_BASE = 1; // the base score for this subsignal
+const DEMAND_SUPPLY_SPREAD_MULTIPLIER = 1.1,
+      DEMAND_SUPPLY_DISTANCE = 3, // Demand is N times Supply, vice versa
+      SPREAD_THRESHOLD = 0.01, // 1% of bid/ask average, volatile if pass this threshold
+      AGGREGATE_SUPPLY_DEMAND_BASE = 1; // the base score for this subsignal
 /***************************************************/
-console.log('=======================')
-console.log('=                     =')
-console.log('=  WE ARE LIVE BABY   =')
-console.log('=                     =')
-console.log('=======================')
+console.log('=======================');
+console.log('=                     =');
+console.log('=  WE ARE LIVE BABY   =');
+console.log('=                     =');
+console.log('=======================');
 // util.log('--------------- OrderBook Parameters --------------')
 // util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
 /***************************************************/
 
 // util.log('---------------- Investment Parameters --------------')
 // util.log(`\nINITIAL_INVESTMENT: ${INITIAL_INVESTMENT}\nINVEST_PERCENTAGE: ${INVEST_PERCENTAGE}\nBUY_SIGNAL_TRIGGER: ${BUY_SIGNAL_TRIGGER}\nSELL_SIGNAL_TRIGGER: ${SELL_SIGNAL_TRIGGER}\nTRADING_FEE: ${TRADING_FEE}\nMIN_PROFIT_PERCENTAGE: ${MIN_PROFIT_PERCENTAGE}\nMAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}\n STOP_LOSS: ${STOP_LOSS}`)
-var orderBook_Bid = [];
-var orderBook_Ask = [];
-var candles = {};
-var tickerPrices = {};
-var indicatorStorage = {};
-var trendStrength = {};
-var isTrending = {};
+let orderBook_Bid = [],
+    orderBook_Ask = [],
+    candles = {},
+    tickerPrices = {},
+    storedCounts = {},
+    clientWS,
+    isClientDead = true;
 
-const isCandleEnabled = true;
-const isTickerPriceEnabled = true;
-const isOrderBookEnabled = true;
+const isCandleEnabled = true,
+      isTickerPriceEnabled = true,
+      isOrderBookEnabled = true;
 
-var storedCounts = {};
-var storedWeightedSignalScore = {};
-var clientWS;
-var isClientDead = true;
 /************ Pre-Termination Summary ***********/
 process.on('SIGINT', function () {
     console.log('Caught termination signal');
@@ -117,15 +113,14 @@ connection.on('open', () => {
 connection.setMaxListeners(15)
 
 
-
 connection.on('message', (msg) => {
-    var msg_parsed = JSON.parse(msg);
+    let msg_parsed = JSON.parse(msg);
 
     if (msg_parsed.hasOwnProperty('id')) {
         console.log('Received client [public_books]\'s id: ' + msg_parsed.id)
     }
 
-    var ticker = msg_parsed.ticker;
+    let ticker = msg_parsed.ticker;
 
     if (msg_parsed.hasOwnProperty('datasource')) {
 
@@ -141,25 +136,25 @@ connection.on('message', (msg) => {
 /*  - calculates final signal                      */
 /*  - trigger buy/sell action                      */
 /***************************************************/
-var mainProcessor = (ticker, data) => {
+let mainProcessor = (ticker, data) => {
     // Extract the symbol
     ticker = ticker.substr(-6);
 
     // Initialize the scores/counts for a given ticker
-    storedWeightedSignalScore[ticker] = storedWeightedSignalScore[ticker] != undefined ? storedWeightedSignalScore[ticker] : 0;
-    MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] != undefined ? MAX_SCORE_INTERVAL[ticker] : 40;
-    storedCounts[ticker] = storedCounts[ticker] != undefined ? storedCounts[ticker] : 0;
+    global.storedWeightedSignalScore[ticker] = global.storedWeightedSignalScore[ticker] !== undefined ? global.storedWeightedSignalScore[ticker] : 0;
+    MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] !== undefined ? MAX_SCORE_INTERVAL[ticker] : 40;
+    storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
 
 
     // reset signal score and make decision
     // if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-    //     if (storedWeightedSignalScore[ticker] != 0 && storedWeightedSignalScore[ticker] != Infinity) {
+    //     if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
     //         util.log('------------------------------------------------\n\n')
-    //         util.log(`[${ticker} | Weighted Signal Score: ${storedWeightedSignalScore[ticker].toFixed(4)}\n`)
+    //         util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
 
-    //         invest(storedWeightedSignalScore[ticker], ticker)
+    //         invest(global.storedWeightedSignalScore[ticker], ticker)
     //     }
-    //     storedWeightedSignalScore[ticker] = 0;
+    //     global.storedWeightedSignalScore[ticker] = 0;
     //     storedCounts[ticker] = 0;
     //     MAX_SCORE_INTERVAL[ticker] = 90;
     // }
@@ -167,8 +162,7 @@ var mainProcessor = (ticker, data) => {
 
     // Order books
     if (data.datasource === 'book' && isOrderBookEnabled) {
-        // console.log('Received order books: [' + ticker + ']')    
-        // storedWeightedSignalScore[ticker] += processOrderBook(ticker, data.data);
+        // console.log('Received order books: [' + ticker + ']')
         processOrderBook(ticker, data.data);
     }
 
@@ -176,26 +170,26 @@ var mainProcessor = (ticker, data) => {
     else if (data.datasource === 'ticker' && isTickerPriceEnabled) {
         // console.log('Received ticker price: [' + ticker + ']')
 
-        var promise = processTickerPrice(ticker, data.data, storedWeightedSignalScore[ticker]);
+        let promise = processTickerPrice(ticker, data.data, global.storedWeightedSignalScore[ticker]);
         promise.then((value) => {
             // util.log(`processTickerPrice.then(value)=${value}`)
-            storedWeightedSignalScore[ticker] = value;
+            global.storedWeightedSignalScore[ticker] = value;
             // util.log(`${ticker} count: ${storedCounts[ticker]}`)
                 // util.log(`[${ticker} | Weighted Signal Score: ${value.toFixed(4)}\n`)
             if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-                // if (storedWeightedSignalScore[ticker] != 0 && storedWeightedSignalScore[ticker] != Infinity) {
+                // if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
                 //     util.log('------------------------------------------------\n\n')
-                //     util.log(`[${ticker} | Weighted Signal Score: ${storedWeightedSignalScore[ticker].toFixed(4)}\n`)
-                //     invest(storedWeightedSignalScore[ticker], ticker)
+                //     util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
+                //     invest(global.storedWeightedSignalScore[ticker], ticker)
                 // }
                 // reset the signal score and counts
-                util.log(`Resetting signal score for [${ticker}]`)
-                storedWeightedSignalScore[ticker] = 0;
+                util.log(`Resetting signal score for [${ticker}]`);
+                global.storedWeightedSignalScore[ticker] = 0;
                 storedCounts[ticker] = 0;
                 MAX_SCORE_INTERVAL[ticker] = 40;
             }
             // util.log(`[${ticker}] RSI: ${value}`)
-            invest(storedWeightedSignalScore[ticker], ticker)
+            invest(global.storedWeightedSignalScore[ticker], ticker);
             storedCounts[ticker] += 1;
         }).catch((reason) => util.error(reason))
     }
@@ -208,13 +202,13 @@ var mainProcessor = (ticker, data) => {
     //         var subscore = value[0]
     //         var trend = value[1]
     //         // util.log(`Candle[${ticker} | subscore: ${subscore} | trend: ${trend}`)
-    //         storedWeightedSignalScore[ticker] = subscore
+    //         global.storedWeightedSignalScore[ticker] = subscore
 
     //         if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
                 
     //             // reset the signal score and counts
     //             util.log(`Resetting signal score for [${ticker}]`)
-    //             storedWeightedSignalScore[ticker] = 0;
+    //             global.storedWeightedSignalScore[ticker] = 0;
     //             storedCounts[ticker] = 0;
     //             MAX_SCORE_INTERVAL[ticker] = 40;
     //         }
@@ -225,25 +219,20 @@ var mainProcessor = (ticker, data) => {
     //             MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] + 20
     //             util.log(`[${ticker}] Strong strength, extending signal collection period: ${MAX_SCORE_INTERVAL[ticker]}`)
     //         }
-    //         invest(storedWeightedSignalScore[ticker], ticker)
+    //         invest(global.storedWeightedSignalScore[ticker], ticker)
     //         storedCounts[ticker] += 1;
     //     })
 
     // }
 
-}
+};
 
 /***************************************************/
 /*              Candle Functions                   */
 /***************************************************/
 
-var processCandles = (ticker, data) => {
-    var timeStamp;
-    var open;
-    var close;
-    var high;
-    var low;
-    var volume;
+let processCandles = (ticker, data) => {
+    let timeStamp, open, close, high, low, volume;
 
     // Handle the first entry
     if (Array.isArray(data[1])) {
@@ -256,22 +245,22 @@ var processCandles = (ticker, data) => {
         //     volume = data[i][5]
         // }
         return new Promise((resolve) => {
-            resolve([storedWeightedSignalScore[ticker],-1]);
+            resolve([global.storedWeightedSignalScore[ticker],-1]);
         })
     }
     else {
-        timeStamp = moment(data[0]).local().format('YYYY-MM-DD HH:mm:ss')
-        open = data[1]
-        close = data[2]
-        high = data[3]
-        low = data[4]
-        volume = data[5]
+        timeStamp = moment(data[0]).local().format('YYYY-MM-DD HH:mm:ss');
+        open = data[1];
+        close = data[2];
+        high = data[3];
+        low = data[4];
+        volume = data[5];
 
         // var processedData = {
         //     'time' : timeStamp
         // }
 
-        var processedData = {
+        let processedData = {
             'time': timeStamp,
             'open': open,
             'close': close,
@@ -279,14 +268,14 @@ var processCandles = (ticker, data) => {
             'low': low,
             'volume': volume,
             'ticker': ticker
-        }
+        };
 
         // console.log(processedData)
         // console.log(_.sortedIndex(candles, processedData, 'time'))
-        var existingItem = _.find(candles[ticker], (item) => {
+        let existingItem = _.find(candles[ticker], (item) => {
             return item.time === processedData.time
         });
-        if (existingItem == undefined) {
+        if (existingItem === undefined) {
 
             if (!Array.isArray(candles[ticker])) {
                 candles[ticker] = []
@@ -297,51 +286,48 @@ var processCandles = (ticker, data) => {
         // The latest data point might contain the same timestamp but a different price
         // Update the last item in the list with the current price
         else {
-            var removedItem = candles[ticker].splice(_.sortedIndex(candles[ticker], processedData, 'time'), 1, processedData)
+            let removedItem = candles[ticker].splice(_.sortedIndex(candles[ticker], processedData, 'time'), 1, processedData)
         }
-        var close = _.map(candles[ticker], (item) => {
-            return item.close;
-        })
-
-        var high = _.map(candles[ticker], (item) => {
-            return item.high;
-        })
-
-        var low = _.map(candles[ticker], (item) => {
-            return item.low;
-        })
+        let close = _.map(candles[ticker], (item) => {
+                return item.close;
+            }),
+            high = _.map(candles[ticker], (item) => {
+                return item.high;
+            }),
+            low = _.map(candles[ticker], (item) => {
+                return item.low;
+            });
 
         return new Promise((resolve) => {
-            indicators.calculatePSAR(high, low, close, storedWeightedSignalScore[ticker]).then((subscore) => {
+            indicators.calculatePSAR(high, low, close, global.storedWeightedSignalScore[ticker]).then((subscore) => {
                 indicators.calculateADX(high, low, close, subscore).then((result) => {
-                    // console.log(result)
                     resolve(result)
                 })
             })
         })
     }
-}
+};
 
 /***************************************************/
 /*           Ticker Price Functions                */
 /***************************************************/
 
-var processTickerPrice = (ticker, data, subscore) => {
+let processTickerPrice = (ticker, data, subscore) => {
     // util.log(`[${ticker}] current score: ${subscore}`)
-    var ticker = ticker
-    var bid = data[0]
-    var bid_size = data[1]
-    var ask = data[2]
-    var ask_size = data[3]
-    var daily_change = data[4]
-    var daily_change_perc = data[5]
-    var last_price = data[6]
-    var volume = data[7]
-    var high = data[8]
-    var low = data[9]
+    let ticker = ticker,
+        bid = data[0],
+        bid_size = data[1],
+        ask = data[2],
+        ask_size = data[3],
+        daily_change = data[4],
+        daily_change_perc = data[5],
+        last_price = data[6],
+        volume = data[7],
+        high = data[8],
+        low = data[9];
 
-    
-    var processedData = {
+
+    let processedData = {
         'ticker': ticker,
         'bid': bid,
         'bid_size': bid_size,
@@ -354,19 +340,19 @@ var processTickerPrice = (ticker, data, subscore) => {
         'high': high,
         'low': low,
         'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-    }
+    };
 
     // console.log(processedData)
-    var existingItem = _.find(tickerPrices[ticker], (item) => {
+    let existingItem = _.find(tickerPrices[ticker], (item) => {
         return item.time === processedData.time
     });
-    if (existingItem == undefined) {
+    if (existingItem === undefined) {
 
         if (!Array.isArray(tickerPrices[ticker])) {
             tickerPrices[ticker] = []
         }
         db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume)
-        if (clientWS != undefined && !isClientDead) {
+        if (clientWS !== undefined && !isClientDead) {
             console.log('Sending price data to client through websocket....');
             clientWS.send(JSON.stringify({
                 'ticker': ticker,
@@ -384,7 +370,7 @@ var processTickerPrice = (ticker, data, subscore) => {
         tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], processedData, 'time'), 0, processedData)
     }
 
-    var promise = computeIndicators(ticker, tickerPrices[ticker], subscore);
+    let promise = computeIndicators(ticker, tickerPrices[ticker], subscore);
 
     // Store the latest price into storage for investment decisions
     // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
@@ -396,23 +382,19 @@ var processTickerPrice = (ticker, data, subscore) => {
 function computeIndicators(ticker, data, processScore) {
     // var subscore = 0;
     
-    var close = _.map(data, (item) => {
+    let close = _.map(data, (item) => {
         return item.last_price;
-    })
+    });
 
     // util.log(`[${ticker}] InputScore: ${processScore}`)
     indicators.initIndicators(indicatorFlags);
 
     // console.log('[' + ticker + ']: ' + JSON.stringify(close));
-    var promise = new Promise((resolve) => {
-        // util.log(`[${ticker}] InRSI: ${processScore}`)
-        // indicators.calculateRSI(close, processScore, ticker).then((subscore) => {
-        //         resolve(subscore);
-        // });
+    let promise = new Promise((resolve) => {
         indicators.calculateBB_RSI (close, 2).then((subscore) => {
             resolve(subscore);
         })
-    })
+    });
     return promise;
 }
 

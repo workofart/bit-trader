@@ -8,7 +8,7 @@ var invest = {
     MIN_PROFIT_PERCENTAGE : 0.015, // 0.X% for min profit to make a move
     MAX_SCORE_INTERVAL : {}, // The maximum number of data points before making a decision then resetting all signal,
     IS_BUY_IMMEDIATELY : false, // if entry point is carefully selected, enable this. Else, disable.
-    STOP_LOSS : 1 // sell if lost more than X%
+    STOP_LOSS : 0.9 // sell if lost more than X%
 }
 
 module.exports = invest;
