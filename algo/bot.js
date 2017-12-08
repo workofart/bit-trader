@@ -49,15 +49,15 @@ util.log('--------------- OrderBook Parameters --------------')
 util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
 
 /************** Investment Parameters **************/
-var wallet = 600;
+var wallet = 1000;
 var currencyWallet = {};
 var latestPrice = {};
-const INITIAL_INVESTMENT = 600;
+const INITIAL_INVESTMENT = 1000;
 const INVEST_PERCENTAGE = 0.1;
 const BUY_SIGNAL_TRIGGER = 10; // if score > this, buy
 const SELL_SIGNAL_TRIGGER = -10; // if score < this, sell
 const TRADING_FEE = 0.002; // 0.X% for all buys/sells
-const MIN_PROFIT_PERCENTAGE = 0.015; // 0.X% for min profit to make a move
+const MIN_PROFIT_PERCENTAGE = 0.011; // 0.X% for min profit to make a move
 var MAX_SCORE_INTERVAL = {}; // The maximum number of data points before making a decision then resetting all signals
 const IS_BUY_IMMEDIATELY = false; // if entry point is carefully selected, enable this. Else, disable.
 const STOP_LOSS = 1; // sell if lost more than X%
