@@ -27,13 +27,15 @@ class Investment {
                 let minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size,
                     times = (qty / minAmount).toFixed(0);
                 qty = minAmount * times;
-                Investment.submitMarketOrder(ticker, 'buy', qty);
+                // Investment.submitMarketOrder(ticker, 'buy', qty);
+                Investment.submitDummyOrder(ticker, 'buy', qty, price);
 
             }
 
             // SELL
             else if (Investment.sellPositionCheck(ticker, price, score)) {
-                Investment.submitMarketOrder(ticker, 'sell')
+                // Investment.submitMarketOrder(ticker, 'sell');
+                Investment.submitDummyOrder(ticker, 'sell', qty, price);
             }
         }
 
@@ -89,8 +91,30 @@ class Investment {
         return (price * qty +  global.currencyWallet[ticker].qty *  global.currencyWallet[ticker].price) / (qty +  global.currencyWallet[ticker].qty);
     }
 
+    static submitDummyOrder (ticker, side, qty, price) {
+        if (side === 'sell') {
+            global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - TRADING_FEE);
+            util.log(`************ Sell | ${ global.currencyWallet[ticker].qty}`);
+            // db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
+            global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
+            global.currencyWallet[ticker].price = 0; // clear the price after sold
+            storedWeightedSignalScore[ticker] = 0; // clear score
+            utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
+        }
+        else if (side === 'buy') {
+            global.wallet -= qty * price * (1 + TRADING_FEE);
+            global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
+            global.currencyWallet[ticker].qty += qty;
+            util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`);
+            utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
+            // db.storeTransactionToDB(ticker, price, qty, 1);
+            global.storedWeightedSignalScore[ticker] = 0; // clear score
+        }
+    }
+
     static submitMarketOrder (ticker, side, qty) {
         if (side === 'sell') {
+
             executor.submitMarket(ticker,  global.currencyWallet[ticker].qty, side).then((res) => {
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);

@@ -1,6 +1,6 @@
 global.chai = require('chai');
-global.expect = chai.expect;
-chai.use(require('chai-as-promised'));
+global.expect = global.chai.expect;
+global.chai.use(require('chai-as-promised'));
 
 global.currencyWallet = {
     btcusd: {

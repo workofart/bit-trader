@@ -165,9 +165,9 @@ exports.calculateBB_RSI = (close, std_length, period = RSI) => {
 var BB = (close, period, std_length) => {
     return new Promise((resolve) => {
         tulind.indicators.bbands.indicator([close], [period, std_length], function (err, results) {
-            var bb_lower = results[0][results[0].length - 1].toFixed(4);
-            var bb_mid = results[1][results[1].length - 1].toFixed(4);
-            var bb_upper = results[2][results[2].length - 1].toFixed(4);
+            var bb_lower = results[0][results[0].length - 1].toFixed(2);
+            var bb_mid = results[1][results[1].length - 1].toFixed(2);
+            var bb_upper = results[2][results[2].length - 1].toFixed(2);
 
             // console.log(`bb_lower ${bb_lower} | bb_mid ${bb_mid} | bb_upper ${bb_upper}`)
             resolve({ bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) })
@@ -183,7 +183,17 @@ var RSI_FUNC = (close, period) => {
         })
     })
 }
+
+var ADX_FUNC = (high, low, close, period) => {
+    return new Promise((resolve) => {
+        tulind.indicators.adx.indicator([high, low, close], [period], (err, results) => {
+            var adx = results[0];
+            resolve(parseFloat((adx[adx.length - 1].toFixed(2))));
+        })
+    })
+}
 exports.BB = BB;
+exports.ADX = ADX_FUNC;
 exports.RSI = RSI_FUNC;
 // if (Array.isArray(indicatorStorage.sma) && 
 // Array.isArray(indicatorStorage.rsi) && 
