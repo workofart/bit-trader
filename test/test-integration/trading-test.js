@@ -12,10 +12,10 @@ let tickerPrices = {},
     storedCounts = {};
 
 let indicatorFlags = {
-    'ADX': true,
-    'RSI': true,
-    'DEMA_SMA_CROSS': true,
-    'PSAR': true
+    ADX: true,
+    RSI: true,
+    DEMA_SMA_CROSS: true,
+    PSAR: true
 };
 
 global.wallet = 600;
