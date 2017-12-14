@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="JSHintConfiguration" version="2.9.5" use-config-file="false" use-custom-config-file="true" custom-config-file-path="$PROJECT_DIR$/client/node_modules/bl/.jshintrc">
+  <component name="JSHintConfiguration" version="2.9.5" use-config-file="true" use-custom-config-file="true" custom-config-file-path="$PROJECT_DIR$/client/node_modules/bl/.jshintrc">
     <option asi="false" />
     <option bitwise="true" />
     <option boss="false" />
