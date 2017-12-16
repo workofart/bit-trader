@@ -352,7 +352,7 @@ function buyPositionCheck(ticker, qty, price, score) {
     // Can it maintain the min profit requirement and trading fee
     if (score >= BUY_SIGNAL_TRIGGER &&
         wallet >= qty * price &&
-        (lastPrice == 0 || price.toFixed(4) < lastPrice.toFixed(4) * 0.98)) {
+        (lastPrice == 0 || price.toFixed(4) < lastPrice.toFixed(4) * 0.97)) {
         return true
     }
     else {
