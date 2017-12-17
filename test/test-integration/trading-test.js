@@ -23,8 +23,8 @@ global.currencyWallet = {};
 global.latestPrice = {};
 global.storedWeightedSignalScore = {};
 
-const fetchPrice = (ticker, callback) => {
-    var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP LIMIT 10;`;
+const fetchPrice = (ticker, count, callback) => {
+    let query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP LIMIT ${count};`;
     db.pool.connect((err, client, done) => {
         if(err) {
             console.log(err);
@@ -45,11 +45,12 @@ const fetchPrice = (ticker, callback) => {
     });
 };
 
-fetchPrice('BTCUSD', (rows) => {
-    for (var i in rows) {
-        let {ticker, price, timestamp} = rows[i];
-        console.log(`${timestamp} | ${ticker}: ${price}`);
-        let promise = processTickerPrice(ticker, rows[i], global.storedWeightedSignalScore[ticker]);
+fetchPrice('BTCUSD', 100, (rows) => {
+    for (let row of rows) {
+        let {ticker, price, timestamp} = row;
+        // console.log(`${timestamp} | ${ticker}: ${price}`);
+        // util.log(row);
+        let promise = processTickerPrice(ticker, row);
         promise.then((value) => {
             global.storedWeightedSignalScore[ticker] = value;
             if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
@@ -66,37 +67,11 @@ fetchPrice('BTCUSD', (rows) => {
 });
 
 
-let processTickerPrice = (ticker, data, subscore) => {
-    // util.log(`[${ticker}] current score: ${subscore}`)
-    let bid = data[0],
-        bid_size = data[1],
-        ask = data[2],
-        ask_size = data[3],
-        daily_change = data[4],
-        daily_change_perc = data[5],
-        last_price = data[6],
-        volume = data[7],
-        high = data[8],
-        low = data[9];
+let processTickerPrice = (ticker, data) => {
 
-
-    let processedData = {
-        'ticker': ticker,
-        'bid': bid,
-        'bid_size': bid_size,
-        'ask': ask,
-        'ask_size': ask_size,
-        'daily_change': daily_change,
-        'daily_change_perc': daily_change_perc,
-        'last_price': last_price,
-        'volume': volume,
-        'high': high,
-        'low': low,
-        'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-    };
 
     let existingItem = _.find(tickerPrices[ticker], (item) => {
-        return item.time === processedData.time
+        return item.timestamp === data.timestamp
     });
     if (existingItem === undefined) {
 
@@ -104,28 +79,28 @@ let processTickerPrice = (ticker, data, subscore) => {
             tickerPrices[ticker] = []
         }
 
-        tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], processedData, 'time'), 0, processedData)
+        tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], data, 'timestamp'), 0, data)
     }
-
-    let promise = computeIndicators(ticker, tickerPrices[ticker], subscore);
+    util.log(tickerPrices[ticker]);
+    let promise = computeIndicators(ticker, tickerPrices[ticker]);
 
     // Store the latest price into storage for investment decisions
     // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
-    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].last_price;
+    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].price;
     return promise;
 }
 
-function computeIndicators(ticker, data, processScore) {
+function computeIndicators(ticker, data) {
     // var subscore = 0;
 
     let close = _.map(data, (item) => {
-        return item.last_price;
+        return item.price;
     });
 
     // util.log(`[${ticker}] InputScore: ${processScore}`)
     indicators.initIndicators(indicatorFlags);
 
-    // console.log('[' + ticker + ']: ' + JSON.stringify(close));
+    console.log('[' + ticker + ']: ' + JSON.stringify(close));
     let promise = new Promise((resolve) => {
         indicators.calculateBB_RSI (close, 2).then((subscore) => {
             resolve(subscore);
