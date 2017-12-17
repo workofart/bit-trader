@@ -1,5 +1,6 @@
 const MIN_AMOUNT = require('./minOrder'),
       utilities = require('./util'),
+      util = require('util'),
       db = require('./store'),
       executor = require('./executor'),
     {
@@ -20,7 +21,7 @@ class Investment {
             let price =  global.latestPrice[ticker],
                 qty = INVEST_PERCENTAGE * INITIAL_INVESTMENT / price;
 
-            setupCurrencyWallet();
+            Investment.setupCurrencyWallet();
 
             // BUY
             if (Investment.buyPositionCheck(ticker, qty, price, score)) {
@@ -98,7 +99,7 @@ class Investment {
             // db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             global.currencyWallet[ticker].price = 0; // clear the price after sold
-            storedWeightedSignalScore[ticker] = 0; // clear score
+            global.storedWeightedSignalScore[ticker] = 0; // clear score
             utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
         }
         else if (side === 'buy') {
