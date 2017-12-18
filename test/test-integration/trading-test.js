@@ -18,7 +18,7 @@ let indicatorFlags = {
     PSAR: true
 };
 
-global.wallet = 600;
+global.wallet = 1000;
 global.currencyWallet = {};
 global.latestPrice = {};
 global.storedWeightedSignalScore = {};
@@ -45,7 +45,7 @@ const fetchPrice = (ticker, count, callback) => {
     });
 };
 
-fetchPrice('BTCUSD', 100, (rows) => {
+fetchPrice('BTCUSD', 4000, (rows) => {
     for (let row of rows) {
         let {ticker, price, timestamp} = row;
         // console.log(`${timestamp} | ${ticker}: ${price}`);
@@ -62,7 +62,7 @@ fetchPrice('BTCUSD', 100, (rows) => {
             }
             Investment.invest(global.storedWeightedSignalScore[ticker], ticker);
             storedCounts[ticker] += 1;
-        }).catch((reason) => util.error(reason))
+        }).catch((reason) => {util.error(reason); util.error(reason.stack)})
     }
 });
 
@@ -81,7 +81,7 @@ let processTickerPrice = (ticker, data) => {
 
         tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], data, 'timestamp'), 0, data)
     }
-    util.log(tickerPrices[ticker]);
+    // util.log(tickerPrices[ticker]);
     let promise = computeIndicators(ticker, tickerPrices[ticker]);
 
     // Store the latest price into storage for investment decisions
@@ -100,11 +100,13 @@ function computeIndicators(ticker, data) {
     // util.log(`[${ticker}] InputScore: ${processScore}`)
     indicators.initIndicators(indicatorFlags);
 
-    console.log('[' + ticker + ']: ' + JSON.stringify(close));
+    // console.log('[' + ticker + ']: ' + JSON.stringify(close));
     let promise = new Promise((resolve) => {
-        indicators.calculateBB_RSI (close, 2).then((subscore) => {
-            resolve(subscore);
-        })
+        indicators.calculateBB_RSI (close, 2)
+            .then((subscore) => {
+                resolve(subscore);
+            })
+            .catch((reason) => { util.error(reason)})
     });
     return promise;
 }

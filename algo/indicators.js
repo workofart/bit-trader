@@ -141,7 +141,7 @@ exports.calculateBB_RSI = (close, std_length, period = RSI) => {
                     //     resolve(0);
                     // }
                     var { bb_lower, bb_upper } = value;
-                    util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
+                    // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
                     // Long position
                     if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
                         resolve(10)
