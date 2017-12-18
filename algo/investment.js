@@ -2,6 +2,7 @@ const MIN_AMOUNT = require('./minOrder'),
       utilities = require('./util'),
       util = require('util'),
       db = require('./store'),
+      _ = require('underscore'),
       executor = require('./executor'),
     {
         INITIAL_INVESTMENT, INVEST_PERCENTAGE,
@@ -21,7 +22,7 @@ class Investment {
             let price =  global.latestPrice[ticker],
                 qty = INVEST_PERCENTAGE * INITIAL_INVESTMENT / price;
 
-            Investment.setupCurrencyWallet();
+            Investment.setupCurrencyWallet(ticker);
 
             // BUY
             if (Investment.buyPositionCheck(ticker, qty, price, score)) {
@@ -45,7 +46,7 @@ class Investment {
     // Checks the long position on hand and evaluate whether
     // it's logical to exit the position
     static sellPositionCheck(ticker, price, score) {
-        return (Investment.sellSignalReq(score) || Investment.minProfitReq(price) || Investment.stopLossReq(ticker, price))
+        return (Investment.sellSignalReq(score) || Investment.minProfitReq(ticker, price) || Investment.stopLossReq(ticker, price))
             && Investment.currencyBalanceReq(ticker);
     }
 
@@ -171,7 +172,7 @@ class Investment {
         }
     }
 
-    static setupCurrencyWallet() {
+    static setupCurrencyWallet(ticker) {
         global.currencyWallet[ticker] =  global.currencyWallet[ticker] !== undefined ?  global.currencyWallet[ticker] : {};
         global.currencyWallet[ticker].qty =  global.currencyWallet[ticker].qty !== undefined ?  global.currencyWallet[ticker].qty : 0;
         global.currencyWallet[ticker].price =  global.currencyWallet[ticker].price !== undefined ?  global.currencyWallet[ticker].price : 0;
