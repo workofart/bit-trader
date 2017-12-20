@@ -9,5 +9,6 @@
     "PSAR_MAX" : 0.2,
     "PSAR_BASE_SCORE" : 0.3,
     "RSI_BASE_SCORE" : 2,
-    "DEMA_SMA_CROSS_SCORE" : 3
+    "DEMA_SMA_CROSS_SCORE" : 3,
+    "BB_STD_DEV": 1.5
 }
