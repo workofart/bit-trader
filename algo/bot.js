@@ -110,7 +110,7 @@ connection.on('open', () => {
     orderBook_Bid = [];
     orderBook_Ask = [];
 });
-connection.setMaxListeners(15)
+connection.setMaxListeners(15);
 
 
 connection.on('message', (msg) => {

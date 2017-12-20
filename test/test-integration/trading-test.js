@@ -18,12 +18,12 @@ let indicatorFlags = {
     PSAR: true
 };
 
-global.wallet = 1000;
+global.wallet = INITIAL_INVESTMENT;
 global.currencyWallet = {};
 global.latestPrice = {};
 global.storedWeightedSignalScore = {};
 
-const fetchPrice = (ticker, count, callback) => {
+const fetchPrice = async (ticker, count, callback) => {
     let query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP LIMIT ${count};`;
     db.pool.connect((err, client, done) => {
         if(err) {
@@ -45,31 +45,31 @@ const fetchPrice = (ticker, count, callback) => {
     });
 };
 
-fetchPrice('BTCUSD', 4000, (rows) => {
+fetchPrice('BTCUSD', 17500, async (rows) => {
     for (let row of rows) {
         let {ticker, price, timestamp} = row;
-        // console.log(`${timestamp} | ${ticker}: ${price}`);
-        // util.log(row);
-        let promise = processTickerPrice(ticker, row);
-        promise.then((value) => {
-            global.storedWeightedSignalScore[ticker] = value;
-            if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-                // reset the signal score and counts
-                util.log(`Resetting signal score for [${ticker}]`);
-                global.storedWeightedSignalScore[ticker] = 0;
-                storedCounts[ticker] = 0;
-                MAX_SCORE_INTERVAL[ticker] = 40;
-            }
-            Investment.invest(global.storedWeightedSignalScore[ticker], ticker);
-            storedCounts[ticker] += 1;
-        }).catch((reason) => {util.error(reason); util.error(reason.stack)})
+        global.storedWeightedSignalScore[ticker] = global.storedWeightedSignalScore[ticker] !== undefined ? global.storedWeightedSignalScore[ticker] : 0;
+        MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] !== undefined ? MAX_SCORE_INTERVAL[ticker] : 40;
+        storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
+
+        let score = await processTickerPrice(ticker, row);
+
+        // await util.log(`${ticker}: ${score}`);
+        global.storedWeightedSignalScore[ticker] = score;
+        if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
+            // reset the signal score and counts
+            // util.log(`Resetting signal score for [${ticker}]`);
+            global.storedWeightedSignalScore[ticker] = 0;
+            storedCounts[ticker] = 0;
+            MAX_SCORE_INTERVAL[ticker] = 40;
+        }
+        Investment.invest(global.storedWeightedSignalScore[ticker], ticker);
+        storedCounts[ticker] += 1;
     }
 });
 
 
-let processTickerPrice = (ticker, data) => {
-
-
+let processTickerPrice = async (ticker, data) => {
     let existingItem = _.find(tickerPrices[ticker], (item) => {
         return item.timestamp === data.timestamp
     });
@@ -81,16 +81,16 @@ let processTickerPrice = (ticker, data) => {
 
         tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], data, 'timestamp'), 0, data)
     }
-    // util.log(tickerPrices[ticker]);
-    let promise = computeIndicators(ticker, tickerPrices[ticker]);
-
     // Store the latest price into storage for investment decisions
-    // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
     global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].price;
-    return promise;
+
+    // util.log(tickerPrices[ticker]);
+
+    // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
+    return await computeIndicators(ticker, tickerPrices[ticker]);
 }
 
-function computeIndicators(ticker, data) {
+async function computeIndicators(ticker, data) {
     // var subscore = 0;
 
     let close = _.map(data, (item) => {
@@ -101,12 +101,6 @@ function computeIndicators(ticker, data) {
     indicators.initIndicators(indicatorFlags);
 
     // console.log('[' + ticker + ']: ' + JSON.stringify(close));
-    let promise = new Promise((resolve) => {
-        indicators.calculateBB_RSI (close, 2)
-            .then((subscore) => {
-                resolve(subscore);
-            })
-            .catch((reason) => { util.error(reason)})
-    });
-    return promise;
+
+    return await indicators.calculateBB_RSI (close);
 }

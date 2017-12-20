@@ -9,7 +9,8 @@ var flag = {
 }
 const {
         RSI, ADX, ADX_STRONG_MULTIPLIER, ADX_WEAK_MULTIPLIER,
-    SMA, DEMA, PSAR_STEP, PSAR_MAX, PSAR_BASE_SCORE, RSI_BASE_SCORE, DEMA_SMA_CROSS_SCORE
+    SMA, DEMA, PSAR_STEP, PSAR_MAX, PSAR_BASE_SCORE, RSI_BASE_SCORE, DEMA_SMA_CROSS_SCORE,
+    BB_STD_DEV
     } = require('./parameters');
 
 // console.log(`${RSI}, ${ADX}, ${ADX_STRONG_MULTIPLIER}, ${ADX_WEAK_MULTIPLIER},
@@ -132,39 +133,69 @@ exports.calculateADX = (high, low, close, subscore) => {
 }
 
 // Combines RSI and Bolinger Bands
-exports.calculateBB_RSI = (close, std_length, period = RSI) => {
+exports.calculateBB_RSI = async (close, period = RSI) => {
     if (close.length > period && flag.RSI) {
-        return new Promise((resolve) => {
-            RSI_FUNC(close, period).then((rsi) => {
-                BB(close, period, std_length).then((value) => {
-                    // if (value == 0) {
-                    //     resolve(0);
-                    // }
-                    var { bb_lower, bb_upper } = value;
-                    // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
-                    // Long position
-                    if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
-                        resolve(10)
-                    }
-                    // Short position
-                    else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
-                        resolve(-10)
-                    }
-                    else {
-                        resolve(0)
-                    }
-                }).catch((reason) => {
-                    console.log(reason);
-                })
-            })
-        })
+
+        let rsi = await RSI_FUNC_ASYNC(close, period);
+        let bb_score = await BB_ASYNC(close, period, BB_STD_DEV);
+        let { bb_lower, bb_upper } = bb_score;
+        // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
+        // Long position
+        if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
+            return 10;
+        }
+        // Short position
+        else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
+            return -10;
+        }
+        else {
+            return 0;
+        }
+
+                // .then((rsi) => {
+                // BB(close, period, std_length).then((value) => {
+                //     // if (value == 0) {
+                //     //     resolve(0);
+                //     // }
+                //     var { bb_lower, bb_upper } = value;
+                //     // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
+                //     // Long position
+                //     if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
+                //         resolve(10)
+                //     }
+                //     // Short position
+                //     else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
+                //         resolve(-10)
+                //     }
+                //     else {
+                //         resolve(0)
+                //     }
+                // }).catch((reason) => {
+                //     console.log(reason);
+                // })
+            // })
+        // }
     }
-    return new Promise((resolve) => { resolve(0); });
+    // return new Promise((resolve) => { resolve(0); });
 }
 
-var BB = (close, period, std_length) => {
+async function BB_ASYNC (close, period) {
+    // return new Promise((resolve) => {
+        let results = await tulind.indicators.bbands.indicator([close], [period, BB_STD_DEV]);
+
+        var bb_lower = results[0][results[0].length - 1].toFixed(2);
+        var bb_mid = results[1][results[1].length - 1].toFixed(2);
+        var bb_upper = results[2][results[2].length - 1].toFixed(2);
+
+            // console.log(`bb_lower ${bb_lower} | bb_mid ${bb_mid} | bb_upper ${bb_upper}`)
+        return { bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) };
+    // })
+}
+
+
+var BB = (close, period) => {
     return new Promise((resolve) => {
-        tulind.indicators.bbands.indicator([close], [period, std_length], function (err, results) {
+        tulind.indicators.bbands.indicator([close], [period, BB_STD_DEV], function (err, results) {
             var bb_lower = results[0][results[0].length - 1].toFixed(2);
             var bb_mid = results[1][results[1].length - 1].toFixed(2);
             var bb_upper = results[2][results[2].length - 1].toFixed(2);
@@ -173,6 +204,12 @@ var BB = (close, period, std_length) => {
             resolve({ bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) })
         })
     })
+}
+
+async function RSI_FUNC_ASYNC (close, period) {
+        let results = await tulind.indicators.rsi.indicator([close], [period]);
+        var rsi = results[0];
+        return parseFloat(rsi[rsi.length - 1].toFixed(2));
 }
 
 var RSI_FUNC = (close, period) => {

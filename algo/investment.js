@@ -8,7 +8,7 @@ const MIN_AMOUNT = require('./minOrder'),
         INITIAL_INVESTMENT, INVEST_PERCENTAGE,
         MIN_PROFIT_PERCENTAGE, TRADING_FEE,
         BUY_SIGNAL_TRIGGER, SELL_SIGNAL_TRIGGER,
-        STOP_LOSS
+        STOP_LOSS, REPEATED_BUY_MARGIN
     }  = require('./invest_constants');
 
 class Investment {
@@ -18,7 +18,7 @@ class Investment {
     /*              Investment statics               */
     /***************************************************/
     static invest(score, ticker) {
-        if ( global.latestPrice[ticker] !== undefined) {
+        if (global.latestPrice[ticker] !== undefined) {
             let price =  global.latestPrice[ticker],
                 qty = INVEST_PERCENTAGE * INITIAL_INVESTMENT / price;
 
@@ -46,8 +46,8 @@ class Investment {
     // Checks the long position on hand and evaluate whether
     // it's logical to exit the position
     static sellPositionCheck(ticker, price, score) {
-        return (Investment.sellSignalReq(score) || Investment.minProfitReq(ticker, price) || Investment.stopLossReq(ticker, price))
-            && Investment.currencyBalanceReq(ticker);
+        return (Investment.minProfitReq(ticker, price) || Investment.stopLossReq(ticker, price))
+            && Investment.currencyBalanceReq(ticker) && Investment.sellSignalReq(score);
     }
 
 
@@ -59,7 +59,7 @@ class Investment {
 
     static repeatedBuyReq (ticker, price) {
         let lastPrice =  global.currencyWallet[ticker].price;
-        return lastPrice === 0 || price.toFixed(4) < lastPrice.toFixed(4) * 0.99
+        return lastPrice === 0 || price.toFixed(4) < lastPrice.toFixed(4) * (1 - REPEATED_BUY_MARGIN);
     }
 
     static stopLossReq (ticker, price) {
@@ -96,7 +96,7 @@ class Investment {
     static submitDummyOrder (ticker, side, qty, price) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - TRADING_FEE);
-            util.log(`************ Sell | ${ global.currencyWallet[ticker].qty}`);
+            util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} @ ${price}`);
             // db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             global.currencyWallet[ticker].price = 0; // clear the price after sold

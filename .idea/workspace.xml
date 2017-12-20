@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6659d92-f6ea-4470-a819-dd962529006c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/test/test-unit/executor-test.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/algo/bot.js" afterPath="$PROJECT_DIR$/algo/bot.js" />
+      <change beforePath="$PROJECT_DIR$/algo/executor.js" afterPath="$PROJECT_DIR$/algo/executor.js" />
+      <change beforePath="$PROJECT_DIR$/algo/indicators.js" afterPath="$PROJECT_DIR$/algo/indicators.js" />
+      <change beforePath="$PROJECT_DIR$/algo/invest_constants.js" afterPath="$PROJECT_DIR$/algo/invest_constants.js" />
+      <change beforePath="$PROJECT_DIR$/algo/investment.js" afterPath="$PROJECT_DIR$/algo/investment.js" />
+      <change beforePath="$PROJECT_DIR$/algo/parameters.json" afterPath="$PROJECT_DIR$/algo/parameters.json" />
+      <change beforePath="$PROJECT_DIR$/test/test-integration/trading-test.js" afterPath="$PROJECT_DIR$/test/test-integration/trading-test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,12 +27,94 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="bot.js" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="executor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/executor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+              <folding>
+                <marker date="1513740807133" expanded="true" signature="411:428" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="executor-test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-unit/executor-test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" column="55" lean-forward="false" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indicator-test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bot.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algo/bot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="354" column="28" lean-forward="false" selection-start-line="354" selection-start-column="28" selection-end-line="354" selection-end-column="28" />
+            <state relative-caret-position="484">
+              <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="trading-test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="invest_constants.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/invest_constants.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="investment-test.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1462">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="investment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/investment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="704">
+              <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indicators.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/indicators.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="140" column="11" lean-forward="false" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -46,10 +136,11 @@
       <find>=&gt;</find>
       <find>result = indicator</find>
       <find>tickerprices</find>
-      <find>storedCounts</find>
       <find>storedCounts = {},MAX_SCORE_INTERVAL</find>
       <find>MAX_SCORE_INTERVAL</find>
       <find>storedWeightedSignalScore</find>
+      <find>st</find>
+      <find>storedCounts</find>
     </findStrings>
     <replaceStrings>
       <replace>static</replace>
@@ -63,17 +154,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/algo/invest_constants.js" />
         <option value="$PROJECT_DIR$/test/test-unit/investment-test.js" />
         <option value="$PROJECT_DIR$/test/test.js" />
         <option value="$PROJECT_DIR$/test/env-setup.js" />
         <option value="$PROJECT_DIR$/test/test-unit/indicator-test.js" />
         <option value="$PROJECT_DIR$/test/test-integration/trading.js" />
-        <option value="$PROJECT_DIR$/algo/bot.js" />
-        <option value="$PROJECT_DIR$/algo/indicators.js" />
-        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
-        <option value="$PROJECT_DIR$/algo/investment.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/algo/investment.js" />
+        <option value="$PROJECT_DIR$/algo/parameters.json" />
+        <option value="$PROJECT_DIR$/algo/indicators.js" />
+        <option value="$PROJECT_DIR$/test/test-unit/executor-test.js" />
+        <option value="$PROJECT_DIR$/algo/executor.js" />
+        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
+        <option value="$PROJECT_DIR$/algo/bot.js" />
+        <option value="$PROJECT_DIR$/algo/invest_constants.js" />
       </list>
     </option>
   </component>
@@ -96,8 +190,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2345" />
-    <option name="y" value="-18" />
+    <option name="x" value="717" />
+    <option name="y" value="308" />
     <option name="width" value="1553" />
     <option name="height" value="1047" />
   </component>
@@ -117,7 +211,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -140,27 +233,40 @@
               <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="test-integration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="test-unit" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/package.json" />
     <property name="nodejs_interpreter_path" value="D:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="D:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.jscs" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.detected.package.jscs" value="true" />
-    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.jscs" value="C:\Users\Henry\AppData\Roaming\npm\node_modules\jscs" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="" />
@@ -191,7 +297,7 @@
       <node-js-remote-debug />
       <method />
     </configuration>
-    <configuration name="Indicators.ADX Trend" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="Executor Tests" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -200,10 +306,9 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test-unit/executor-test.js</test-file>
       <test-names>
-        <name value="Indicators" />
-        <name value="ADX Trend" />
+        <name value="Executor Tests" />
       </test-names>
     </configuration>
     <configuration name="Indicators.ADX Trend(low, high, close)" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
@@ -258,19 +363,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Mocha.Main Test" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.Start Script" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
-      <item index="4" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
-      <item index="5" class="java.lang.String" itemvalue="Node.js.trading-test.js" />
-      <item index="6" class="java.lang.String" itemvalue="Node.js.investment.js" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.trading-test.js" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.investment.js" />
+      <item index="6" class="java.lang.String" itemvalue="Mocha.Executor Tests" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Node.js.trading-test.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.investment.js" />
-        <item index="2" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.Executor Tests" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.investment.js" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
       </list>
     </recent_temporary>
   </component>
@@ -291,18 +396,19 @@
       <workItem from="1512254112404" duration="657000" />
       <workItem from="1512257088614" duration="186000" />
       <workItem from="1513227865228" duration="30000" />
+      <workItem from="1513654514505" duration="8188000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 04m 35s.xml">
-      <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Executor_Tests - 2017.12.19 at 22h 32m 40s.xml">
+      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 05m 07s.xml">
-      <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Executor_Tests - 2017.12.19 at 22h 32m 54s.xml">
+      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 05m 14s.xml">
-      <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Executor_Tests - 2017.12.19 at 22h 33m 32s.xml">
+      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 05m 29s.xml">
       <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
@@ -327,41 +433,30 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40611000" />
+    <option name="totallyTimeSpent" value="49317000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39828694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39766702" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,30 +469,73 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/algo/indicators.js</url>
+          <line>190</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/algo/investment.js</url>
-          <line>86</line>
-          <option name="timeStamp" value="5" />
+          <line>106</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/algo/investment.js</url>
+          <line>97</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <condition expression="lastPrice != 0" language="JavaScript" />
+          <url>file://$PROJECT_DIR$/algo/investment.js</url>
+          <line>87</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/algo/investment.js</url>
+          <line>39</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="6" />
+      <option name="time" value="31" />
     </breakpoint-manager>
     <watches-manager />
   </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>lastPrice != 0</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>rsi &lt; 25</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>score != undefined</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>price &lt; lastPrice * (1 - STOP_LOSS)</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(price &gt; lastPrice * (1 + MIN_PROFIT_PERCENTAGE + TRADING_FEE))</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/algo/bot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/invest_constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -623,38 +761,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/invest_constants.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="31" column="78" lean-forward="false" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/automation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-990">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -686,13 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/parameters.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/env-setup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -707,40 +810,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/investment.js">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-462">
-          <caret line="4" column="32" lean-forward="false" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="44">
+          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
+    <entry file="file://$PROJECT_DIR$/algo/parameters.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-950">
-          <caret line="45" column="2" lean-forward="false" selection-start-line="45" selection-start-column="2" selection-end-line="45" selection-end-column="2" />
+        <state relative-caret-position="264">
+          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algo/indicators.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-686">
-          <caret line="144" column="36" lean-forward="false" selection-start-line="144" selection-start-column="36" selection-end-line="144" selection-end-column="36" />
+        <state relative-caret-position="185">
+          <caret line="140" column="11" lean-forward="false" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/algo/executor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="2" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+        <state relative-caret-position="251">
+          <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+          <folding>
+            <marker date="1513740807133" expanded="true" signature="411:428" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/automation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-227">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-unit/executor-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="55" lean-forward="false" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/investment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algo/bot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="354" column="28" lean-forward="false" selection-start-line="354" selection-start-column="28" selection-end-line="354" selection-end-column="28" />
+        <state relative-caret-position="484">
+          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/invest_constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1462">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
