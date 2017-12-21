@@ -88,157 +88,115 @@ exports.calculateDEMA_SMA_CROSS = (close, subscore) => {
     return new Promise((resolve) => { resolve(subscore); });
 }
 
-exports.calculatePSAR = (high, low, close, subscore) => {
-    if (high.length > 1 && low.length > 1 && close.length > 1 && flag.PSAR) {
-        return new Promise((resolve) => {
-            tulind.indicators.psar.indicator([high, low], [PSAR_STEP, PSAR_MAX], function (err, results) {
-                var psar = results[0];
-                // util.log('PSAR: ' + psar[psar.length - 1].toFixed(4))
-                subscore += psar[psar.length - 1].toFixed(4) > close[close.length - 1] ?
-                    -PSAR_BASE_SCORE :
-                    psar[psar.length - 1].toFixed(4) < close[close.length - 1] ?
-                        PSAR_BASE_SCORE :
-                        0
-                // util.log(`PSAR subscore: ${subscore}`)
-                resolve(subscore);
-            })
-        })
-    }
-    return new Promise((resolve) => { resolve(subscore); });
-}
+// exports.calculatePSAR = (high, low, close, subscore) => {
+//     if (high.length > 1 && low.length > 1 && close.length > 1 && flag.PSAR) {
+//         return new Promise((resolve) => {
+//             tulind.indicators.psar.indicator([high, low], [PSAR_STEP, PSAR_MAX], function (err, results) {
+//                 var psar = results[0];
+//                 // util.log('PSAR: ' + psar[psar.length - 1].toFixed(4))
+//                 subscore += psar[psar.length - 1].toFixed(4) > close[close.length - 1] ?
+//                     -PSAR_BASE_SCORE :
+//                     psar[psar.length - 1].toFixed(4) < close[close.length - 1] ?
+//                         PSAR_BASE_SCORE :
+//                         0
+//                 // util.log(`PSAR subscore: ${subscore}`)
+//                 resolve(subscore);
+//             })
+//         })
+//     }
+//     return new Promise((resolve) => { resolve(subscore); });
+// }
 
-exports.calculateADX = (high, low, close, subscore) => {
-    var trendStrength = -1;
-    if (high.length > 1 && low.length > 1 && close.length > 1 && flag.ADX) {
-        var inputData = [high, low, close];
-        // util.log(JSON.stringify(inputData))
-        return new Promise((resolve) => {
-            tulind.indicators.adx.indicator(inputData, [ADX], function (err, results) {
-                var adx = results[0];
-                // Strong trend
-                if (adx[adx.length - 1] > 50) {
-                    subscore *= ADX_STRONG_MULTIPLIER;
-                }
-                else if (adx[adx.length - 1] < 20) {
-                    subscore *= ADX_WEAK_MULTIPLIER;
-                }
-                trendStrength = adx[adx.length - 1];
-                // util.log(`ADX subscore: ${subscore}`)
-                // util.log(`ADX results: ${JSON.stringify(results)}`)
-                resolve([subscore, trendStrength]);
-            })
-        })
-    }
-    return new Promise((resolve) => { resolve([subscore, trendStrength]); });
-}
+// exports.calculateADX = async (high, low, close, subscore) => {
+//     let trendStrength = -1;
+//     if (high.length > 1 && low.length > 1 && close.length > 1 && flag.ADX) {
+//         let inputData = [high, low, close];
+//         // util.log(JSON.stringify(inputData))
+//         try {
+//             let results = await tulind.indicators.adx.indicator(inputData, [ADX]);
+//             let adx = results[0];
+//             // Strong trend
+//             if (adx[adx.length - 1] > 50) {
+//                 subscore *= ADX_STRONG_MULTIPLIER;
+//             }
+//             else if (adx[adx.length - 1] < 20) {
+//                 subscore *= ADX_WEAK_MULTIPLIER;
+//             }
+//             trendStrength = adx[adx.length - 1];
+//             // util.log(`ADX subscore: ${subscore}`)
+//             // util.log(`ADX results: ${JSON.stringify(results)}`)
+//             return [subscore, trendStrength];
+//         }
+//         catch(e) {
+//             console.error('An error while calculating ADX indicator: ' + e);
+//         }
+//
+//     }
+// }
 
 // Combines RSI and Bolinger Bands
 exports.calculateBB_RSI = async (close, period = RSI) => {
     if (close.length > period && flag.RSI) {
-
-        let rsi = await RSI_FUNC_ASYNC(close, period);
-        let bb_score = await BB_ASYNC(close, period, BB_STD_DEV);
-        let { bb_lower, bb_upper } = bb_score;
-        // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
-        // Long position
-        if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
-            return 10;
+        try {
+            let rsi = await RSI_FUNC_ASYNC(close, period);
+            let bb_score = await BB_ASYNC(close, period, BB_STD_DEV);
+            let { bb_lower, bb_upper } = bb_score;
+            // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
+            // Long position
+            if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
+                return 10;
+            }
+            // Short position
+            else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
+                return -10;
+            }
+            else {
+                return 0;
+            }
         }
-        // Short position
-        else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
-            return -10;
+        catch (e) {
+            console.error('An error occurred when calculating RSI_BB indicators: ' + e)
         }
-        else {
-            return 0;
-        }
-
-                // .then((rsi) => {
-                // BB(close, period, std_length).then((value) => {
-                //     // if (value == 0) {
-                //     //     resolve(0);
-                //     // }
-                //     var { bb_lower, bb_upper } = value;
-                //     // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
-                //     // Long position
-                //     if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
-                //         resolve(10)
-                //     }
-                //     // Short position
-                //     else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
-                //         resolve(-10)
-                //     }
-                //     else {
-                //         resolve(0)
-                //     }
-                // }).catch((reason) => {
-                //     console.log(reason);
-                // })
-            // })
-        // }
     }
-    // return new Promise((resolve) => { resolve(0); });
 }
 
-async function BB_ASYNC (close, period) {
-    // return new Promise((resolve) => {
-        let results = await tulind.indicators.bbands.indicator([close], [period, BB_STD_DEV]);
+async function BB (close, period, stdDev = BB_STD_DEV) {
+        try {
+            let results = await tulind.indicators.bbands.indicator([close], [period, stdDev]);
+            let bb_lower = results[0][results[0].length - 1].toFixed(2),
+                bb_mid = results[1][results[1].length - 1].toFixed(2),
+                bb_upper = results[2][results[2].length - 1].toFixed(2);
 
-        var bb_lower = results[0][results[0].length - 1].toFixed(2);
-        var bb_mid = results[1][results[1].length - 1].toFixed(2);
-        var bb_upper = results[2][results[2].length - 1].toFixed(2);
-
-            // console.log(`bb_lower ${bb_lower} | bb_mid ${bb_mid} | bb_upper ${bb_upper}`)
-        return { bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) };
-    // })
+            return { bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) };
+        }
+        catch(e) {
+            console.error('An error while calculating BB: ' + e);
+        }
 }
 
 
-var BB = (close, period) => {
-    return new Promise((resolve) => {
-        tulind.indicators.bbands.indicator([close], [period, BB_STD_DEV], function (err, results) {
-            var bb_lower = results[0][results[0].length - 1].toFixed(2);
-            var bb_mid = results[1][results[1].length - 1].toFixed(2);
-            var bb_upper = results[2][results[2].length - 1].toFixed(2);
-
-            // console.log(`bb_lower ${bb_lower} | bb_mid ${bb_mid} | bb_upper ${bb_upper}`)
-            resolve({ bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) })
-        })
-    })
+async function RSI_FUNC (close, period) {
+        try {
+            let results = await tulind.indicators.rsi.indicator([close], [period]);
+            let rsi = results[0];
+            return parseFloat(rsi[rsi.length - 1].toFixed(2));
+        }
+        catch(e) {
+            console.error('An error while calculating RSI: ' + e)
+        }
 }
 
-async function RSI_FUNC_ASYNC (close, period) {
-        let results = await tulind.indicators.rsi.indicator([close], [period]);
-        var rsi = results[0];
-        return parseFloat(rsi[rsi.length - 1].toFixed(2));
-}
+var ADX_FUNC = async (high, low, close, period) => {
+        try {
+            let results = await tulind.indicators.adx.indicator([high, low, close], [period]);
+                let adx = results[0];
+                return parseFloat((adx[adx.length - 1].toFixed(2)));
+        }
+        catch(e) {
+            console.error('An error while calculating ADX indicator: ' + e);
+        }
 
-var RSI_FUNC = (close, period) => {
-    return new Promise((resolve) => {
-        tulind.indicators.rsi.indicator([close], [period], function (err, results) {
-            var rsi = results[0];
-            resolve(parseFloat(rsi[rsi.length - 1].toFixed(2)));
-        })
-    })
-}
-
-var ADX_FUNC = (high, low, close, period) => {
-    return new Promise((resolve) => {
-        tulind.indicators.adx.indicator([high, low, close], [period], (err, results) => {
-            var adx = results[0];
-            resolve(parseFloat((adx[adx.length - 1].toFixed(2))));
-        })
-    })
 }
 exports.BB = BB;
 exports.ADX = ADX_FUNC;
 exports.RSI = RSI_FUNC;
-// if (Array.isArray(indicatorStorage.sma) && 
-// Array.isArray(indicatorStorage.rsi) && 
-// Array.isArray(indicatorStorage.dema) && 
-// Array.isArray(indicatorStorage.psar)) {
-// util.log(
-//     `[${ticker}]: ${close[close.length - 1]} --- 
-//     DEMA: ${indicators.dema[indicators.dema.length - 1].toFixed(4)} | 
-//     RSI : ${indicators.rsi[indicators.rsi.length - 1].toFixed(4)} |
-//     PSAR: ${indicators.psar[indicators.psar.length - 1].toFixed(4)}`)
-// }

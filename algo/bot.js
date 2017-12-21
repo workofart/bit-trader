@@ -9,18 +9,20 @@ const indicators = require('./indicators'),
       utilities = require('./util'),
       db = require('./store'),
       executor = require('./executor'),
-      automation = require('./automation');
+      automation = require('./automation'),
+      tickerProcessor = require('./DataProcessors/ticker'),
+      candleProcessor = require('./DataProcessors/candle');
 
 const {
     INITIAL_INVESTMENT, MAX_SCORE_INTERVAL, IS_BUY_IMMEDIATELY, STOP_LOSS
 } = require('./invest_constants');
 
-global.wallet = 600;
+global.wallet = INITIAL_INVESTMENT;
 global.currencyWallet = {};
 global.latestPrice = {};
 global.storedWeightedSignalScore = {};
 /***************************************************/
-const { invest } = require('./investment');
+
 
 /**************** WebSocket Client (From Bitfinex) *****************/
 const URL = 'http://127.0.0.1:3001/api/';
@@ -136,7 +138,7 @@ connection.on('message', (msg) => {
 /*  - calculates final signal                      */
 /*  - trigger buy/sell action                      */
 /***************************************************/
-let mainProcessor = (ticker, data) => {
+let mainProcessor = async (ticker, data) => {
     // Extract the symbol
     ticker = ticker.substr(-6);
 
@@ -168,235 +170,16 @@ let mainProcessor = (ticker, data) => {
 
     // Ticker Prices
     else if (data.datasource === 'ticker' && isTickerPriceEnabled) {
-        // console.log('Received ticker price: [' + ticker + ']')
-
-        let promise = processTickerPrice(ticker, data.data, global.storedWeightedSignalScore[ticker]);
-        promise.then((value) => {
-            // util.log(`processTickerPrice.then(value)=${value}`)
-            global.storedWeightedSignalScore[ticker] = value;
-            // util.log(`${ticker} count: ${storedCounts[ticker]}`)
-                // util.log(`[${ticker} | Weighted Signal Score: ${value.toFixed(4)}\n`)
-            if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-                // if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
-                //     util.log('------------------------------------------------\n\n')
-                //     util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
-                //     invest(global.storedWeightedSignalScore[ticker], ticker)
-                // }
-                // reset the signal score and counts
-                util.log(`Resetting signal score for [${ticker}]`);
-                global.storedWeightedSignalScore[ticker] = 0;
-                storedCounts[ticker] = 0;
-                MAX_SCORE_INTERVAL[ticker] = 40;
-            }
-            // util.log(`[${ticker}] RSI: ${value}`)
-            invest(global.storedWeightedSignalScore[ticker], ticker);
-            storedCounts[ticker] += 1;
-        }).catch((reason) => util.error(reason))
+        await tickerProcessor.processTickerPrice(ticker, data.data, global.storedWeightedSignalScore[ticker]);
     }
 
     // Candles
     // else if (data.datasource === 'candles' && isCandleEnabled) {
-    //     var candlePromise = processCandles(ticker, data.data);
-    //     candlePromise.then((value) => {
-    //         // Calculate the two indicators
-    //         var subscore = value[0]
-    //         var trend = value[1]
-    //         // util.log(`Candle[${ticker} | subscore: ${subscore} | trend: ${trend}`)
-    //         global.storedWeightedSignalScore[ticker] = subscore
-
-    //         if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-                
-    //             // reset the signal score and counts
-    //             util.log(`Resetting signal score for [${ticker}]`)
-    //             global.storedWeightedSignalScore[ticker] = 0;
-    //             storedCounts[ticker] = 0;
-    //             MAX_SCORE_INTERVAL[ticker] = 40;
-    //         }
-
-    //         // Trend Strength check - dynamically adjust data collection interval
-    //         // util.log(`[${ticker}] trendStrength: ${trendStrength[ticker]}`)
-    //         if (trendStrength[ticker] > 50) {
-    //             MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] + 20
-    //             util.log(`[${ticker}] Strong strength, extending signal collection period: ${MAX_SCORE_INTERVAL[ticker]}`)
-    //         }
-    //         invest(global.storedWeightedSignalScore[ticker], ticker)
-    //         storedCounts[ticker] += 1;
-    //     })
-
+    //
+        await candleProcessor.processCandles(ticker, data.data);
     // }
 
 };
-
-/***************************************************/
-/*              Candle Functions                   */
-/***************************************************/
-
-let processCandles = (ticker, data) => {
-    let timeStamp, open, close, high, low, volume;
-
-    // Handle the first entry
-    if (Array.isArray(data[1])) {
-        // for (var i = 0; i < data.length; i++) {
-        //     timeStamp = moment(data[i][0]).local().format('YYYY-MM-DD HH:mm:ss')
-        //     open = data[i][1]
-        //     close = data[i][2]
-        //     high = data[i][3]
-        //     low = data[i][4]
-        //     volume = data[i][5]
-        // }
-        return new Promise((resolve) => {
-            resolve([global.storedWeightedSignalScore[ticker],-1]);
-        })
-    }
-    else {
-        timeStamp = moment(data[0]).local().format('YYYY-MM-DD HH:mm:ss');
-        open = data[1];
-        close = data[2];
-        high = data[3];
-        low = data[4];
-        volume = data[5];
-
-        // var processedData = {
-        //     'time' : timeStamp
-        // }
-
-        let processedData = {
-            'time': timeStamp,
-            'open': open,
-            'close': close,
-            'high': high,
-            'low': low,
-            'volume': volume,
-            'ticker': ticker
-        };
-
-        // console.log(processedData)
-        // console.log(_.sortedIndex(candles, processedData, 'time'))
-        let existingItem = _.find(candles[ticker], (item) => {
-            return item.time === processedData.time
-        });
-        if (existingItem === undefined) {
-
-            if (!Array.isArray(candles[ticker])) {
-                candles[ticker] = []
-            }
-            candles[ticker].splice(_.sortedIndex(candles[ticker], processedData, 'time'), 0, processedData)
-            // console.log(candles)
-        }
-        // The latest data point might contain the same timestamp but a different price
-        // Update the last item in the list with the current price
-        else {
-            let removedItem = candles[ticker].splice(_.sortedIndex(candles[ticker], processedData, 'time'), 1, processedData)
-        }
-        let close = _.map(candles[ticker], (item) => {
-                return item.close;
-            }),
-            high = _.map(candles[ticker], (item) => {
-                return item.high;
-            }),
-            low = _.map(candles[ticker], (item) => {
-                return item.low;
-            });
-
-        return new Promise((resolve) => {
-            indicators.calculatePSAR(high, low, close, global.storedWeightedSignalScore[ticker]).then((subscore) => {
-                indicators.calculateADX(high, low, close, subscore).then((result) => {
-                    resolve(result)
-                })
-            })
-        })
-    }
-};
-
-/***************************************************/
-/*           Ticker Price Functions                */
-/***************************************************/
-
-let processTickerPrice = (ticker, data, subscore) => {
-    // util.log(`[${ticker}] current score: ${subscore}`)
-    let ticker = ticker,
-        bid = data[0],
-        bid_size = data[1],
-        ask = data[2],
-        ask_size = data[3],
-        daily_change = data[4],
-        daily_change_perc = data[5],
-        last_price = data[6],
-        volume = data[7],
-        high = data[8],
-        low = data[9];
-
-
-    let processedData = {
-        'ticker': ticker,
-        'bid': bid,
-        'bid_size': bid_size,
-        'ask': ask,
-        'ask_size': ask_size,
-        'daily_change': daily_change,
-        'daily_change_perc': daily_change_perc,
-        'last_price': last_price,
-        'volume': volume,
-        'high': high,
-        'low': low,
-        'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-    };
-
-    // console.log(processedData)
-    let existingItem = _.find(tickerPrices[ticker], (item) => {
-        return item.time === processedData.time
-    });
-    if (existingItem === undefined) {
-
-        if (!Array.isArray(tickerPrices[ticker])) {
-            tickerPrices[ticker] = []
-        }
-        db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume)
-        if (clientWS !== undefined && !isClientDead) {
-            console.log('Sending price data to client through websocket....');
-            clientWS.send(JSON.stringify({
-                'ticker': ticker,
-                'price': last_price,
-                'bid': bid,
-                'bid_size': bid_size,
-                'ask': ask,
-                'ask_size': ask_size,
-                'high': high,
-                'low': low,
-                'volume': volume,
-                'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-            }))
-        }
-        tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], processedData, 'time'), 0, processedData)
-    }
-
-    let promise = computeIndicators(ticker, tickerPrices[ticker], subscore);
-
-    // Store the latest price into storage for investment decisions
-    // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
-    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].last_price;
-    return promise;
-}
-
-
-function computeIndicators(ticker, data, processScore) {
-    // var subscore = 0;
-    
-    let close = _.map(data, (item) => {
-        return item.last_price;
-    });
-
-    // util.log(`[${ticker}] InputScore: ${processScore}`)
-    indicators.initIndicators(indicatorFlags);
-
-    // console.log('[' + ticker + ']: ' + JSON.stringify(close));
-    let promise = new Promise((resolve) => {
-        indicators.calculateBB_RSI (close, 2).then((subscore) => {
-            resolve(subscore);
-        })
-    });
-    return promise;
-}
 
 /***************************************************/
 /*           Order Book Functions                  */
