@@ -11,7 +11,7 @@ const utilities = require('./util');
 const db = require('./store');
 const executor = require('./executor');
 const automation = require('./automation');
-const MIN_AMOUNT = require('./minOrder')
+const MIN_AMOUNT = require('./minOrder');
 /***************************************************/
 
 /**************** WebSocket Client (From Bitfinex) *****************/
@@ -49,15 +49,15 @@ util.log('--------------- OrderBook Parameters --------------')
 util.log(`\nDEMAND_SUPPLY_SPREAD_MULTIPLIER: ${DEMAND_SUPPLY_SPREAD_MULTIPLIER}\nDEMAND_SUPPLY_DISTANCE: ${DEMAND_SUPPLY_DISTANCE}\nSPREAD_THRESHOLD: ${SPREAD_THRESHOLD}\nAGGREGATE_SUPPLY_DEMAND_BASE: ${AGGREGATE_SUPPLY_DEMAND_BASE}`)
 
 /************** Investment Parameters **************/
-var wallet = 1800;
+var wallet = 2000;
 var currencyWallet = {};
 var latestPrice = {};
-const INITIAL_INVESTMENT = 1800;
+const INITIAL_INVESTMENT = 2000;
 const INVEST_PERCENTAGE = 0.08;
 const BUY_SIGNAL_TRIGGER = 10; // if score > this, buy
 const SELL_SIGNAL_TRIGGER = -10; // if score < this, sell
 const TRADING_FEE = 0.002; // 0.X% for all buys/sells
-const MIN_PROFIT_PERCENTAGE = 0.01; // 0.X% for min profit to make a move
+const MIN_PROFIT_PERCENTAGE = 0.015; // 0.X% for min profit to make a move
 var MAX_SCORE_INTERVAL = {}; // The maximum number of data points before making a decision then resetting all signals
 const IS_BUY_IMMEDIATELY = false; // if entry point is carefully selected, enable this. Else, disable.
 const STOP_LOSS = 1; // sell if lost more than X%
@@ -139,7 +139,22 @@ connection.on('message', (msg) => {
     }
 })
 
-// setInterval(() => { automation.raceTheBook('ETHUSD', 'buy', orderBook_Ask, orderBook_Bid, '0.04') }, 3000)
+setInterval( async () => {
+    let pos = await executor.getActivePositions();
+    wallet = INITIAL_INVESTMENT;
+    for (let item of JSON.parse(pos)) {
+        let ticker = item.symbol.toUpperCase();
+        currencyWallet[ticker] = currencyWallet[ticker] != undefined ? currencyWallet[ticker] : {}
+        currencyWallet[ticker].qty = currencyWallet[ticker].qty != undefined ? currencyWallet[ticker].qty : 0
+        currencyWallet[ticker].price = currencyWallet[ticker].price != undefined ? currencyWallet[ticker].price : 0
+
+        currencyWallet[ticker].qty = item.amount;
+        currencyWallet[ticker].price= item.base;
+        wallet -= item.amount * item.base;
+    }
+
+    // console.log(currencyWallet);
+ }, 10000);
 
 /***************************************************/
 /*              Main Processor                     */
@@ -262,7 +277,7 @@ function invest(score, ticker) {
             var minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size;
             var times = (qty / minAmount).toFixed(0);
             qty = minAmount * times;
-            executor.submitMarket(ticker, qty, 'buy').then((res) => {
+            executor.submitMarket(ticker, qty, 'buy').then(async (res) => {
                 res = JSON.parse(res);
                 var executedPrice = parseFloat(res.price);
                 var avgExecutedPrice = res.avg_execution_price;
@@ -271,9 +286,10 @@ function invest(score, ticker) {
                 delete res.was_forced;
                 delete res.is_live;
                 delete res.is_hidden;
-                util.log('executedPrice: ' + executedPrice)
+                util.log('executedPrice: ' + executedPrice);
 
                 wallet -= qty * executedPrice * (1 + TRADING_FEE);
+
                 currencyWallet[ticker].price = (executedPrice * qty + currencyWallet[ticker].qty * currencyWallet[ticker].price) / (qty + currencyWallet[ticker].qty); // calculate the weighted average price of all positions
                 currencyWallet[ticker].qty += qty;
     
