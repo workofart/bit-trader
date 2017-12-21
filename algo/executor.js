@@ -44,6 +44,10 @@ const getActivePositionsByTicker = async (ticker) => {
     return orders
 }
 
+const getActivePositions = async () => {
+    return await userAPI.getActivePositions();
+}
+
 const getOpenOrdersByTicker = async (ticker) => {
     let res = await userAPI.getActiveOrders();
     let orders = await _.find(JSON.parse(res), (item) => {
@@ -140,6 +144,7 @@ module.exports = {
     cancelOrderById: cancelOrderById,
     getOpenOrdersByTicker: getOpenOrdersByTicker,
     getActivePositionsByTicker: getActivePositionsByTicker,
+    getActivePositions: getActivePositions,
     cancelPreviousSubmitNew, cancelPreviousSubmitNew,
     getOrderById: getOrderById
 }
