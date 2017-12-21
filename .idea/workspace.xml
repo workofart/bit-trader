@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6659d92-f6ea-4470-a819-dd962529006c" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/test/test-unit/executor-test.js" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/algo/DataProcessors/candle.js" afterPath="$PROJECT_DIR$/algo/DataProcessors/candle.js" />
+      <change beforePath="$PROJECT_DIR$/algo/DataProcessors/ticker.js" afterPath="$PROJECT_DIR$/algo/DataProcessors/ticker.js" />
       <change beforePath="$PROJECT_DIR$/algo/bot.js" afterPath="$PROJECT_DIR$/algo/bot.js" />
-      <change beforePath="$PROJECT_DIR$/algo/executor.js" afterPath="$PROJECT_DIR$/algo/executor.js" />
       <change beforePath="$PROJECT_DIR$/algo/indicators.js" afterPath="$PROJECT_DIR$/algo/indicators.js" />
-      <change beforePath="$PROJECT_DIR$/algo/invest_constants.js" afterPath="$PROJECT_DIR$/algo/invest_constants.js" />
-      <change beforePath="$PROJECT_DIR$/algo/investment.js" afterPath="$PROJECT_DIR$/algo/investment.js" />
-      <change beforePath="$PROJECT_DIR$/algo/parameters.json" afterPath="$PROJECT_DIR$/algo/parameters.json" />
-      <change beforePath="$PROJECT_DIR$/test/test-integration/trading-test.js" afterPath="$PROJECT_DIR$/test/test-integration/trading-test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,44 +22,34 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="executor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/executor.js">
+    <leaf>
+      <file leaf-file-name="bot.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/algo/bot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
+            <state relative-caret-position="1738">
+              <caret line="178" column="30" lean-forward="false" selection-start-line="178" selection-start-column="30" selection-end-line="178" selection-end-column="30" />
               <folding>
-                <marker date="1513740807133" expanded="true" signature="411:428" ph="{...}" />
+                <element signature="e#3266#3276#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="executor-test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test-unit/executor-test.js">
+      <file leaf-file-name="candle.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/DataProcessors/candle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="7" column="55" lean-forward="false" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+            <state relative-caret-position="1826">
+              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indicator-test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
+      <file leaf-file-name="ticker.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/DataProcessors/ticker.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bot.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/bot.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+              <caret line="87" column="13" lean-forward="false" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -73,38 +58,8 @@
       <file leaf-file-name="trading-test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="invest_constants.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/invest_constants.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="investment-test.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1462">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="investment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/investment.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+            <state relative-caret-position="2090">
+              <caret line="105" column="1" lean-forward="false" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -113,8 +68,18 @@
       <file leaf-file-name="indicators.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algo/indicators.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="140" column="11" lean-forward="false" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
+            <state relative-caret-position="273">
+              <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="57" selection-end-line="141" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="investment.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/investment.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -135,12 +100,14 @@
       <find>const</find>
       <find>=&gt;</find>
       <find>result = indicator</find>
-      <find>tickerprices</find>
       <find>storedCounts = {},MAX_SCORE_INTERVAL</find>
       <find>MAX_SCORE_INTERVAL</find>
       <find>storedWeightedSignalScore</find>
       <find>st</find>
       <find>storedCounts</find>
+      <find>lastprice.toFixed</find>
+      <find>tickerprices</find>
+      <find>processCandles</find>
     </findStrings>
     <replaceStrings>
       <replace>static</replace>
@@ -162,12 +129,14 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/algo/investment.js" />
         <option value="$PROJECT_DIR$/algo/parameters.json" />
-        <option value="$PROJECT_DIR$/algo/indicators.js" />
         <option value="$PROJECT_DIR$/test/test-unit/executor-test.js" />
         <option value="$PROJECT_DIR$/algo/executor.js" />
-        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
-        <option value="$PROJECT_DIR$/algo/bot.js" />
         <option value="$PROJECT_DIR$/algo/invest_constants.js" />
+        <option value="$PROJECT_DIR$/algo/indicators.js" />
+        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
+        <option value="$PROJECT_DIR$/algo/DataProcessors/ticker.js" />
+        <option value="$PROJECT_DIR$/algo/DataProcessors/candle.js" />
+        <option value="$PROJECT_DIR$/algo/bot.js" />
       </list>
     </option>
   </component>
@@ -226,7 +195,8 @@
             <path>
               <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
               <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="algo" type="462c0819:PsiDirectoryNode" />
+              <item name="DataProcessors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
@@ -249,8 +219,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -260,7 +230,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="D:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.jscs" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Linters.JSHint" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
@@ -286,10 +256,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.trading-test.js">
+  <component name="RunManager" selected="Mocha.Indicators.ADX Trend(low, high, close)">
     <configuration name="Start Script" type="NodeJSConfigurationType" factoryName="Node.js" path-to-js-file="start-script.js" working-dir="$PROJECT_DIR$" />
-    <configuration name="investment.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="investment.js" working-dir="$PROJECT_DIR$/algo" />
-    <configuration name="trading-test.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="trading-test.js" working-dir="$PROJECT_DIR$/test/test-integration" />
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
       <method />
     </configuration>
@@ -297,7 +265,7 @@
       <node-js-remote-debug />
       <method />
     </configuration>
-    <configuration name="Executor Tests" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+    <configuration name="Indicators" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$</working-directory>
@@ -306,9 +274,9 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test-unit/executor-test.js</test-file>
+      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
       <test-names>
-        <name value="Executor Tests" />
+        <name value="Indicators" />
       </test-names>
     </configuration>
     <configuration name="Indicators.ADX Trend(low, high, close)" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
@@ -324,6 +292,52 @@
       <test-names>
         <name value="Indicators" />
         <name value="ADX Trend(low, high, close)" />
+      </test-names>
+    </configuration>
+    <configuration name="Indicators.ADX Trend(low, high, close).should return 41.38 as the ADX given 9 data points and period of 5" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST</test-kind>
+      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
+      <test-names>
+        <name value="Indicators" />
+        <name value="ADX Trend(low, high, close)" />
+        <name value="should return 41.38 as the ADX given 9 data points and period of 5" />
+      </test-names>
+    </configuration>
+    <configuration name="Indicators.BB &amp; RSI Signals" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
+      <test-names>
+        <name value="Indicators" />
+        <name value="BB &amp; RSI Signals" />
+      </test-names>
+    </configuration>
+    <configuration name="Indicators.RSI(input, 5)" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
+      <test-names>
+        <name value="Indicators" />
+        <name value="RSI(input, 5)" />
       </test-names>
     </configuration>
     <configuration name="Main Test" type="mocha-javascript-test-runner" factoryName="Mocha">
@@ -349,33 +363,22 @@
       <test-directory>$PROJECT_DIR$/test</test-directory>
       <recursive>false</recursive>
     </configuration>
-    <configuration name="test\test-unit\indicator-test.js" type="mocha-javascript-test-runner" factoryName="Mocha" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST_FILE</test-kind>
-      <test-file>$PROJECT_DIR$/test/test-unit/indicator-test.js</test-file>
-    </configuration>
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Mocha.Main Test" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.Start Script" />
-      <item index="2" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
-      <item index="3" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.trading-test.js" />
-      <item index="5" class="java.lang.String" itemvalue="Node.js.investment.js" />
-      <item index="6" class="java.lang.String" itemvalue="Mocha.Executor Tests" />
+      <item index="2" class="java.lang.String" itemvalue="Mocha.Indicators.RSI(input, 5)" />
+      <item index="3" class="java.lang.String" itemvalue="Mocha.Indicators.BB &amp; RSI Signals" />
+      <item index="4" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
+      <item index="5" class="java.lang.String" itemvalue="Mocha.Indicators" />
+      <item index="6" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close).should return 41.38 as the ADX given 9 data points and period of 5" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.trading-test.js" />
-        <item index="1" class="java.lang.String" itemvalue="Mocha.Executor Tests" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.investment.js" />
-        <item index="3" class="java.lang.String" itemvalue="Mocha.test\test-unit\indicator-test.js" />
-        <item index="4" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
+        <item index="0" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close)" />
+        <item index="1" class="java.lang.String" itemvalue="Mocha.Indicators.ADX Trend(low, high, close).should return 41.38 as the ADX given 9 data points and period of 5" />
+        <item index="2" class="java.lang.String" itemvalue="Mocha.Indicators" />
+        <item index="3" class="java.lang.String" itemvalue="Mocha.Indicators.BB &amp; RSI Signals" />
+        <item index="4" class="java.lang.String" itemvalue="Mocha.Indicators.RSI(input, 5)" />
       </list>
     </recent_temporary>
   </component>
@@ -401,62 +404,73 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Executor_Tests - 2017.12.19 at 22h 32m 40s.xml">
-      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Indicators - 2017.12.20 at 22h 49m 58s.xml">
+      <configuration name="Indicators" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Executor_Tests - 2017.12.19 at 22h 32m 54s.xml">
-      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Executor_Tests - 2017.12.19 at 22h 33m 32s.xml">
-      <configuration name="Executor Tests" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 05m 29s.xml">
+    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.20 at 22h 46m 20s.xml">
       <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 06m 03s.xml">
+    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.20 at 22h 52m 17s.xml">
       <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="Indicators_ADX_Trend(low,_high,_close) - 2017.12.07 at 22h 06m 09s.xml">
-      <configuration name="Indicators.ADX Trend(low, high, close)" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Indicators_ADX_Trend(low,_high,_close)_should_return_41_38_as_the_ADX_given_9_data_points_and_period_of_5 - 2017.12.20 at 22h 52m 02s.xml">
+      <configuration name="Indicators.ADX Trend(low, high, close).should return 41.38 as the ADX given 9 data points and period of 5" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="test_test-unit_indicator-test_js - 2017.12.07 at 22h 06m 44s.xml">
-      <configuration name="test\test-unit\indicator-test.js" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Indicators_BB(input,_5,_2) - 2017.12.20 at 22h 43m 49s.xml">
+      <configuration name="Indicators.BB(input, 5, 2)" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="test_test-unit_indicator-test_js - 2017.12.07 at 22h 15m 50s.xml">
-      <configuration name="test\test-unit\indicator-test.js" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Indicators_BB(input,_5,_2) - 2017.12.20 at 22h 44m 13s.xml">
+      <configuration name="Indicators.BB(input, 5, 2)" configurationId="mocha-javascript-test-runner" />
     </history-entry>
-    <history-entry file="test_test-unit_indicator-test_js - 2017.12.07 at 22h 16m 17s.xml">
-      <configuration name="test\test-unit\indicator-test.js" configurationId="mocha-javascript-test-runner" />
+    <history-entry file="Indicators_BB(input,_5,_2) - 2017.12.20 at 22h 45m 28s.xml">
+      <configuration name="Indicators.BB(input, 5, 2)" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Indicators_BB_&amp;_RSI_Signals - 2017.12.20 at 22h 45m 45s.xml">
+      <configuration name="Indicators.BB &amp; RSI Signals" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Indicators_RSI(input,_5) - 2017.12.20 at 22h 45m 41s.xml">
+      <configuration name="Indicators.RSI(input, 5)" configurationId="mocha-javascript-test-runner" />
     </history-entry>
     <history-entry file="test_test-unit_indicator-test_js - 2017.12.07 at 22h 16m 32s.xml">
       <configuration name="test\test-unit\indicator-test.js" configurationId="mocha-javascript-test-runner" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49317000" />
+    <option name="totallyTimeSpent" value="52667000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39766702" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39766702" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,34 +483,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/algo/indicators.js</url>
-          <line>190</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/algo/investment.js</url>
           <line>106</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/algo/investment.js</url>
           <line>97</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <condition expression="lastPrice != 0" language="JavaScript" />
           <url>file://$PROJECT_DIR$/algo/investment.js</url>
           <line>87</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/algo/investment.js</url>
           <line>39</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
@@ -536,20 +540,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="31" column="78" lean-forward="false" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
@@ -631,7 +621,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="354" column="26" lean-forward="false" selection-start-line="354" selection-start-column="26" selection-end-line="354" selection-end-column="26" />
-          <folding />
+          <folding>
+            <element signature="e#3266#3276#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -777,8 +769,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/algo/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="59" column="14" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="59" selection-end-column="14" />
+        <state relative-caret-position="44">
+          <caret line="2" column="10" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -817,29 +810,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/parameters.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/indicators.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="140" column="11" lean-forward="false" selection-start-line="140" selection-start-column="11" selection-end-line="140" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algo/executor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="41" column="51" lean-forward="false" selection-start-line="41" selection-start-column="51" selection-end-line="41" selection-end-column="51" />
-          <folding>
-            <marker date="1513740807133" expanded="true" signature="411:428" ph="{...}" />
-          </folding>
+        <state relative-caret-position="44">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -847,7 +822,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-227">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -855,31 +829,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="55" lean-forward="false" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/investment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/bot.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="14" lean-forward="false" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="44" lean-forward="false" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -891,19 +840,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="49" lean-forward="false" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test-unit/investment-test.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1462">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/parameters.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/investment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-unit/indicator-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="31" column="20" lean-forward="false" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/indicators.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="141" column="67" lean-forward="false" selection-start-line="141" selection-start-column="57" selection-end-line="141" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2090">
+          <caret line="105" column="1" lean-forward="false" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/DataProcessors/ticker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="87" column="13" lean-forward="false" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/DataProcessors/candle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1826">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/bot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1738">
+          <caret line="178" column="30" lean-forward="false" selection-start-line="178" selection-start-column="30" selection-end-line="178" selection-end-column="30" />
+          <folding>
+            <element signature="e#3266#3276#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
