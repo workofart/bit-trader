@@ -148,8 +148,8 @@ setInterval( async () => {
         currencyWallet[ticker].qty = currencyWallet[ticker].qty != undefined ? currencyWallet[ticker].qty : 0
         currencyWallet[ticker].price = currencyWallet[ticker].price != undefined ? currencyWallet[ticker].price : 0
 
-        currencyWallet[ticker].qty = item.amount;
-        currencyWallet[ticker].price= item.base;
+        currencyWallet[ticker].qty = parseFloat(item.amount);
+        currencyWallet[ticker].price= parseFloat(item.base);
         wallet -= item.amount * item.base;
     }
 
