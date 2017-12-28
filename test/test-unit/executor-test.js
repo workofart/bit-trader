@@ -7,5 +7,5 @@ describe('Executor Tests', () => {
     it('should return active positions', async () => {
         let positions = await executor.getActivePositionsByTicker('btcusd');
         await console.log(positions);
-    })
-})
+    });
+});

@@ -1,5 +1,5 @@
 const MIN_AMOUNT = require('./minOrder'),
-      utilities = require('./util'),
+      utilities = require('./custom_util'),
       util = require('util'),
       db = require('./store'),
       _ = require('underscore'),
@@ -9,7 +9,7 @@ const MIN_AMOUNT = require('./minOrder'),
         MIN_PROFIT_PERCENTAGE, TRADING_FEE,
         BUY_SIGNAL_TRIGGER, SELL_SIGNAL_TRIGGER,
         STOP_LOSS, REPEATED_BUY_MARGIN
-    }  = require('./invest_constants');
+    }  = require('./constants').investment;
 
 class Investment {
 
@@ -29,18 +29,26 @@ class Investment {
                 let minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size,
                     times = (qty / minAmount).toFixed(0);
                 qty = minAmount * times;
-                // Investment.submitMarketOrder(ticker, 'buy', qty);
-                Investment.submitDummyOrder(ticker, 'buy', qty, price);
-
+                if (global.isLive) {
+                    Investment.submitMarketOrder(ticker, 'buy', qty);
+                }
+                else {
+                    Investment.submitDummyOrder(ticker, 'buy', qty, price);
+                }
             }
 
             // SELL
             else if (Investment.sellPositionCheck(ticker, price, score)) {
-                // Investment.submitMarketOrder(ticker, 'sell');
-                Investment.submitDummyOrder(ticker, 'sell', qty, price);
+                if (global.isLive) {
+                    Investment.submitMarketOrder(ticker, 'sell');
+                }
+                else {
+                    Investment.submitDummyOrder(ticker, 'sell', qty, price);
+                }
             }
         }
-
+        // Reset the frozen tickers
+        // global.frozenTickers = {};
     }
 
     // Checks the long position on hand and evaluate whether
@@ -54,7 +62,17 @@ class Investment {
     // Checks the long position on hand and evaluate whether
     // it's logical to enter the position
     static buyPositionCheck(ticker, qty, price, score) {
-        return (Investment.buySignalReq(score) && Investment.fiatBalanceReq(qty, price) && Investment.repeatedBuyReq(ticker, price))
+        return (Investment.buySignalReq(score) &&
+            Investment.fiatBalanceReq(qty, price) &&
+            Investment.repeatedBuyReq(ticker, price) &&
+            !Investment.frozenTickerReq(ticker))
+    }
+
+    static frozenTickerReq(ticker) {
+        if(global.frozenTickers[ticker]) {
+            util.log('Avoided buying ' + ticker);
+        }
+        return global.frozenTickers[ticker] === true;
     }
 
     static repeatedBuyReq (ticker, price) {
@@ -96,28 +114,31 @@ class Investment {
     static submitDummyOrder (ticker, side, qty, price) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - TRADING_FEE);
-            util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} @ ${price}`);
-            // db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
+            // util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} @ ${price}`);
+            db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             global.currencyWallet[ticker].price = 0; // clear the price after sold
             global.storedWeightedSignalScore[ticker] = 0; // clear score
-            utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
+            utilities.printWalletStatus();
+            // utilities.printPNL();
         }
         else if (side === 'buy') {
             global.wallet -= qty * price * (1 + TRADING_FEE);
             global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
             global.currencyWallet[ticker].qty += qty;
-            util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`);
-            utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
-            // db.storeTransactionToDB(ticker, price, qty, 1);
+            // util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`);
+            utilities.printWalletStatus();
+            // utilities.printPNL();
+            db.storeTransactionToDB(ticker, price, qty, 1);
             global.storedWeightedSignalScore[ticker] = 0; // clear score
         }
     }
 
-    static submitMarketOrder (ticker, side, qty) {
+    static async submitMarketOrder (ticker, side, qty) {
         if (side === 'sell') {
 
-            executor.submitMarket(ticker,  global.currencyWallet[ticker].qty, side).then((res) => {
+            try {
+                let res = await executor.submitMarket(ticker,  global.currencyWallet[ticker].qty, side);
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);
                 delete res.is_cancelled;
@@ -136,14 +157,15 @@ class Investment {
                 global.currencyWallet[ticker].price = 0; // clear the price after sold
                 storedWeightedSignalScore[ticker] = 0; // clear score
                 utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
-            }).catch((reason) => {
+            }
+            catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
-                util.error(reason);
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!')
-            })
+                util.error(e.stack);
+            }
         }
         else if (side === 'buy') {
-            executor.submitMarket(ticker, qty, side).then((res) => {
+            try {
+                let res = await executor.submitMarket(ticker, qty, side)
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);
                 delete res.is_cancelled;
@@ -151,7 +173,7 @@ class Investment {
                 delete res.was_forced;
                 delete res.is_live;
                 delete res.is_hidden;
-                util.log('executedPrice: ' + executedPrice);
+                // util.log('executedPrice: ' + executedPrice);
 
                 global.wallet -= qty * executedPrice * (1 + TRADING_FEE);
                 global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, executedPrice, qty);
@@ -164,11 +186,11 @@ class Investment {
                 utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
                 db.storeTransactionToDB(ticker, executedPrice, qty, 1);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
-            }).catch((reason) => {
+            }
+            catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
-                util.error(reason);
-                util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
-            })
+                util.error(e.stack);
+            }
         }
     }
 

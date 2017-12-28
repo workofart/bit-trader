@@ -1,13 +1,24 @@
 const indicators = require('../indicators');
-const { invest } = require('../investment');
+const { invest } = require('../investment'),
+      db = require('../../algo/store');
+const _ = require('underscore'),
+      util = require('util'),
+      moment = require('moment');
+
+let storedCounts = {},
+    MAX_SCORE_INTERVAL = {};
+
+
 /***************************************************/
 /*           Ticker Price Functions                */
 /***************************************************/
 
-module.exports.processTickerPrice = async (ticker, data, subscore, tickerPrices) => {
+const processTickerPrice = async (ticker, data) => {
+    storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
+    MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] !== undefined ? MAX_SCORE_INTERVAL[ticker] : 40;
+
     // util.log(`[${ticker}] current score: ${subscore}`)
-    let ticker = ticker,
-        bid = data[0],
+    let bid = data[0],
         bid_size = data[1],
         ask = data[2],
         ask_size = data[3],
@@ -35,40 +46,25 @@ module.exports.processTickerPrice = async (ticker, data, subscore, tickerPrices)
     };
 
     // console.log(processedData)
-    let existingItem = _.find(tickerPrices[ticker], (item) => {
+    let existingItem = _.find(global.tickerPrices[ticker], (item) => {
         return item.time === processedData.time
     });
     if (existingItem === undefined) {
 
-        if (!Array.isArray(tickerPrices[ticker])) {
-            tickerPrices[ticker] = []
+        if (!Array.isArray(global.tickerPrices[ticker])) {
+            global.tickerPrices[ticker] = []
         }
-        db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume)
-        if (clientWS !== undefined && !isClientDead) {
-            console.log('Sending price data to client through websocket....');
-            clientWS.send(JSON.stringify({
-                'ticker': ticker,
-                'price': last_price,
-                'bid': bid,
-                'bid_size': bid_size,
-                'ask': ask,
-                'ask_size': ask_size,
-                'high': high,
-                'low': low,
-                'volume': volume,
-                'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-            }))
-        }
-        tickerPrices[ticker].splice(_.sortedIndex(tickerPrices[ticker], processedData, 'time'), 0, processedData)
+        db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume);
+
+        global.tickerPrices[ticker].splice(_.sortedIndex(global.tickerPrices[ticker], processedData, 'time'), 0, processedData)
     }
 
-    let indicatorValue = await computeIndicators(ticker, tickerPrices[ticker], subscore);
-
-    // Store the latest price into storage for investment decisions
-    // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
-    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1].last_price;
-
     try {
+        let indicatorValue = await computeIndicators(ticker, global.tickerPrices[ticker]);
+
+        // Store the latest price into storage for investment decisions
+        global.latestPrice[ticker] = global.tickerPrices[ticker][global.tickerPrices[ticker].length - 1].last_price;
+
         global.storedWeightedSignalScore[ticker] = indicatorValue;
         // util.log(`${ticker} count: ${storedCounts[ticker]}`)
         // util.log(`[${ticker} | Weighted Signal Score: ${value.toFixed(4)}\n`)
@@ -89,22 +85,42 @@ module.exports.processTickerPrice = async (ticker, data, subscore, tickerPrices)
         storedCounts[ticker] += 1;
     }
     catch(e) {
-        console.error('An error while processing ticker prices: ' + e);
+        console.error('An error while processing ticker prices: ' + e.stack);
     }
 }
 
 
-async function computeIndicators(ticker, data, processScore) {
-    // var subscore = 0;
+const computeIndicators = async (ticker, data) => {
+    // get the current currency wallet and use them as the ticker base
+    let openTickers = {};
+
+    _.forEach(global.currencyWallet, (item) => {
+        if (item.qty > 0) {
+            let targetTicker = _.findKey(global.currencyWallet, (target) => {
+                return target === item;
+            });
+            openTickers[targetTicker] = item;
+        }
+    });
 
     let close = _.map(data, (item) => {
         return item.last_price;
     });
 
     // util.log(`[${ticker}] InputScore: ${processScore}`)
-    indicators.initIndicators(indicatorFlags);
+    // indicators.initIndicators();
 
-    // console.log('[' + ticker + ']: ' + JSON.stringify(close));
+    for (let baseTicker of Object.keys(openTickers)) {
+        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1]);
+        _.forEach(corr, (i) => {
+            global.frozenTickers[i.tickerTarget] = Math.abs(i.corr) > 0.75;
+        })
+    }
 
     return await indicators.calculateBB_RSI(close);
+};
+
+module.exports = {
+    computeIndicators : computeIndicators,
+    processTickerPrice: processTickerPrice
 }
