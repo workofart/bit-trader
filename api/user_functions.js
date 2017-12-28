@@ -1,21 +1,21 @@
 const _ = require('underscore');
-const request = require('request-promise')
-const util = require('util')
-const $ = require('jquery')
-const moment = require('moment')
+const request = require('request-promise');
+const util = require('util');
+const $ = require('jquery');
+const moment = require('moment');
 
 /*
     Authentication Tools
 */
 
-const crypto = require('crypto')
-const creds = require('../config/creds')
+const crypto = require('crypto');
+const creds = require('../config/creds');
 
 const apiKey = creds.key;
 const apiSecret = creds.secret;
 
 
-const URL = 'https://api.bitfinex.com/v1/'
+const URL = 'https://api.bitfinex.com/v1/';
 
 var sendJsonResponse = function (res, status, content) {
     res.status(status);

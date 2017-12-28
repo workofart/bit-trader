@@ -2,10 +2,11 @@
  * This file contains the execution functions that will call the Exchange APIs to perform different
  * order placements
  */
-const userAPI = require('../api/user_functions');
-const URL = 'http://127.0.0.1:3001/api/';
-const MIN_AMOUNT = require('./minOrder');
-const _ = require('underscore');
+const
+    userAPI = require('../api/user_functions'),
+    MIN_AMOUNT = require('./minOrder'),
+    _ = require('underscore'),
+    URL = 'http://127.0.0.1:3001/api/';
 
  // Perform a overall account summary first
 const getAccountSummary = () => {

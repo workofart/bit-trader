@@ -1,8 +1,7 @@
 require('../env-setup');
 
 const Investment = require('../../algo/investment'),
-      investConstants = require('../../algo/invest_constants');
-
+      investConstants = require('../../algo/constants').investment;
 
 describe('Investment Unit Tests', () => {
 

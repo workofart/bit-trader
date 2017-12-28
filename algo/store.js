@@ -9,9 +9,9 @@ exports.clearTable = (tableName) => {
         client.query(
             query, (err, result) => {
                 done()
-                if (err && err.code != 23505) {
-                    console.log(err)
-                    console.err(`There was a error when clearing the ${tableName} table`)
+                if (err && err.code !== 23505) {
+                    util.error(err);
+                    util.error(`There was a error when clearing the ${tableName} table`)
                 }
                 else {
                     util.log(`Success clearing ${tableName} table`);
@@ -30,9 +30,9 @@ exports.storeTransactionToDB = (ticker, price, qty, side) => {
         client.query(
             query, params, (err, result) => {
                 done()
-                if (err && err.code != 23505) {
-                    console.log(err)
-                    console.err('There was a error when inserting into transactions table')
+                if (err && err.code !== 23505) {
+                    util.error(err);
+                    util.error('There was an error when inserting into transactions table');
                 }
                 else {
                     util.log(`Store transaction | ${params[3] ? 'Bought' : 'Sold'} ${params[2]} [${params[0]}] @ ${params[1]}`)
@@ -50,9 +50,9 @@ exports.storeLivePrice = (ticker, price, bid, bid_size, ask, ask_size, high, low
         client.query(
             query, params, (err, result) => {
                 done()
-                if (err && err.code != 23505) {
-                    console.log(err)
-                    console.error('There was a error when inserting into live price table')
+                if (err && err.code !== 23505) {
+                    util.error(err);
+                    util.error('There was a error when inserting into live price table');
                 }
                 else {
                     util.log(`[${ticker}] price: $${price}`)
