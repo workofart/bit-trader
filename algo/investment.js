@@ -148,7 +148,7 @@ class Investment {
                 delete res.is_hidden;
 
                 global.wallet +=  global.currencyWallet[ticker].qty * executedPrice * (1 - TRADING_FEE);
-                // util.log(`************ Sell | ${ global.currencyWallet[ticker].qty
+                util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} of ${ticker} **************`);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
@@ -165,7 +165,7 @@ class Investment {
         }
         else if (side === 'buy') {
             try {
-                let res = await executor.submitMarket(ticker, qty, side)
+                let res = await executor.submitMarket(ticker, qty, side);
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);
                 delete res.is_cancelled;
@@ -179,7 +179,7 @@ class Investment {
                 global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, executedPrice, qty);
                 global.currencyWallet[ticker].qty += qty;
 
-                // util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`)
+                util.log(`************* Buy | ${qty} ${ticker} @ ${executedPrice} *************`);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
