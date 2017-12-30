@@ -1,5 +1,6 @@
 const db = require('../../db/config'),
       util = require('util'),
+      customUtil = require('../../algo/custom_util'),
       _ = require('underscore'),
       {
         INITIAL_INVESTMENT, IS_BUY_IMMEDIATELY, STOP_LOSS
@@ -78,7 +79,6 @@ const fetchPrice = async (ticker, count, callback) => {
 //     }
 // });
 
-
 /**
  * This main processor takes in the prices and plays through chronologically
  * as if it was live data
@@ -86,15 +86,23 @@ const fetchPrice = async (ticker, count, callback) => {
  */
 const processor = async (subprocessor) => {
     try {
+        let counter = 0;
         let data = await testUtil.parseCSV('live_price_down');
         data = _.sortBy(data, (a) => { return a.timestamp});
         for (i in data) {
             // console.log(`${data[i].timestamp} | ${data[i].ticker}`);
             data[i].last_price = parseFloat(data[i].price);
             delete data[i].price;
-            let { ticker, price} = data[i];
+            let { ticker } = data[i];
             await subprocessor(ticker, data[i]);
+
+            // if (counter === 120) {
+            //     customUtil.printPNL();
+            //     counter = 0;
+            // }
+            // counter++;
         }
+        customUtil.printBacktestSummary();
     }
     catch(e) {
         console.error('Problem with parsing the csv file: ' + e.stack);

@@ -1,6 +1,6 @@
 const MIN_AMOUNT = require('./minOrder'),
-      utilities = require('./custom_util'),
       util = require('util'),
+      customUtil = require('./custom_util'),
       db = require('./store'),
       _ = require('underscore'),
       executor = require('./executor'),
@@ -70,7 +70,7 @@ class Investment {
 
     static frozenTickerReq(ticker) {
         if(global.frozenTickers[ticker]) {
-            util.log('Avoided buying ' + ticker);
+            // util.log('Avoided buying ' + ticker);
         }
         return global.frozenTickers[ticker] === true;
     }
@@ -114,21 +114,21 @@ class Investment {
     static submitDummyOrder (ticker, side, qty, price) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - TRADING_FEE);
-            // util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} @ ${price}`);
+            customUtil.printSell(ticker, price);
             db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             global.currencyWallet[ticker].price = 0; // clear the price after sold
             global.storedWeightedSignalScore[ticker] = 0; // clear score
-            utilities.printWalletStatus();
-            // utilities.printPNL();
+            // customUtil.printWalletStatus();
+            // customUtil.printPNL();
         }
         else if (side === 'buy') {
             global.wallet -= qty * price * (1 + TRADING_FEE);
             global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
             global.currencyWallet[ticker].qty += qty;
-            // util.log(`************* Buy | ${qty} ${ticker} @ ${price} *************`);
-            utilities.printWalletStatus();
-            // utilities.printPNL();
+            customUtil.printBuy(ticker, qty, price);
+            // customUtil.printWalletStatus();
+            // customUtil.printPNL();
             db.storeTransactionToDB(ticker, price, qty, 1);
             global.storedWeightedSignalScore[ticker] = 0; // clear score
         }
@@ -148,7 +148,7 @@ class Investment {
                 delete res.is_hidden;
 
                 global.wallet +=  global.currencyWallet[ticker].qty * executedPrice * (1 - TRADING_FEE);
-                util.log(`************ Sell | ${ global.currencyWallet[ticker].qty} of ${ticker} **************`);
+                customUtil.printSell(ticker, executedPrice);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
@@ -156,7 +156,7 @@ class Investment {
                 global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
                 global.currencyWallet[ticker].price = 0; // clear the price after sold
                 storedWeightedSignalScore[ticker] = 0; // clear score
-                utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
+                customUtil.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
             }
             catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
@@ -179,11 +179,11 @@ class Investment {
                 global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, executedPrice, qty);
                 global.currencyWallet[ticker].qty += qty;
 
-                util.log(`************* Buy | ${qty} ${ticker} @ ${executedPrice} *************`);
+                customUtil.printBuy(ticker, qty, executedPrice);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
-                utilities.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
+                customUtil.printWalletStatus(INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
                 db.storeTransactionToDB(ticker, executedPrice, qty, 1);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
             }
