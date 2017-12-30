@@ -7,7 +7,7 @@ const
     {
         RSI, ADX, ADX_STRONG_MULTIPLIER, ADX_WEAK_MULTIPLIER,
         SMA, DEMA, PSAR_STEP, PSAR_MAX, PSAR_BASE_SCORE, RSI_BASE_SCORE, DEMA_SMA_CROSS_SCORE,
-        BB_STD_DEV
+        BB_STD_DEV, LOWER_RSI, UPPER_RSI
     } = require('./parameters'),
     TICKERS = [
         'BTCUSD', 'LTCUSD', 'ETHUSD', 'ETCUSD',
@@ -192,11 +192,11 @@ exports.calculateBB_RSI = async (close, period = RSI) => {
             let { bb_lower, bb_upper } = bb_score;
             // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
             // Long position
-            if (rsi > 0 && rsi < 25 && close[close.length - 1] <= bb_lower) {
+            if (rsi > 0 && rsi < LOWER_RSI && close[close.length - 1] <= bb_lower) {
                 return 10;
             }
             // Short position
-            else if (rsi > 60 || close[close.length - 1] >= bb_upper * 0.9) {
+            else if (rsi > UPPER_RSI || close[close.length - 1] >= bb_upper * 0.9) {
                 return -10;
             }
             else {

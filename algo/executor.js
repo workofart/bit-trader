@@ -44,6 +44,10 @@ const getActivePositionsByTicker = async (ticker) => {
     });
 };
 
+const getActivePositions = async () => {
+    return await userAPI.getActivePositions();
+}
+
 const getOpenOrdersByTicker = async (ticker) => {
     let res = await userAPI.getActiveOrders();
     return await _.find(JSON.parse(res), (item) => {
@@ -124,6 +128,7 @@ module.exports = {
     cancelOrderById: cancelOrderById,
     getOpenOrdersByTicker: getOpenOrdersByTicker,
     getActivePositionsByTicker: getActivePositionsByTicker,
+    getActivePositions: getActivePositions,
     cancelPreviousSubmitNew, cancelPreviousSubmitNew,
     getOrderById: getOrderById
 };

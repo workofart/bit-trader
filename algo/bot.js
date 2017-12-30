@@ -4,6 +4,7 @@ const WebSocket = require('ws'),
 /************ Custom Functions **********/
 const utilities = require('./custom_util'),
       db = require('./store'),
+      executor = require('./executor'),
       tickerProcessor = require('./DataProcessors/ticker'),
       candleProcessor = require('./DataProcessors/candle'),
       orderBookProcessor = require('./DataProcessors/orderBook');
@@ -17,7 +18,7 @@ global.currencyWallet = {};
 global.latestPrice = {};
 global.tickerPrices = {};
 global.storedWeightedSignalScore = {};
-global.isLive = false;
+global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 global.frozenTickers = {}; // these tickers are based on correlation with the currency wallet to improve diversification
 /***************************************************/
 
@@ -84,22 +85,23 @@ connection.on('message', (msg) => {
 
 // setInterval(() => { automation.raceTheBook('ETHUSD', 'buy', orderBook_Ask, orderBook_Bid, '0.04') }, 3000)
 
-setInterval( async () => {
-    let pos = await executor.getActivePositions();
-    wallet = INITIAL_INVESTMENT;
-    for (let item of JSON.parse(pos)) {
-        let ticker = item.symbol.toUpperCase();
-        currencyWallet[ticker] = currencyWallet[ticker] !== undefined ? currencyWallet[ticker] : {};
-        currencyWallet[ticker].qty = currencyWallet[ticker].qty !== undefined ? currencyWallet[ticker].qty : 0;
-        currencyWallet[ticker].price = currencyWallet[ticker].price !== undefined ? currencyWallet[ticker].price : 0;
+if (global.isLive) {
+    setInterval( async () => {
+        let pos = await executor.getActivePositions();
+        global.wallet = INITIAL_INVESTMENT;
+        for (let item of JSON.parse(pos)) {
+            let ticker = item.symbol.toUpperCase();
+            global.currencyWallet[ticker] = global.currencyWallet[ticker] !== undefined ? global.currencyWallet[ticker] : {};
+            global.currencyWallet[ticker].qty = global.currencyWallet[ticker].qty !== undefined ? global.currencyWallet[ticker].qty : 0;
+            global.currencyWallet[ticker].price = global.currencyWallet[ticker].price !== undefined ? global.currencyWallet[ticker].price : 0;
 
-        currencyWallet[ticker].qty = parseFloat(item.amount);
-        currencyWallet[ticker].price= parseFloat(item.base);
-        wallet -= item.amount * item.base;
-    }
+            global.currencyWallet[ticker].qty = parseFloat(item.amount);
+            global.currencyWallet[ticker].price= parseFloat(item.base);
+            global.wallet -= item.amount * item.base;
+        }
+    }, 10000);
+}
 
-    // console.log(currencyWallet);
-}, 10000);
 
 /***************************************************/
 /*              Main Processor                     */
@@ -113,21 +115,6 @@ let mainProcessor = (ticker, data) => {
 
     // Initialize the scores/counts for a given ticker
     initScoreCounts(ticker);
-
-
-    // reset signal score and make decision
-    // if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
-    //     if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
-    //         util.log('------------------------------------------------\n\n')
-    //         util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
-
-    //         invest(global.storedWeightedSignalScore[ticker], ticker)
-    //     }
-    //     global.storedWeightedSignalScore[ticker] = 0;
-    //     storedCounts[ticker] = 0;
-    //     MAX_SCORE_INTERVAL[ticker] = 90;
-    // }
-    // util.log(`MAX_SCORE_INTERVAL: ${MAX_SCORE_INTERVAL}`)
 
     // Order books
     if (data.datasource === 'book' && isOrderBookEnabled) {
