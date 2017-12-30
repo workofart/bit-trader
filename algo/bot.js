@@ -83,7 +83,22 @@ connection.on('message', (msg) => {
     }
 })
 
-// setInterval(() => { automation.raceTheBook('ETHUSD', 'buy', orderBook_Ask, orderBook_Bid, '0.04') }, 3000)
+setInterval( async () => {
+    let pos = await executor.getActivePositions();
+    wallet = INITIAL_INVESTMENT;
+    for (let item of JSON.parse(pos)) {
+        let ticker = item.symbol.toUpperCase();
+        currencyWallet[ticker] = currencyWallet[ticker] != undefined ? currencyWallet[ticker] : {}
+        currencyWallet[ticker].qty = currencyWallet[ticker].qty != undefined ? currencyWallet[ticker].qty : 0
+        currencyWallet[ticker].price = currencyWallet[ticker].price != undefined ? currencyWallet[ticker].price : 0
+
+        currencyWallet[ticker].qty = parseFloat(item.amount);
+        currencyWallet[ticker].price= parseFloat(item.base);
+        wallet -= item.amount * item.base;
+    }
+
+    // console.log(currencyWallet);
+ }, 10000);
 
 if (global.isLive) {
     setInterval( async () => {
