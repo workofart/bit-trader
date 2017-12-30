@@ -2,18 +2,19 @@
  * This file contains the execution functions that will call the Exchange APIs to perform different
  * order placements
  */
-const userAPI = require('../api/user_functions');
-const URL = 'http://127.0.0.1:3001/api/';
-const MIN_AMOUNT = require('./minOrder')
-const _ = require('underscore');
+const
+    userAPI = require('../api/user_functions'),
+    MIN_AMOUNT = require('./minOrder'),
+    _ = require('underscore'),
+    URL = 'http://127.0.0.1:3001/api/';
 
  // Perform a overall account summary first
 const getAccountSummary = () => {
     userAPI.getActiveOrders((data)=> {
         console.log('Total open orders: ' + data.length);
         
-        for (var i in data) {
-            let { id, symbol, price, side, remaining_amount } = data[i]
+        for (let i in data) {
+            let { id, symbol, price, side, remaining_amount } = data[i];
             console.log(`[${symbol}] | ${id}: ${side} @ ${price} for ${remaining_amount}`);
         }
         // console.log(`getActiveOrders: \n: ${JSON.stringify(data)}`);
@@ -34,14 +35,17 @@ const getAccountSummary = () => {
     //     console.log(`getWalletBalance: \n: ${JSON.stringify(data)}`);
     // });
     
-}
+};
 
 const getActivePositionsByTicker = async (ticker) => {
     let res = await userAPI.getActivePositions();
-    let orders = await _.find(JSON.parse(res), (item) => {
-        return item.symbol === ticker;
+    return await _.find(JSON.parse(res), (item) => {
+        return item.symbol === ticker.toLowerCase();
     });
-    return orders
+};
+
+const getActivePositions = async () => {
+    return await userAPI.getActivePositions();
 }
 
 const getActivePositions = async () => {
@@ -50,66 +54,51 @@ const getActivePositions = async () => {
 
 const getOpenOrdersByTicker = async (ticker) => {
     let res = await userAPI.getActiveOrders();
-    let orders = await _.find(JSON.parse(res), (item) => {
+    return await _.find(JSON.parse(res), (item) => {
         return item.symbol === ticker;
-    })
-    return orders;
-}
+    });
+};
 
 const getOrderById = async (id) => {
-    let res = await userAPI.getOrderStatus(id);
-    return res;
-}
+    return await userAPI.getOrderStatus(id);
+};
 
 
  // Limit Order
 const submitLimit = async (ticker, price, amount, side) => {
     // Pre-order parameter sanity check
-    var minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker});
+    let minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker});
     // if (price < currentPrice && amount >= minAmount) {
     //     console.log('order verification success')
     // }
     // else {
     //     console.log('Please double-check parameters submitted')
     // }
-    let res = await userAPI.postNewOrder({ticker: ticker, price: price, amount: amount, side: side, type: 'limit'});
-    return res;
+    return await userAPI.postNewOrder({ticker: ticker, price: price, amount: amount, side: side, type: 'limit'});
 }
 
 
  // Market Order
 const submitMarket = async (ticker, amount, side) => {
     console.log('Submitting market order: ' + JSON.stringify({ticker: ticker, price: '0.1', amount: amount.toString(), side: side, type: 'market'}));
-    let res = await userAPI.postNewOrder({ticker: ticker, price: '0.1', amount: amount.toString(), side: side, type: 'market'})
-    return res;
+    return await userAPI.postNewOrder({ticker: ticker, price: '0.1', amount: amount.toString(), side: side, type: 'market'})
 }
 
 const cancelOrderById = async (id) => {
-    let res = await userAPI.cancelOrder(id);
     // let status = await _verifyOrderCancelled(res);
     // return status ? res : false;
-    return res;
-}
+    return await userAPI.cancelOrder(id);
+};
 
 async function _verifyOrderExecuted (data) {
-    if (!data.is_live && !data.is_cancelled && data.remaining_amount === '0.0') {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return !data.is_live && !data.is_cancelled && data.remaining_amount === '0.0';
 }
 
 async function _verifyOrderCancelled (data) {
     if (data.message === 'Order could not be cancelled.') {
         return false
     }
-    else if (data.is_cancelled) {
-        return true
-    }
-    else {
-        return false
-    }
+    return data.is_cancelled
 }
 
 const cancelPreviousSubmitNew = async (ticker, price, amount, side) => {
@@ -123,8 +112,7 @@ const cancelPreviousSubmitNew = async (ticker, price, amount, side) => {
             cancelStatus =  _verifyOrderCancelled(res);
         }
     }
-    let newOrder = await submitLimit(ticker, price, amount, side);
-    return newOrder;
+    return await submitLimit(ticker, price, amount, side);
 } 
 
 // getAccountSummary();
@@ -147,6 +135,6 @@ module.exports = {
     getActivePositions: getActivePositions,
     cancelPreviousSubmitNew, cancelPreviousSubmitNew,
     getOrderById: getOrderById
-}
+};
 // orderStatus(4891872869);
 // cancelOrderById(4871370783);
