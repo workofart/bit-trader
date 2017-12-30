@@ -48,6 +48,10 @@ const getActivePositions = async () => {
     return await userAPI.getActivePositions();
 }
 
+const getActivePositions = async () => {
+    return await userAPI.getActivePositions();
+}
+
 const getOpenOrdersByTicker = async (ticker) => {
     let res = await userAPI.getActiveOrders();
     return await _.find(JSON.parse(res), (item) => {
