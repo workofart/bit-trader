@@ -46,11 +46,7 @@ const getActivePositionsByTicker = async (ticker) => {
 
 const getActivePositions = async () => {
     return await userAPI.getActivePositions();
-}
-
-const getActivePositions = async () => {
-    return await userAPI.getActivePositions();
-}
+};
 
 const getOpenOrdersByTicker = async (ticker) => {
     let res = await userAPI.getActiveOrders();

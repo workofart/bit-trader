@@ -80,7 +80,7 @@ exports.processCorrelation = (tickerBase, ticker, data) => {
             }
         }
         priceArr = {}; // reset everything
-        util.log('Processing correlation for ' + corrArr);
+        // util.log('Processing correlation for ' + JSON.stringify(corrArr, null, 2));
         return corrArr;
     }
 
