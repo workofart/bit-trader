@@ -40,6 +40,7 @@ var renderChart = (ticker, that, trades) => {
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     var signalSeries = this.series[1];
+                    var walletSeries = this.series[2];
                     var count = 0;
                     this.showLoading();
                     $.ajax(
@@ -63,6 +64,26 @@ var renderChart = (ticker, that, trades) => {
                             }
                         }
                     )
+                    // $.ajax(
+                    //     URL + 'getLiveWallet',
+                    //     {
+                    //         success: (data) => {
+                    //             if (data.length > 0) {
+                    //                 this.hideLoading();
+                    //                 _.forEach(data, (item) => {
+                    //                     series.addPoint([moment(item.timestamp).local().valueOf(), item.balance], false, false);
+                    //                 })
+                    //                 this.redraw();
+                    //             }
+                    //             else {
+                    //                 console.log(data);
+                    //             }
+                    //         },
+                    //         fail: () => {
+                    //             console.log('Failed getting live wallet')
+                    //         }
+                    //     }
+                    // )
                     console.log('Render graph called.')
                     if (that.props.data != []) {
                         this.hideLoading();
@@ -145,6 +166,12 @@ var renderChart = (ticker, that, trades) => {
             data: [],
             stackDistance: 20
         }]
+        // {
+        //     type: 'area',
+        //     data: [],
+        //     name: 'Wallet',
+        //     id: 'Wallet'
+        // }]
     });
 }
 

@@ -48,5 +48,6 @@ router.get('/getBooks/:ticker', db_controller.getBooks);
 
 router.get('/getBotTrades/:ticker', db_controller.getBotTrades);
 router.get('/getLivePrices/:ticker', db_controller.getLivePrices);
+router.get('/getLiveWallet', db_controller.getLiveWallet);
 router.get('/resetLivePriceFlag', db_controller.resetLivePriceFlag);
 module.exports = router;

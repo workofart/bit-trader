@@ -14,12 +14,7 @@ const calculateProfit = (data) => {
             netPosition += data[i].qty * data[i].price;
         }
     }
-    if (netPosition >= 0) {
-        return netPosition;
-    }
-    else {
-        return -1;
-    }
+    return netPosition;
 }
 
 class PerformanceStats extends Component {

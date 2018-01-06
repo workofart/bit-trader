@@ -245,3 +245,27 @@ module.exports.getLivePrices = function(req, res) {
         })
     });
 }
+
+module.exports.getLiveWallet = function(req, res) {
+    var query = `SELECT * FROM BITFINEX_LIVE_WALLET ORDER BY TIMESTAMP;`;
+    console.log('getLiveWallet api called: ' + query);
+    db.pool.connect((err, client, done) => {
+        if(err) {
+            console.log(err);
+            sendJsonResponse(res, 500, 'DB connection error');
+            throw err;
+        }
+        client.query(query, (err, result) => {
+            done()
+            if(err) {
+                console.log(err.stack);
+                sendJsonResponse(res, 500, 'db query error');
+            }
+            else {
+                var rows = result.rows;
+                console.log(`Row count: ${rows.length}`)
+                sendJsonResponse(res, 200, rows);
+            }
+        })
+    });
+}

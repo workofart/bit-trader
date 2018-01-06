@@ -5,7 +5,7 @@ const
 const { DEMAND_SUPPLY_SPREAD_MULTIPLIER,
     DEMAND_SUPPLY_DISTANCE,
     SPREAD_THRESHOLD,
-    AGGREGATE_SUPPLY_DEMAND_BASE } = require('../constants').orderBook;
+    AGGREGATE_SUPPLY_DEMAND_BASE } = require('../init/constants').orderBook;
 
 let orderBook_Bid = [],
     orderBook_Ask = [];

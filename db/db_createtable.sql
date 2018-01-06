@@ -63,3 +63,9 @@ create table bitfinex_live_price (
     volume float not null,
     timestamp timestamp not null
 );
+
+create table bitfinex_live_wallet (
+    id bigserial primary key,
+    balance float not null,
+    timestamp timestamp not null
+);
