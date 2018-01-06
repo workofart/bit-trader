@@ -1,7 +1,6 @@
 require('../env-setup');
 
-const Investment = require('../../algo/investment'),
-      investConstants = require('../../algo/constants').investment;
+const Investment = require('../../algo/investment');
 
 describe('Investment Unit Tests', () => {
 
@@ -19,10 +18,10 @@ describe('Investment Unit Tests', () => {
         });
 
         it('should return true with no prior price', () => {
-            let oldPrice = global.currencyWallet[ticker].price;
-            global.currencyWallet[ticker].price = 0;
+            let oldPrice = global.currencyWallet[ticker].repeatedBuyPrice;
+            global.currencyWallet[ticker].repeatedBuyPrice = 100;
             let result = Investment.repeatedBuyReq(ticker, 10);
-            global.currencyWallet[ticker].price = oldPrice;
+            global.currencyWallet[ticker].repeatedBuyPrice = oldPrice;
             expect(result).to.be.true;
         })
     });
@@ -40,19 +39,19 @@ describe('Investment Unit Tests', () => {
 
     describe('Sell Signal Check', () => {
         it('should return true on a valid sell signal', () => {
-            expect(Investment.sellSignalReq(investConstants.SELL_SIGNAL_TRIGGER)).to.be.true;
+            expect(Investment.sellSignalReq(global.SELL_SIGNAL_TRIGGER)).to.be.true;
         });
         it('should return false on an invalid sell signal', () => {
-            expect(Investment.sellSignalReq(investConstants.SELL_SIGNAL_TRIGGER + 1)).to.be.false;
+            expect(Investment.sellSignalReq(global.SELL_SIGNAL_TRIGGER + 1)).to.be.false;
         });
     })
 
     describe('Buy Signal Check', () => {
         it('should return true on a valid buy signal', () => {
-            expect(Investment.buySignalReq(investConstants.BUY_SIGNAL_TRIGGER)).to.be.true;
+            expect(Investment.buySignalReq(global.BUY_SIGNAL_TRIGGER)).to.be.true;
         });
         it('should return false on an invalid sell signal', () => {
-            expect(Investment.buySignalReq(investConstants.BUY_SIGNAL_TRIGGER - 1)).to.be.false;
+            expect(Investment.buySignalReq(global.BUY_SIGNAL_TRIGGER - 1)).to.be.false;
         });
     })
 
@@ -86,13 +85,13 @@ describe('Investment Unit Tests', () => {
     describe('Min Profit Check', () => {
         it('should return true covering profit and trading fees', () => {
             let lastPrice = global.currencyWallet[ticker].price,
-                targetPrice = lastPrice * (1 + investConstants.MIN_PROFIT_PERCENTAGE + investConstants.TRADING_FEE) + 1;
+                targetPrice = lastPrice * (1 + global.MIN_PROFIT_PERCENTAGE + global.TRADING_FEE) + 1;
             expect(Investment.minProfitReq(ticker, targetPrice)).to.be.true;
         })
 
         it('should return false not enough to cover profit and trading fees', () => {
             let lastPrice = global.currencyWallet[ticker].price,
-                targetPrice = lastPrice * (1 + investConstants.MIN_PROFIT_PERCENTAGE + investConstants.TRADING_FEE) - 1;
+                targetPrice = lastPrice * (1 + global.MIN_PROFIT_PERCENTAGE + global.TRADING_FEE) - 1;
             expect(Investment.minProfitReq(ticker, targetPrice)).to.be.false;
         })
     })

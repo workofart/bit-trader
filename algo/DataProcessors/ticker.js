@@ -5,8 +5,7 @@ const _ = require('underscore'),
       util = require('util'),
       moment = require('moment');
 
-let storedCounts = {},
-    MAX_SCORE_INTERVAL = {};
+let storedCounts = {};
 
 
 /***************************************************/
@@ -15,7 +14,7 @@ let storedCounts = {},
 
 const processTickerPrice = async (ticker, data) => {
     storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
-    MAX_SCORE_INTERVAL[ticker] = MAX_SCORE_INTERVAL[ticker] !== undefined ? MAX_SCORE_INTERVAL[ticker] : 40;
+    global.MAX_SCORE_INTERVAL[ticker] = global.MAX_SCORE_INTERVAL[ticker] !== undefined ? global.MAX_SCORE_INTERVAL[ticker] : 40;
 
     // util.log(`[${ticker}] current score: ${subscore}`)
     let bid = data[0],
@@ -60,7 +59,7 @@ const processTickerPrice = async (ticker, data) => {
     }
 
     try {
-        let indicatorValue = await computeIndicators(ticker, global.tickerPrices[ticker]);
+        let indicatorValue = await computeIndicators(ticker, global.tickerPrices[ticker], processedData.time);
 
         // Store the latest price into storage for investment decisions
         global.latestPrice[ticker] = global.tickerPrices[ticker][global.tickerPrices[ticker].length - 1].last_price;
@@ -68,7 +67,7 @@ const processTickerPrice = async (ticker, data) => {
         global.storedWeightedSignalScore[ticker] = indicatorValue;
         // util.log(`${ticker} count: ${storedCounts[ticker]}`)
         // util.log(`[${ticker} | Weighted Signal Score: ${value.toFixed(4)}\n`)
-        if (storedCounts[ticker] >= MAX_SCORE_INTERVAL[ticker]) {
+        if (storedCounts[ticker] >= global.MAX_SCORE_INTERVAL[ticker]) {
             // if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
             //     util.log('------------------------------------------------\n\n')
             //     util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
@@ -78,10 +77,11 @@ const processTickerPrice = async (ticker, data) => {
             util.log(`Resetting signal score for [${ticker}]`);
             global.storedWeightedSignalScore[ticker] = 0;
             storedCounts[ticker] = 0;
-            MAX_SCORE_INTERVAL[ticker] = 40;
+            global.MAX_SCORE_INTERVAL[ticker] = 40;
         }
-        // util.log(`[${ticker}] RSI: ${value}`)
-        invest(global.storedWeightedSignalScore[ticker], ticker);
+        // util.log(`[${ticker}] RSI: ${indicatorValue}`);
+        processedData.timestamp = processedData.time;
+        invest(global.storedWeightedSignalScore[ticker], ticker, processedData);
         storedCounts[ticker] += 1;
     }
     catch(e) {
@@ -90,7 +90,7 @@ const processTickerPrice = async (ticker, data) => {
 }
 
 
-const computeIndicators = async (ticker, data) => {
+const computeIndicators = async (ticker, data, timestamp) => {
     // get the current currency wallet and use them as the ticker base
     let openTickers = {};
 
@@ -110,14 +110,17 @@ const computeIndicators = async (ticker, data) => {
     // util.log(`[${ticker}] InputScore: ${processScore}`)
     // indicators.initIndicators();
 
+
     for (let baseTicker of Object.keys(openTickers)) {
-        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1]);
+        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1], timestamp);
         _.forEach(corr, (i) => {
             global.frozenTickers[i.tickerTarget] = Math.abs(i.corr) > 0.75;
         })
     }
+    // console.log(data);
 
     return await indicators.calculateBB_RSI(close);
+    // return await indicators.calculateBB_RSI(data);
 };
 
 module.exports = {
