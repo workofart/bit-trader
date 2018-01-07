@@ -112,7 +112,7 @@ const computeIndicators = async (ticker, data, timestamp) => {
 
 
     for (let baseTicker of Object.keys(openTickers)) {
-        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1], timestamp);
+        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1].last_price, timestamp);
         _.forEach(corr, (i) => {
             global.frozenTickers[i.tickerTarget] = Math.abs(i.corr) > 0.75;
         })
