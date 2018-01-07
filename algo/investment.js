@@ -195,7 +195,7 @@ class Investment {
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
-                db.storeTransactionToDB(ticker, executedPrice,  global.currencyWallet[ticker].qty, 0);
+                db.storeTransactionToDB(ticker, executedPrice, global.currencyWallet[ticker].qty, 0);
                 global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
                 global.currencyWallet[ticker].price = 0; // clear the price after sold
                 global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
@@ -241,7 +241,7 @@ class Investment {
         }
         else if (side === 'bearSell') {
             try {
-                let res = await executor.submitMarket(ticker,  global.currencyWallet[ticker].qty, 'sell');
+                let res = await executor.submitMarket(ticker, qty, 'sell');
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);
                 delete res.is_cancelled;

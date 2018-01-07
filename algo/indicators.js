@@ -52,6 +52,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
     priceArr[timestamp] = priceArr[timestamp] === undefined ? {} : priceArr[timestamp];
     priceArr[timestamp][ticker] = data;
     // console.log(`${timestamp} | ${Object.keys(priceArr[timestamp]).length} tickers`);
+    console.log(JSON.stringify(priceArr, null, 2));
 
 
     numTickerRecords = Object.keys(priceArr[timestamp]).length;
@@ -79,6 +80,8 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
 
                 if (targetPriceArr.length === basePriceArr.length) {
                     let result = calculateCorrelation(basePriceArr, targetPriceArr);
+                    console.log(`BasePriceArr: ${JSON.stringify(basePriceArr, null, 2)}`);
+                    console.log(`TargetPriceArr: ${JSON.stringify(targetPriceArr, null, 2)}`);
                     console.log(`${t} & ${tickerBase}: ${result}`);
                     corrArr.push({corr: result, tickerTarget: t, tickerBase: tickerBase});
                 }
