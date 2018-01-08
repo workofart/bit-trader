@@ -13,81 +13,49 @@ let storedCounts = {};
 /***************************************************/
 
 const processTickerPrice = async (ticker, data) => {
-    storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
-    global.MAX_SCORE_INTERVAL[ticker] = global.MAX_SCORE_INTERVAL[ticker] !== undefined ? global.MAX_SCORE_INTERVAL[ticker] : 40;
+    try {
+        initScoreCounts(ticker);
+        let processedData;
 
-    // util.log(`[${ticker}] current score: ${subscore}`)
-    let bid = data[0],
-        bid_size = data[1],
-        ask = data[2],
-        ask_size = data[3],
-        daily_change = data[4],
-        daily_change_perc = data[5],
-        last_price = data[6],
-        volume = data[7],
-        high = data[8],
-        low = data[9];
+        processedData = global.isBacktest ? data : parseRawData(ticker, data);
 
+        // console.log(processedData)
 
-    let processedData = {
-        'ticker': ticker,
-        'bid': bid,
-        'bid_size': bid_size,
-        'ask': ask,
-        'ask_size': ask_size,
-        'daily_change': daily_change,
-        'daily_change_perc': daily_change_perc,
-        'last_price': last_price,
-        'volume': volume,
-        'high': high,
-        'low': low,
-        'time': moment().local().format('YYYY-MM-DD HH:mm:ss')
-    };
-
-    // console.log(processedData)
-    let existingItem = _.find(global.tickerPrices[ticker], (item) => {
-        return item.time === processedData.time
-    });
-    if (existingItem === undefined) {
+        if (!global.isParamTune) {
+            global.isBacktest ? db.storeLivePrice(processedData, processedData.timestamp) : db.storeLivePrice(processedData);
+        }
 
         if (!Array.isArray(global.tickerPrices[ticker])) {
             global.tickerPrices[ticker] = []
         }
-        db.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume);
 
-        global.tickerPrices[ticker].splice(_.sortedIndex(global.tickerPrices[ticker], processedData, 'time'), 0, processedData)
-    }
+        global.tickerPrices[ticker].push(processedData.last_price);
+        global.latestPrice[ticker] = global.tickerPrices[ticker][global.tickerPrices[ticker].length - 1];
 
-    try {
+        if (global.tickerPrices[ticker].length > global.PURGE_LENGTH) {
+            global.tickerPrices[ticker] = global.tickerPrices[ticker].slice(global.PURGE_LENGTH / 1.8);
+        }
+
         let indicatorValue = await computeIndicators(ticker, global.tickerPrices[ticker], processedData.time);
 
         // Store the latest price into storage for investment decisions
-        global.latestPrice[ticker] = global.tickerPrices[ticker][global.tickerPrices[ticker].length - 1].last_price;
-
         global.storedWeightedSignalScore[ticker] = indicatorValue;
-        // util.log(`${ticker} count: ${storedCounts[ticker]}`)
-        // util.log(`[${ticker} | Weighted Signal Score: ${value.toFixed(4)}\n`)
+
         if (storedCounts[ticker] >= global.MAX_SCORE_INTERVAL[ticker]) {
-            // if (global.storedWeightedSignalScore[ticker] != 0 && global.storedWeightedSignalScore[ticker] != Infinity) {
-            //     util.log('------------------------------------------------\n\n')
-            //     util.log(`[${ticker} | Weighted Signal Score: ${global.storedWeightedSignalScore[ticker].toFixed(4)}\n`)
-            //     invest(global.storedWeightedSignalScore[ticker], ticker)
-            // }
             // reset the signal score and counts
-            util.log(`Resetting signal score for [${ticker}]`);
-            global.storedWeightedSignalScore[ticker] = 0;
-            storedCounts[ticker] = 0;
-            global.MAX_SCORE_INTERVAL[ticker] = 40;
+            !global.isBacktest && util.log(`Resetting signal score for [${ticker}]`);
+            resetScoreCount(ticker);
         }
+
         // util.log(`[${ticker}] RSI: ${indicatorValue}`);
-        processedData.timestamp = processedData.time;
+        // processedData.timestamp = processedData.time;
         invest(global.storedWeightedSignalScore[ticker], ticker, processedData);
         storedCounts[ticker] += 1;
     }
     catch(e) {
         console.error('An error while processing ticker prices: ' + e.stack);
     }
-}
+};
 
 
 const computeIndicators = async (ticker, data, timestamp) => {
@@ -103,27 +71,55 @@ const computeIndicators = async (ticker, data, timestamp) => {
         }
     });
 
-    let close = _.map(data, (item) => {
-        return item.last_price;
-    });
-
-    // util.log(`[${ticker}] InputScore: ${processScore}`)
     // indicators.initIndicators();
 
-
     for (let baseTicker of Object.keys(openTickers)) {
-        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1].last_price, timestamp);
+        let corr = await indicators.processCorrelation(baseTicker, ticker, data[data.length - 1], timestamp);
         _.forEach(corr, (i) => {
-            global.frozenTickers[i.tickerTarget] = Math.abs(i.corr) > 0.75;
+            global.frozenTickers[i.tickerTarget] = Math.abs(i.corr) > global.CORRELATION_THRESHOLD;
         })
     }
     // console.log(data);
 
-    return await indicators.calculateBB_RSI(close);
-    // return await indicators.calculateBB_RSI(data);
+    return await indicators.calculateBB_RSI(data);
+};
+
+const initScoreCounts = (ticker) => {
+    global.storedWeightedSignalScore[ticker] = global.storedWeightedSignalScore[ticker] !== undefined ? global.storedWeightedSignalScore[ticker] : 0;
+    global.MAX_SCORE_INTERVAL[ticker] = global.MAX_SCORE_INTERVAL[ticker] !== undefined ? global.MAX_SCORE_INTERVAL[ticker] : 40;
+    storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
+}
+
+const resetScoreCount = (ticker) => {
+    global.storedWeightedSignalScore[ticker] = 0;
+    storedCounts[ticker] = 0;
+    global.MAX_SCORE_INTERVAL[ticker] = 40;
+}
+
+const parseRawData = (ticker, data) => {
+    let [bid, bid_size, ask, ask_size, daily_change,
+        daily_change_perc, last_price, volume, high,
+        low] = data;
+
+    return {
+        'ticker': ticker,
+        'bid': bid,
+        'bid_size': bid_size,
+        'ask': ask,
+        'ask_size': ask_size,
+        'daily_change': daily_change,
+        'daily_change_perc': daily_change_perc,
+        'last_price': last_price,
+        'volume': volume,
+        'high': high,
+        'low': low,
+        'timestamp': moment().local().format('YYYY-MM-DD HH:mm:ss')
+    };
 };
 
 module.exports = {
     computeIndicators : computeIndicators,
-    processTickerPrice: processTickerPrice
+    processTickerPrice: processTickerPrice,
+    initScoreCount: initScoreCounts,
+    resetScoreCount: resetScoreCount
 }
