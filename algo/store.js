@@ -40,8 +40,9 @@ exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().l
     })
 }
 
-exports.storeLivePrice = (ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
-    let params = [ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp];
+exports.storeLivePrice = (data, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
+    let {ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume} = data;
+    let params = [ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp];
     let query = `INSERT INTO BITFINEX_LIVE_PRICE (ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
     db.pool.connect((err, client, done) => {
         if (err) throw err
@@ -53,7 +54,7 @@ exports.storeLivePrice = (ticker, price, bid, bid_size, ask, ask_size, high, low
                     util.error('There was a error when inserting into live price table');
                 }
                 else {
-                    util.log(`[${ticker}] price: $${price}`)
+                    !global.isBacktest && util.log(`[${ticker}] price: $${last_price}`)
                 }
             })
     })

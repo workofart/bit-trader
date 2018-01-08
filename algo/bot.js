@@ -12,7 +12,7 @@ const utilities = require('./custom_util'),
 require('./init/init');
 
 
-global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 /***************************************************/
 
 

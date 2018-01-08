@@ -1,6 +1,4 @@
 const db = require('../../db/config'),
-      util = require('util'),
-      fs = require('fs'),
       moment = require('moment'),
       init = require('../../algo/init/init'),
       dbExecutor = require('../../algo/store'),
@@ -28,6 +26,8 @@ let indicatorFlags = {
 };
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isBacktest = true;
+global.isParamTune = true;
 
 
 /**
@@ -41,12 +41,12 @@ const processor = async (subprocessor, dataFile) => {
         let counter = 0;
         let data = await testUtil.parseCSV(dataFile);
         data = _.sortBy(data, (a) => { return a.timestamp});
-        for (i in data) {
+        // for (i in data) {
+        for (var i = 0, len = data.length; i < len; i++) {
             // console.log(`${data[i].timestamp} | ${data[i].ticker}`);
             data[i].last_price = parseFloat(data[i].price);
             delete data[i].price;
             let { ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp } = data[i];
-            // dbExecutor.storeLivePrice(ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp);
             // dbExecutor.storeWallet(global.wallet, timestamp);
             await subprocessor(ticker, data[i]);
 
@@ -69,52 +69,6 @@ const processor = async (subprocessor, dataFile) => {
 
 };
 
-const processTickerPrice = async (ticker, data) => {
-    initScoreCounts(ticker);
-    try {
-        let score = await tickerPriceIndicator(ticker, data);
-        // util.log(`${ticker}: ${score}`);
-        global.storedWeightedSignalScore[ticker] = score;
-        if (storedCounts[ticker] >= global.MAX_SCORE_INTERVAL[ticker]) {
-            // reset the signal score and counts
-            // util.log(`Resetting signal score for [${ticker}]`);
-            global.storedWeightedSignalScore[ticker] = 0;
-            storedCounts[ticker] = 0;
-            global.MAX_SCORE_INTERVAL[ticker] = 40;
-        }
-        Investment.invest(global.storedWeightedSignalScore[ticker], ticker, data);
-        storedCounts[ticker] += 1;
-    }
-    catch(e) {
-        console.error('There was a problem running the subprocessor: ' + e.stack);
-    }
-}
-
-const tickerPriceIndicator = async (ticker, data) => {
-
-    if (!Array.isArray(tickerPrices[ticker])) {
-        tickerPrices[ticker] = []
-    }
-
-    // let index = _.sortedIndex(tickerPrices[ticker], data, 'timestamp');
-    // tickerPrices[ticker].splice(index, 0, data.last_price);
-    tickerPrices[ticker].push(data.last_price);
-
-    // Store the latest price into storage for investment decisions
-    global.latestPrice[ticker] = tickerPrices[ticker][tickerPrices[ticker].length - 1];
-
-
-    // util.log(`${ticker} : ${JSON.stringify(tickerPrices[ticker][tickerPrices[ticker].length - 1])}`)
-    return await TickerProcessor.computeIndicators(ticker, tickerPrices[ticker], data.timestamp);
-};
-
-const initScoreCounts = (ticker) => {
-    global.storedWeightedSignalScore[ticker] = global.storedWeightedSignalScore[ticker] !== undefined ? global.storedWeightedSignalScore[ticker] : 0;
-    global.MAX_SCORE_INTERVAL[ticker] = global.MAX_SCORE_INTERVAL[ticker] !== undefined ? global.MAX_SCORE_INTERVAL[ticker] : 40;
-    storedCounts[ticker] = storedCounts[ticker] !== undefined ? storedCounts[ticker] : 0;
-};
-
-
 const resetVariables = () => {
     global.wallet = global.INITIAL_INVESTMENT;
     global.currencyWallet = {};
@@ -123,32 +77,34 @@ const resetVariables = () => {
     global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
     global.frozenTickers = {};
     global.MAX_SCORE_INTERVAL = {};
+    global.tickerPrices = {};
 
     close = {};
     storedCounts = {};
-    tickerPrices = {};
 };
 
 const performGS = async () => {
     try {
         let options = {
             params: {
-                DATA: ['live_price_sideway', 'live_price_up'],
+                DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 CORRELATION: [30],
                 PROFIT: [0.01, 0.012],
-                INVEST: [0.08],
-                REPEAT_BUY: [0.2, 0.025],
-                REPEAT_SELL: [0.02, 0.025],
-                BEAR_LOSS: [0.02, 0.04],
-                RSI: [41]
+                INVEST: [0.12, 0.15],
+                REPEAT_BUY: [0.025],
+                REPEAT_SELL: [0.01],
+                BEAR_LOSS: [0.02],
+                RSI: [41],
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
-                // PROFIT: [0.08, 0.01, 0.012],
-                // INVEST: [0.08, 0.15, 0.2],
+                // PROFIT: [0.008, 0.01, 0.012],
+                // INVEST: [0.12, 0.15],
                 // REPEAT_BUY: [0.02, 0.025, 0.03],
-                // REPEAT_SELL: [0.02, 0.025, 0.03],
-                // BEAR_LOSS: [0.02, 0.04],
+                // REPEAT_SELL: [0.01, 0.015, 0.02],
+                // BEAR_LOSS: [0.02, 0.04]
                 // RSI: [31, 41]
+                LOWER_RSI: [20, 22, 25],
+                BB_STD_DEV: [1.5, 1.75, 2]
             },
             run_callback: async (comb) => {
                 global.CORRELATION_PERIOD = comb.CORRELATION;
@@ -158,8 +114,11 @@ const performGS = async () => {
                 global.REPEATED_SELL_MARGIN = comb.REPEAT_SELL;
                 global.BEAR_LOSS_START = comb.BEAR_LOSS;
                 global.RSI = comb.RSI;
+                global.LOWER_RSI = comb.LOWER_RSI;
+                global.BB_STD_DEV = comb.BB_STD_DEV;
 
-                let pnl = await processor(processTickerPrice, comb.DATA);
+                // let pnl = await processor(TickerProcessor.processTickerPrice(ticker, data), comb.DATA);
+                let pnl = await processor(TickerProcessor.processTickerPrice, comb.DATA);
 
                 // return the result - shape and content don't matter
                 return { pnl: pnl};
@@ -169,7 +128,7 @@ const performGS = async () => {
         await grid_search.run();
         await grid_search.displayTableOfResults(
             ['DATA'],
-            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "REPEAT_SELL", "BEAR_LOSS", "RSI"],
+            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "REPEAT_SELL", "BEAR_LOSS", "RSI", "LOWER_RSI", "BB_STD_DEV"],
             x => +(x.results.pnl)   // this callback needs to return single number for each result
         );
     }
@@ -181,27 +140,16 @@ const performGS = async () => {
 
 (
     async () => {
-        // dbExecutor.clearTable('bitfinex_transactions');
-        // dbExecutor.clearTable('bitfinex_live_price');
+        dbExecutor.clearTable('bitfinex_transactions');
+        dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
-
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
-        // await processor(processTickerPrice, 'live_price_sideway');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-        // let logfile = `../logs/test_${currentTime}.log`;
-        // console.log(logfile)
-        // let openFileStream_bot = fs.createWriteStream(logfile, {flags: 'a'});
-        // openFileStream_bot.on('open', () => {
-        //     process.stdout.pipe(openFileStream_bot);
-        //     process.stderr.pipe(openFileStream_bot);
-        // })
         await performGS();
-
-        // Create symbolic link for easy log scanning
-        // fs.symlinkSync(`bot_${currentTime}.log`, '../logs/stdout_bk');
-        // fs.renameSync('../logs/stdout_bk', '../logs/stdout');
     }
 )();
 

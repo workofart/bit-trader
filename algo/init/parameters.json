@@ -1,4 +1,5 @@
 {
+    "PURGE_LENGTH": 300,
     "RSI" : 41,
     "ADX" : 10,
     "ADX_STRONG_MULTIPLIER" : 1.3,
@@ -10,8 +11,9 @@
     "PSAR_BASE_SCORE" : 0.3,
     "RSI_BASE_SCORE" : 2,
     "DEMA_SMA_CROSS_SCORE" : 3,
-    "BB_STD_DEV": 1.6,
-    "LOWER_RSI": 28,
+    "BB_STD_DEV": 1.5,
+    "LOWER_RSI": 23,
     "UPPER_RSI": 70,
-    "CORRELATION_PERIOD": 30
+    "CORRELATION_PERIOD": 30,
+    "CORRELATION_THRESHOLD": 0.75
 }
