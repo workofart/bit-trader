@@ -10,16 +10,6 @@ const _ = require('underscore');
 const MAX_ELEMENTS = 2000;
 const URL = 'http://127.0.0.1:3001/api/';
 
-var isDoneLoading = false;
-var timestamps;
-
-const closest = (arr, goal) => {
-        return arr.reduce(function(prev, curr) {
-        return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-    });
-}
-
-
 var renderChart = (ticker, that, trades) => {
     Highcharts.setOptions({
         global: {

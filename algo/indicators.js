@@ -205,6 +205,7 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
             }
             // Short position
             else if (rsi > global.UPPER_RSI || close[close.length - 1] >= bb_upper) {
+                // console.log('Sell Position Found @ $' + close[close.length - 1]);
                 return -10;
             }
             else {
@@ -215,7 +216,7 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
             util.error('An error occurred when calculating RSI_BB indicators:' + e.stack)
         }
     }
-}
+};
 
 const BB = async (close, period, stdDev = global.BB_STD_DEV) => {
         try {
@@ -243,7 +244,7 @@ const RSI_FUNC = async (close, period) => {
     }
 };
 
-let ADX_FUNC = async (high, low, close, period) => {
+const ADX_FUNC = async (high, low, close, period) => {
     try {
         let results = await tulind.indicators.adx.indicator([high, low, close], [period]);
             let adx = results[0];

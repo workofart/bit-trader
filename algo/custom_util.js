@@ -59,7 +59,7 @@ const printBuy = (ticker, qty, price) => {
 const printBacktestSummary = () => {
     console.log('Investment Parameters');
     console.log(`\tInvest %: ${global.INVEST_PERCENTAGE * 100}%\n\tProfit %: ${global.MIN_PROFIT_PERCENTAGE * 100}%\n\tRepeatedBuy: ${global.REPEATED_BUY_MARGIN * 100}%`);
-    console.log(`\tRepeatedSell: ${global.REPEATED_SELL_MARGIN * 100}%\n\tBearSell: ${global.BEAR_SELL_PERCENTAGE * 100}%\n\tBearLoss: ${global.BEAR_LOSS_START * 100}%`);
+    console.log(`\t\tBearSell: ${global.BEAR_SELL_PERCENTAGE * 100}%\n\tBearLoss: ${global.BEAR_LOSS_START * 100}%`);
     console.log('Indicators Parameters');
     console.log(`\tRSI: ${global.RSI}\n\tBB_STD_DEV: ${global.BB_STD_DEV}\n\tLOWER_RSI: ${global.LOWER_RSI}\n\tUPPER_RSI: ${global.UPPER_RSI}\n\tCORRELATION_PERIOD: ${global.CORRELATION_PERIOD}`);
     // console.log('------------- PNL Performance --------------');

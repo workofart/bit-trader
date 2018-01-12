@@ -27,7 +27,7 @@ let indicatorFlags = {
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 global.isBacktest = true;
-global.isParamTune = true;
+global.isParamTune = false;
 
 
 /**
@@ -89,31 +89,33 @@ const performGS = async () => {
             params: {
                 DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 CORRELATION: [30],
-                PROFIT: [0.01, 0.012],
-                INVEST: [0.12, 0.15],
-                REPEAT_BUY: [0.025],
-                REPEAT_SELL: [0.01],
-                BEAR_LOSS: [0.02],
+                PROFIT: [0.012],
+                INVEST: [0.08, 0.12, 0.15],
+                REPEAT_BUY: [0.02, 0.025],
+                BEAR_LOSS: [0.025],
                 RSI: [41],
+                UPPER_RSI: [70],
+                LOWER_RSI: [23, 27],
+                BB_STD_DEV: [1.5, 2]
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
                 // PROFIT: [0.008, 0.01, 0.012],
                 // INVEST: [0.12, 0.15],
                 // REPEAT_BUY: [0.02, 0.025, 0.03],
-                // REPEAT_SELL: [0.01, 0.015, 0.02],
                 // BEAR_LOSS: [0.02, 0.04]
                 // RSI: [31, 41]
-                LOWER_RSI: [20, 22, 25],
-                BB_STD_DEV: [1.5, 1.75, 2]
+                // UPPER_RSI: [65, 70],
+                // LOWER_RSI: [23, 25, 27],
+                // BB_STD_DEV: [1.5, 1.75, 2]
             },
             run_callback: async (comb) => {
                 global.CORRELATION_PERIOD = comb.CORRELATION;
                 global.MIN_PROFIT_PERCENTAGE = comb.PROFIT;
                 global.INVEST_PERCENTAGE = comb.INVEST;
                 global.REPEATED_BUY_MARGIN = comb.REPEAT_BUY;
-                global.REPEATED_SELL_MARGIN = comb.REPEAT_SELL;
                 global.BEAR_LOSS_START = comb.BEAR_LOSS;
                 global.RSI = comb.RSI;
+                global.UPPER_RSI = comb.UPPER_RSI;
                 global.LOWER_RSI = comb.LOWER_RSI;
                 global.BB_STD_DEV = comb.BB_STD_DEV;
 
@@ -128,7 +130,7 @@ const performGS = async () => {
         await grid_search.run();
         await grid_search.displayTableOfResults(
             ['DATA'],
-            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "REPEAT_SELL", "BEAR_LOSS", "RSI", "LOWER_RSI", "BB_STD_DEV"],
+            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI", "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV"],
             x => +(x.results.pnl)   // this callback needs to return single number for each result
         );
     }
@@ -143,13 +145,32 @@ const performGS = async () => {
         dbExecutor.clearTable('bitfinex_transactions');
         dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
+
+        // Simulate a half-way state
+        Investment.setupCurrencyWallet('BTCUSD');
+        Investment.setupCurrencyWallet('IOTUSD');
+        global.currencyWallet.BTCUSD.qty = 0.09092575;
+        global.currencyWallet.BTCUSD.price = 15130.7137516;
+        global.currencyWallet.IOTUSD.qty = 6;
+        global.currencyWallet.IOTUSD.price = 4.61784061;
+        // global.MIN_PROFIT_PERCENTAGE = 0.012;
+        // global.INVEST_PERCENTAGE = 0.12;
+        // global.REPEATED_BUY_MARGIN = 0.02;
+        // global.BEAR_LOSS_START = 0.025;
+        // global.RSI = 41;
+        // global.LOWER_RSI = 23;
+        // global.UPPER_RSI = 70;
+        // global.BB_STD_DEV = 1.5;
+
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway3');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_down4');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-        await performGS();
+        // await performGS();
     }
 )();
 
