@@ -3,7 +3,7 @@ const MIN_AMOUNT = require('./minOrder'),
       customUtil = require('./custom_util'),
       db = require('./store'),
       _ = require('underscore'),
-      executor = require('./executor')
+      executor = require('./executor');
 
 class Investment {
 
@@ -46,20 +46,18 @@ class Investment {
 
             // Downward Market SELL
             else if (Investment.bearSellPositionCheck(ticker, price, score)) {
-                qty = qty * global.BEAR_SELL_PERCENTAGE > global.currencyWallet[ticker].qty ?
-                    0 :
-                    qty * global.BEAR_SELL_PERCENTAGE;
+                let sellQty = global.currencyWallet[ticker].qty * global.BEAR_SELL_PERCENTAGE;
 
-                times = (qty / minAmount).toFixed(0);
-                qty = parseFloat((minAmount * times).toFixed(2));
+                times = (sellQty / minAmount).toFixed(0);
+                sellQty = parseFloat((minAmount * times).toFixed(2));
 
-                qty = qty >= global.currencyWallet[ticker].qty ? 0 : qty;
+                sellQty = sellQty >= global.currencyWallet[ticker].qty ? 0 : sellQty;
 
-                if (global.isLive && qty !== 0) {
-                    Investment.submitMarketOrder(ticker, 'bearSell', qty);
+                if (global.isLive && sellQty !== 0) {
+                    Investment.submitMarketOrder(ticker, 'bearSell', sellQty);
                 }
-                else if (qty !== 0) {
-                    Investment.submitDummyOrder(ticker, 'bearSell', qty, price, timestamp);
+                else if (sellQty !== 0) {
+                    Investment.submitDummyOrder(ticker, 'bearSell', sellQty, price, timestamp);
                 }
             }
         }
@@ -97,12 +95,12 @@ class Investment {
 
     static repeatedSellReq (ticker, price) {
         let lastPrice = global.currencyWallet[ticker].bearSellPrice;
-        return lastPrice === undefined || price.toFixed(4) > lastPrice.toFixed(4) * (1 + global.REPEATED_SELL_MARGIN);
+        return lastPrice === undefined || lastPrice === 0 || price > lastPrice;
     }
 
     static repeatedBuyReq (ticker, price) {
         let lastPrice =  global.currencyWallet[ticker].repeatedBuyPrice;
-        return lastPrice === undefined || price.toFixed(4) < lastPrice.toFixed(4) * (1 - global.REPEATED_BUY_MARGIN);
+        return lastPrice === undefined || lastPrice === 0 || price < lastPrice;
     }
 
     static bearMarketReq (ticker) {
@@ -140,6 +138,18 @@ class Investment {
         return (price * qty +  global.currencyWallet[ticker].qty *  global.currencyWallet[ticker].price) / (qty + global.currencyWallet[ticker].qty);
     }
 
+    // if a bear sell occurred, then raise the repeatedBuy to profit % of bear sell
+    // Simulating a subposition short sell
+    static updateRepeatedBuyPrice (ticker, price) {
+        global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.TRADING_FEE - global.MIN_PROFIT_PERCENTAGE);
+    }
+
+    // if a repeated buy occurred, then lower the repeatedSell to profit % of repeated buy
+    // Simulating a subposition long buy
+    static updateBearSellPrice (ticker, price) {
+        global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
+    }
+
     static submitDummyOrder (ticker, side, qty, price, timestamp) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - global.TRADING_FEE);
@@ -154,9 +164,13 @@ class Investment {
             !global.isParamTune && customUtil.printPNL();
         }
         else if (side === 'buy') {
+            if (global.currencyWallet[ticker].repeatedBuyPrice > 0) {
+                Investment.updateBearSellPrice(ticker, price);
+            }
+
             global.wallet -= qty * price * (1 + global.TRADING_FEE);
             global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
-            global.currencyWallet[ticker].repeatedBuyPrice = price; // record last buy price
+            global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.REPEATED_BUY_MARGIN); // record last buy price * (1-repeatedBuyPercentage)
             global.currencyWallet[ticker].qty += qty;
             !global.isParamTune && customUtil.printBuy(ticker, qty, price);
             !global.isBacktest && customUtil.printWalletStatus();
@@ -169,6 +183,7 @@ class Investment {
             !global.isParamTune && customUtil.printBearSell(ticker, qty, price);
             !global.isParamTune && db.storeTransactionToDB(ticker, price, qty, 0, timestamp);
             let tempPrice = Investment.weightedAvgPrice(ticker, price, -qty);
+            Investment.updateRepeatedBuyPrice(ticker, price);
             global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
             global.currencyWallet[ticker].qty -= qty;
             global.currencyWallet[ticker].bearSellPrice = price;
@@ -181,7 +196,9 @@ class Investment {
     static async submitMarketOrder (ticker, side, qty) {
         if (side === 'sell' && Investment.currencyBalanceReq(ticker)) {
             try {
-                let res = await executor.submitMarket(ticker,  global.currencyWallet[ticker].qty, side);
+                let prevQty = global.currencyWallet[ticker].qty;
+                global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
+                let res = await executor.submitMarket(ticker, prevQty, side);
                 res = JSON.parse(res);
                 let executedPrice = parseFloat(res.price);
                 delete res.is_cancelled;
@@ -190,17 +207,18 @@ class Investment {
                 delete res.is_live;
                 delete res.is_hidden;
 
-                global.wallet +=  global.currencyWallet[ticker].qty * executedPrice * (1 - global.TRADING_FEE);
+                global.wallet +=  prevQty * executedPrice * (1 - global.TRADING_FEE);
                 customUtil.printSell(ticker, executedPrice);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
-                db.storeTransactionToDB(ticker, executedPrice, global.currencyWallet[ticker].qty, 0);
-                global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
+                db.storeTransactionToDB(ticker, executedPrice, prevQty, 0);
+
                 global.currencyWallet[ticker].price = 0; // clear the price after sold
                 global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
                 global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
                 storedWeightedSignalScore[ticker] = 0; // clear score
+                await Investment.syncCurrencyWallet();
                 customUtil.printWalletStatus();
             }
             catch(e) {
@@ -219,10 +237,13 @@ class Investment {
                 delete res.is_live;
                 delete res.is_hidden;
                 // util.log('executedPrice: ' + executedPrice);
+                if (global.currencyWallet[ticker].repeatedBuyPrice > 0) {
+                    Investment.updateBearSellPrice(ticker, executedPrice);
+                }
 
                 global.wallet -= qty * executedPrice * (1 + global.TRADING_FEE);
                 global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, executedPrice, qty);
-                global.currencyWallet[ticker].repeatedBuyPrice = executedPrice; // record last buy price
+                global.currencyWallet[ticker].repeatedBuyPrice = executedPrice * (1 - global.REPEATED_BUY_MARGIN); // record last buy price
                 global.currencyWallet[ticker].qty += qty;
                 customUtil.printBuy(ticker, qty, executedPrice);
                 // customUtil.printWalletStatus();
@@ -232,6 +253,7 @@ class Investment {
                 util.log(`****************************************************\n`);
                 customUtil.printWalletStatus();
                 db.storeTransactionToDB(ticker, executedPrice, qty, 1);
+                await Investment.syncCurrencyWallet();
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
             }
             catch(e) {
@@ -251,13 +273,15 @@ class Investment {
                 delete res.is_hidden;
 
                 global.wallet += qty * executedPrice * (1 - global.TRADING_FEE);
+                Investment.updateRepeatedBuyPrice(ticker, executedPrice);
                 customUtil.printBearSell(ticker, qty, executedPrice);
                 db.storeTransactionToDB(ticker, executedPrice, qty, 0);
                 let tempPrice = Investment.weightedAvgPrice(ticker, executedPrice, -qty);
                 global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
                 global.currencyWallet[ticker].qty -= qty;
-                global.currencyWallet[ticker].bearSellPrice = executedPrice;
+                global.currencyWallet[ticker].bearSellPrice = executedPrice * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
+                await Investment.syncCurrencyWallet();
                 customUtil.printWalletStatus(global.INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
             }
             catch (e) {
@@ -270,6 +294,20 @@ class Investment {
         global.currencyWallet[ticker] =  global.currencyWallet[ticker] !== undefined ?  global.currencyWallet[ticker] : {};
         global.currencyWallet[ticker].qty =  global.currencyWallet[ticker].qty !== undefined ?  global.currencyWallet[ticker].qty : 0;
         global.currencyWallet[ticker].price =  global.currencyWallet[ticker].price !== undefined ?  global.currencyWallet[ticker].price : 0;
+    }
+
+    static async syncCurrencyWallet () {
+        let pos = await executor.getActivePositions();
+        global.wallet = global.INITIAL_INVESTMENT;
+        for (let item of JSON.parse(pos)) {
+            let ticker = item.symbol.toUpperCase();
+            this.setupCurrencyWallet(ticker);
+
+            global.currencyWallet[ticker].qty = parseFloat(item.amount);
+            global.currencyWallet[ticker].price= parseFloat(item.base);
+            global.wallet -= item.amount * item.base;
+        }
+        customUtil.printWalletStatus();
     }
 }
 

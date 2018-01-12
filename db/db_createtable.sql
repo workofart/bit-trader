@@ -69,3 +69,5 @@ create table bitfinex_live_wallet (
     balance float not null,
     timestamp timestamp not null
 );
+
+COPY bitfinex_live_price TO '/live_price_sideway2.csv' DELIMITER ',' CSV HEADER;

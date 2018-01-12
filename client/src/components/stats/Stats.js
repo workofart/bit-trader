@@ -5,14 +5,20 @@ const moment = require('moment')
 const util = require('util');
 
 const calculateProfit = (data) => {
-    var netPosition = 0;
+    let netPosition = 0,
+        netQty = 0;
     for (var i in data) {
         if (data[i].side) {
             netPosition -= data[i].qty * data[i].price;
+            netQty += data[i].qty;
         }
         else {
             netPosition += data[i].qty * data[i].price;
+            netQty -= data[i].qty;
         }
+    }
+    if (netQty > 0) {
+        netPosition += netQty * data[data.length - 1].price;
     }
     return netPosition;
 }
@@ -29,8 +35,8 @@ class PerformanceStats extends Component {
                             <Statistic.Label>Profitability</Statistic.Label>
                         </Statistic>
                         :
-                        <Statistic color='grey'>
-                            <Statistic.Value>N/A</Statistic.Value>
+                        <Statistic color='red'>
+                            <Statistic.Value>${profit.toFixed(2)}</Statistic.Value>
                             <Statistic.Label>Profitability</Statistic.Label>
                         </Statistic>
                 }

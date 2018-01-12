@@ -5,6 +5,7 @@ const WebSocket = require('ws'),
 const utilities = require('./custom_util'),
       db = require('./store'),
       executor = require('./executor'),
+      Investment = require('./investment'),
       tickerProcessor = require('./DataProcessors/ticker'),
       candleProcessor = require('./DataProcessors/candle'),
       orderBookProcessor = require('./DataProcessors/orderBook');
@@ -77,20 +78,7 @@ connection.on('message', (msg) => {
 })
 
 if (global.isLive) {
-    setInterval( async () => {
-        let pos = await executor.getActivePositions();
-        global.wallet = global.INITIAL_INVESTMENT;
-        for (let item of JSON.parse(pos)) {
-            let ticker = item.symbol.toUpperCase();
-            global.currencyWallet[ticker] = global.currencyWallet[ticker] !== undefined ? global.currencyWallet[ticker] : {};
-            global.currencyWallet[ticker].qty = global.currencyWallet[ticker].qty !== undefined ? global.currencyWallet[ticker].qty : 0;
-            global.currencyWallet[ticker].price = global.currencyWallet[ticker].price !== undefined ? global.currencyWallet[ticker].price : 0;
-
-            global.currencyWallet[ticker].qty = parseFloat(item.amount);
-            global.currencyWallet[ticker].price= parseFloat(item.base);
-            global.wallet -= item.amount * item.base;
-        }
-    }, 10000);
+    (async() => { await Investment.syncCurrencyWallet();})();
 }
 
 
