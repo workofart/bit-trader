@@ -73,6 +73,38 @@
     },
     {
       "event": "subscribe",
+      "channel": "book",
+      "symbol": "tXRPUSD",
+      "prec": "P0",
+      "freq": "F0",
+      "len": "100"
+    },
+    {
+      "event": "subscribe",
+      "channel": "book",
+      "symbol": "tBTGUSD",
+      "prec": "P0",
+      "freq": "F0",
+      "len": "100"
+    },
+    {
+      "event": "subscribe",
+      "channel": "book",
+      "symbol": "tNEOUSD",
+      "prec": "P0",
+      "freq": "F0",
+      "len": "100"
+    },
+    {
+      "event": "subscribe",
+      "channel": "book",
+      "symbol": "tXMRUSD",
+      "prec": "P0",
+      "freq": "F0",
+      "len": "100"
+    },
+    {
+      "event": "subscribe",
       "channel": "ticker",
       "symbol": "tBTCUSD"
     },
@@ -118,6 +150,26 @@
     },
     {
       "event": "subscribe",
+      "channel": "ticker",
+      "symbol": "tXRPUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "ticker",
+      "symbol": "tNEOUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "ticker",
+      "symbol": "tBTGUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "ticker",
+      "symbol": "tXMRUSD"
+    },
+    {
+      "event": "subscribe",
       "channel": "candles",
       "key": "trade:1m:tBTCUSD"
     },
@@ -160,5 +212,25 @@
       "event": "subscribe",
       "channel": "candles",
       "key": "trade:1m:tBCHUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "candles",
+      "key": "trade:1m:tXRPUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "candles",
+      "key": "trade:1m:tNEOUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "candles",
+      "key": "trade:1m:tBTGUSD"
+    },
+    {
+      "event": "subscribe",
+      "channel": "candles",
+      "key": "trade:1m:tXMRUSD"
     }
   ]

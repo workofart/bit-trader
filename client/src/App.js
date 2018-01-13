@@ -18,7 +18,7 @@ const _ = require('underscore');
 const URL = 'http://127.0.0.1:3001/api/';
 var msgQ = [];
 const queueThreshold = 300;
-const tickers = ['BTCUSD', 'OMGUSD', 'IOTUSD', 'DSHUSD', 'EOSUSD', 'BCHUSD', 'LTCUSD', 'ETCUSD', 'ETHUSD'];
+const tickers = ['BTCUSD', 'OMGUSD', 'IOTUSD', 'DSHUSD', 'EOSUSD', 'BCHUSD', 'LTCUSD', 'ETCUSD', 'ETHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD', 'NEOUSD'];
 // const tickers = ['BTCUSD'];
 
 
