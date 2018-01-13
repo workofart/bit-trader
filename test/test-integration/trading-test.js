@@ -27,7 +27,6 @@ let indicatorFlags = {
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 global.isBacktest = true;
-global.isParamTune = false;
 
 
 /**
@@ -41,7 +40,8 @@ const processor = async (subprocessor, dataFile) => {
         let counter = 0;
         let data = await testUtil.parseCSV(dataFile);
         data = _.sortBy(data, (a) => { return a.timestamp});
-        // for (i in data) {
+        // let pnl = (parseFloat(data[data.length - 1].price) - parseFloat(data[0].price) / parseFloat(data[0].price) * 100).toFixed(2);
+        // console.log(`B&H: ${pnl}%`);
         for (var i = 0, len = data.length; i < len; i++) {
             // console.log(`${data[i].timestamp} | ${data[i].ticker}`);
             data[i].last_price = parseFloat(data[i].price);
@@ -49,15 +49,9 @@ const processor = async (subprocessor, dataFile) => {
             let { ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp } = data[i];
             // dbExecutor.storeWallet(global.wallet, timestamp);
             await subprocessor(ticker, data[i]);
-
-            // if (counter === 240) {
-            //     customUtil.printPNL();
-            //     // customUtil.printWalletStatus();
-            //     counter = 0;
-            // }
-            // counter++;
         }
-        let profit = customUtil.printBacktestSummary();
+        // let profit = customUtil.printBacktestSummary();
+        let profit = customUtil.printPNL();
         resetVariables();
         console.timeEnd(`-- [${dataFile}] --`);
         return profit;
@@ -84,19 +78,32 @@ const resetVariables = () => {
 };
 
 const performGS = async () => {
+    global.isParamTune = true;
     try {
         let options = {
             params: {
-                DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
+                DATA: [
+                    'live_price_down',
+                    'live_price_down2',
+                    'live_price_down3',
+                    'live_price_down4',
+                    'live_price_sideway',
+                    'live_price_sideway2',
+                    'live_price_sideway3',
+                    'live_price_sideway4',
+                    'live_price_up'
+                ],
                 CORRELATION: [30],
-                PROFIT: [0.012],
-                INVEST: [0.08, 0.12, 0.15],
+                PROFIT: [0.012, 0.015],
+                INVEST: [0.1, 0.12, 0.15],
                 REPEAT_BUY: [0.02, 0.025],
-                BEAR_LOSS: [0.025],
-                RSI: [41],
+                BEAR_LOSS: [0.02, 0.025, 0.03],
+                RSI: [49],
                 UPPER_RSI: [70],
-                LOWER_RSI: [23, 27],
-                BB_STD_DEV: [1.5, 2]
+                LOWER_RSI: [23, 27, 31],
+                BB_STD_DEV: [1.5, 1.6],
+                LOW_RSI_OFFSET: [5],
+                LOW_BB_OFFSET: [0.95]
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
                 // PROFIT: [0.008, 0.01, 0.012],
@@ -118,6 +125,8 @@ const performGS = async () => {
                 global.UPPER_RSI = comb.UPPER_RSI;
                 global.LOWER_RSI = comb.LOWER_RSI;
                 global.BB_STD_DEV = comb.BB_STD_DEV;
+                global.LOW_RSI_OFFSET = comb.LOW_RSI_OFFSET;
+                global.LOW_BB_OFFSET = comb.LOW_BB_OFFSET;
 
                 // let pnl = await processor(TickerProcessor.processTickerPrice(ticker, data), comb.DATA);
                 let pnl = await processor(TickerProcessor.processTickerPrice, comb.DATA);
@@ -130,7 +139,7 @@ const performGS = async () => {
         await grid_search.run();
         await grid_search.displayTableOfResults(
             ['DATA'],
-            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI", "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV"],
+            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI", "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV", "LOW_RSI_OFFSET", "LOW_BB_OFFSET"],
             x => +(x.results.pnl)   // this callback needs to return single number for each result
         );
     }
@@ -142,17 +151,18 @@ const performGS = async () => {
 
 (
     async () => {
-        dbExecutor.clearTable('bitfinex_transactions');
-        dbExecutor.clearTable('bitfinex_live_price');
+        // dbExecutor.clearTable('bitfinex_transactions');
+        // dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-        Investment.setupCurrencyWallet('BTCUSD');
-        Investment.setupCurrencyWallet('IOTUSD');
-        global.currencyWallet.BTCUSD.qty = 0.09092575;
-        global.currencyWallet.BTCUSD.price = 15130.7137516;
-        global.currencyWallet.IOTUSD.qty = 6;
-        global.currencyWallet.IOTUSD.price = 4.61784061;
+        // Investment.setupCurrencyWallet('BTCUSD');
+        // Investment.setupCurrencyWallet('IOTUSD');
+        // global.currencyWallet.BTCUSD.qty = 0.02092575;
+        // global.currencyWallet.BTCUSD.price = 20810.79511604;
+        // global.currencyWallet.IOTUSD.qty = 6;
+        // global.currencyWallet.IOTUSD.price = 4.61784061;
+
         // global.MIN_PROFIT_PERCENTAGE = 0.012;
         // global.INVEST_PERCENTAGE = 0.12;
         // global.REPEATED_BUY_MARGIN = 0.02;
@@ -166,11 +176,11 @@ const performGS = async () => {
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway3');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway4');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down4');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-        // await performGS();
+        await performGS();
     }
 )();
 
