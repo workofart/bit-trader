@@ -28,6 +28,16 @@ describe('Indicators', () => {
             let result = await indicator.calculateBB_RSI(testInput, 5);
             expect(result).to.equal(-10);
         });
+        it('should return 11 as the BB & RSI sell signal for with 5 period and 1.5 std', async () => {
+            let testInput2 = [... testInput, 30];
+            let result = await indicator.calculateBB_RSI(testInput2, 5);
+            expect(result).to.equal(11);
+        });
+        it('should return 10 as the BB & RSI sell signal for with 5 period and 1.5 std', async () => {
+            let testInput2 = [... testInput, 75];
+            let result = await indicator.calculateBB_RSI(testInput2, 5);
+            expect(result).to.equal(10);
+        });
     });
 
     describe('ADX Trend(low, high, close)', () => {

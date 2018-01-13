@@ -80,10 +80,17 @@ class Investment {
     // Checks the long position on hand and evaluate whether
     // it's logical to enter the position
     static buyPositionCheck(ticker, qty, price, score) {
-        return (Investment.buySignalReq(score) &&
-            Investment.fiatBalanceReq(qty, price) &&
-            Investment.repeatedBuyReq(ticker, price) &&
-            !Investment.frozenTickerReq(ticker))
+        return (
+            (Investment.buySignalReq(score) &&
+                Investment.fiatBalanceReq(qty, price) &&
+                Investment.repeatedBuyReq(ticker, price) &&
+                !Investment.frozenTickerReq(ticker)
+            ) ||
+            (Investment.extremeBuySignalReq(score) &&
+                !Investment.frozenTickerReq(ticker) &&
+                Investment.fiatBalanceReq(qty, price)
+            )
+        )
     }
 
     static frozenTickerReq(ticker) {
@@ -91,6 +98,10 @@ class Investment {
             !global.isBacktest && util.log('Avoided buying ' + ticker);
         }
         return global.frozenTickers[ticker] === true;
+    }
+
+    static extremeBuySignalReq (score) {
+        return score > global.BUY_SIGNAL_TRIGGER;
     }
 
     static repeatedSellReq (ticker, price) {
