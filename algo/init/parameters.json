@@ -1,6 +1,6 @@
 {
     "PURGE_LENGTH": 300,
-    "RSI" : 41,
+    "RSI" : 49,
     "ADX" : 10,
     "ADX_STRONG_MULTIPLIER" : 1.3,
     "ADX_WEAK_MULTIPLIER" : 0.8,
@@ -15,7 +15,7 @@
     "LOW_BB_OFFSET": 0.95,
     "LOWER_RSI": 23,
     "UPPER_RSI": 70,
-    "LOW_RSI_OFFSET": 8,
+    "LOW_RSI_OFFSET": 5,
     "CORRELATION_PERIOD": 30,
     "CORRELATION_THRESHOLD": 0.75
 }

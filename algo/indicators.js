@@ -202,17 +202,17 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
             // Long position
             if (rsi > 0 && rsi < global.LOWER_RSI && close[close.length - 1] <= bb_lower) {
                 if (rsi < global.LOWER_RSI - global.LOW_RSI_OFFSET && close[close.length - 1] <= bb_lower * global.LOW_BB_OFFSET) {
-                    return 11;
+                    return { indicatorValue: 11, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
                 }
-                return 10;
+                return { indicatorValue: 10, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
             }
             // Short position
             else if (rsi > global.UPPER_RSI || close[close.length - 1] >= bb_upper) {
                 // console.log('Sell Position Found @ $' + close[close.length - 1]);
-                return -10;
+                return { indicatorValue: -10, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
             }
             else {
-                return 0;
+                return { indicatorValue: 0, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
             }
         }
         catch (e) {

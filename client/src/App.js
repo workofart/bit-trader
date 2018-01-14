@@ -19,7 +19,6 @@ const URL = 'http://127.0.0.1:3001/api/';
 var msgQ = [];
 const queueThreshold = 300;
 const tickers = ['BTCUSD', 'OMGUSD', 'IOTUSD', 'DSHUSD', 'EOSUSD', 'BCHUSD', 'LTCUSD', 'ETCUSD', 'ETHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD', 'NEOUSD'];
-// const tickers = ['BTCUSD'];
 
 
 class App extends Component {
@@ -88,7 +87,7 @@ class App extends Component {
 
     return (
       <div>
-        <Container>
+        <Container fluid>
         {
           tickers.map((item) => {
             return (
@@ -97,7 +96,7 @@ class App extends Component {
           })
         }
         </Container>
-        <Container style={{ marginTop: 40 }}>
+        <Container fluid style={{ marginLeft: 30, marginTop: 40, marginRight: 30 }}>
           <PriceChart ticker={this.state.ticker} data={this.state.trades}/>
           <CustomStats data={this.state.trades} />
           <Divider />

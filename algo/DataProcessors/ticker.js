@@ -21,10 +21,6 @@ const processTickerPrice = async (ticker, data) => {
 
         // console.log(processedData)
 
-        if (!global.isParamTune) {
-            global.isBacktest ? db.storeLivePrice(processedData, processedData.timestamp) : db.storeLivePrice(processedData);
-        }
-
         if (!Array.isArray(global.tickerPrices[ticker])) {
             global.tickerPrices[ticker] = []
         }
@@ -36,7 +32,16 @@ const processTickerPrice = async (ticker, data) => {
             global.tickerPrices[ticker] = global.tickerPrices[ticker].slice(global.PURGE_LENGTH / 1.8);
         }
 
-        let indicatorValue = await computeIndicators(ticker, global.tickerPrices[ticker], processedData.time);
+        let obj = await computeIndicators(ticker, global.tickerPrices[ticker], processedData.time);
+        let indicatorValue = obj ? obj.indicatorValue: 0;
+
+        processedData.rsi = obj ? obj.rsi : 0;
+        processedData.bb_lower = obj ? obj.bb_lower: 0;
+        processedData.bb_upper = obj ? obj.bb_upper: 0;
+
+        if (!global.isParamTune) {
+            global.isBacktest ? db.storeLivePrice(processedData, processedData.timestamp) : db.storeLivePrice(processedData);
+        }
 
         // Store the latest price into storage for investment decisions
         global.storedWeightedSignalScore[ticker] = indicatorValue;

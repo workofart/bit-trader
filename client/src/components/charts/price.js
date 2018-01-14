@@ -19,8 +19,9 @@ var renderChart = (ticker, that, trades) => {
 
     HighStocks.stockChart(ticker, {
         chart: {
-            marginLeft: 60,
+            marginLeft: 80,
             marginRight: 50,
+            height: 700,
             spacing: [20, 20, 30, 30],
             renderTo: ticker,
             animation: false,
@@ -30,8 +31,9 @@ var renderChart = (ticker, that, trades) => {
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     var signalSeries = this.series[1];
-                    var walletSeries = this.series[2];
-                    var count = 0;
+                    var rsiSeries = this.series[2];
+                    var lowerBBSeries = this.series[3];
+                    var upperBBSeries = this.series[4];
                     this.showLoading();
                     $.ajax(
                         URL + 'getLivePrices/' + that.props.ticker,
@@ -41,7 +43,12 @@ var renderChart = (ticker, that, trades) => {
                                     this.hideLoading();
                                     _.forEach(data, (price) => {
                                         series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
-                                    })
+                                        if (price.rsi && price.bb_lower && price.bb_upper) {
+                                            rsiSeries.addPoint([moment(price.timestamp).local().valueOf(), price.rsi], false, false);
+                                            upperBBSeries.addPoint([moment(price.timestamp).local().valueOf(), price.bb_upper], false, false);
+                                            lowerBBSeries.addPoint([moment(price.timestamp).local().valueOf(), price.bb_lower], false, false);
+                                        }
+                                    });
                                     this.redraw();
                                 }
                                 else {
@@ -122,40 +129,106 @@ var renderChart = (ticker, that, trades) => {
             selected: 5
         },
 
-        yAxis: {
-            title: {
-                text: 'Price (USD)'
+        yAxis: [
+            {
+                title: {
+                    text: 'Price (USD)'
+                },
+                opposite: false,
+                height: '60%',
+                lineWidth: 2,
+                resize: {
+                    enabled: true
+                }
             },
-            opposite: false
-        },
+            {
+                title: {
+                    text: 'RSI'
+                },
+                opposite: false,
+                top: '65%',
+                height: '35%',
+                offset: 0,
+                lineWidth: 2,
+                min: 0,
+                max: 100
+            }
+        ],
 
         tooltip: {
             hideDelay: 0,
             shadow: false,
             animation: false,
             valueDecimals: 4,
-            shared: true
+            // shared: true,
+            split: true
         },
 
         title: {
             text: `${ticker} Prices`
         },
 
-        series: [{
-            type: 'line',
-            marker: {
-                enabled: false
+        series: [
+            {
+                type: 'line',
+                marker: {
+                    enabled: false
+                },
+                labels: {
+                    align: 'right',
+                    x: -3
+                },
+                name: 'Price',
+                id: 'Price',
+                yAxis: 0,
+                data: [],
             },
-            name: 'Price',
-            id: 'Price',
-            data: [],
-        },
-        {
-            type: 'flags',
-            onSeries: 'Price',
-            data: [],
-            stackDistance: 20
-        }]
+            {
+                type: 'flags',
+                marker: {
+                    enabled: false
+                },
+                onSeries: 'Price',
+                data: [],
+                stackDistance: 40,
+                yAxis: 0
+            },
+            {
+                type: 'line',
+                name: 'RSI',
+                marker: {
+                    enabled: false
+                },
+                labels: {
+                    align: 'right',
+                    x: -3
+                },
+                data: [],
+                yAxis: 1
+            },
+            {
+                type: 'line',
+                name: 'Lower BB',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot',
+                color: '#646608',
+                data: [],
+                yAxis: 0
+            },
+            {
+                type: 'line',
+                name: 'Upper BB',
+                marker: {
+                    enabled: false
+                },
+                dashStyle: 'shortdot',
+                color: '#ff1c31',
+                data: [],
+                yAxis: 0
+            }
+        ]
         // {
         //     type: 'area',
         //     data: [],

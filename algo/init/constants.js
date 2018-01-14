@@ -8,7 +8,7 @@ let investment = {
     IS_BUY_IMMEDIATELY: false, // if entry point is carefully selected, enable this. Else, disable.
     STOP_LOSS: 0.9, // sell if lost more than X%
     REPEATED_BUY_MARGIN: 0.02, // for the same coin, repeated buys must be X% lower than the current book price
-    BEAR_SELL_PERCENTAGE: 0.2, // percentage of normal INVEST_PERCENTAGE
+    BEAR_SELL_PERCENTAGE: 0.25, // percentage of normal INVEST_PERCENTAGE
     BEAR_LOSS_START: 0.025, // if a given coin lost X%, we consider it a bear market
   };
 

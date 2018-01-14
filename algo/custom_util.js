@@ -22,7 +22,7 @@ const printWalletStatus = () => {
 }
 
 const printPNL = () => {
-    if (!global.isParamTune) {
+    // if (!global.isParamTune) {
         let currencyValue = 0;
 
         for (let i in global.currencyWallet) {
@@ -40,7 +40,7 @@ const printPNL = () => {
         let profit = currencyValue + global.wallet - global.INITIAL_INVESTMENT;
         console.log(`Holding [${numCoins}] coins | $${profit.toFixed(2)} | ${(profit / global.INITIAL_INVESTMENT * 100).toFixed(2)}%`);
         return (profit / global.INITIAL_INVESTMENT * 100).toFixed(2);
-    }
+    // }
 };
 
 const printBuyHold = () => {
