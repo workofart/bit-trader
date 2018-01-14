@@ -22,22 +22,24 @@ exports.clearTable = (tableName) => {
 }
 
 exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
-    let params = [ticker, price, qty, side, timestamp];
-    let query = `INSERT INTO BITFINEX_TRANSACTIONS (ticker, price, qty, side, timestamp) VALUES ($1, $2, $3, $4, $5);`;
-    db.pool.connect((err, client, done) => {
-        if (err) throw err;
-        client.query(
-            query, params, (err, result) => {
-                done()
-                if (err && err.code !== 23505) {
-                    util.error(err);
-                    util.error('There was an error when inserting into transactions table');
-                }
-                else {
-                    // util.log(`Store transaction | ${params[3] ? 'Bought' : 'Sold'} ${params[2]} [${params[0]}] @ ${params[1]}`)
-                }
-            })
-    })
+    if (!global.isParamTune) {
+        let params = [ticker, price, qty, side, timestamp];
+        let query = `INSERT INTO BITFINEX_TRANSACTIONS (ticker, price, qty, side, timestamp) VALUES ($1, $2, $3, $4, $5);`;
+        db.pool.connect((err, client, done) => {
+            if (err) throw err;
+            client.query(
+                query, params, (err, result) => {
+                    done()
+                    if (err && err.code !== 23505) {
+                        util.error(err);
+                        util.error('There was an error when inserting into transactions table');
+                    }
+                    else {
+                        // util.log(`Store transaction | ${params[3] ? 'Bought' : 'Sold'} ${params[2]} [${params[0]}] @ ${params[1]}`)
+                    }
+                })
+        })
+    }
 }
 
 exports.storeLivePrice = (data, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {

@@ -164,15 +164,12 @@ class Investment {
     static submitDummyOrder (ticker, side, qty, price, timestamp) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - global.TRADING_FEE);
-            !global.isParamTune && customUtil.printSell(ticker, price);
-            !global.isParamTune && db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0, timestamp);
+            customUtil.printSell(ticker, price);
+            db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0, timestamp);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
-            global.currencyWallet[ticker].price = 0; // clear the price after sold
-            global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
-            global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
-            global.storedWeightedSignalScore[ticker] = 0; // clear score
-            !global.isBacktest && customUtil.printWalletStatus();
-            !global.isParamTune && customUtil.printPNL();
+            this.postSellTradeCleanup(ticker);
+            customUtil.printWalletStatus();
+            customUtil.printPNL();
         }
         else if (side === 'buy') {
             if (global.currencyWallet[ticker].repeatedBuyPrice > 0) {
@@ -183,23 +180,23 @@ class Investment {
             global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
             global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.REPEATED_BUY_MARGIN); // record last buy price * (1-repeatedBuyPercentage)
             global.currencyWallet[ticker].qty += qty;
-            !global.isParamTune && customUtil.printBuy(ticker, qty, price);
-            !global.isBacktest && customUtil.printWalletStatus();
-            !global.isParamTune && customUtil.printPNL();
+            customUtil.printBuy(ticker, qty, price);
+            customUtil.printWalletStatus();
+            customUtil.printPNL();
             !global.isParamTune && db.storeTransactionToDB(ticker, price, qty, 1, timestamp);
             global.storedWeightedSignalScore[ticker] = 0; // clear score
         }
         else if (side === 'bearSell') {
             global.wallet += qty * price * (1 - global.TRADING_FEE);
-            !global.isParamTune && customUtil.printBearSell(ticker, qty, price);
-            !global.isParamTune && db.storeTransactionToDB(ticker, price, qty, 0, timestamp);
+            customUtil.printBearSell(ticker, qty, price);
+            db.storeTransactionToDB(ticker, price, qty, 0, timestamp);
             let tempPrice = Investment.weightedAvgPrice(ticker, price, -qty);
             Investment.updateRepeatedBuyPrice(ticker, price);
             global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
             global.currencyWallet[ticker].qty -= qty;
             global.currencyWallet[ticker].bearSellPrice = price;
-            !global.isBacktest && customUtil.printWalletStatus();
-            !global.isParamTune && customUtil.printPNL();
+            customUtil.printWalletStatus();
+            customUtil.printPNL();
             global.storedWeightedSignalScore[ticker] = 0; // clear score
         }
     }
@@ -224,11 +221,7 @@ class Investment {
                 util.log(res);
                 util.log(`****************************************************\n`);
                 db.storeTransactionToDB(ticker, executedPrice, prevQty, 0);
-
-                global.currencyWallet[ticker].price = 0; // clear the price after sold
-                global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
-                global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
-                storedWeightedSignalScore[ticker] = 0; // clear score
+                this.postSellTradeCleanup(ticker);
                 await Investment.syncCurrencyWallet();
                 customUtil.printWalletStatus();
             }
@@ -319,6 +312,13 @@ class Investment {
             global.wallet -= item.amount * item.base;
         }
         customUtil.printWalletStatus();
+    }
+
+    static postSellTradeCleanup (ticker) {
+        global.currencyWallet[ticker].price = 0; // clear the price after sold
+        global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
+        global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
+        global.storedWeightedSignalScore[ticker] = 0; // clear score
     }
 }
 
