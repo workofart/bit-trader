@@ -84,14 +84,14 @@ const performGS = async () => {
             params: {
                 DATA: [
                     'live_price_down',
-                    'live_price_down2',
-                    'live_price_down3',
-                    'live_price_down4',
-                    'live_price_sideway',
-                    'live_price_sideway2',
-                    'live_price_sideway3',
-                    'live_price_sideway4',
-                    'live_price_up'
+                    // 'live_price_down2',
+                    // 'live_price_down3',
+                    // 'live_price_down4',
+                    // 'live_price_sideway',
+                    // 'live_price_sideway2',
+                    // 'live_price_sideway3',
+                    // 'live_price_sideway4',
+                    // 'live_price_up'
                 ],
                 CORRELATION: [30],
                 PROFIT: [0.012, 0.015],
@@ -151,8 +151,8 @@ const performGS = async () => {
 
 (
     async () => {
-        // dbExecutor.clearTable('bitfinex_transactions');
-        // dbExecutor.clearTable('bitfinex_live_price');
+        dbExecutor.clearTable('bitfinex_transactions');
+        dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
@@ -163,24 +163,24 @@ const performGS = async () => {
         // global.currencyWallet.IOTUSD.qty = 6;
         // global.currencyWallet.IOTUSD.price = 4.61784061;
 
-        // global.MIN_PROFIT_PERCENTAGE = 0.012;
-        // global.INVEST_PERCENTAGE = 0.12;
-        // global.REPEATED_BUY_MARGIN = 0.02;
-        // global.BEAR_LOSS_START = 0.025;
-        // global.RSI = 41;
-        // global.LOWER_RSI = 23;
-        // global.UPPER_RSI = 70;
-        // global.BB_STD_DEV = 1.5;
+        global.MIN_PROFIT_PERCENTAGE = 0.012;
+        global.INVEST_PERCENTAGE = 0.12;
+        global.REPEATED_BUY_MARGIN = 0.02;
+        global.BEAR_LOSS_START = 0.025;
+        global.RSI = 49;
+        global.LOWER_RSI = 23;
+        global.UPPER_RSI = 70;
+        global.BB_STD_DEV = 1.6;
 
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway4');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_down4');
+        await processor(TickerProcessor.processTickerPrice, 'live_price_sideway4');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_down5');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-        await performGS();
+        // await performGS();
     }
 )();
 

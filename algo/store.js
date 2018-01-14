@@ -43,9 +43,9 @@ exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().l
 }
 
 exports.storeLivePrice = (data, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
-    let {ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume} = data;
-    let params = [ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp];
-    let query = `INSERT INTO BITFINEX_LIVE_PRICE (ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
+    let {ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, rsi, bb_upper, bb_lower} = data;
+    let params = [ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp, rsi, bb_upper, bb_lower];
+    let query = `INSERT INTO BITFINEX_LIVE_PRICE (ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp, rsi, bb_upper, bb_lower) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
     db.pool.connect((err, client, done) => {
         if (err) throw err
         client.query(

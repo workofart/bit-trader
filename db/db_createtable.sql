@@ -61,7 +61,10 @@ create table bitfinex_live_price (
     high float not null,
     low float not null,
     volume float not null,
-    timestamp timestamp not null
+    timestamp timestamp not null,
+    rsi float not null,
+    bb_lower float not null,
+    bb_upper float not null
 );
 
 create table bitfinex_live_wallet (
