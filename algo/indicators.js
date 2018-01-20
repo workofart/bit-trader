@@ -209,6 +209,9 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
             // Short position
             else if (rsi > global.UPPER_RSI || close[close.length - 1] >= bb_upper) {
                 // console.log('Sell Position Found @ $' + close[close.length - 1]);
+                if (rsi > global.UPPER_RSI && close[close.length - 1] >= bb_upper) {
+                    return { indicatorValue: -11, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
+                }
                 return { indicatorValue: -10, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
             }
             else {
