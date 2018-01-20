@@ -24,43 +24,60 @@ class Investment {
                 times = (qty / minAmount).toFixed(0);
             qty = parseFloat((minAmount * times).toFixed(2));
 
-            // BUY
-            if (Investment.buyPositionCheck(ticker, qty, price, score)) {
-                if (global.isLive) {
-                    Investment.submitMarketOrder(ticker, 'buy', qty, price);
+            // Check current position
+            if (Investment.positionCheck(ticker) === 'none' || Investment.positionCheck(ticker) === 'long') {
+                // BUY
+                if (Investment.buyPositionCheck(ticker, qty, price, score)) {
+                    if (global.isLive) {
+                        Investment.submitMarketOrder(ticker, 'buy', qty, price);
+                    }
+                    else {
+                        Investment.submitDummyOrder(ticker, 'buy', qty, price, timestamp);
+                    }
                 }
-                else {
-                    Investment.submitDummyOrder(ticker, 'buy', qty, price, timestamp);
+
+                // SELL
+                else if (Investment.sellPositionCheck(ticker, price, score)) {
+                    if (global.isLive) {
+                        Investment.submitMarketOrder(ticker, 'sell', 0, price);
+                    }
+                    else {
+                        Investment.submitDummyOrder(ticker, 'sell', qty, price, timestamp);
+                    }
+                }
+
+                // Downward Market SELL
+                else if (Investment.bearSellPositionCheck(ticker, price, score)) {
+                    let sellQty = global.currencyWallet[ticker].qty * global.BEAR_SELL_PERCENTAGE;
+
+                    times = (sellQty / minAmount).toFixed(0);
+                    sellQty = parseFloat((minAmount * times).toFixed(2));
+
+                    sellQty = sellQty >= global.currencyWallet[ticker].qty ? 0 : sellQty;
+
+                    if (global.isLive && sellQty !== 0) {
+                        Investment.submitMarketOrder(ticker, 'bearSell', sellQty, price);
+                    }
+                    else if (sellQty !== 0) {
+                        Investment.submitDummyOrder(ticker, 'bearSell', sellQty, price, timestamp);
+                    }
                 }
             }
-
-            // SELL
-            else if (Investment.sellPositionCheck(ticker, price, score)) {
-                if (global.isLive) {
-                    Investment.submitMarketOrder(ticker, 'sell', 0, price);
-                }
-                else {
-                    Investment.submitDummyOrder(ticker, 'sell', qty, price, timestamp);
-                }
-            }
-
-            // Downward Market SELL
-            else if (Investment.bearSellPositionCheck(ticker, price, score)) {
-                let sellQty = global.currencyWallet[ticker].qty * global.BEAR_SELL_PERCENTAGE;
-
-                times = (sellQty / minAmount).toFixed(0);
-                sellQty = parseFloat((minAmount * times).toFixed(2));
-
-                sellQty = sellQty >= global.currencyWallet[ticker].qty ? 0 : sellQty;
-
-                if (global.isLive && sellQty !== 0) {
-                    Investment.submitMarketOrder(ticker, 'bearSell', sellQty, price);
-                }
-                else if (sellQty !== 0) {
-                    Investment.submitDummyOrder(ticker, 'bearSell', sellQty, price, timestamp);
-                }
-            }
+            // else if (Investment.positionCheck(ticker) === 'none' || Investment.positionCheck(ticker) === 'short') {
+            //     if (Investment.shortPositionCheck(ticker, qty, price, score)) {
+            //         if (global.isLive) {
+            //             Investment.submitMarketOrder(ticker, 'short', qty, price);
+            //         }
+            //         else {
+            //             Investment.submitDummyOrder(ticker, 'short', qty, price, timestamp);
+            //         }
+            //     }
+            // }
         }
+    }
+
+    static shortPositionCheck(ticker, qty, price, score) {
+        return (Investment.shortSignalReq(score) && Investment.fiatBalanceReq(qty, price))
     }
 
     // Checks the long position on hand and evaluate whether
@@ -72,8 +89,7 @@ class Investment {
 
     static bearSellPositionCheck(ticker, price, score) {
         return (
-            Investment.currencyBalanceReq(ticker) && Investment.sellSignalReq(score) &&
-            Investment.bearMarketReq(ticker) && Investment.repeatedSellReq(ticker, price)
+            Investment.sellSignalReq(score) && Investment.bearMarketReq(ticker) && Investment.repeatedSellReq(ticker, price)
         )
     }
 
@@ -123,6 +139,10 @@ class Investment {
         return price < lastPrice * (1 - global.STOP_LOSS)
     }
 
+    static shortSignalReq(score) {
+        return score <= global.SHORT_SIGNAL_TRIGGER;
+    }
+
     static sellSignalReq (score) {
         return score <= global.SELL_SIGNAL_TRIGGER;
     }
@@ -132,11 +152,21 @@ class Investment {
     }
 
     static fiatBalanceReq (qty, price) {
-        return  global.wallet >= qty * price;
+        return global.wallet >= qty * price;
     }
 
     static currencyBalanceReq (ticker) {
-        return  global.currencyWallet[ticker].qty > 0
+        return global.currencyWallet[ticker].qty > 0;
+    }
+
+    static positionCheck(ticker) {
+        if (global.currencyWallet[ticker].qty > 0) {
+            return 'long';
+        }
+        else if (global.currencyWallet[ticker].qty < 0) {
+            return 'short';
+        }
+        return 'none';
     }
 
     static minProfitReq (ticker, price) {
@@ -153,6 +183,10 @@ class Investment {
     // Simulating a subposition short sell
     static updateRepeatedBuyPrice (ticker, price) {
         global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.TRADING_FEE - global.MIN_PROFIT_PERCENTAGE);
+    }
+
+    static updateRepeatedShortPrice (ticker, price) {
+        global.currencyWallet[ticker].repeatedShortPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
     }
 
     // if a repeated buy occurred, then lower the repeatedSell to profit % of repeated buy
@@ -223,7 +257,6 @@ class Investment {
                 db.storeTransactionToDB(ticker, price, prevQty, 0);
                 this.postSellTradeCleanup(ticker);
                 await Investment.syncCurrencyWallet();
-                customUtil.printWalletStatus();
             }
             catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
@@ -255,7 +288,6 @@ class Investment {
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
-                customUtil.printWalletStatus();
                 db.storeTransactionToDB(ticker, price, qty, 1);
                 await Investment.syncCurrencyWallet();
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
@@ -286,10 +318,35 @@ class Investment {
                 global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
                 await Investment.syncCurrencyWallet();
-                customUtil.printWalletStatus(global.INITIAL_INVESTMENT,  global.wallet,  global.currencyWallet,  global.latestPrice);
             }
             catch (e) {
                 console.error('There was a problem submitting a bear sell market order: ' + e.stack);
+            }
+        }
+        else if (side === 'short') {
+            try {
+                let res = await executor.submitMarket(ticker, qty, 'sell');
+                res = JSON.parse(res);
+                let executedPrice = parseFloat(res.price);
+                delete res.is_cancelled;
+                delete res.exchange;
+                delete res.was_forced;
+                delete res.is_live;
+                delete res.is_hidden;
+
+                global.wallet -= qty * price * (1 - global.TRADING_FEE);
+                Investment.updateRepeatedShortPrice(ticker, price);
+                customUtil.printShort(ticker, qty, price);
+                db.storeTransactionToDB(ticker, price, qty, 0);
+                let tempPrice = Investment.weightedAvgPrice(ticker, price, -qty);
+                global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
+                global.currencyWallet[ticker].qty -= qty;
+                global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
+                global.storedWeightedSignalScore[ticker] = 0; // clear score
+                await Investment.syncCurrencyWallet();
+            }
+            catch (e) {
+                console.error('There was a problem submitting a short market order: ' + e.stack);
             }
         }
     }
@@ -318,6 +375,7 @@ class Investment {
         global.currencyWallet[ticker].price = 0; // clear the price after sold
         global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
         global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
+        global.currencyWallet[ticker].repeatedShortPrice = 0;
         global.storedWeightedSignalScore[ticker] = 0; // clear score
     }
 }

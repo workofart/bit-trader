@@ -48,16 +48,20 @@ const printBuyHold = () => {
 };
 
 const printSell = (ticker, price) => {
-    !global.isParamTune && util.log(`************ Sell | ${global.currencyWallet[ticker].qty} [${ticker}] @ ${price} *************`);
+    !global.isParamTune && util.log(`************ Closed Long | ${global.currencyWallet[ticker].qty} [${ticker}] @ ${price} *************`);
 };
 
 const printBearSell = (ticker, qty, price) => {
     !global.isParamTune && util.log(`************ Bear Sell | ${qty} [${ticker}] @ ${price} *************`);
 };
 
+const printShort = (ticker, qty, price) => {
+    !global.isParamTune && util.log(`************* Short | ${qty} [${ticker}] @ ${price} *************`);
+};
+
 
 const printBuy = (ticker, qty, price) => {
-    !global.isParamTune && util.log(`************* Buy | ${qty} [${ticker}] @ ${price} *************`);
+    !global.isParamTune && util.log(`************* Long | ${qty} [${ticker}] @ ${price} *************`);
 };
 
 const printBacktestSummary = () => {
@@ -76,6 +80,7 @@ module.exports = {
     printBacktestSummary: printBacktestSummary,
     printBuy: printBuy,
     printSell: printSell,
+    printShort: printShort,
     printWalletStatus: printWalletStatus,
     printBuyHold: printBuyHold,
     printBearSell: printBearSell
