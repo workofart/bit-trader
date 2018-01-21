@@ -7,7 +7,8 @@ const
     TICKERS = [
         'BTCUSD', 'LTCUSD', 'ETHUSD', 'ETCUSD',
         'DSHUSD', 'IOTUSD', 'EOSUSD', 'OMGUSD',
-        'BCHUSD'
+        'BCHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD',
+        'NEOUSD'
     ];
 
 let flag = {
@@ -44,7 +45,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
 
     // keep track of current length of tickers and if timestamp moved on, and current
     // length is still not equal to 9, then remove the batch
-    if (currentTimestamp !== prevTimestamp && numTickerRecords !== 9) {
+    if (currentTimestamp !== prevTimestamp && numTickerRecords !== 13) {
         priceArr = _.omit(priceArr, prevTimestamp);
     }
 
@@ -55,7 +56,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
 
     numTickerRecords = Object.keys(priceArr[timestamp]).length;
 
-    if (Object.keys(priceArr).length === global.CORRELATION_PERIOD && numTickerRecords === 9) {
+    if (Object.keys(priceArr).length === global.CORRELATION_PERIOD && numTickerRecords === 13) {
         // let basePriceArr = _.map(priceArr, (item) => {
         //     return parseFloat(item[tickerBase].last_price);
         // });
