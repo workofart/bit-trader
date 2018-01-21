@@ -27,7 +27,8 @@ class Investment {
             // Check current position
             if (Investment.positionCheck(ticker) === 'none' || Investment.positionCheck(ticker) === 'long') {
                 // BUY
-                if (Investment.buyPositionCheck(ticker, qty, price, score)) {
+                if (Investment.buyPositionCheck(ticker, qty, price, score) && Investment.downTrendBuyReq(ticker))
+                {
                     if (global.isLive) {
                         Investment.submitMarketOrder(ticker, 'buy', qty, price);
                     }
@@ -37,7 +38,7 @@ class Investment {
                 }
 
                 // SELL
-                else if (Investment.sellPositionCheck(ticker, price, score)) {
+                else if ((Investment.sellPositionCheck(ticker, price, score) || global.currencyWallet[ticker].upTrendLimitPrice > 0) && Investment.maxProfitStopLimitReq(ticker)) {
                     if (global.isLive) {
                         Investment.submitMarketOrder(ticker, 'sell', 0, price);
                     }
@@ -96,22 +97,36 @@ class Investment {
     // Checks the long position on hand and evaluate whether
     // it's logical to enter the position
     static buyPositionCheck(ticker, qty, price, score) {
-        return (
-            (Investment.buySignalReq(score) &&
+        if (!global.currencyWallet[ticker].isDownTrendBuy &&
+                (Investment.buySignalReq(score) &&
+                    Investment.fiatBalanceReq(qty, price) &&
+                    Investment.repeatedBuyReq(ticker, price) &&
+                    !Investment.frozenTickerReq(ticker)
+                ) ||
+                (Investment.extremeBuySignalReq(score) &&
+                    !Investment.frozenTickerReq(ticker) &&
+                    Investment.fiatBalanceReq(qty, price)
+                )
+            ) {
+            global.currencyWallet[ticker].isDownTrendBuy = true;
+            global.currencyWallet[ticker].downTrendCounter = 0;
+            return true;
+        }
+        else if (global.currencyWallet[ticker].downTrendCounter > 20) {
+            global.currencyWallet[ticker].isDownTrendBuy = false;
+            global.currencyWallet[ticker].downTrendCounter = 0;
+        }
+        else if (global.currencyWallet[ticker].isDownTrendBuy &&
                 Investment.fiatBalanceReq(qty, price) &&
-                Investment.repeatedBuyReq(ticker, price) &&
-                !Investment.frozenTickerReq(ticker)
-            ) ||
-            (Investment.extremeBuySignalReq(score) &&
-                !Investment.frozenTickerReq(ticker) &&
-                Investment.fiatBalanceReq(qty, price)
-            )
-        )
+                !Investment.frozenTickerReq(ticker)) {
+            return true;
+        }
+        return false;
     }
 
     static frozenTickerReq(ticker) {
         if(global.frozenTickers[ticker]) {
-            !global.isBacktest && util.log('Avoided buying ' + ticker);
+            // !global.isParamTune && util.log('Avoided buying ' + ticker);
         }
         return global.frozenTickers[ticker] === true;
     }
@@ -195,6 +210,40 @@ class Investment {
         global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
     }
 
+    static maxProfitStopLimitReq (ticker) {
+        let price = global.latestPrice[ticker];
+        global.currencyWallet[ticker].upTrendLimitPrice = global.currencyWallet[ticker].upTrendLimitPrice < price ?
+            price : global.currencyWallet[ticker].upTrendLimitPrice;
+
+        // if (price === global.currencyWallet[ticker].upTrendLimitPrice) {
+        //     console.log(`Bumping [${ticker}] upTrendLimitPrice: ${price}`);
+        // }
+
+        return price < global.currencyWallet[ticker].upTrendLimitPrice * (1 - global.UP_STOP_LIMIT)
+    }
+
+    static downTrendBuyReq (ticker) {
+        if (global.currencyWallet[ticker].isDownTrendBuy) {
+            let price = global.latestPrice[ticker];
+
+            if (global.currencyWallet[ticker].downTrendLimitPrice > price) {
+                global.currencyWallet[ticker].downTrendLimitPrice = price;
+                global.currencyWallet[ticker].downTrendCounter = 0;
+            }
+            else {
+                // Increment Counter for max window to wait to enter position
+                global.currencyWallet[ticker].downTrendCounter += 1;
+            }
+
+            // if (price === global.currencyWallet[ticker].downTrendLimitPrice) {
+            //     console.log(`Lowering [${ticker}] downTrendLimitPrice: ${price}`);
+            // }
+            return price > global.currencyWallet[ticker].downTrendLimitPrice * (1 + global.DOWN_STOP_LIMIT);
+        }
+        return false;
+
+    }
+
     static submitDummyOrder (ticker, side, qty, price, timestamp) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - global.TRADING_FEE);
@@ -212,8 +261,12 @@ class Investment {
 
             global.wallet -= qty * price * (1 + global.TRADING_FEE);
             global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
+            global.currencyWallet[ticker].upTrendLimitPrice = 0;
+            global.currencyWallet[ticker].downTrendLimitPrice = 99999;
             global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.REPEATED_BUY_MARGIN); // record last buy price * (1-repeatedBuyPercentage)
             global.currencyWallet[ticker].qty += qty;
+            global.currencyWallet[ticker].isDownTrendBuy = false;
+            global.currencyWallet[ticker].downTrendCounter = 0;
             customUtil.printBuy(ticker, qty, price);
             customUtil.printWalletStatus();
             !global.isParamTune && customUtil.printPNL();
@@ -228,7 +281,7 @@ class Investment {
             Investment.updateRepeatedBuyPrice(ticker, price);
             global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
             global.currencyWallet[ticker].qty -= qty;
-            global.currencyWallet[ticker].bearSellPrice = price;
+            global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
             customUtil.printWalletStatus();
             !global.isParamTune && customUtil.printPNL();
             global.storedWeightedSignalScore[ticker] = 0; // clear score
@@ -282,6 +335,10 @@ class Investment {
                 global.currencyWallet[ticker].price = Investment.weightedAvgPrice(ticker, price, qty);
                 global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.REPEATED_BUY_MARGIN); // record last buy price
                 global.currencyWallet[ticker].qty += qty;
+                global.currencyWallet[ticker].upTrendLimitPrice = 0;
+                global.currencyWallet[ticker].downTrendLimitPrice = 99999;
+                global.currencyWallet[ticker].isDownTrendBuy = false;
+                global.currencyWallet[ticker].downTrendCounter = 0;
                 customUtil.printBuy(ticker, qty, price);
                 // customUtil.printWalletStatus();
                 // customUtil.printPNL();
@@ -355,6 +412,8 @@ class Investment {
         global.currencyWallet[ticker] =  global.currencyWallet[ticker] !== undefined ?  global.currencyWallet[ticker] : {};
         global.currencyWallet[ticker].qty =  global.currencyWallet[ticker].qty !== undefined ?  global.currencyWallet[ticker].qty : 0;
         global.currencyWallet[ticker].price =  global.currencyWallet[ticker].price !== undefined ?  global.currencyWallet[ticker].price : 0;
+        global.currencyWallet[ticker].downTrendLimitPrice = global.currencyWallet[ticker].downTrendLimitPrice !== undefined ?  global.currencyWallet[ticker].downTrendLimitPrice : 99999;
+        global.currencyWallet[ticker].isDownTrendBuy = global.currencyWallet[ticker].isDownTrendBuy !== undefined ? global.currencyWallet[ticker].isDownTrendBuy : false;
     }
 
     static async syncCurrencyWallet () {
@@ -376,6 +435,9 @@ class Investment {
         global.currencyWallet[ticker].repeatedBuyPrice = 0; // clear the price after sold
         global.currencyWallet[ticker].bearSellPrice = 0; // clear the price after sold
         global.currencyWallet[ticker].repeatedShortPrice = 0;
+        global.currencyWallet[ticker].upTrendLimitPrice = 0;
+        global.currencyWallet[ticker].downTrendLimitPrice = 99999;
+        global.currencyWallet[ticker].isDownTrendBuy = false;
         global.storedWeightedSignalScore[ticker] = 0; // clear score
     }
 }
