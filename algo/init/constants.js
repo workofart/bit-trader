@@ -12,7 +12,7 @@ let investment = {
     BEAR_SELL_PERCENTAGE: 0.15, // percentage of normal INVEST_PERCENTAGE
     BEAR_LOSS_START: 0.035, // if a given coin lost X%, we consider it a bear market
     UP_STOP_LIMIT: 0.005, // how much % to decrease before closing an upward trend position
-    DOWN_STOP_LIMIT: 0.007, // how much % to increase before entering an downward trend position
+    DOWN_STOP_LIMIT: 0.007, // how much % to increase before entering an long position
   };
 
 const orderBook = {
