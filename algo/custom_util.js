@@ -49,8 +49,8 @@ const printBuyHold = () => {
 
 };
 
-const printSell = (ticker, price) => {
-    !global.isParamTune && util.log(`************ Closed Long | ${global.currencyWallet[ticker].qty} [${ticker}] @ ${price} *************`);
+const printSell = (ticker, price, prevQty) => {
+    !global.isParamTune && util.log(`************ Closed Long | ${prevQty} [${ticker}] @ ${price} *************`);
 };
 
 const printBearSell = (ticker, qty, price) => {

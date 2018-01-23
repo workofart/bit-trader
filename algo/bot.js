@@ -5,6 +5,7 @@ const WebSocket = require('ws'),
 const utilities = require('./custom_util'),
       db = require('./store'),
       executor = require('./executor'),
+      CustomUtil = require('./custom_util'),
       Investment = require('./investment'),
       tickerProcessor = require('./DataProcessors/ticker'),
       candleProcessor = require('./DataProcessors/candle'),
@@ -78,7 +79,18 @@ connection.on('message', (msg) => {
 })
 
 if (global.isLive) {
-    (async() => { await Investment.syncCurrencyWallet();})();
+    (async() => {
+        await Investment.syncCurrencyWallet();
+        Object.keys(global.currencyWallet).forEach((ticker) => {
+            if (global.currencyWallet[ticker].qty > 0) {
+                global.currencyWallet[ticker].repeatedBuyPrice = global.currencyWallet[ticker].price * (1 - global.REPEATED_BUY_MARGIN);
+                global.currencyWallet[ticker].bearSellPrice = global.currencyWallet[ticker].repeatedBuyPrice * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
+            }
+        });
+
+        CustomUtil.printWalletStatus();
+
+    })();
 }
 
 

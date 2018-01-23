@@ -219,7 +219,7 @@ class Investment {
         //     console.log(`Bumping [${ticker}] upTrendLimitPrice: ${price}`);
         // }
 
-        return price < global.currencyWallet[ticker].upTrendLimitPrice * (1 - global.UP_STOP_LIMIT)
+        return Investment.currencyBalanceReq(ticker) && price < global.currencyWallet[ticker].upTrendLimitPrice * (1 - global.UP_STOP_LIMIT)
     }
 
     static downTrendBuyReq (ticker) {
@@ -289,6 +289,7 @@ class Investment {
     }
 
     static async submitMarketOrder (ticker, side, qty, price) {
+        await Investment.syncCurrencyWallet();
         if (side === 'sell' && Investment.currencyBalanceReq(ticker)) {
             try {
                 let prevQty = global.currencyWallet[ticker].qty;
@@ -303,13 +304,13 @@ class Investment {
                 delete res.is_hidden;
 
                 global.wallet +=  prevQty * price * (1 - global.TRADING_FEE);
-                customUtil.printSell(ticker, price);
+                customUtil.printSell(ticker, price, prevQty);
                 util.log(`\n****************************************************`);
                 util.log(res);
                 util.log(`****************************************************\n`);
                 db.storeTransactionToDB(ticker, price, prevQty, 0);
                 this.postSellTradeCleanup(ticker);
-                await Investment.syncCurrencyWallet();
+                await Investment.syncCurrencyWallet(true);
             }
             catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
@@ -346,7 +347,7 @@ class Investment {
                 util.log(res);
                 util.log(`****************************************************\n`);
                 db.storeTransactionToDB(ticker, price, qty, 1);
-                await Investment.syncCurrencyWallet();
+                await Investment.syncCurrencyWallet(true);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
             }
             catch(e) {
@@ -374,7 +375,7 @@ class Investment {
                 global.currencyWallet[ticker].qty -= qty;
                 global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
-                await Investment.syncCurrencyWallet();
+                await Investment.syncCurrencyWallet(true);
             }
             catch (e) {
                 console.error('There was a problem submitting a bear sell market order: ' + e.stack);
@@ -416,7 +417,7 @@ class Investment {
         global.currencyWallet[ticker].isDownTrendBuy = global.currencyWallet[ticker].isDownTrendBuy !== undefined ? global.currencyWallet[ticker].isDownTrendBuy : false;
     }
 
-    static async syncCurrencyWallet () {
+    static async syncCurrencyWallet (isPrintStatus = false) {
         let pos = await executor.getActivePositions();
         global.wallet = global.INITIAL_INVESTMENT;
         for (let item of JSON.parse(pos)) {
@@ -427,7 +428,7 @@ class Investment {
             global.currencyWallet[ticker].price= parseFloat(item.base);
             global.wallet -= item.amount * item.base;
         }
-        customUtil.printWalletStatus();
+        isPrintStatus && customUtil.printWalletStatus();
     }
 
     static postSellTradeCleanup (ticker) {
