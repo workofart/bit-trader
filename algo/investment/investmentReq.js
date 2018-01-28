@@ -88,6 +88,17 @@ class InvestmentReq {
         return false;
 
     }
+
+	static positionCheck(ticker) {
+		if (global.currencyWallet[ticker].qty > 0) {
+			return 'long';
+		}
+		else if (global.currencyWallet[ticker].qty < 0) {
+			return 'short';
+		}
+		return 'none';
+	}
+
 }
 
 module.exports = InvestmentReq;

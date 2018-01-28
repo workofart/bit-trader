@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6659d92-f6ea-4470-a819-dd962529006c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/algo/bot.js" afterPath="$PROJECT_DIR$/algo/bot.js" />
-      <change beforePath="$PROJECT_DIR$/algo/custom_util.js" afterPath="$PROJECT_DIR$/algo/custom_util.js" />
       <change beforePath="$PROJECT_DIR$/algo/init/constants.js" afterPath="$PROJECT_DIR$/algo/init/constants.js" />
-      <change beforePath="$PROJECT_DIR$/algo/investment.js" afterPath="$PROJECT_DIR$/algo/investment.js" />
+      <change beforePath="$PROJECT_DIR$/algo/investment/investment.js" afterPath="$PROJECT_DIR$/algo/investment/investment.js" />
+      <change beforePath="$PROJECT_DIR$/algo/investment/investmentReq.js" afterPath="$PROJECT_DIR$/algo/investment/investmentReq.js" />
+      <change beforePath="$PROJECT_DIR$/algo/investment/investmentUtils.js" afterPath="$PROJECT_DIR$/algo/investment/investmentUtils.js" />
+      <change beforePath="$PROJECT_DIR$/test/test-integration/trading-test.js" afterPath="$PROJECT_DIR$/test/test-integration/trading-test.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,40 +28,40 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="investment.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/investment.js">
+        <entry file="file://$PROJECT_DIR$/algo/investment/investment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="419" column="17" lean-forward="false" selection-start-line="419" selection-start-column="17" selection-end-line="419" selection-end-column="17" />
+            <state relative-caret-position="260">
+              <caret line="23" column="97" lean-forward="true" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/algo/bot.js">
+      <file leaf-file-name="executor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/executor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="82" column="46" lean-forward="true" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+            <state relative-caret-position="327">
+              <caret line="130" column="39" lean-forward="true" selection-start-line="130" selection-start-column="39" selection-end-line="130" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/init/init.js">
+      <file leaf-file-name="investmentReq.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/investment/investmentReq.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-62">
-              <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="25" />
+            <state relative-caret-position="153">
+              <caret line="73" column="71" lean-forward="false" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="store.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/store.js">
+      <file leaf-file-name="investmentUtils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/investment/investmentUtils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="429">
+              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -67,18 +70,18 @@
       <file leaf-file-name="trading-test.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4268">
-              <caret line="194" column="80" lean-forward="false" selection-start-line="194" selection-start-column="80" selection-end-line="194" selection-end-column="80" />
+            <state relative-caret-position="315">
+              <caret line="198" column="67" lean-forward="true" selection-start-line="198" selection-start-column="67" selection-end-line="198" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ticker.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/algo/DataProcessors/ticker.js">
+      <file leaf-file-name="parameters.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/algo/init/parameters.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1298">
-              <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+            <state relative-caret-position="260">
+              <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -87,8 +90,8 @@
       <file leaf-file-name="custom_util.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algo/custom_util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1034">
-              <caret line="47" column="28" lean-forward="false" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
+            <state relative-caret-position="400">
+              <caret line="101" column="33" lean-forward="true" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -97,8 +100,28 @@
       <file leaf-file-name="constants.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/algo/init/constants.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="19" />
+            <state relative-caret-position="20">
+              <caret line="1" column="26" lean-forward="false" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bot.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/bot.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/algo/init/init.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7">
+              <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -115,15 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>(?!global\.)[A-Z]+</find>
-      <find>setupCurrencyWallet</find>
-      <find>investConstants</find>
-      <find>_.map</find>
-      <find>_.find(MIN_AMOUNT</find>
-      <find>tickerPrices</find>
-      <find>global.latestPrice[ticker]</find>
-      <find>computeIndicators</find>
-      <find>-1</find>
       <find>openTickers</find>
       <find>ltcusd</find>
       <find>global.currencyWallet[ticker].repeatedSellReq</find>
@@ -145,6 +159,15 @@
       <find>global</find>
       <find>global.DOWN_STOP_LIMIT</find>
       <find>avoided</find>
+      <find>Investment</find>
+      <find>synccurr</find>
+      <find>synccurrency</find>
+      <find>syncCurrencyWallet</find>
+      <find>setupCurrencyWallet</find>
+      <find>positionCheck</find>
+      <find>syncc</find>
+      <find>let pos = await executor.getActivePositions();</find>
+      <find>Investment.positionCheck</find>
     </findStrings>
     <replaceStrings>
       <replace>static</replace>
@@ -165,6 +188,9 @@
       <replace>customUtil.printBearSell(ticker, qty, price);</replace>
       <replace>db.storeTransactionToDB(ticker, price, qty, 0, timestamp);</replace>
       <replace>global.currencyWallet[ticker].isDownTrendBuy</replace>
+      <replace>Investment.positionCheck</replace>
+      <replace>InvestmentReq</replace>
+      <replace>InvestmentReq.positionCheck</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -191,7 +217,6 @@
         <option value="$PROJECT_DIR$/test/lib/testUtil.js" />
         <option value="$PROJECT_DIR$/node_modules/tulind/index.js" />
         <option value="$PROJECT_DIR$/algo/DataProcessors/candle.js" />
-        <option value="$PROJECT_DIR$/algo/executor.js" />
         <option value="$PROJECT_DIR$/test/test-integration/cluster.js" />
         <option value="$PROJECT_DIR$/test/test-integration/clusterManager.js" />
         <option value="$PROJECT_DIR$/api/db.js" />
@@ -216,11 +241,15 @@
         <option value="$PROJECT_DIR$/algo/DataProcessors/ticker.js" />
         <option value="$PROJECT_DIR$/algo/indicators.js" />
         <option value="$PROJECT_DIR$/algo/init/parameters.json" />
-        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
-        <option value="$PROJECT_DIR$/algo/custom_util.js" />
-        <option value="$PROJECT_DIR$/algo/init/constants.js" />
         <option value="$PROJECT_DIR$/algo/investment.js" />
+        <option value="$PROJECT_DIR$/algo/custom_util.js" />
         <option value="$PROJECT_DIR$/algo/bot.js" />
+        <option value="$PROJECT_DIR$/algo/investment/investment.js" />
+        <option value="$PROJECT_DIR$/algo/executor.js" />
+        <option value="$PROJECT_DIR$/algo/investment/investmentReq.js" />
+        <option value="$PROJECT_DIR$/test/test-integration/trading-test.js" />
+        <option value="$PROJECT_DIR$/algo/init/constants.js" />
+        <option value="$PROJECT_DIR$/algo/investment/investmentUtils.js" />
       </list>
     </option>
   </component>
@@ -242,8 +271,9 @@
     <handled-path value="$PROJECT_DIR$/client/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="238" />
+    <option name="y" value="-19" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -285,6 +315,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -296,12 +328,6 @@
               <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
               <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
               <item name="algo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
-              <item name="algo" type="462c0819:PsiDirectoryNode" />
-              <item name="DataProcessors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
@@ -325,17 +351,10 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="test-integration" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="bit-trader" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bit-trader" type="462c0819:PsiDirectoryNode" />
-              <item name="websockets" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -345,7 +364,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="D:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
@@ -362,6 +381,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Github\bit-trader\algo\investment" />
       <recent name="D:\Github\bit-trader\algo\init" />
     </key>
   </component>
@@ -532,6 +552,10 @@
       <workItem from="1516552944183" duration="1380000" />
       <workItem from="1516667654702" duration="300000" />
       <workItem from="1516669976176" duration="964000" />
+      <workItem from="1516850409829" duration="972000" />
+      <workItem from="1516933855097" duration="565000" />
+      <workItem from="1517026086875" duration="38000" />
+      <workItem from="1517026183627" duration="11713000" />
     </task>
     <servers />
   </component>
@@ -568,23 +592,24 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327148000" />
+    <option name="totallyTimeSpent" value="340436000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12864584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2328618" sideWeight="0.50835073" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23275863" sideWeight="0.49164927" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265086" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28125" sideWeight="0.49164927" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33943966" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33943966" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32661718" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39655173" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28879312" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -592,7 +617,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265086" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="V8 CPU Profiling" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.56627786" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="1994" y="223" width="1831" height="528" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -657,7 +681,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="232" />
+      <option name="time" value="236" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -767,20 +791,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/user_functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="41" lean-forward="false" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/websockets/public_ticker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-330">
@@ -856,13 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/executor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2750">
-          <caret line="125" column="28" lean-forward="false" selection-start-line="125" selection-start-column="28" selection-end-line="125" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1021,13 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/db_createtable.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="75" column="80" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1039,7 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2222">
           <caret line="101" column="19" lean-forward="false" selection-start-line="101" selection-start-column="19" selection-end-line="101" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1050,40 +1045,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/init/parameters.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4268">
-          <caret line="194" column="80" lean-forward="false" selection-start-line="194" selection-start-column="80" selection-end-line="194" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/custom_util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1034">
-          <caret line="47" column="28" lean-forward="false" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/init/init.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-62">
-          <caret line="28" column="25" lean-forward="false" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algo/DataProcessors/ticker.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1298">
+        <state relative-caret-position="0">
           <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
           <folding />
         </state>
@@ -1093,43 +1057,123 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1910">
           <caret line="58" column="37" lean-forward="false" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
-          <folding>
-            <element signature="e#3413#4344#0" expanded="false" />
-            <element signature="e#4401#5526#0" expanded="false" />
-            <element signature="e#5590#6391#0" expanded="false" />
-            <element signature="e#6454#7393#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algo/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
+        <state relative-caret-position="0">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1515899516630" expanded="true" signature="137:673" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="226:670" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="313:654" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="385:530" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="552:640" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="796:1631" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="827:1629" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="1060:1622" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="1168:1611" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="1248:1409" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="1435:1593" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="1728:2691" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2225:2688" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2320:2681" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2392:2538" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2560:2667" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2788:3411" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="2962:3408" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="3058:3401" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="3130:3277" ph="{...}" />
+            <marker date="1515899516630" expanded="true" signature="3299:3387" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/algo/init/constants.js">
+    <entry file="file://$PROJECT_DIR$/algo/init/init.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/algo/investment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="419" column="17" lean-forward="false" selection-start-line="419" selection-start-column="17" selection-end-line="419" selection-end-column="17" />
+        <state relative-caret-position="-7">
+          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/algo/bot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="82" column="46" lean-forward="true" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+        <state relative-caret-position="100">
+          <caret line="5" column="30" lean-forward="false" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/db_createtable.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="52" column="34" lean-forward="false" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/custom_util.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="101" column="33" lean-forward="true" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/init/constants.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="26" lean-forward="false" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test-integration/trading-test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="198" column="67" lean-forward="true" selection-start-line="198" selection-start-column="67" selection-end-line="198" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/executor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="130" column="39" lean-forward="true" selection-start-line="130" selection-start-column="39" selection-end-line="130" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/investment/investmentUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/investment/investment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="23" column="97" lean-forward="true" selection-start-line="23" selection-start-column="97" selection-end-line="23" selection-end-column="97" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/investment/investmentReq.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="73" column="71" lean-forward="false" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/algo/init/parameters.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
           <folding />
         </state>
       </provider>

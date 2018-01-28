@@ -6,6 +6,7 @@ const db = require('../../db/config'),
       gridSearch = require('../lib/grid_search'),
       _ = require('underscore'),
       Investment = require('../../algo/investment/investment'),
+      InvestmentUtils = require('../../algo/investment/investmentUtils'),
       TickerProcessor = require('../../algo/DataProcessors/ticker');
       indicators = require('../../algo/indicators'),
       testUtil = require('../lib/testUtil'),
@@ -169,12 +170,14 @@ const performGS = async () => {
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-        // Investment.setupCurrencyWallet('BTCUSD');
-        // Investment.setupCurrencyWallet('IOTUSD');
-        // global.currencyWallet.BTCUSD.qty = 0.02092575;
-        // global.currencyWallet.BTCUSD.price = 20810.79511604;
-        // global.currencyWallet.IOTUSD.qty = 6;
-        // global.currencyWallet.IOTUSD.price = 4.61784061;
+        // InvestmentUtils.setupCurrencyWallet('BCHUSD');
+        // InvestmentUtils.setupCurrencyWallet('NEOUSD');
+        // global.currencyWallet.BCHUSD.qty = 0.06;
+        // global.currencyWallet.BCHUSD.price = 1648.9;
+        // global.currencyWallet.NEOUSD.qty = 0.6;
+        // global.currencyWallet.NEOUSD.price = 142.72;
+
+		// await processor(TickerProcessor.processTickerPrice, 'test');
 
         // global.MIN_PROFIT_PERCENTAGE = 0.012;
         // global.INVEST_PERCENTAGE = 0.1;
