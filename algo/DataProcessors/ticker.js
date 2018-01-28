@@ -1,5 +1,5 @@
 const indicators = require('../indicators');
-const { invest } = require('../investment'),
+const { invest } = require('../investment/investment'),
       db = require('../../algo/store');
 const _ = require('underscore'),
       util = require('util'),

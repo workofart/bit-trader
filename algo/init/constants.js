@@ -1,5 +1,5 @@
 let investment = {
-    INITIAL_INVESTMENT: 1000,
+    INITIAL_INVESTMENT: 1300,
     INVEST_PERCENTAGE: 0.1,
     BUY_SIGNAL_TRIGGER: 10, // if score > this, buy
     SELL_SIGNAL_TRIGGER: -10, // if score < this, sell

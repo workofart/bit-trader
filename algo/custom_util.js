@@ -49,6 +49,12 @@ const printBuyHold = () => {
 
 };
 
+const printOrderResponse = (res) => {
+  util.log(`\n****************************************************`);
+  util.log(res);
+  util.log(`****************************************************\n`);
+}
+
 const printSell = (ticker, price, prevQty) => {
     !global.isParamTune && util.log(`************ Closed Long | ${prevQty} [${ticker}] @ ${price} *************`);
 };
@@ -77,9 +83,19 @@ const printBacktestSummary = () => {
     return profit;
 }
 
+const sanitizeOrderResponse = (res) => {
+  delete res.is_cancelled;
+  delete res.exchange;
+  delete res.was_forced;
+  delete res.is_live;
+  delete res.is_hidden;
+}
+
 module.exports = {
     printPNL: printPNL,
     printBacktestSummary: printBacktestSummary,
+    printOrderResponse: printOrderResponse,
+    sanitizeOrderResponse: sanitizeOrderResponse,
     printBuy: printBuy,
     printSell: printSell,
     printShort: printShort,
