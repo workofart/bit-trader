@@ -1,7 +1,7 @@
 const moment = require('moment'),
       _ = require('underscore'),
       indicators = require('../indicators'),
-      Investment = require('../investment');
+      Investment = require('../investment/investment');
 
 
 let candles = {},
