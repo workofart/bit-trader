@@ -1,18 +1,9 @@
-const executor = require('../executor'),
+const _ = require('underscore'),
+	  executor = require('../executor'),
       customUtil = require('../custom_util'),
       MIN_AMOUNT = require('../minOrder');
 
 class InvestmentUtils {
-
-    static positionCheck(ticker) {
-        if (global.currencyWallet[ticker].qty > 0) {
-            return 'long';
-        }
-        else if (global.currencyWallet[ticker].qty < 0) {
-            return 'short';
-        }
-        return 'none';
-    }
 
     // calculate the weighted average price of all positions
     static weightedAvgPrice (ticker, price, qty) {
@@ -43,20 +34,26 @@ class InvestmentUtils {
         global.currencyWallet[ticker].price =  global.currencyWallet[ticker].price !== undefined ?  global.currencyWallet[ticker].price : 0;
         global.currencyWallet[ticker].downTrendLimitPrice = global.currencyWallet[ticker].downTrendLimitPrice !== undefined ?  global.currencyWallet[ticker].downTrendLimitPrice : 99999;
         global.currencyWallet[ticker].isDownTrendBuy = global.currencyWallet[ticker].isDownTrendBuy !== undefined ? global.currencyWallet[ticker].isDownTrendBuy : false;
+		global.currencyWallet[ticker].upTrendLimitPrice = global.currencyWallet[ticker].upTrendLimitPrice !== undefined ? global.currencyWallet[ticker].upTrendLimitPrice : 0;
     }
 
     static async syncCurrencyWallet (isPrintStatus = false) {
-        let pos = await executor.getActivePositions();
-        global.wallet = global.INITIAL_INVESTMENT;
-        for (let item of JSON.parse(pos)) {
-            let ticker = item.symbol.toUpperCase();
-            this.setupCurrencyWallet(ticker);
+        try {
+			let pos = await executor.getActivePositions();
+			global.wallet = global.INITIAL_INVESTMENT;
+			for (let item of JSON.parse(pos)) {
+				let ticker = item.symbol.toUpperCase();
+				this.setupCurrencyWallet(ticker);
 
-            global.currencyWallet[ticker].qty = parseFloat(item.amount);
-            global.currencyWallet[ticker].price= parseFloat(item.base);
-            global.wallet -= item.amount * item.base;
+				global.currencyWallet[ticker].qty = parseFloat(item.amount);
+				global.currencyWallet[ticker].price = parseFloat(item.base);
+				global.wallet -= item.amount * item.base;
+			}
+			isPrintStatus && customUtil.printWalletStatus();
         }
-        isPrintStatus && customUtil.printWalletStatus();
+        catch(e) {
+            throw e;
+        }
     }
 
     static postSellTradeCleanup (ticker) {
@@ -76,6 +73,8 @@ class InvestmentUtils {
       let price =  global.latestPrice[ticker],
           times = (global.INVEST_PERCENTAGE * global.INITIAL_INVESTMENT / price / minAmount).toFixed(0),
           qty = parseFloat((minAmount * times).toFixed(2));
+
+      return qty;
 
     }
 

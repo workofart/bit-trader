@@ -7,6 +7,7 @@ const utilities = require('./custom_util'),
       executor = require('./executor'),
       CustomUtil = require('./custom_util'),
       Investment = require('./investment/investment'),
+	  InvestmentUtils = require('./investment/investmentUtils'),
       tickerProcessor = require('./DataProcessors/ticker'),
       candleProcessor = require('./DataProcessors/candle'),
       orderBookProcessor = require('./DataProcessors/orderBook');
@@ -80,7 +81,7 @@ connection.on('message', (msg) => {
 
 if (global.isLive) {
     (async() => {
-        await Investment.syncCurrencyWallet();
+        await InvestmentUtils.syncCurrencyWallet();
         Object.keys(global.currencyWallet).forEach((ticker) => {
             if (global.currencyWallet[ticker].qty > 0) {
                 global.currencyWallet[ticker].repeatedBuyPrice = global.currencyWallet[ticker].price * (1 - global.REPEATED_BUY_MARGIN);

@@ -15,10 +15,11 @@ class Investment {
             InvestmentUtils.setupCurrencyWallet(ticker);
 
             let timestamp = data.timestamp,
+				price = global.latestPrice[ticker],
                 qty = InvestmentUtils.calculateBuyQty(ticker);
 
             // Check current position
-            if (Investment.positionCheck(ticker) === 'none' || Investment.positionCheck(ticker) === 'long') {
+            if (InvestmentReq.positionCheck(ticker) === 'none' || InvestmentReq.positionCheck(ticker) === 'long') {
                 // BUY
                 if (Investment.buyPositionCheck(ticker, qty, price, score) && InvestmentReq.downTrendBuyReq(ticker))
                 {
@@ -42,9 +43,10 @@ class Investment {
 
                 // Downward Market SELL
                 else if (Investment.bearSellPositionCheck(ticker, price, score)) {
+					const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size;
                     let sellQty = global.currencyWallet[ticker].qty * global.BEAR_SELL_PERCENTAGE;
 
-                    times = (sellQty / minAmount).toFixed(0);
+                    let times = (sellQty / minAmount).toFixed(0);
                     sellQty = parseFloat((minAmount * times).toFixed(2));
 
                     sellQty = sellQty >= global.currencyWallet[ticker].qty ? 0 : sellQty;
@@ -57,7 +59,7 @@ class Investment {
                     }
                 }
             }
-            // else if (Investment.positionCheck(ticker) === 'none' || Investment.positionCheck(ticker) === 'short') {
+            // else if (InvestmentReq.positionCheck(ticker) === 'none' || InvestmentReq.positionCheck(ticker) === 'short') {
             //     if (Investment.shortPositionCheck(ticker, qty, price, score)) {
             //         if (global.isLive) {
             //             Investment.submitMarketOrder(ticker, 'short', qty, price);
@@ -121,7 +123,7 @@ class Investment {
     static submitDummyOrder (ticker, side, qty, price, timestamp) {
         if (side === 'sell') {
             global.wallet +=  global.currencyWallet[ticker].qty * price * (1 - global.TRADING_FEE);
-            customUtil.printSell(ticker, price);
+            customUtil.printSell(ticker, price, global.currencyWallet[ticker].qty);
             db.storeTransactionToDB(ticker, price,  global.currencyWallet[ticker].qty, 0, timestamp);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             InvestmentUtils.postSellTradeCleanup(ticker);
