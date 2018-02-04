@@ -170,12 +170,24 @@ const performGS = async () => {
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-        // InvestmentUtils.setupCurrencyWallet('BCHUSD');
-        // InvestmentUtils.setupCurrencyWallet('NEOUSD');
-        // global.currencyWallet.BCHUSD.qty = 0.06;
-        // global.currencyWallet.BCHUSD.price = 1648.9;
-        // global.currencyWallet.NEOUSD.qty = 0.6;
-        // global.currencyWallet.NEOUSD.price = 142.72;
+		InvestmentUtils.setupCurrencyWallet('EOSUSD');
+        InvestmentUtils.setupCurrencyWallet('DSHUSD');
+		InvestmentUtils.setupCurrencyWallet('ETHUSD');
+		InvestmentUtils.setupCurrencyWallet('OMGUSD');
+        InvestmentUtils.setupCurrencyWallet('LTCUSD');
+		InvestmentUtils.setupCurrencyWallet('XMRUSD');
+		global.currencyWallet.EOSUSD.qty = 10;
+		global.currencyWallet.EOSUSD.price = 14.592;
+        global.currencyWallet.DSHUSD.qty = 0.18;
+        global.currencyWallet.DSHUSD.price = 815.14;
+		global.currencyWallet.ETHUSD.qty = 0.12;
+		global.currencyWallet.ETHUSD.price = 1200;
+		global.currencyWallet.OMGUSD.qty = 8;
+		global.currencyWallet.OMGUSD.price = 16.748;
+        global.currencyWallet.LTCUSD.qty = 0.72;
+        global.currencyWallet.LTCUSD.price = 189.56;
+		global.currencyWallet.XMRUSD.qty = 0.42;
+		global.currencyWallet.XMRUSD.price = 330.42;
 
 		// await processor(TickerProcessor.processTickerPrice, 'test');
 
@@ -195,7 +207,7 @@ const performGS = async () => {
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        await processor(TickerProcessor.processTickerPrice, 'live_price_sideway3');
+        await processor(TickerProcessor.processTickerPrice, 'live_price_down6');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway_huge');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');
