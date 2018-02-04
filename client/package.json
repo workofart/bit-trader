@@ -2,7 +2,8 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:3000/",
+  "proxy": "http://128.199.226.174:3000/",
+  "homepage" : "http://128.199.226.174:3000/",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

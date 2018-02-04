@@ -8,7 +8,7 @@ const util = require('util');
 // const ws = new WebSocket('ws://127.0.0.1:1338')
 const _ = require('underscore');
 const MAX_ELEMENTS = 2000;
-const URL = 'http://127.0.0.1:3001/api/';
+const URL = 'http://128.199.226.174:3001/api/';
 
 var renderChart = (ticker, that, trades) => {
     Highcharts.setOptions({
