@@ -1,10 +1,13 @@
-const WebSocket = require('ws'),
-      util = require('util');
+const util = require('util'),
+	  binance = require('node-binance-api'),
+	  _ = require('underscore');
 
 /************ Custom Functions **********/
 const utilities = require('./custom_util'),
       db = require('./store'),
+      CONFIGS = require('../config/creds_binance'),
       executor = require('./executor'),
+      mapping = require('../websockets/mapping_binance'),
       CustomUtil = require('./custom_util'),
       Investment = require('./investment/investment'),
 	  InvestmentUtils = require('./investment/investmentUtils'),
@@ -15,22 +18,9 @@ const utilities = require('./custom_util'),
 require('./init/init');
 
 
-global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 /***************************************************/
 
-
-/**************** WebSocket Client (From Bitfinex) *****************/
-const URL = 'http://127.0.0.1:3001/api/';
-let connection;
-/***************************************************/
-
-/**************** WebSocket Server (to UI) *****************/
-const connection_to_client = new WebSocket.Server({ host: '127.0.0.1', port: 1338 });
-connection_to_client.on('request', (req) => {
-    req.accept();
-});
-
-/***************************************************/
 util.log('=======================');
 util.log('=                     =');
 util.log(`=  Live = ${global.isLive}       =`);
@@ -50,34 +40,9 @@ process.on('SIGINT', function () {
     process.exit();
 });
 
+db.clearTable('binance_transactions');
+db.clearTable('binance_live_price');
 
-connection = new WebSocket('ws://127.0.0.1:1337');
-connection.on('open', () => {
-    util.log('Client [bot] started, listening to WebSocket 127.0.0.1:1337');
-    db.clearTable('bitfinex_transactions');
-    db.clearTable('bitfinex_live_price');
-
-    // clear the orderbooks to prevent stale prices from keeping the TOB
-    orderBookProcessor.clearOrderBook();
-
-});
-connection.setMaxListeners(15);
-
-
-connection.on('message', (msg) => {
-    let parsedMsg = JSON.parse(msg);
-
-    if (parsedMsg.hasOwnProperty('id')) {
-        util.log('Received client [public_books]\'s id: ' + parsedMsg.id)
-    }
-
-    let ticker = parsedMsg.ticker;
-
-    if (parsedMsg.hasOwnProperty('datasource')) {
-
-        mainProcessor(ticker, parsedMsg);
-    }
-})
 
 if (global.isLive) {
     (async() => {
@@ -96,6 +61,26 @@ if (global.isLive) {
     })();
 }
 
+/********************* BINANCE WEBSOCKET *******************/
+let pairs = _.map(mapping, (i) => i+'BTC');
+binance.options(CONFIGS);
+
+binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
+	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
+	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
+	// console.log(symbol+" "+interval+" candlestick update");
+
+	let msg = {
+		high: high,
+		low: low,
+		last_price: close,
+		volume: volume
+	};
+
+	mainProcessor(symbol, msg);
+});
+/********************* END BINANCE WEBSOCKET *******************/
+
 
 /***************************************************/
 /*              Main Processor                     */
@@ -104,22 +89,19 @@ if (global.isLive) {
 /*  - trigger buy/sell action                      */
 /***************************************************/
 let mainProcessor = (ticker, data) => {
-    // Extract the symbol
-    ticker = ticker.substr(-6);
-
     // Initialize the scores/counts for a given ticker
     initScoreCounts(ticker);
 
     // Order books
-    if (data.datasource === 'book' && isOrderBookEnabled) {
-        // console.log('Received order books: [' + ticker + ']')
-        orderBookProcessor.processOrderBook(ticker, data.data);
-    }
+    // if (data.datasource === 'book' && isOrderBookEnabled) {
+    //     // console.log('Received order books: [' + ticker + ']')
+    //     orderBookProcessor.processOrderBook(ticker, data);
+    // }
 
     // Ticker Prices
-    else if (data.datasource === 'ticker' && isTickerPriceEnabled) {
+    if (isTickerPriceEnabled) {
         try {
-            tickerProcessor.processTickerPrice(ticker, data.data);
+            tickerProcessor.processTickerPrice(ticker, data);
         }
         catch(e) {
             console.error('There was a problem processing ticker prices: ' + e.stack);
@@ -127,17 +109,21 @@ let mainProcessor = (ticker, data) => {
     }
 
     // Candles
-    else if (data.datasource === 'candles' && isCandleEnabled) {
-        try {
-            candleProcessor.processCandles(ticker, data.data);
-        }
-        catch(e) {
-            console.error('There was a problem processing candles: ' + e.stack);
-        }
-    }
+    // else if (data.datasource === 'candles' && isCandleEnabled) {
+    //     try {
+    //         candleProcessor.processCandles(ticker, data);
+    //     }
+    //     catch(e) {
+    //         console.error('There was a problem processing candles: ' + e.stack);
+    //     }
+    // }
 
 };
 
 const initScoreCounts = (ticker) => {
     global.storedWeightedSignalScore[ticker] = global.storedWeightedSignalScore[ticker] !== undefined ? global.storedWeightedSignalScore[ticker] : 0;
 };
+
+module.exports = {
+    mainProcessor: mainProcessor
+}

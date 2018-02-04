@@ -1,7 +1,7 @@
 const _ = require('underscore'),
-	  executor = require('../executor'),
+	  executor = require('../executorBinance'),
       customUtil = require('../custom_util'),
-      MIN_AMOUNT = require('../minOrder');
+      MIN_AMOUNT = require('../minOrderBinance');
 
 class InvestmentUtils {
 
@@ -68,7 +68,7 @@ class InvestmentUtils {
     }
 
     static calculateBuyQty (ticker) {
-      const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker.toLowerCase()}).minimum_order_size;
+      const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size;
 
       let price =  global.latestPrice[ticker],
           times = (global.INVEST_PERCENTAGE * global.INITIAL_INVESTMENT / price / minAmount).toFixed(0),

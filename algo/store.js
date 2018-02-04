@@ -24,7 +24,7 @@ exports.clearTable = (tableName) => {
 exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
     if (!global.isParamTune) {
         let params = [ticker, price, qty, side, timestamp];
-        let query = `INSERT INTO BITFINEX_TRANSACTIONS (ticker, price, qty, side, timestamp) VALUES ($1, $2, $3, $4, $5);`;
+        let query = `INSERT INTO BINANCE_TRANSACTIONS (ticker, price, qty, side, timestamp) VALUES ($1, $2, $3, $4, $5);`;
         db.pool.connect((err, client, done) => {
             if (err) throw err;
             client.query(
@@ -43,9 +43,9 @@ exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().l
 }
 
 exports.storeLivePrice = (data, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
-    let {ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, rsi, bb_upper, bb_lower} = data;
-    let params = [ticker, last_price, bid, bid_size, ask, ask_size, high, low, volume, timestamp, rsi, bb_upper, bb_lower];
-    let query = `INSERT INTO BITFINEX_LIVE_PRICE (ticker, price, bid, bid_size, ask, ask_size, high, low, volume, timestamp, rsi, bb_upper, bb_lower) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);`;
+    let {ticker, last_price, high, low, volume, rsi, bb_upper, bb_lower} = data;
+    let params = [ticker, last_price, high, low, volume, timestamp, rsi, bb_upper, bb_lower];
+    let query = `INSERT INTO BINANCE_LIVE_PRICE (ticker, price, high, low, volume, timestamp, rsi, bb_upper, bb_lower) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
     db.pool.connect((err, client, done) => {
         if (err) throw err
         client.query(

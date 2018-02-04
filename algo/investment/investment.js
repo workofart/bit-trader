@@ -3,7 +3,7 @@ const MIN_AMOUNT = require('../minOrder'),
       customUtil = require('../custom_util'),
       db = require('../store'),
       _ = require('underscore'),
-      executor = require('../executor'),
+      executor = require('../executorBinance'),
       InvestmentReq = require('./investmentReq'),
       InvestmentUtils = require('./investmentUtils');
 
@@ -163,7 +163,7 @@ class Investment {
     }
 
     static async submitMarketOrder (ticker, side, qty, price) {
-        await InvestmentUtils.syncCurrencyWallet();
+        // await InvestmentUtils.syncCurrencyWallet();
         if (side === 'sell' && InvestmentReq.currencyBalanceReq(ticker)) {
             try {
                 let prevQty = global.currencyWallet[ticker].qty;
@@ -178,9 +178,9 @@ class Investment {
                 customUtil.printOrderResponse(res);
                 db.storeTransactionToDB(ticker, price, prevQty, 0);
                 InvestmentUtils.postSellTradeCleanup(ticker);
-                while(InvestmentReq.currencyBalanceReq(ticker)) {
-                    await InvestmentUtils.syncCurrencyWallet(true);
-                }
+                // while(InvestmentReq.currencyBalanceReq(ticker)) {
+                //     await InvestmentUtils.syncCurrencyWallet(true);
+                // }
             }
             catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
@@ -213,7 +213,7 @@ class Investment {
                 // customUtil.printPNL();
                 customUtil.printOrderResponse(res);
                 db.storeTransactionToDB(ticker, price, qty, 1);
-                await InvestmentUtils.syncCurrencyWallet(true);
+                // await InvestmentUtils.syncCurrencyWallet(true);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
             }
             catch(e) {
@@ -237,7 +237,7 @@ class Investment {
                 global.currencyWallet[ticker].qty -= qty;
                 global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
-                await InvestmentUtils.syncCurrencyWallet(true);
+                // await InvestmentUtils.syncCurrencyWallet(true);
             }
             catch (e) {
                 console.error('There was a problem submitting a bear sell market order: ' + e.stack);
@@ -259,7 +259,7 @@ class Investment {
                 global.currencyWallet[ticker].qty -= qty;
                 global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
-                await InvestmentUtils.syncCurrencyWallet();
+                // await InvestmentUtils.syncCurrencyWallet();
             }
             catch (e) {
                 console.error('There was a problem submitting a short market order: ' + e.stack);

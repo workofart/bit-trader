@@ -104,23 +104,15 @@ const resetScoreCount = (ticker) => {
 }
 
 const parseRawData = (ticker, data) => {
-    let [bid, bid_size, ask, ask_size, daily_change,
-        daily_change_perc, last_price, volume, high,
-        low] = data;
+    let { volume, high, low, last_price } = data;
 
     return {
-        'ticker': ticker,
-        'bid': bid,
-        'bid_size': bid_size,
-        'ask': ask,
-        'ask_size': ask_size,
-        'daily_change': daily_change,
-        'daily_change_perc': daily_change_perc,
-        'last_price': last_price,
-        'volume': volume,
-        'high': high,
-        'low': low,
-        'timestamp': moment().local().format('YYYY-MM-DD HH:mm:ss')
+        ticker: ticker,
+        last_price: last_price,
+        volume: volume,
+        high: high,
+        low: low,
+        timestamp: moment().local().format('YYYY-MM-DD HH:mm:ss')
     };
 };
 

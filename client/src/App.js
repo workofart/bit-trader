@@ -18,7 +18,27 @@ const _ = require('underscore');
 const URL = 'http://127.0.0.1:3001/api/';
 var msgQ = [];
 const queueThreshold = 300;
-const tickers = ['BTCUSD', 'OMGUSD', 'IOTUSD', 'DSHUSD', 'EOSUSD', 'BCHUSD', 'LTCUSD', 'ETCUSD', 'ETHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD', 'NEOUSD'];
+const tickers = [
+	"ETHBTC",
+	"DGDBTC",
+	"TRXBTC",
+	"ADABTC",
+	"XRPBTC",
+	"LTCBTC",
+	"VENBTC",
+	"ICXBTC",
+	"EOSBTC",
+	"NEOBTC",
+	"HSRBTC",
+	"XLMBTC",
+	"BNBBTC",
+	"VIBEBTC",
+	"WTCBTC",
+	"NANOBTC",
+	"IOSTBTC",
+	"XVGBTC",
+	"IOTABTC"
+];
 
 
 class App extends Component {

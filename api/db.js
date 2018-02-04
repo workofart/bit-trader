@@ -144,7 +144,7 @@ module.exports.insertBooks = function(req, res) {
 }
 
 module.exports.getBotTrades = function(req, res) {
-    var query = `SELECT * FROM BITFINEX_TRANSACTIONS WHERE TICKER='${req.params.ticker}';`;
+    var query = `SELECT * FROM BINANCE_TRANSACTIONS WHERE TICKER='${req.params.ticker}';`;
     console.log(query)
     db.pool.connect((err, client, done) => {
         if (err) throw err
@@ -223,7 +223,7 @@ module.exports.resetLivePriceFlag = function(req, res) {
 
 module.exports.getLivePrices = function(req, res) {
     var ticker = req.params.ticker;
-    var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
+    var query = `SELECT * FROM BINANCE_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
     console.log('getLivePrices api called: ' + query)
     db.pool.connect((err, client, done) => {
         if(err) {

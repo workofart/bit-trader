@@ -1,5 +1,7 @@
 const binance = require('node-binance-api'),
-	  CONFIGS = require('../config/creds_binance');
+	  fs = require('fs'),
+	  CONFIGS = require('../config/creds_binance'),
+	  customUtil = require('../algo/custom_util');
 
 binance.options(CONFIGS);
 
@@ -27,23 +29,65 @@ binance.options(CONFIGS);
 // 	console.log("best ask: "+binance.first(asks));
 // });
 
-/// / binance.websockets.trades(['BNBBTC'], (trades) => {
-// 	let {e:eventType, E:eventTime, s:symbol, p:price, q:quantity, m:maker, a:tradeId} = trades;
-// 	console.log(symbol+" trade update. price: "+price+", quantity: "+quantity+", maker: "+maker);
+
+// binance.exchangeInfo(function(error, data) {
+// 	let minimums = [];
+// 	for ( let obj of data.symbols ) {
+// 		let filters = {pair: obj.symbol, minNotional:0.001,minimum_order_size:1,maxQty:10000000,stepSize:1,minPrice:0.00000001,maxPrice:100000};
+// 		for ( let filter of obj.filters ) {
+// 			if ( filter.filterType == "MIN_NOTIONAL" ) {
+// 				filters.minNotional = filter.minNotional;
+// 			} else if ( filter.filterType == "PRICE_FILTER" ) {
+// 				filters.minPrice = filter.minPrice;
+// 				filters.maxPrice = filter.maxPrice;
+// 			} else if ( filter.filterType == "LOT_SIZE" ) {
+// 				filters.minimum_order_size = filter.minQty;
+// 				filters.maxQty = filter.maxQty;
+// 				filters.stepSize = filter.stepSize;
+// 			}
+// 		}
+// 		minimums.push(filters);
+// 	}
+// 	// console.log(minimums);
+// 	fs.writeFile("minimums.json", JSON.stringify(minimums, null, 4), function(err){});
 // });
 
-// binance.websockets.candlesticks(['BNBBTC'], "1m", (candlesticks) => {
-// 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
-// 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
-// 	console.log(symbol+" "+interval+" candlestick update");
-	// console.log("open: "+open);
-	// console.log("high: "+high);
-	// console.log("low: "+low);
-	// console.log("close: "+close);
-	// console.log("volume: "+volume);
-	// console.log("isFinal: "+isFinal);
+
+// The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
+function balance_update(data) {
+	console.log("Currency Wallet Update");
+	for ( let obj of data.B ) {
+		let { a:asset, f:available, l:onOrder } = obj;
+		if ( available == "0.00000000" ) continue;
+
+		global.currencyWallet[asset].qty = available;
+		customUtil.printWalletStatus();
+	}
+}
+
+function execution_update(data) {
+	let { x:executionType, s:symbol, p:price, q:quantity, S:side, o:orderType, i:orderId, X:orderStatus } = data;
+	if ( executionType == "NEW" ) {
+		if ( orderStatus == "REJECTED" ) {
+			console.log("Order Failed! Reason: "+data.r);
+		}
+		console.log(symbol+" "+side+" "+orderType+" ORDER #"+orderId+" ("+orderStatus+")");
+		console.log("..price: "+price+", quantity: "+quantity);
+		return;
+	}
+	//NEW, CANCELED, REPLACED, REJECTED, TRADE, EXPIRED
+	console.log(symbol+"\t"+side+" "+executionType+" "+orderType+" ORDER #"+orderId);
+}
+
+
+
+// binance.websockets.userData(balance_update, execution_update);
+
+
+// binance.historicalTrades("BNBBTC", (error, response)=>{
+// 	console.log("aggTrades", response);
 // });
 
-binance.aggTrades("BNBBTC", {limit:500}, (error, response)=>{
-	console.log("aggTrades", response);
+binance.recentTrades("BNBBTC", (error, response)=>{
+	console.log("recentTrades", response);
 });

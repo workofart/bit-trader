@@ -98,15 +98,15 @@ exports.calculateRSI = (close, subscore, ticker) => {
         return new Promise((resolve) => {
             tulind.indicators.rsi.indicator([close], [global.RSI], function (err, results) {
                 let rsi = results[0];
-                if ((subscore < 0 && rsi[rsi.length - 1].toFixed(4) < 30) ||
-                    (subscore > 0 && rsi[rsi.length - 1].toFixed(4) > 70)) {
+                if ((subscore < 0 && rsi[rsi.length - 1].toFixed(8) < 30) ||
+                    (subscore > 0 && rsi[rsi.length - 1].toFixed(8) > 70)) {
                     subscore = 0
                 }
 
-                util.log(`[${ticker}] RSI:${rsi[rsi.length - 1].toFixed(4)}`)
-                subscore += rsi[rsi.length - 1].toFixed(4) < 30 ?
+                util.log(`[${ticker}] RSI:${rsi[rsi.length - 1].toFixed(8)}`)
+                subscore += rsi[rsi.length - 1].toFixed(8) < 30 ?
                     global.RSI_BASE_SCORE :
-                    rsi[rsi.length - 1].toFixed(4) > 70 ?
+                    rsi[rsi.length - 1].toFixed(8) > 70 ?
                         -global.RSI_BASE_SCORE :
                         0;
                 // util.log(`RSI subscore: ${r}`)
@@ -149,10 +149,10 @@ exports.calculatePSAR = async (high, low, close, subscore) => {
         try {
             let results = await tulind.indicators.psar.indicator([high, low], [global.PSAR_STEP, global.PSAR_MAX]);
             let psar = results[0];
-            // util.log('PSAR: ' + psar[psar.length - 1].toFixed(4))
-            subscore += psar[psar.length - 1].toFixed(4) > close[close.length - 1] ?
+            // util.log('PSAR: ' + psar[psar.length - 1].toFixed(8))
+            subscore += psar[psar.length - 1].toFixed(8) > close[close.length - 1] ?
                 -global.PSAR_BASE_SCORE :
-                psar[psar.length - 1].toFixed(4) < close[close.length - 1] ?
+                psar[psar.length - 1].toFixed(8) < close[close.length - 1] ?
                     global.PSAR_BASE_SCORE :
                     0;
             // util.log(`PSAR subscore: ${subscore}`)
@@ -228,9 +228,9 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
 const BB = async (close, period, stdDev = global.BB_STD_DEV) => {
         try {
             let results = await tulind.indicators.bbands.indicator([close], [period, stdDev]);
-            let bb_lower = results[0][results[0].length - 1].toFixed(2),
-                bb_mid = results[1][results[1].length - 1].toFixed(2),
-                bb_upper = results[2][results[2].length - 1].toFixed(2);
+            let bb_lower = results[0][results[0].length - 1].toFixed(8),
+                bb_mid = results[1][results[1].length - 1].toFixed(8),
+                bb_upper = results[2][results[2].length - 1].toFixed(8);
 
             return { bb_lower: parseFloat(bb_lower), bb_upper: parseFloat(bb_upper) };
         }
@@ -244,7 +244,7 @@ const RSI_FUNC = async (close, period) => {
     try {
         let results = await tulind.indicators.rsi.indicator([close], [period]);
         let rsi = results[0];
-        return parseFloat(rsi[rsi.length - 1].toFixed(2));
+        return parseFloat(rsi[rsi.length - 1].toFixed(8));
     }
     catch(e) {
         console.error('An error while calculating RSI:' + e.stack)
@@ -255,7 +255,7 @@ const ADX_FUNC = async (high, low, close, period) => {
     try {
         let results = await tulind.indicators.adx.indicator([high, low, close], [period]);
             let adx = results[0];
-            return parseFloat((adx[adx.length - 1].toFixed(2)));
+            return parseFloat((adx[adx.length - 1].toFixed(8)));
     }
     catch(e) {
         util.error('An error while calculating ADX indicator: ' + e.stack);

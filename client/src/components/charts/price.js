@@ -159,7 +159,7 @@ var renderChart = (ticker, that, trades) => {
             hideDelay: 0,
             shadow: false,
             animation: false,
-            valueDecimals: 4,
+            valueDecimals: 8,
             // shared: true,
             split: true
         },
