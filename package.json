@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "proxy": "http://127.0.0.1:3001/",
+  "proxy": "http://128.199.226.174:3001/",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server.js",

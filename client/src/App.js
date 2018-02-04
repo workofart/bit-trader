@@ -15,7 +15,7 @@ import CustomTable from './components/table/Table';
 const $ = require('jquery');
 const _ = require('underscore');
 
-const URL = 'http://127.0.0.1:3001/api/';
+const URL = 'http://128.199.226.174:3001/api/';
 var msgQ = [];
 const queueThreshold = 300;
 const tickers = ['BTCUSD', 'OMGUSD', 'IOTUSD', 'DSHUSD', 'EOSUSD', 'BCHUSD', 'LTCUSD', 'ETCUSD', 'ETHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD', 'NEOUSD'];
