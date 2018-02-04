@@ -9,9 +9,9 @@ const fs = require('fs');
 const path = require('path');
 const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 
-child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
+// child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
 
-child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
+// child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
 
 
 /*******************************************/
