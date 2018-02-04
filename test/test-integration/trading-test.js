@@ -5,7 +5,8 @@ const db = require('../../db/config'),
       customUtil = require('../../algo/custom_util'),
       gridSearch = require('../lib/grid_search'),
       _ = require('underscore'),
-      Investment = require('../../algo/investment'),
+      Investment = require('../../algo/investment/investment'),
+      InvestmentUtils = require('../../algo/investment/investmentUtils'),
       TickerProcessor = require('../../algo/DataProcessors/ticker');
       indicators = require('../../algo/indicators'),
       testUtil = require('../lib/testUtil'),
@@ -50,8 +51,9 @@ const processor = async (subprocessor, dataFile) => {
             // dbExecutor.storeWallet(global.wallet, timestamp);
             await subprocessor(ticker, data[i]);
         }
-        // let profit = customUtil.printBacktestSummary();
-        let profit = customUtil.printPNL();
+        // let profit = customUtil.printPNL();
+        let profit = customUtil.printBacktestSummary();
+        // console.log(JSON.stringify(global.currencyWallet, null, 2));
         resetVariables();
         console.timeEnd(`-- [${dataFile}] --`);
         return profit;
@@ -72,6 +74,7 @@ const resetVariables = () => {
     global.frozenTickers = {};
     global.MAX_SCORE_INTERVAL = {};
     global.tickerPrices = {};
+    global.MAX_SCORE_INTERVAL = {};
 
     close = {};
     storedCounts = {};
@@ -87,25 +90,27 @@ const performGS = async () => {
                     // 'live_price_down2',
                     // 'live_price_down3',
                     // 'live_price_down4',
-                    'live_price_down_huge',
-                    // 'live_price_sideway',
+                    // 'live_price_down_huge',
+                    'live_price_sideway',
                     // 'live_price_sideway2',
                     // 'live_price_sideway3',
                     // 'live_price_sideway4',
-                    'live_price_sideway_huge'
+                    // 'live_price_sideway_huge',
                     // 'live_price_up'
                 ],
-                CORRELATION: [30],
-                PROFIT: [0.012, 0.015],
-                INVEST: [0.1, 0.12, 0.15],
-                REPEAT_BUY: [0.02, 0.025],
-                BEAR_LOSS: [0.02, 0.025, 0.03],
+                CORRELATION: [60],
+                PROFIT: [0.012],
+                INVEST: [0.1],
+                REPEAT_BUY: [0.02, 0.02],
+                BEAR_LOSS: [0.02],
                 RSI: [49],
                 UPPER_RSI: [70],
-                LOWER_RSI: [23, 27, 31],
-                BB_STD_DEV: [1.5, 1.6],
+                LOWER_RSI: [27],
+                BB_STD_DEV: [2],
                 LOW_RSI_OFFSET: [5],
-                LOW_BB_OFFSET: [0.95]
+                LOW_BB_OFFSET: [0.95],
+                UP_STOP_LIMIT: [0.005],
+                DOWN_STOP_LIMIT: [0.01]
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
                 // PROFIT: [0.008, 0.01, 0.012],
@@ -129,6 +134,8 @@ const performGS = async () => {
                 global.BB_STD_DEV = comb.BB_STD_DEV;
                 global.LOW_RSI_OFFSET = comb.LOW_RSI_OFFSET;
                 global.LOW_BB_OFFSET = comb.LOW_BB_OFFSET;
+                global.UP_STOP_LIMIT = comb.UP_STOP_LIMIT;
+                global.DOWN_STOP_LIMIT = comb.DOWN_STOP_LIMIT;
 
                 // let pnl = await processor(TickerProcessor.processTickerPrice(ticker, data), comb.DATA);
                 let pnl = await processor(TickerProcessor.processTickerPrice, comb.DATA);
@@ -141,7 +148,11 @@ const performGS = async () => {
         await grid_search.run();
         await grid_search.displayTableOfResults(
             ['DATA'],
-            ["CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI", "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV", "LOW_RSI_OFFSET", "LOW_BB_OFFSET"],
+            [
+                "CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI",
+                "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV", "LOW_RSI_OFFSET", "LOW_BB_OFFSET",
+                "UP_STOP_LIMIT", "DOWN_STOP_LIMIT"
+            ],
             x => +(x.results.pnl)   // this callback needs to return single number for each result
         );
     }
@@ -153,32 +164,50 @@ const performGS = async () => {
 
 (
     async () => {
+        // global.isParamTune = true;
         dbExecutor.clearTable('bitfinex_transactions');
         dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-        // Investment.setupCurrencyWallet('BTCUSD');
-        // Investment.setupCurrencyWallet('IOTUSD');
-        // global.currencyWallet.BTCUSD.qty = 0.02092575;
-        // global.currencyWallet.BTCUSD.price = 20810.79511604;
-        // global.currencyWallet.IOTUSD.qty = 6;
-        // global.currencyWallet.IOTUSD.price = 4.61784061;
+		InvestmentUtils.setupCurrencyWallet('EOSUSD');
+        InvestmentUtils.setupCurrencyWallet('DSHUSD');
+		InvestmentUtils.setupCurrencyWallet('ETHUSD');
+		InvestmentUtils.setupCurrencyWallet('OMGUSD');
+        InvestmentUtils.setupCurrencyWallet('LTCUSD');
+		InvestmentUtils.setupCurrencyWallet('XMRUSD');
+		global.currencyWallet.EOSUSD.qty = 10;
+		global.currencyWallet.EOSUSD.price = 14.592;
+        global.currencyWallet.DSHUSD.qty = 0.18;
+        global.currencyWallet.DSHUSD.price = 815.14;
+		global.currencyWallet.ETHUSD.qty = 0.12;
+		global.currencyWallet.ETHUSD.price = 1200;
+		global.currencyWallet.OMGUSD.qty = 8;
+		global.currencyWallet.OMGUSD.price = 16.748;
+        global.currencyWallet.LTCUSD.qty = 0.72;
+        global.currencyWallet.LTCUSD.price = 189.56;
+		global.currencyWallet.XMRUSD.qty = 0.42;
+		global.currencyWallet.XMRUSD.price = 330.42;
 
-        global.MIN_PROFIT_PERCENTAGE = 0.015;
-        global.INVEST_PERCENTAGE = 0.15;
-        global.REPEATED_BUY_MARGIN = 0.025;
-        global.BEAR_LOSS_START = 0.02;
-        global.RSI = 49;
-        global.LOWER_RSI = 23;
-        global.UPPER_RSI = 70;
-        global.BB_STD_DEV = 1.5;
+		// await processor(TickerProcessor.processTickerPrice, 'test');
+
+        // global.MIN_PROFIT_PERCENTAGE = 0.012;
+        // global.INVEST_PERCENTAGE = 0.1;
+        // global.REPEATED_BUY_MARGIN = 0.02;
+        // global.BEAR_LOSS_START = 0.035;
+        // global.RSI = 49;
+        // global.LOWER_RSI = 27;
+        // global.UPPER_RSI = 70;
+        // global.BB_STD_DEV = 2;
+        // global.UP_STOP_LIMIT = 0.005;
+        // global.DOWN_STOP_LIMIT = 0.007;
+        // global.CORRELATION_PERIOD = 60;
 
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway2');
+        await processor(TickerProcessor.processTickerPrice, 'live_price_down6');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway_huge');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');

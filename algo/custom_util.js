@@ -39,6 +39,8 @@ const printPNL = () => {
         // console.log(`Starting Value: $${INITIAL_INVESTMENT}`);
         let profit = currencyValue + global.wallet - global.INITIAL_INVESTMENT;
         console.log(`Holding [${numCoins}] coins | $${profit.toFixed(2)} | ${(profit / global.INITIAL_INVESTMENT * 100).toFixed(2)}%`);
+        // console.log(`CurrencyValue: ${currencyValue}`);
+        // console.log(`WalletValue: ${global.wallet}`);
         return (profit / global.INITIAL_INVESTMENT * 100).toFixed(2);
     // }
 };
@@ -47,8 +49,14 @@ const printBuyHold = () => {
 
 };
 
-const printSell = (ticker, price) => {
-    !global.isParamTune && util.log(`************ Closed Long | ${global.currencyWallet[ticker].qty} [${ticker}] @ ${price} *************`);
+const printOrderResponse = (res) => {
+  util.log(`\n****************************************************`);
+  util.log(res);
+  util.log(`****************************************************\n`);
+}
+
+const printSell = (ticker, price, prevQty) => {
+    !global.isParamTune && util.log(`************ Closed Long | ${prevQty} [${ticker}] @ ${price} *************`);
 };
 
 const printBearSell = (ticker, qty, price) => {
@@ -75,9 +83,19 @@ const printBacktestSummary = () => {
     return profit;
 }
 
+const sanitizeOrderResponse = (res) => {
+  delete res.is_cancelled;
+  delete res.exchange;
+  delete res.was_forced;
+  delete res.is_live;
+  delete res.is_hidden;
+}
+
 module.exports = {
     printPNL: printPNL,
     printBacktestSummary: printBacktestSummary,
+    printOrderResponse: printOrderResponse,
+    sanitizeOrderResponse: sanitizeOrderResponse,
     printBuy: printBuy,
     printSell: printSell,
     printShort: printShort,

@@ -1,5 +1,5 @@
 const indicators = require('../indicators');
-const { invest } = require('../investment'),
+const { invest } = require('../investment/investment'),
       db = require('../../algo/store');
 const _ = require('underscore'),
       util = require('util'),
@@ -31,7 +31,9 @@ const processTickerPrice = async (ticker, data) => {
         if (global.tickerPrices[ticker].length > global.PURGE_LENGTH) {
             global.tickerPrices[ticker] = global.tickerPrices[ticker].slice(global.PURGE_LENGTH / 1.8);
         }
-
+        if (global.isBacktest) {
+            processedData.time = processedData.timestamp;
+        }
         let obj = await computeIndicators(ticker, global.tickerPrices[ticker], processedData.time);
         let indicatorValue = obj ? obj.indicatorValue: 0;
 

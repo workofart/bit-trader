@@ -1,6 +1,6 @@
 require('../env-setup');
 
-const Investment = require('../../algo/investment');
+const Investment = require('../../algo/investment/investment');
 
 describe('Investment Unit Tests', () => {
 
