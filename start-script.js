@@ -17,10 +17,10 @@ const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 /*******************************************/
 var logfile = `./logs/bot_${currentTime}.log`;
 console.log(logfile);
-const out = fs.openFileSync(logfile, 'a');
+const out = fs.openSync(logfile, 'a');
 
 var process = child.spawn('node', ['bot.js'], {cwd: 'algo', detached: true, stdio: ['ignore', out, out]});
-
+process.unref();
 /*******************************************/
 
 // Create symbolic link for easy log scanning
