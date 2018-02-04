@@ -40,6 +40,7 @@
     "colors": "^1.1.2",
     "crypto-js": "^3.1.9-1",
     "express": "^4.15.4",
+    "node-binance-api": "^0.4.11",
     "pg": "^7.3.0",
     "v8-profiler": "^5.7.0"
   }
