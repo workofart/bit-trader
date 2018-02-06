@@ -63,7 +63,26 @@ if (global.isLive) {
 
 /********************* BINANCE WEBSOCKET *******************/
 let pairs = _.map(mapping, (i) => i+'BTC');
+let throttledPairs = {};
+
+_.forEach(pairs, (i) => { throttledPairs[i] = _.throttle((msg)=> mainProcessor(i, msg), 10000)});
+
 binance.options(CONFIGS);
+
+// const throttled = _.throttle((candlesticks) => {
+// 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
+// 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
+// 	// console.log(symbol+" "+interval+" candlestick update");
+//
+// 	let msg = {
+// 		high: high,
+// 		low: low,
+// 		last_price: close,
+// 		volume: volume
+// 	};
+//
+// 	mainProcessor(symbol, msg);
+// }, 10000);
 
 binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
@@ -76,8 +95,7 @@ binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 		last_price: close,
 		volume: volume
 	};
-
-	mainProcessor(symbol, msg);
+	throttledPairs[symbol](msg);
 });
 /********************* END BINANCE WEBSOCKET *******************/
 

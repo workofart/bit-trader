@@ -5,10 +5,25 @@ const
     _ = require('underscore'),
     ss = require('simple-statistics'),
     TICKERS = [
-        'BTCUSD', 'LTCUSD', 'ETHUSD', 'ETCUSD',
-        'DSHUSD', 'IOTUSD', 'EOSUSD', 'OMGUSD',
-        'BCHUSD', 'BTGUSD', 'XRPUSD', 'XMRUSD',
-        'NEOUSD'
+        "ETHBTC",
+        "DGDBTC",
+        "TRXBTC",
+        "ADABTC",
+        "XRPBTC",
+        "LTCBTC",
+        "VENBTC",
+        "ICXBTC",
+        "EOSBTC",
+        "NEOBTC",
+        "HSRBTC",
+        "XLMBTC",
+        "BNBBTC",
+        "VIBEBTC",
+        "WTCBTC",
+        "NANOBTC",
+        "IOSTBTC",
+        "XVGBTC",
+        "IOTABTC"
     ];
 
 let flag = {
@@ -45,7 +60,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
 
     // keep track of current length of tickers and if timestamp moved on, and current
     // length is still not equal to 9, then remove the batch
-    if (currentTimestamp !== prevTimestamp && numTickerRecords !== 13) {
+    if (currentTimestamp !== prevTimestamp && numTickerRecords !== 19) {
         priceArr = _.omit(priceArr, prevTimestamp);
     }
 

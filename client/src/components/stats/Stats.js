@@ -31,12 +31,12 @@ class PerformanceStats extends Component {
             <Statistic.Group>
                 {profit >= 0 ? 
                         <Statistic color='green'>
-                            <Statistic.Value>${profit.toFixed(2)}</Statistic.Value>
+                            <Statistic.Value>{profit.toFixed(8)}BTC</Statistic.Value>
                             <Statistic.Label>Profitability</Statistic.Label>
                         </Statistic>
                         :
                         <Statistic color='red'>
-                            <Statistic.Value>${profit.toFixed(2)}</Statistic.Value>
+                            <Statistic.Value>${profit.toFixed(8)}</Statistic.Value>
                             <Statistic.Label>Profitability</Statistic.Label>
                         </Statistic>
                 }

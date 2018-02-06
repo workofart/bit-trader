@@ -19,9 +19,9 @@ var renderChart = (ticker, that, trades) => {
 
     HighStocks.stockChart(ticker, {
         chart: {
-            marginLeft: 80,
-            marginRight: 50,
-            height: 700,
+            marginLeft: 120,
+            marginRight: 120,
+            height: 600,
             spacing: [20, 20, 30, 30],
             renderTo: ticker,
             animation: false,

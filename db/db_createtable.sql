@@ -99,3 +99,4 @@ create table binance_live_price (
 
 
 COPY bitfinex_live_price TO '/live_price_sideway_long.csv' DELIMITER ',' CSV HEADER;
+COPY binance_live_price TO '/temp/binance.csv' DELIMITER ',' CSV HEADER;

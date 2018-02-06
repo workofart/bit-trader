@@ -1,4 +1,4 @@
-const MIN_AMOUNT = require('../minOrder'),
+const MIN_AMOUNT = require('../minOrderBinance'),
       util = require('util'),
       customUtil = require('../custom_util'),
       db = require('../store'),

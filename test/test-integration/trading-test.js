@@ -4,6 +4,7 @@ const db = require('../../db/config'),
       dbExecutor = require('../../algo/store'),
       customUtil = require('../../algo/custom_util'),
       gridSearch = require('../lib/grid_search'),
+      mapping = require('../../websockets/mapping_binance'),
       _ = require('underscore'),
       Investment = require('../../algo/investment/investment'),
       InvestmentUtils = require('../../algo/investment/investmentUtils'),
@@ -91,26 +92,27 @@ const performGS = async () => {
                     // 'live_price_down3',
                     // 'live_price_down4',
                     // 'live_price_down_huge',
-                    'live_price_sideway',
+                    // 'live_price_sideway',
                     // 'live_price_sideway2',
                     // 'live_price_sideway3',
                     // 'live_price_sideway4',
                     // 'live_price_sideway_huge',
                     // 'live_price_up'
+                    'binance_short'
                 ],
-                CORRELATION: [60],
-                PROFIT: [0.012],
+                CORRELATION: [30, 45, 60],
+                PROFIT: [0.008, 0.01, 0.012],
                 INVEST: [0.1],
-                REPEAT_BUY: [0.02, 0.02],
+                REPEAT_BUY: [0.02, 0.025],
                 BEAR_LOSS: [0.02],
-                RSI: [49],
-                UPPER_RSI: [70],
-                LOWER_RSI: [27],
-                BB_STD_DEV: [2],
+                RSI: [21, 25, 29, 33, 37, 41, 45, 49],
+                UPPER_RSI: [55, 60, 65, 70],
+                LOWER_RSI: [25, 30, 35, 40],
+                BB_STD_DEV: [1, 1.5, 2],
                 LOW_RSI_OFFSET: [5],
                 LOW_BB_OFFSET: [0.95],
-                UP_STOP_LIMIT: [0.005],
-                DOWN_STOP_LIMIT: [0.01]
+                UP_STOP_LIMIT: [0.005, 0.01],
+                DOWN_STOP_LIMIT: [0.005, 0.01]
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
                 // PROFIT: [0.008, 0.01, 0.012],
@@ -165,29 +167,31 @@ const performGS = async () => {
 (
     async () => {
         // global.isParamTune = true;
-        dbExecutor.clearTable('bitfinex_transactions');
-        dbExecutor.clearTable('bitfinex_live_price');
+		dbExecutor.clearTable('binance_transactions');
+		dbExecutor.clearTable('binance_live_price');
+        // dbExecutor.clearTable('bitfinex_transactions');
+        // dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-		InvestmentUtils.setupCurrencyWallet('EOSUSD');
-        InvestmentUtils.setupCurrencyWallet('DSHUSD');
-		InvestmentUtils.setupCurrencyWallet('ETHUSD');
-		InvestmentUtils.setupCurrencyWallet('OMGUSD');
-        InvestmentUtils.setupCurrencyWallet('LTCUSD');
-		InvestmentUtils.setupCurrencyWallet('XMRUSD');
-		global.currencyWallet.EOSUSD.qty = 10;
-		global.currencyWallet.EOSUSD.price = 14.592;
-        global.currencyWallet.DSHUSD.qty = 0.18;
-        global.currencyWallet.DSHUSD.price = 815.14;
-		global.currencyWallet.ETHUSD.qty = 0.12;
-		global.currencyWallet.ETHUSD.price = 1200;
-		global.currencyWallet.OMGUSD.qty = 8;
-		global.currencyWallet.OMGUSD.price = 16.748;
-        global.currencyWallet.LTCUSD.qty = 0.72;
-        global.currencyWallet.LTCUSD.price = 189.56;
-		global.currencyWallet.XMRUSD.qty = 0.42;
-		global.currencyWallet.XMRUSD.price = 330.42;
+		// InvestmentUtils.setupCurrencyWallet('EOSUSD');
+        // InvestmentUtils.setupCurrencyWallet('DSHUSD');
+		// InvestmentUtils.setupCurrencyWallet('ETHUSD');
+		// InvestmentUtils.setupCurrencyWallet('OMGUSD');
+        // InvestmentUtils.setupCurrencyWallet('LTCUSD');
+		// InvestmentUtils.setupCurrencyWallet('XMRUSD');
+		// global.currencyWallet.EOSUSD.qty = 10;
+		// global.currencyWallet.EOSUSD.price = 14.592;
+        // global.currencyWallet.DSHUSD.qty = 0.18;
+        // global.currencyWallet.DSHUSD.price = 815.14;
+		// global.currencyWallet.ETHUSD.qty = 0.12;
+		// global.currencyWallet.ETHUSD.price = 1200;
+		// global.currencyWallet.OMGUSD.qty = 8;
+		// global.currencyWallet.OMGUSD.price = 16.748;
+        // global.currencyWallet.LTCUSD.qty = 0.72;
+        // global.currencyWallet.LTCUSD.price = 189.56;
+		// global.currencyWallet.XMRUSD.qty = 0.42;
+		// global.currencyWallet.XMRUSD.price = 330.42;
 
 		// await processor(TickerProcessor.processTickerPrice, 'test');
 
@@ -203,11 +207,12 @@ const performGS = async () => {
         // global.DOWN_STOP_LIMIT = 0.007;
         // global.CORRELATION_PERIOD = 60;
 
+		await processor(TickerProcessor.processTickerPrice, 'binance_short');
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        await processor(TickerProcessor.processTickerPrice, 'live_price_down6');
+        // await processor(TickerProcessor.processTickerPrice, 'live_price_down6');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway_huge');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');

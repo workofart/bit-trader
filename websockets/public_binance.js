@@ -1,5 +1,7 @@
 const binance = require('node-binance-api'),
 	  fs = require('fs'),
+	  util = require('util'),
+	  _ = require('underscore'),
 	  CONFIGS = require('../config/creds_binance'),
 	  customUtil = require('../algo/custom_util');
 
@@ -80,6 +82,26 @@ function execution_update(data) {
 }
 
 
+const throlled = _.throttle((candlesticks) => {
+	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
+	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
+
+	util.log(symbol+" "+interval+" candlestick update");
+}, 5000);
+
+binance.websockets.candlesticks('BNBBTC', "1m", throlled);
+
+
+//
+// binance.websockets.chart("BNBBTC", "1m", (symbol, interval, chart) => {
+// 	let tick = binance.last(chart);
+// 	const last = chart[tick].close;
+// 	// console.log(chart);
+// 	// Optionally convert 'chart' object to array:
+// 	// let ohlc = binance.ohlc(chart);
+// 	// console.log(symbol, ohlc);
+// 	console.log(symbol+" last price: "+last)
+// });
 
 // binance.websockets.userData(balance_update, execution_update);
 
@@ -88,6 +110,6 @@ function execution_update(data) {
 // 	console.log("aggTrades", response);
 // });
 
-binance.recentTrades("BNBBTC", (error, response)=>{
-	console.log("recentTrades", response);
-});
+// binance.recentTrades("BNBBTC", (error, response)=>{
+// 	console.log("recentTrades", response);
+// });

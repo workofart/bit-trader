@@ -107,16 +107,16 @@ class App extends Component {
 
     return (
       <div>
-        <Container fluid>
+        <Container fluid style={{ marginLeft: 60, marginRight: 60 }}>
         {
           tickers.map((item) => {
             return (
-              <Button key={item} onClick={(event, data) => { this.getTradesByTicker(data.children) }}>{item}</Button>
+              <Button style={{margin: 4}} key={item} onClick={(event, data) => { this.getTradesByTicker(data.children) }}>{item}</Button>
             )
           })
         }
         </Container>
-        <Container fluid style={{ marginLeft: 30, marginTop: 40, marginRight: 30 }}>
+        <Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>
           <PriceChart ticker={this.state.ticker} data={this.state.trades}/>
           <CustomStats data={this.state.trades} />
           <Divider />
