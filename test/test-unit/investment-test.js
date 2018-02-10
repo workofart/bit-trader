@@ -1,6 +1,8 @@
 require('../env-setup');
 
-const Investment = require('../../algo/investment/investment');
+const Investment = require('../../algo/investment/investment'),
+      InvestmentUtil = require('../../algo/investment/investmentUtils'),
+      mapping = require('../../websockets/mapping_binance');
 
 describe('Investment Unit Tests', () => {
 
@@ -100,6 +102,35 @@ describe('Investment Unit Tests', () => {
         it('should return 20 as the weighted average price', () => {
             expect(Investment.weightedAvgPrice(ticker, 30, 1)).to.equal(20);
         })
+    });
+
+    describe('Order Quantity', () => {
+        beforeAll(() => {
+            global.currencyWallet = {};
+            mapping.forEach((ticker) => {
+				global.currencyWallet[ticker+'BTC'] = {};
+			});
+		});
+
+        it(`should return 0.005 for DGDBTC orders`, () => {
+            global.currencyWallet.DGDBTC.qty = 0.005726;
+            expect(InvestmentUtil.calculateBuyQty(ticker)).to.equal(0.005);
+        });
+
+		it(`should return 0.005 for ETHBTC orders`, () => {
+			global.currencyWallet.ETHBTC.qty = 0.005726;
+			expect(InvestmentUtil.calculateBuyQty(ticker)).to.equal(0.005);
+		})
+
+        it(`should return 5 for TRXBTC orders`, () => {
+			global.currencyWallet.TRXBTC.qty = 5.105726;
+			expect(InvestmentUtil.calculateBuyQty(ticker)).to.equal(5);
+		})
+
+		it(`should return 0.005 for DGDBTC orders`, () => {
+			global.currencyWallet['DGDBTC'].qty = 0.005726;
+			expect(InvestmentUtil.calculateBuyQty(ticker)).to.equal(0.005);
+		})
     })
 });
 

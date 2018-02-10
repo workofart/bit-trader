@@ -6,7 +6,6 @@ const util = require('util'),
 const utilities = require('./custom_util'),
       db = require('./store'),
       CONFIGS = require('../config/creds_binance'),
-      executor = require('./executor'),
       mapping = require('../websockets/mapping_binance'),
       CustomUtil = require('./custom_util'),
       Investment = require('./investment/investment'),
@@ -18,7 +17,7 @@ const utilities = require('./custom_util'),
 require('./init/init');
 
 
-global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 /***************************************************/
 
 util.log('=======================');
@@ -42,6 +41,7 @@ process.on('SIGINT', function () {
 
 db.clearTable('binance_transactions');
 db.clearTable('binance_live_price');
+db.clearTable('binance_wallet');
 
 
 if (global.isLive) {
@@ -59,6 +59,11 @@ if (global.isLive) {
         CustomUtil.printWalletStatus();
 
     })();
+
+    // Store wallet state after 20 seconds to get full price feeds
+    setTimeout(() => {
+    	db.storeWalletState();
+	}, 20000)
 }
 
 /********************* BINANCE WEBSOCKET *******************/
@@ -97,6 +102,42 @@ binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 	};
 	throttledPairs[symbol](msg);
 });
+
+
+// The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
+function balance_update(data) {
+	console.log("Currency Wallet Update");
+	for ( let obj of data.B ) {
+		let { a:asset, f:available, l:onOrder } = obj;
+		if ( available == "0.00000000" ) continue;
+
+		if (mapping.indexOf(asset) !== -1 && asset !== 'BTC') {
+			global.currencyWallet[asset + 'BTC'].qty = parseFloat(available);
+		}
+		if (asset === 'BTC') {
+			global.wallet = parseFloat(available);
+		}
+	}
+	CustomUtil.printWalletStatus();
+	db.storeWalletState();
+}
+
+function execution_update(data) {
+	let { x:executionType, s:symbol, p:price, q:quantity, S:side, o:orderType, i:orderId, X:orderStatus } = data;
+	if ( executionType == "NEW" ) {
+		if ( orderStatus == "REJECTED" ) {
+			console.log("Order Failed! Reason: "+data.r);
+		}
+		console.log(symbol+" "+side+" "+orderType+" ORDER #"+orderId+" ("+orderStatus+")");
+		console.log("..price: "+price+", quantity: "+quantity);
+		return;
+	}
+	//NEW, CANCELED, REPLACED, REJECTED, TRADE, EXPIRED
+	console.log(symbol+"\t"+side+" "+executionType+" "+orderType+" ORDER #"+orderId);
+}
+
+binance.websockets.userData(balance_update, execution_update);
+
 /********************* END BINANCE WEBSOCKET *******************/
 
 

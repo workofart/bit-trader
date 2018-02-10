@@ -1,3 +1,7 @@
+const minAmount = require('../minOrderBinance'),
+      util = require('util'),
+      _ = require('underscore');
+
 class InvestmentReq {
 
     static frozenTickerReq(ticker) {
@@ -47,7 +51,8 @@ class InvestmentReq {
     }
 
     static currencyBalanceReq (ticker) {
-        return global.currencyWallet[ticker].qty > 0;
+        let minNotional = _.find(minAmount, (item) => { return item.pair === ticker}).minNotional;
+        return global.currencyWallet[ticker].qty * global.latestPrice[ticker] > minNotional;
     }
 
     static minProfitReq (ticker, price) {

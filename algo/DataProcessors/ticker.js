@@ -56,7 +56,7 @@ const processTickerPrice = async (ticker, data) => {
 
         // util.log(`[${ticker}] RSI: ${indicatorValue}`);
         // processedData.timestamp = processedData.time;
-        invest(global.storedWeightedSignalScore[ticker], ticker, processedData);
+        await invest(global.storedWeightedSignalScore[ticker], ticker, processedData);
         storedCounts[ticker] += 1;
     }
     catch(e) {
@@ -108,10 +108,10 @@ const parseRawData = (ticker, data) => {
 
     return {
         ticker: ticker,
-        last_price: last_price,
-        volume: volume,
-        high: high,
-        low: low,
+        last_price: parseFloat(last_price),
+        volume: parseFloat(volume),
+        high: parseFloat(high),
+        low: parseFloat(low),
         timestamp: moment().local().format('YYYY-MM-DD HH:mm:ss')
     };
 };

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Button, Divider } from 'semantic-ui-react';
+import { Container, Button, Divider, Grid } from 'semantic-ui-react';
 import logo from './logo.svg';
 import './App.css';
 import PriceChart from './components/charts/price';
 import CustomStats from './components/stats/Stats';
 import CustomTable from './components/table/Table';
+import SidePanel from './components/sidepanel/SidePanel'
 // import ReconnectingWebSocket from './reconnecting-websocket.min';
 // const ws = new ReconnectingWebSocket('ws://127.0.0.1:1338', null, {
 //   debug: true,
@@ -116,12 +117,20 @@ class App extends Component {
           })
         }
         </Container>
-        <Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>
+	    <Grid celled>
+			<Grid.Column width={3}>
+				<SidePanel/>
+			</Grid.Column>
+			<Grid.Column width={13}>
+        {/*<Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>*/}
+
           <PriceChart ticker={this.state.ticker} data={this.state.trades}/>
           <CustomStats data={this.state.trades} />
           <Divider />
           <CustomTable ticker={this.state.ticker} data={this.state.trades} />
-        </Container>
+        {/*</Container>*/}
+			</Grid.Column>
+		</Grid>
       </div>
     );
   }

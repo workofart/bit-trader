@@ -1,6 +1,6 @@
 let investment = {
-    INITIAL_INVESTMENT: 0.02,
-    INVEST_PERCENTAGE: 0.1,
+    INITIAL_INVESTMENT: 0.04,
+    INVEST_PERCENTAGE: 0.12,
     BUY_SIGNAL_TRIGGER: 10, // if score > this, buy
     SELL_SIGNAL_TRIGGER: -10, // if score < this, sell
     SHORT_SIGNAL_TRIGGER: -11,
@@ -11,8 +11,8 @@ let investment = {
     REPEATED_BUY_MARGIN: 0.02, // for the same coin, repeated buys must be X% lower than the current book price
     BEAR_SELL_PERCENTAGE: 0.15, // percentage of normal INVEST_PERCENTAGE
     BEAR_LOSS_START: 0.02, // if a given coin lost X%, we consider it a bear market
-    UP_STOP_LIMIT: 0.005, // how much % to decrease before closing an upward trend position
-    DOWN_STOP_LIMIT: 0.004, // how much % to increase before entering an long position
+    UP_STOP_LIMIT: 0.004, // how much % to decrease before closing an upward trend position
+    DOWN_STOP_LIMIT: 0.002, // how much % to increase before entering an long position
   };
 
 const orderBook = {

@@ -71,7 +71,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
 
     numTickerRecords = Object.keys(priceArr[timestamp]).length;
 
-    if (Object.keys(priceArr).length === global.CORRELATION_PERIOD && numTickerRecords === 13) {
+    if (Object.keys(priceArr).length === global.CORRELATION_PERIOD && numTickerRecords === 19) {
         // let basePriceArr = _.map(priceArr, (item) => {
         //     return parseFloat(item[tickerBase].last_price);
         // });
@@ -96,6 +96,7 @@ exports.processCorrelation = (tickerBase, ticker, data, timestamp) => {
                     let result = calculateCorrelation(basePriceArr, targetPriceArr);
                     // console.log(`BasePriceArr: ${JSON.stringify(basePriceArr, null, 2)}`);
                     // console.log(`TargetPriceArr: ${JSON.stringify(targetPriceArr, null, 2)}`);
+					// console.log(`${t} & ${tickerBase}: ${result}`);
                     !global.isBacktest && console.log(`${t} & ${tickerBase}: ${result}`);
                     corrArr.push({corr: result, tickerTarget: t, tickerBase: tickerBase});
                 }

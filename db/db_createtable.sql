@@ -73,6 +73,12 @@ create table bitfinex_live_wallet (
     timestamp timestamp not null
 );
 
+create table binance_wallet (
+    id bigserial primary key,
+    balance float not null,
+    timestamp timestamp not null
+);
+
 
 create table binance_transactions (
     id bigserial primary key,

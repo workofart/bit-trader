@@ -1,6 +1,7 @@
 const _ = require('underscore'),
 	  executor = require('../executorBinance'),
       customUtil = require('../custom_util'),
+	  mapping = require('../../websockets/mapping_binance'),
       MIN_AMOUNT = require('../minOrderBinance');
 
 class InvestmentUtils {
@@ -39,17 +40,11 @@ class InvestmentUtils {
 
     static async syncCurrencyWallet (isPrintStatus = false) {
         try {
-			let pos = await executor.getActivePositions();
-			global.wallet = global.INITIAL_INVESTMENT;
-			for (let item of JSON.parse(pos)) {
-				let ticker = item.symbol.toUpperCase();
-				this.setupCurrencyWallet(ticker);
 
-				global.currencyWallet[ticker].qty = parseFloat(item.amount);
-				global.currencyWallet[ticker].price = parseFloat(item.base);
-				global.wallet -= item.amount * item.base;
-			}
-			isPrintStatus && customUtil.printWalletStatus();
+        	mapping.forEach((ticker) => {
+        		this.setupCurrencyWallet(ticker + 'BTC');
+			});
+			await executor.getCurrentBalance();
         }
         catch(e) {
             throw e;
@@ -71,11 +66,18 @@ class InvestmentUtils {
       const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size;
 
       let price =  global.latestPrice[ticker],
-          times = (global.INVEST_PERCENTAGE * global.INITIAL_INVESTMENT / price / minAmount).toFixed(0),
-          qty = parseFloat((minAmount * times).toFixed(2));
+          adjustedQty = Math.ceil(global.INVEST_PERCENTAGE * global.INITIAL_INVESTMENT / price / minAmount) * minAmount;
 
-      return qty;
+      return adjustedQty;
 
+    }
+
+    static calculateSellQty (ticker) {
+        const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size;
+
+        let adjustedQty = Math.ceil(global.currencyWallet[ticker].qty / minAmount) * minAmount;
+
+        return adjustedQty;
     }
 
 }

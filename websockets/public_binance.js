@@ -2,6 +2,8 @@ const binance = require('node-binance-api'),
 	  fs = require('fs'),
 	  util = require('util'),
 	  _ = require('underscore'),
+	  executor = require('../algo/executorBinance'),
+	  mapping = require('./mapping_binance'),
 	  CONFIGS = require('../config/creds_binance'),
 	  customUtil = require('../algo/custom_util');
 
@@ -81,16 +83,36 @@ function execution_update(data) {
 	console.log(symbol+"\t"+side+" "+executionType+" "+orderType+" ORDER #"+orderId);
 }
 
+binance.websockets.userData(balance_update, execution_update);
 
-const throlled = _.throttle((candlesticks) => {
-	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
-	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
+// executor.submitMarket('BNBBTC', 0.01, 'buy')
 
-	util.log(symbol+" "+interval+" candlestick update");
-}, 5000);
+const getCurrentBalance = () => {
+	return new Promise ((resolve) => {
+		binance.balance((error, balances) => {
+			Object.keys(balances).forEach((ticker) => {
+				if (mapping.indexOf(ticker) !== -1) {
+					console.log(`${ticker}: ${balances[ticker].available}`);
+					// global.currencyWallet[ticker].qty = balances[ticker].available;
+				}
+			});
+			resolve(1);
+		})
+	})
+}
 
-binance.websockets.candlesticks('BNBBTC', "1m", throlled);
+getCurrentBalance();
 
+
+// const throlled = _.throttle((candlesticks) => {
+// 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
+// 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
+//
+// 	util.log(symbol+" "+interval+" candlestick update");
+// }, 5000);
+//
+// binance.websockets.candlesticks('BNBBTC', "1m", throlled);
+//
 
 //
 // binance.websockets.chart("BNBBTC", "1m", (symbol, interval, chart) => {
@@ -103,7 +125,7 @@ binance.websockets.candlesticks('BNBBTC', "1m", throlled);
 // 	console.log(symbol+" last price: "+last)
 // });
 
-// binance.websockets.userData(balance_update, execution_update);
+
 
 
 // binance.historicalTrades("BNBBTC", (error, response)=>{
