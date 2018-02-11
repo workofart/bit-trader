@@ -9,6 +9,7 @@ const parseCSV = async (fileName) => {
         fs.createReadStream(`../data/${fileName}.csv`)
             .pipe(csv())
             .on('data', (data) => {
+                // console.log(data);
                 output.push(data);
             })
             .on('end', () => {

@@ -20,10 +20,11 @@ class SidePanel extends Component {
             {
 				success: (data) => {
 					if (data.length > 0) {
+						console.log(data);
 						let item = [
 							{
 								header: 'Initial Investment',
-								description: data[0].balance.toFixed(8) + ' BTC'
+								description: data[1].balance.toFixed(8) + ' BTC'
 							},
 							{
 								header: 'Top Balance',
@@ -36,7 +37,7 @@ class SidePanel extends Component {
 						]
 
 						that.setState({sideItems: item});
-						// console.log(data);
+
 					}
 				},
 				error: (data, status, err) => {

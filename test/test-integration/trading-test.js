@@ -107,17 +107,17 @@ const performGS = async () => {
 					'binance_down'
                 ],
                 CORRELATION: [30],
-                PROFIT: [0.002, 0.004, 0.006],
-                INVEST: [0.006],
-                REPEAT_BUY: [0.02],
-                BEAR_LOSS: [0.02],
+                PROFIT: [0.004, 0.006, 0.008, 0.01],
+                INVEST: [0.01, 0.008],
+                REPEAT_BUY: [0.02, 0.025],
+                BEAR_LOSS: [0.02, 0.025],
                 RSI: [29],
-                UPPER_RSI: [65, 70],
+                UPPER_RSI: [60, 65],
                 LOWER_RSI: [40, 45],
                 BB_STD_DEV: [2],
                 LOW_RSI_OFFSET: [5],
                 LOW_BB_OFFSET: [0.95],
-                UP_STOP_LIMIT: [0.002, 0.004],
+                UP_STOP_LIMIT: [0.002],
                 DOWN_STOP_LIMIT: [0.002]
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
@@ -171,7 +171,7 @@ const performGS = async () => {
 
 (
     async () => {
-        global.isParamTune = true;
+        // global.isParamTune = true;
 		dbExecutor.clearTable('binance_transactions');
 		dbExecutor.clearTable('binance_live_price');
 		dbExecutor.clearTable('binance_wallet');
@@ -202,21 +202,22 @@ const performGS = async () => {
 
 		// await processor(TickerProcessor.processTickerPrice, 'test');
 
-        // global.MIN_PROFIT_PERCENTAGE = 0.012;
-        // global.INVEST_PERCENTAGE = 0.08;
+        // global.MIN_PROFIT_PERCENTAGE = 0.008;
+        // global.INVEST_PERCENTAGE = 0.06;
         // global.REPEATED_BUY_MARGIN = 0.02;
-        // global.BEAR_LOSS_START = 0.02;
+        // global.BEAR_LOSS_START = 0.03;
         // global.RSI = 29;
-        // global.LOWER_RSI = 29;
-        // global.UPPER_RSI = 65;
+        // global.LOWER_RSI = 35;
+        // global.UPPER_RSI = 60;
         // global.BB_STD_DEV = 2;
         // global.UP_STOP_LIMIT = 0.004;
         // global.DOWN_STOP_LIMIT = 0.002;
-        // global.CORRELATION_PERIOD = 60;
+        // global.CORRELATION_PERIOD = 0;
 
 		// await processor(TickerProcessor.processTickerPrice, 'binance_short');
-		// await processor(TickerProcessor.processTickerPrice, 'binance_sideway');
+		await processor(TickerProcessor.processTickerPrice, 'binance_sideway');
 		// await processor(TickerProcessor.processTickerPrice, 'binance_down');
+		// await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
@@ -227,7 +228,7 @@ const performGS = async () => {
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-        await performGS();
+		// await performGS();
     }
 )();
 
