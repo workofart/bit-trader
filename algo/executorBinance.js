@@ -5,7 +5,8 @@
 const binance = require('node-binance-api'),
 	CONFIGS = require('../config/creds_binance'),
 	mapping = require('../websockets/mapping_binance'),
-	MIN_AMOUNT = require('./minOrder'),
+	MIN_AMOUNT = require('./minOrderBinance'),
+	moment = require('moment'),
 	_ = require('underscore'),
 	URL = 'http://127.0.0.1:3001/api/';
 
@@ -44,19 +45,17 @@ const getAccountSummary = () => {
 
 const getCurrentBalance = () => {
 	return new Promise ((resolve) => {
-		binance.prices((error, prices) => {
-			binance.balance((error, balances) => {
-				Object.keys(balances).forEach((ticker) => {
-					if (mapping.indexOf(ticker) !== -1) {
-						global.currencyWallet[ticker+'BTC'].qty = parseFloat(balances[ticker].available);
-						global.currencyWallet[ticker+'BTC'].price = parseFloat(prices[ticker+'BTC']);
-					}
-					if (ticker === 'BTC') {
-						global.wallet = parseFloat(balances[ticker].available);
-					}
-				});
-				resolve(1);
-			})
+		binance.balance((error, balances) => {
+			Object.keys(balances).forEach((ticker) => {
+				if (mapping.indexOf(ticker) !== -1) {
+					global.currencyWallet[ticker+'BTC'].qty = parseFloat(balances[ticker].available);
+					// global.currencyWallet[ticker+'BTC'].price = parseFloat(prices[ticker+'BTC']);
+				}
+				if (ticker === 'BTC') {
+					global.wallet = parseFloat(balances[ticker].available);
+				}
+			});
+			resolve(1);
 		})
 	})
 }
@@ -97,10 +96,61 @@ const submitMarket = async (ticker, amount, side) => {
 	});
 }
 
+const getHoldingPrice = async (ticker) => {
+
+	const MIN = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker});
+
+	const latestPriceReset = (entries) => {
+		let targetIndex = 0,
+			balance = 0;
+		_.forEach(entries, (item) => {
+			balance = item.isBuyer ? balance + parseFloat(item.qty ): balance - parseFloat(item.qty);
+			// console.log(balance);
+			if (balance <= parseFloat(MIN.minimum_order_size)) {
+				targetIndex = _.sortedIndex(entries, item, 'time');
+			}
+		});
+		return targetIndex;
+	};
+
+	const weightedPrice = (entries) => {
+		let existingQty = 0,
+			existingPrice = 0;
+		_.forEach(entries, (item) => {
+			item.qty = parseFloat(item.qty);
+			item.price = parseFloat(item.price);
+
+			existingPrice = (item.price * item.qty +  existingQty * existingPrice) / (item.qty + existingQty);
+			existingQty = item.isBuyer ? existingQty + item.qty : existingQty - item.qty;
+		});
+		return {qty: existingQty, price: existingPrice};
+	}
+
+	return new Promise((resolve, reject) => {
+		binance.trades(ticker, (error, res)=>{
+			let sortedRes = _.sortBy(res, (item) => {
+				return item.time;
+			})
+			// console.log(sortedRes);
+
+			let index = latestPriceReset(sortedRes);
+
+			// console.log(`Total: ${sortedRes.length} | Target: ${index}`);
+			let remainingTrades = sortedRes.slice(index + 1);
+			// console.log(_.map(remainingTrades, (i) => {return {price: i.price, qty: i.qty, isBuy: i.isBuyer} } ));
+			let {price, qty} = weightedPrice(remainingTrades);
+			// console.log(`[${ticker}] Price: ${price}`);
+			resolve(price);
+		});
+	});
+}
+
 
 module.exports = {
+	binance: binance,
 	submitMarket: submitMarket,
 	getAccountSummary: getAccountSummary,
 	getOpenOrdersByTicker: getOpenOrdersByTicker,
-	getCurrentBalance: getCurrentBalance
+	getCurrentBalance: getCurrentBalance,
+	getHoldingPrice: getHoldingPrice
 };

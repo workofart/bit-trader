@@ -63,7 +63,7 @@ class InvestmentUtils {
     }
 
     static calculateBuyQty (ticker) {
-      const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size;
+      const minAmount = parseFloat(_.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size);
 
       let price =  global.latestPrice[ticker],
           adjustedQty = Math.ceil(global.INVEST_PERCENTAGE * global.INITIAL_INVESTMENT / price / minAmount) * minAmount;

@@ -20,11 +20,12 @@ class SidePanel extends Component {
             {
 				success: (data) => {
 					if (data.length > 0) {
+						data = _.filter(data, (i) => i.balance !== null);
 						console.log(data);
 						let item = [
 							{
 								header: 'Initial Investment',
-								description: data[1].balance.toFixed(8) + ' BTC'
+								description: data[0].balance.toFixed(8) + ' BTC'
 							},
 							{
 								header: 'Top Balance',

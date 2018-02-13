@@ -19,27 +19,7 @@ const _ = require('underscore');
 const URL = 'http://127.0.0.1:3001/api/';
 var msgQ = [];
 const queueThreshold = 300;
-const tickers = [
-	"ETHBTC",
-	"DGDBTC",
-	"TRXBTC",
-	"ADABTC",
-	"XRPBTC",
-	"LTCBTC",
-	"VENBTC",
-	"ICXBTC",
-	"EOSBTC",
-	"NEOBTC",
-	"HSRBTC",
-	"XLMBTC",
-	"BNBBTC",
-	"VIBEBTC",
-	"WTCBTC",
-	"NANOBTC",
-	"IOSTBTC",
-	"XVGBTC",
-	"IOTABTC"
-];
+const tickers = _.map(require('./mapping_binance'), (i) => i + 'BTC');
 
 
 class App extends Component {

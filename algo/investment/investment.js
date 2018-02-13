@@ -13,7 +13,10 @@ class Investment {
     static async invest(score, ticker, data) {
       if (global.latestPrice[ticker] !== undefined) {
             InvestmentUtils.setupCurrencyWallet(ticker);
-		    const minAmount = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}).minimum_order_size;
+		    const MIN = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker}),
+		          minAmount = parseFloat(MIN.minimum_order_size),
+                  stepSize = MIN.stepSize;
+
             let timestamp = data.timestamp,
 				price = global.latestPrice[ticker],
                 qty = InvestmentUtils.calculateBuyQty(ticker);
@@ -31,7 +34,7 @@ class Investment {
 
             // SELL
             else if ((Investment.sellPositionCheck(ticker, price, score) || global.currencyWallet[ticker].upTrendLimitPrice > 0) && InvestmentReq.maxProfitStopLimitReq(ticker)) {
-                qty = Math.ceil(global.currencyWallet[ticker].qty / price / minAmount) * minAmount;
+                qty = Math.floor(global.currencyWallet[ticker].qty / minAmount) * minAmount;
                 if (global.isLive) {
                     await Investment.submitMarketOrder(ticker, 'sell', qty, price);
                 }

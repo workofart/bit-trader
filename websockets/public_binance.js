@@ -83,7 +83,7 @@ function execution_update(data) {
 	console.log(symbol+"\t"+side+" "+executionType+" "+orderType+" ORDER #"+orderId);
 }
 
-binance.websockets.userData(balance_update, execution_update);
+// binance.websockets.userData(balance_update, execution_update);
 
 // executor.submitMarket('BNBBTC', 0.01, 'buy')
 
@@ -101,8 +101,12 @@ const getCurrentBalance = () => {
 	})
 }
 
-getCurrentBalance();
+// getCurrentBalance();
 
+
+// executor.getHoldingPrice('ADABTC');
+
+getCurrentBalance()
 
 // const throlled = _.throttle((candlesticks) => {
 // 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;

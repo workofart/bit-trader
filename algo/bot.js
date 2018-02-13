@@ -10,6 +10,7 @@ const utilities = require('./custom_util'),
       CustomUtil = require('./custom_util'),
       Investment = require('./investment/investment'),
 	  InvestmentUtils = require('./investment/investmentUtils'),
+	  executor = require('./executorBinance'),
       tickerProcessor = require('./DataProcessors/ticker'),
       candleProcessor = require('./DataProcessors/candle'),
       orderBookProcessor = require('./DataProcessors/orderBook');
@@ -51,10 +52,19 @@ if (global.isLive) {
             if (global.currencyWallet[ticker].qty > 0) {
 				global.currencyWallet[ticker].repeatedBuyPrice = 0;
 				global.currencyWallet[ticker].bearSellPrice = 0;
-					// global.currencyWallet[ticker].repeatedBuyPrice = global.currencyWallet[ticker].price * (1 - global.REPEATED_BUY_MARGIN);
-                // global.currencyWallet[ticker].bearSellPrice = global.currencyWallet[ticker].repeatedBuyPrice * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE );
             }
         });
+
+		let availableTickers = _.filter(Object.keys(global.currencyWallet), (ticker) => {
+			return global.currencyWallet[ticker].qty > 0;
+		});
+
+		console.log('Holding coins: ' + availableTickers);
+
+		for (let ticker of availableTickers) {
+			let price = await executor.getHoldingPrice(ticker);
+			global.currencyWallet[ticker].price = price;
+		}
 
         CustomUtil.printWalletStatus();
 
@@ -74,21 +84,6 @@ _.forEach(pairs, (i) => { throttledPairs[i] = _.throttle((msg)=> mainProcessor(i
 
 binance.options(CONFIGS);
 
-// const throttled = _.throttle((candlesticks) => {
-// 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
-// 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
-// 	// console.log(symbol+" "+interval+" candlestick update");
-//
-// 	let msg = {
-// 		high: high,
-// 		low: low,
-// 		last_price: close,
-// 		volume: volume
-// 	};
-//
-// 	mainProcessor(symbol, msg);
-// }, 10000);
-
 binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
@@ -107,17 +102,7 @@ binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 // The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
 function balance_update(data) {
 	console.log("Currency Wallet Update");
-	for ( let obj of data.B ) {
-		let { a:asset, f:available, l:onOrder } = obj;
-		if ( available == "0.00000000" ) continue;
-
-		if (mapping.indexOf(asset) !== -1 && asset !== 'BTC') {
-			global.currencyWallet[asset + 'BTC'].qty = parseFloat(available);
-		}
-		if (asset === 'BTC') {
-			global.wallet = parseFloat(available);
-		}
-	}
+	executor.getCurrentBalance();
 	CustomUtil.printWalletStatus();
 	db.storeWalletState();
 }
