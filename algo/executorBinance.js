@@ -81,7 +81,7 @@ const submitMarket = async (ticker, amount, side) => {
 					resolve(response);
 				}
 			});
-
+			resolve(1);
 		}
 		else if (side === 'sell') {
 			binance.marketSell(ticker, amount ,{type:'MARKET'}, (error, response) => {
@@ -91,7 +91,7 @@ const submitMarket = async (ticker, amount, side) => {
 					resolve(response);
 				}
 			});
-
+			resolve(1);
 		}
 	});
 }

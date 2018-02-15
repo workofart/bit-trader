@@ -21,101 +21,15 @@ class Investment {
 				price = global.latestPrice[ticker],
                 qty = InvestmentUtils.calculateBuyQty(ticker);
 
-            // BUY
-            if (Investment.buyPositionCheck(ticker, qty, price, score) && InvestmentReq.downTrendBuyReq(ticker))
-            {
-                if (global.isLive && qty !== 0) {
-                    await Investment.submitMarketOrder(ticker, 'buy', qty, price);
-                }
-                else if (qty !== 0) {
-                    await Investment.submitDummyOrder(ticker, 'buy', qty, price, timestamp);
-                }
+
+            if (global.isLive && qty !== 0) {
+                  await Investment.submitMarketOrder(ticker, 'buy', qty, price);
+            }
+            else if (qty !== 0) {
+                  await Investment.submitDummyOrder(ticker, 'buy', qty, price, timestamp);
             }
 
-            // SELL
-            else if ((Investment.sellPositionCheck(ticker, price, score) || global.currencyWallet[ticker].upTrendLimitPrice > 0) && InvestmentReq.maxProfitStopLimitReq(ticker)) {
-                qty = Math.floor(global.currencyWallet[ticker].qty / minAmount) * minAmount;
-                if (global.isLive) {
-                    await Investment.submitMarketOrder(ticker, 'sell', qty, price);
-                }
-                else {
-                    await Investment.submitDummyOrder(ticker, 'sell', qty, price, timestamp);
-                }
-            }
-
-            // Downward Market SELL
-            else if (Investment.bearSellPositionCheck(ticker, price, score)) {
-                let sellQty = global.currencyWallet[ticker].qty * global.BEAR_SELL_PERCENTAGE;
-
-                sellQty = Math.ceil(sellQty / minAmount) * minAmount;
-
-                sellQty = sellQty >= global.currencyWallet[ticker].qty ? 0 : sellQty;
-
-                if (global.isLive && sellQty !== 0) {
-                    await Investment.submitMarketOrder(ticker, 'bearSell', sellQty, price);
-                }
-                else if (sellQty !== 0) {
-                    await Investment.submitDummyOrder(ticker, 'bearSell', sellQty, price, timestamp);
-                }
-            }
-            // else if (InvestmentReq.positionCheck(ticker) === 'none' || InvestmentReq.positionCheck(ticker) === 'short') {
-            //     if (Investment.shortPositionCheck(ticker, qty, price, score)) {
-            //         if (global.isLive) {
-            //             Investment.submitMarketOrder(ticker, 'short', qty, price);
-            //         }
-            //         else {
-            //             Investment.submitDummyOrder(ticker, 'short', qty, price, timestamp);
-            //         }
-            //     }
-            // }
         }
-    }
-
-    static shortPositionCheck(ticker, qty, price, score) {
-        return (InvestmentReq.shortSignalReq(score) && InvestmentReq.fiatBalanceReq(qty, price))
-    }
-
-    // Checks the long position on hand and evaluate whether
-    // it's logical to exit the position
-    static sellPositionCheck(ticker, price, score) {
-        return (InvestmentReq.minProfitReq(ticker, price) || InvestmentReq.stopLossReq(ticker, price))
-            && InvestmentReq.currencyBalanceReq(ticker);
-    }
-
-    static bearSellPositionCheck(ticker, price, score) {
-        return (
-            InvestmentReq.sellSignalReq(score) && InvestmentReq.bearMarketReq(ticker) && InvestmentReq.repeatedSellReq(ticker, price)
-        )
-    }
-
-    // Checks the long position on hand and evaluate whether
-    // it's logical to enter the position
-    static buyPositionCheck(ticker, qty, price, score) {
-        if (!global.currencyWallet[ticker].isDownTrendBuy &&
-                (InvestmentReq.buySignalReq(score) &&
-                    InvestmentReq.fiatBalanceReq(qty, price) &&
-                    InvestmentReq.repeatedBuyReq(ticker, price) &&
-                    !InvestmentReq.frozenTickerReq(ticker)
-                ) ||
-                (InvestmentReq.extremeBuySignalReq(score) &&
-                    !InvestmentReq.frozenTickerReq(ticker) &&
-                    InvestmentReq.fiatBalanceReq(qty, price)
-                )
-            ) {
-            global.currencyWallet[ticker].isDownTrendBuy = true;
-            global.currencyWallet[ticker].downTrendCounter = 0;
-            return true;
-        }
-        else if (global.currencyWallet[ticker].downTrendCounter > 20) {
-            global.currencyWallet[ticker].isDownTrendBuy = false;
-            global.currencyWallet[ticker].downTrendCounter = 0;
-        }
-        else if (global.currencyWallet[ticker].isDownTrendBuy &&
-                InvestmentReq.fiatBalanceReq(qty, price) &&
-                !InvestmentReq.frozenTickerReq(ticker)) {
-            return true;
-        }
-        return false;
     }
 
 

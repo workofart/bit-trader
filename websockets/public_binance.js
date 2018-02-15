@@ -106,31 +106,30 @@ const getCurrentBalance = () => {
 
 // executor.getHoldingPrice('ADABTC');
 
-getCurrentBalance()
-
-// const throlled = _.throttle((candlesticks) => {
-// 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
-// 	let { o:open, h:high, l:low, c:close, v:volume, n:trades, i:interval, x:isFinal, q:quoteVolume, V:buyVolume, Q:quoteBuyVolume } = ticks;
-//
-// 	util.log(symbol+" "+interval+" candlestick update");
-// }, 5000);
-//
-// binance.websockets.candlesticks('BNBBTC', "1m", throlled);
-//
-
-//
-// binance.websockets.chart("BNBBTC", "1m", (symbol, interval, chart) => {
-// 	let tick = binance.last(chart);
-// 	const last = chart[tick].close;
-// 	// console.log(chart);
-// 	// Optionally convert 'chart' object to array:
-// 	// let ohlc = binance.ohlc(chart);
-// 	// console.log(symbol, ohlc);
-// 	console.log(symbol+" last price: "+last)
-// });
+// getCurrentBalance()
 
 
-
+binance.exchangeInfo(function(error, data) {
+	let minimums = {};
+	for ( let obj of data.symbols ) {
+		let filters = {minNotional:0.001,minQty:1,maxQty:10000000,stepSize:1,minPrice:0.00000001,maxPrice:100000};
+		for ( let filter of obj.filters ) {
+			if ( filter.filterType == "MIN_NOTIONAL" ) {
+				filters.minNotional = filter.minNotional;
+			} else if ( filter.filterType == "PRICE_FILTER" ) {
+				filters.minPrice = filter.minPrice;
+				filters.maxPrice = filter.maxPrice;
+			} else if ( filter.filterType == "LOT_SIZE" ) {
+				filters.minQty = filter.minQty;
+				filters.maxQty = filter.maxQty;
+				filters.stepSize = filter.stepSize;
+			}
+		}
+		minimums[obj.symbol] = filters;
+	}
+	console.log(minimums);
+	fs.writeFile("minimums.json", JSON.stringify(minimums, null, 4), function(err){});
+});
 
 // binance.historicalTrades("BNBBTC", (error, response)=>{
 // 	console.log("aggTrades", response);
