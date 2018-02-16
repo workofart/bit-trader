@@ -12,12 +12,14 @@ db.clearTable('binance_transactions');
 let latestPrice = {};
 let currencyWallet = {};
 let lastPair;
-let running = false;
+let running = false,
+	checking = false;
+let counter = 0;
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
-const TRADING_FEE = 0.003;
-const MIN_PROFIT_PERCENTAGE = 0.0045;
+const TRADING_FEE = 0.0015;
+const MIN_PROFIT_PERCENTAGE = 0.0015;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -179,14 +181,14 @@ const handleSubmitMarket = async (ticker, side) => {
 	}
 }
 
-const checkOpportunity = async (targetPair, bucket) => {
-	if (running) {
+const checkOpportunity = async (pair) => {
+	if (checking) {
 		return;
 	}
-	let pair = _.find(bucket, (i) => i.indexOf(targetPair) !== -1);
+	// let pair = _.find(bucket, (i) => i.indexOf(targetPair) !== -1);
 
-	running = true;
-	console.log(targetPair + ': ' + latestPrice[targetPair]);
+	checking = true;
+	// console.log(targetPair + ': ' + latestPrice[targetPair]);
 
 	// pair[0] = [BTC/...] = [...BTC]
 	// pair[1] = [ETH/...] = [...ETH]
@@ -194,20 +196,20 @@ const checkOpportunity = async (targetPair, bucket) => {
 
 	// BUY pair[0] Sell pair[1] Buy pair[2]
 	if (latestPrice[pair[0]] && latestPrice[pair[1]] && latestPrice[pair[2]] && lastPair !== pair) {
-		let index = pair.indexOf(targetPair);
+		// let index = pair.indexOf(targetPair);
 
-		let refreshPrices = _.difference([0, 1, 2], [index]);
+		// let refreshPrices = _.difference([0, 1, 2], [index]);
 
-		let tickers = refreshPrices.map((i) => pair[parseInt(i)]);
-		let objs = await executor.getPriceByTicker(tickers);
+		// let tickers = refreshPrices.map((i) => pair[parseInt(i)]);
+		// let objs = await executor.getPriceByTicker(tickers);
 
-		for (let i of Object.keys(objs)) {
-			// i = i.slice(0, i.length - 3);
-			if (latestPrice[i] !== undefined) {
-				latestPrice[i] = parseFloat(objs[i]);
-			}
-
-		}
+		// for (let i of Object.keys(objs)) {
+		// 	// i = i.slice(0, i.length - 3);
+		// 	if (latestPrice[i] !== undefined) {
+		// 		latestPrice[i] = parseFloat(objs[i]);
+		// 	}
+		//
+		// }
 
 		let combo1 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / latestPrice[pair[0]] * (latestPrice[pair[1]] * (1 - TRADING_FEE)) * (latestPrice[pair[2]] * (1 - TRADING_FEE));
 		let combo2 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / latestPrice[pair[2]] / (latestPrice[pair[1]] * (1 + TRADING_FEE)) * (latestPrice[pair[0]] * (1 - TRADING_FEE));
@@ -258,38 +260,63 @@ const checkOpportunity = async (targetPair, bucket) => {
 			lastPair = pair;
 		}
 	}
-	running = false;
+	checking = false;
 
 }
 
 (async() => {
 	let bucket = await getTopPairs();
 	let tradingBucket = createTradingBuckets(bucket);
+	let selectedPairs = _.uniq(_.flatten(tradingBucket));
 	await getInitialBalance();
-	const mainFunc = _.throttle((candlestickData)=> {
-		let tick = binance.last(candlestickData);
-		const symbol = candlestickData.s;
-		const close = candlestickData[tick].c;
-		latestPrice[symbol] = parseFloat(close);
-
-		let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
-		if (pair !== lastPair) {
-			checkOpportunity(symbol, tradingBucket);
+	setInterval(() => {
+		if (running) {
+			return;
 		}
-	}, 1000);
+		console.time('timer');
+		running = true
+		counter++;
+		executor.getPriceByTicker().then((data) => {
+			for (let ticker of selectedPairs) {
+				latestPrice[ticker] = parseFloat(data[ticker]);
+			}
+			// console.log(counter);
 
-	binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
-		// mainFunc(candlestickData);
-		let tick = binance.last(candlestickData);
-		const symbol = candlestickData.s;
-		const close = candlestickData[tick].c;
-		latestPrice[symbol] = parseFloat(close);
 
-		let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
-		if (pair !== lastPair) {
-			checkOpportunity(symbol, tradingBucket);
-		}
-	});
+			// let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
+			// if (pair !== lastPair) {
+
+			for (let bucket of tradingBucket) {
+				checkOpportunity(bucket);
+			}
+
+			// for (let symbol of Object.keys(latestPrice)) {
+			// 	checkOpportunity(symbol, tradingBucket);
+			// }
+			running = false;
+			console.timeEnd('timer');
+			// }
+		})
+	}, 200);
+	// const mainFunc = _.throttle((candlestickData)=> {
+	// 	let tick = binance.last(candlestickData);
+	// 	const symbol = candlestickData.s;
+	// 	const close = candlestickData[tick].c;
+	// 	latestPrice[symbol] = parseFloat(close);
+	//
+	// 	let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
+	// 	if (pair !== lastPair) {
+	// 		checkOpportunity(symbol, tradingBucket);
+	// 	}
+	// }, 1000);
+
+	// binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
+	// 	// mainFunc(candlestickData);
+	// 	let tick = binance.last(candlestickData);
+	// 	const symbol = candlestickData.s;
+	// 	const close = candlestickData[tick].c;
+	//
+	// });
 
 	// The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
 	// function balance_update(data) {
