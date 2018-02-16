@@ -16,8 +16,8 @@ let running = false;
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
-const TRADING_FEE = 0.0015;
-const MIN_PROFIT_PERCENTAGE = 0.0015;
+const TRADING_FEE = 0.003;
+const MIN_PROFIT_PERCENTAGE = 0.0045;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -158,7 +158,7 @@ const handleSubmitMarket = async (ticker, side) => {
 		  base = ticker.slice(-3);
 
 	if (side === 'buy') {
-		let amount = (currencyWallet[base].qty * 0.75) / latestPrice[ticker];
+		let amount = (currencyWallet[base].qty * 0.98) / latestPrice[ticker];
 		amount = roundAmount(ticker, amount, true);
 
 		// currencyWallet[coin].qty += amount;
