@@ -43,6 +43,16 @@ const getAccountSummary = () => {
 // 	})
 // };
 
+const getPriceByTicker = (symbol) => {
+	return new Promise( (resolve)=> {
+		binance.prices(symbol, (error, ticker) => {
+			// console.log("Price of BNB: ", ticker.BNBBTC);
+			resolve(ticker);
+		});
+	})
+
+}
+
 const getCurrentBalance = () => {
 	return new Promise ((resolve) => {
 		binance.balance((error, balances) => {
@@ -81,7 +91,7 @@ const submitMarket = async (ticker, amount, side) => {
 					resolve(response);
 				}
 			});
-			resolve(1);
+			CONFIGS.test && resolve(1);
 		}
 		else if (side === 'sell') {
 			binance.marketSell(ticker, amount ,{type:'MARKET'}, (error, response) => {
@@ -91,7 +101,7 @@ const submitMarket = async (ticker, amount, side) => {
 					resolve(response);
 				}
 			});
-			resolve(1);
+			CONFIGS.test && resolve(1);
 		}
 	});
 }
@@ -152,5 +162,6 @@ module.exports = {
 	getAccountSummary: getAccountSummary,
 	getOpenOrdersByTicker: getOpenOrdersByTicker,
 	getCurrentBalance: getCurrentBalance,
-	getHoldingPrice: getHoldingPrice
+	getHoldingPrice: getHoldingPrice,
+	getPriceByTicker: getPriceByTicker
 };
