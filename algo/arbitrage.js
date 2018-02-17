@@ -41,7 +41,7 @@ const getTopPairs = async () => {
 			}
 			for (let base in bucket) {
 				bucket[base] = _.sortBy(bucket[base], (pair) => {
-					return -pair.volume;
+					return parseFloat(pair.volume);
 				})
 			}
 			resolve(bucket);
@@ -51,7 +51,7 @@ const getTopPairs = async () => {
 
 const createTradingBuckets = (bucket, limit = 50) => {
 	for (let base in bucket) {
-		bucket[base] = bucket[base].slice(0, limit);
+		bucket[base] = bucket[base].slice(5, limit+5);
 	}
 
 	let ETH = _.map(bucket['ETH'], (i) => i.pair.substr(0, i.pair.length - 3)),
@@ -91,15 +91,10 @@ const setupWallet = (ticker) => {
 const getInitialBalance = () => {
 	return new Promise ((resolve) => {
 		binance.balance((error, balances) => {
-			Object.keys(balances).forEach((ticker) => {
-				if (ticker === 'BTC') {
-					currencyWallet['BTC'].qty = parseFloat(balances[ticker].available);
-					INITIAL_INVESTMENT = parseFloat(balances[ticker].available);
-					console.log('Updated BTC balance: ' + balances[ticker].available);
-					resolve(1);
-				}
-			});
-
+			currencyWallet['BTC'].qty = parseFloat(balances['BTC'].available);
+			INITIAL_INVESTMENT = parseFloat(balances['BTC'].available);
+			console.log('Updated BTC balance: ' + balances['BTC'].available);
+			resolve(1);
 		})
 	})
 }
@@ -107,7 +102,7 @@ const getInitialBalance = () => {
 const getCurrentBalance = () => {
 	return new Promise((resolve) => {
 		binance.balance((error, balances) => {
-			Object.keys(balances).forEach((ticker) => {
+			Object.keys(currencyWallet).forEach((ticker) => {
 				if (currencyWallet[ticker] !== undefined) {
 					currencyWallet[ticker].qty = parseFloat(balances[ticker].available);
 				}
@@ -123,7 +118,7 @@ const printPostTransaction = () => {
 
 const printProfit = () => {
 	// printPostTransaction();
-	console.log(`Wallet: ${currencyWallet['BTC'].qty} BTC | Profit: ${((currencyWallet['BTC'].qty - INITIAL_INVESTMENT) / 1 * 100).toFixed(2)}%`);
+	console.log(`Wallet: ${currencyWallet['BTC'].qty} BTC | Profit: ${((currencyWallet['BTC'].qty - INITIAL_INVESTMENT) / 1 * 100).toFixed(4)}%`);
 }
 
 const roundAmount = (ticker, amount) => {
@@ -160,7 +155,7 @@ const handleSubmitMarket = async (ticker, side) => {
 		  base = ticker.slice(-3);
 
 	if (side === 'buy') {
-		let amount = (currencyWallet[base].qty * 0.98) / latestPrice[ticker];
+		let amount = (currencyWallet[base].qty * 0.96) / latestPrice[ticker];
 		amount = roundAmount(ticker, amount, true);
 
 		// currencyWallet[coin].qty += amount;
@@ -216,9 +211,9 @@ const checkOpportunity = async (pair) => {
 
 		if (latestPrice[pair[0]] < latestPrice[pair[1]] * latestPrice[pair[2]] && combo1 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
 			// console.log(`\n---------\nPair: ${pair}`)
-			// console.log(`${pair[0]}: ${latestPrice[pair[0]]}`);
-			// console.log(`${pair[1]}: ${latestPrice[pair[1]]}`);
-			// console.log(`${pair[2]}: ${latestPrice[pair[2]]}`);
+			console.log(`${pair[0]}: ${latestPrice[pair[0]]}`);
+			console.log(`${pair[1]}: ${latestPrice[pair[1]]}`);
+			console.log(`${pair[2]}: ${latestPrice[pair[2]]}`);
 			// wallet = combo1;
 
 			// Buy Pair[0], buy coin sell base
@@ -239,9 +234,9 @@ const checkOpportunity = async (pair) => {
 		}
 		else if (latestPrice[pair[0]] > latestPrice[pair[1]] * latestPrice[pair[2]] && combo2 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
 			// console.log(`\n---------\nPair: ${pair}`)
-			// console.log(`${pair[0]}: ${latestPrice[pair[0]]}`);
-			// console.log(`${pair[1]}: ${latestPrice[pair[1]]}`);
-			// console.log(`${pair[2]}: ${latestPrice[pair[2]]}`);
+			console.log(`${pair[0]}: ${latestPrice[pair[0]]}`);
+			console.log(`${pair[1]}: ${latestPrice[pair[1]]}`);
+			console.log(`${pair[2]}: ${latestPrice[pair[2]]}`);
 			// wallet = combo2;
 
 			// Buy Pair[2], sell base buy coin
@@ -283,21 +278,14 @@ const checkOpportunity = async (pair) => {
 			}
 			// console.log(counter);
 
-
-			// let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
-			// if (pair !== lastPair) {
-
 			for (let bucket of tradingBucket) {
 				checkOpportunity(bucket);
 			}
 
-			// for (let symbol of Object.keys(latestPrice)) {
-			// 	checkOpportunity(symbol, tradingBucket);
-			// }
 			console.timeEnd('timer');
 			// }
 		})
-	}, 200);
+	}, 100);
 	// const mainFunc = _.throttle((candlestickData)=> {
 	// 	let tick = binance.last(candlestickData);
 	// 	const symbol = candlestickData.s;
