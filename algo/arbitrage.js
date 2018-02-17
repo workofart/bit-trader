@@ -19,7 +19,7 @@ let counter = 0;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0015;
-const MIN_PROFIT_PERCENTAGE = 0.0015;
+const MIN_PROFIT_PERCENTAGE = 0.0045;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -261,6 +261,7 @@ const checkOpportunity = async (pair) => {
 		}
 	}
 	checking = false;
+	running = false;
 
 }
 
@@ -293,7 +294,6 @@ const checkOpportunity = async (pair) => {
 			// for (let symbol of Object.keys(latestPrice)) {
 			// 	checkOpportunity(symbol, tradingBucket);
 			// }
-			running = false;
 			console.timeEnd('timer');
 			// }
 		})
