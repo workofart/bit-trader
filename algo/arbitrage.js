@@ -19,7 +19,7 @@ let counter = 0;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0015;
-const MIN_PROFIT_PERCENTAGE = 0.0045;
+const MIN_PROFIT_PERCENTAGE = 0.01;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -49,7 +49,7 @@ const getTopPairs = async () => {
 	});
 }
 
-const createTradingBuckets = (bucket, limit = 50) => {
+const createTradingBuckets = (bucket, limit = 100) => {
 	for (let base in bucket) {
 		bucket[base] = bucket[base].slice(5, limit+5);
 	}
@@ -91,9 +91,21 @@ const setupWallet = (ticker) => {
 const getInitialBalance = () => {
 	return new Promise ((resolve) => {
 		binance.balance((error, balances) => {
-			currencyWallet['BTC'].qty = parseFloat(balances['BTC'].available);
-			INITIAL_INVESTMENT = parseFloat(balances['BTC'].available);
-			console.log('Updated BTC balance: ' + balances['BTC'].available);
+			let totalValue = 0;
+			Object.keys(currencyWallet).forEach((ticker) => {
+				if (currencyWallet[ticker] !== undefined) {
+					currencyWallet[ticker].qty = parseFloat(balances[ticker].available);
+					if (ticker !== 'BTC') {
+						totalValue += currencyWallet[ticker].qty * latestPrice[ticker+'BTC'];
+					}
+					else if (ticker === 'BTC'){
+						totalValue += currencyWallet['BTC'].qty;
+					}
+				}
+			});
+			// currencyWallet['BTC'].qty = parseFloat(balances['BTC'].available);
+			INITIAL_INVESTMENT = totalValue;
+			console.log('Updated BTC balance: ' + totalValue);
 			resolve(1);
 		})
 	})
@@ -118,7 +130,20 @@ const printPostTransaction = () => {
 
 const printProfit = () => {
 	// printPostTransaction();
-	console.log(`Wallet: ${currencyWallet['BTC'].qty} BTC | Profit: ${((currencyWallet['BTC'].qty - INITIAL_INVESTMENT) / 1 * 100).toFixed(4)}%`);
+
+	let totalValue = 0;
+	Object.keys(currencyWallet).forEach((ticker) => {
+		if (currencyWallet[ticker] !== undefined) {
+			if (ticker !== 'BTC') {
+				totalValue += currencyWallet[ticker].qty * latestPrice[ticker+'BTC'];
+			}
+			else if (ticker === 'BTC'){
+				totalValue += currencyWallet['BTC'].qty;
+			}
+		}
+	});
+
+	console.log(`Wallet: ${currencyWallet['BTC'].qty} BTC | Total Value: ${totalValue} | Profit: ${((totalValue - INITIAL_INVESTMENT) / 1 * 100).toFixed(4)}%`);
 }
 
 const roundAmount = (ticker, amount) => {
@@ -161,15 +186,19 @@ const handleSubmitMarket = async (ticker, side) => {
 		// currencyWallet[coin].qty += amount;
 		// currencyWallet[base].qty -= amount * latestPrice[ticker];
 		await executor.submitMarket(ticker, amount, 'buy');
-		await db.storeTransactionToDB(ticker, latestPrice[ticker], amount, 1);
-		await getCurrentBalance();
+		await Promise.all([
+			db.storeTransactionToDB(ticker, latestPrice[ticker], amount, 1),
+			getCurrentBalance()
+		])
 	}
 	else if (side === 'sell') {
 		let amount = roundAmount(ticker, currencyWallet[coin].qty, false);
 		await executor.submitMarket(ticker, amount, 'sell');
-		await db.storeTransactionToDB(ticker, latestPrice[ticker], amount, 0);
+		await Promise.all([
+			db.storeTransactionToDB(ticker, latestPrice[ticker], amount, 0),
+			getCurrentBalance()
+		])
 		// console.log(`[${ticker}] | ${side.toUpperCase()} ${amount} @ ${latestPrice[ticker]}`);
-		await getCurrentBalance();
 		// currencyWallet[coin].qty -= amount;
 		// amount = amount * latestPrice[ticker];
 		// currencyWallet[base].qty += amount;
@@ -264,6 +293,12 @@ const checkOpportunity = async (pair) => {
 	let bucket = await getTopPairs();
 	let tradingBucket = createTradingBuckets(bucket);
 	let selectedPairs = _.uniq(_.flatten(tradingBucket));
+	let prices = await executor.getPriceByTicker();
+
+	for (let ticker of selectedPairs) {
+		latestPrice[ticker] = parseFloat(prices[ticker]);
+	}
+
 	await getInitialBalance();
 	setInterval(() => {
 		if (running) {
