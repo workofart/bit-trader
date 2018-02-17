@@ -14,12 +14,11 @@ let currencyWallet = {};
 let lastPair;
 let running = false,
 	checking = false;
-let counter = 0;
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0015;
-const MIN_PROFIT_PERCENTAGE = 0.01;
+const MIN_PROFIT_PERCENTAGE = 0.001;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -205,35 +204,27 @@ const handleSubmitMarket = async (ticker, side) => {
 	}
 }
 
-const checkOpportunity = async (pair) => {
+const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	// let pair = _.find(bucket, (i) => i.indexOf(targetPair) !== -1);
+	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
+	// console.time('timer');
 	checking = true;
-	// console.log(targetPair + ': ' + latestPrice[targetPair]);
+	console.log('Checking opportunity: ' + pair);
 
+	let data = await executor.getPriceByTicker();
+
+	for (let ticker in pair) {
+		latestPrice[pair[ticker]] = parseFloat(data[pair[ticker]]);
+	}
 	// pair[0] = [BTC/...] = [...BTC]
 	// pair[1] = [ETH/...] = [...ETH]
 	// pair[2] = [BTC/ETH] = [ETHBTC]
 
 	// BUY pair[0] Sell pair[1] Buy pair[2]
 	if (latestPrice[pair[0]] && latestPrice[pair[1]] && latestPrice[pair[2]] && lastPair !== pair) {
-		// let index = pair.indexOf(targetPair);
-
-		// let refreshPrices = _.difference([0, 1, 2], [index]);
-
-		// let tickers = refreshPrices.map((i) => pair[parseInt(i)]);
-		// let objs = await executor.getPriceByTicker(tickers);
-
-		// for (let i of Object.keys(objs)) {
-		// 	// i = i.slice(0, i.length - 3);
-		// 	if (latestPrice[i] !== undefined) {
-		// 		latestPrice[i] = parseFloat(objs[i]);
-		// 	}
-		//
-		// }
 
 		let combo1 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / latestPrice[pair[0]] * (latestPrice[pair[1]] * (1 - TRADING_FEE)) * (latestPrice[pair[2]] * (1 - TRADING_FEE));
 		let combo2 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / latestPrice[pair[2]] / (latestPrice[pair[1]] * (1 + TRADING_FEE)) * (latestPrice[pair[0]] * (1 - TRADING_FEE));
@@ -285,8 +276,8 @@ const checkOpportunity = async (pair) => {
 		}
 	}
 	checking = false;
-	running = false;
-
+	// running = false;
+	// console.timeEnd('timer');
 }
 
 (async() => {
@@ -300,27 +291,24 @@ const checkOpportunity = async (pair) => {
 	}
 
 	await getInitialBalance();
-	setInterval(() => {
-		if (running) {
-			return;
-		}
-		console.time('timer');
-		running = true
-		counter++;
-		executor.getPriceByTicker().then((data) => {
-			for (let ticker of selectedPairs) {
-				latestPrice[ticker] = parseFloat(data[ticker]);
-			}
+	// setInterval(() => {
+	// 	if (running) {
+	// 		return;
+	// 	}
+		// running = true
+		// executor.getPriceByTicker().then((data) => {
+		// 	for (let ticker of selectedPairs) {
+		// 		latestPrice[ticker] = parseFloat(data[ticker]);
+		// 	}
 			// console.log(counter);
 
-			for (let bucket of tradingBucket) {
-				checkOpportunity(bucket);
-			}
-
-			console.timeEnd('timer');
+		// for (let bucket of tradingBucket) {
+		// 	checkOpportunity(bucket);
+		// }
+		// running = false;
 			// }
-		})
-	}, 100);
+		// })
+	// }, 10000);
 	// const mainFunc = _.throttle((candlestickData)=> {
 	// 	let tick = binance.last(candlestickData);
 	// 	const symbol = candlestickData.s;
@@ -333,13 +321,13 @@ const checkOpportunity = async (pair) => {
 	// 	}
 	// }, 1000);
 
-	// binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
-	// 	// mainFunc(candlestickData);
-	// 	let tick = binance.last(candlestickData);
-	// 	const symbol = candlestickData.s;
-	// 	const close = candlestickData[tick].c;
-	//
-	// });
+	binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
+		// mainFunc(candlestickData);
+		let tick = binance.last(candlestickData);
+		const symbol = candlestickData.s;
+		const close = candlestickData[tick].c;
+		checkOpportunity(symbol, tradingBucket);
+	});
 
 	// The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
 	// function balance_update(data) {
