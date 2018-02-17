@@ -155,6 +155,16 @@ const getHoldingPrice = async (ticker) => {
 	});
 }
 
+const getBidAsk = async () => {
+	return new Promise((resolve) => {
+		binance.bookTickers((error, ticker) => {
+			// console.log("bookTickers()", ticker);
+			resolve(ticker);
+			// console.log("Price of BNB: ", ticker.BNBBTC);
+		});
+	})
+}
+
 
 module.exports = {
 	binance: binance,
@@ -163,5 +173,6 @@ module.exports = {
 	getOpenOrdersByTicker: getOpenOrdersByTicker,
 	getCurrentBalance: getCurrentBalance,
 	getHoldingPrice: getHoldingPrice,
-	getPriceByTicker: getPriceByTicker
+	getPriceByTicker: getPriceByTicker,
+	getBidAsk: getBidAsk
 };
