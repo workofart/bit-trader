@@ -18,8 +18,8 @@ let running = false,
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
-const TRADING_FEE = 0.0015;
-const MIN_PROFIT_PERCENTAGE = 0.004;
+const TRADING_FEE = 0.0003;
+const MIN_PROFIT_PERCENTAGE = 0.008;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -41,7 +41,7 @@ const getTopPairs = async () => {
 			}
 			for (let base in bucket) {
 				bucket[base] = _.sortBy(bucket[base], (pair) => {
-					return parseFloat(pair.volume);
+					return -parseFloat(pair.volume);
 				})
 			}
 			resolve(bucket);
@@ -149,11 +149,10 @@ const printProfit = () => {
 	console.log(`Wallet: ${currencyWallet['BTC'].qty} BTC | Total Value: ${totalValue} | Profit: ${((totalValue - INITIAL_INVESTMENT) / 1 * 100).toFixed(4)}%`);
 }
 
-const roundAmount = (ticker, amount) => {
+const roundAmount = (ticker, amount, price) => {
 	let minQty = parseFloat(MIN_AMOUNT[ticker].minQty),
 		minNotional = parseFloat(MIN_AMOUNT[ticker].minNotional),
-		stepSize = parseFloat(MIN_AMOUNT[ticker].stepSize),
-		price = latestPrice[ticker];
+		stepSize = parseFloat(MIN_AMOUNT[ticker].stepSize);
 
 	// Set minimum order amount with minQty
 	if ( amount < minQty ) amount = minQty;
@@ -183,8 +182,8 @@ const handleSubmitMarket = async (ticker, side, price) => {
 		  base = ticker.slice(-3);
 
 	if (side === 'buy') {
-		let amount = (currencyWallet[base].qty * 0.96) / price;
-		amount = roundAmount(ticker, amount, true);
+		let amount = (currencyWallet[base].qty * 0.97) / price;
+		amount = roundAmount(ticker, amount, price);
 
 		// currencyWallet[coin].qty += amount;
 		// currencyWallet[base].qty -= amount * latestPrice[ticker];
@@ -195,7 +194,7 @@ const handleSubmitMarket = async (ticker, side, price) => {
 		])
 	}
 	else if (side === 'sell') {
-		let amount = roundAmount(ticker, currencyWallet[coin].qty, false);
+		let amount = roundAmount(ticker, currencyWallet[coin].qty, price);
 		await executor.submitMarket(ticker, amount, 'sell');
 		await Promise.all([
 			db.storeTransactionToDB(ticker, price, amount, 0),
@@ -216,22 +215,25 @@ const checkOpportunity = async (symbol, bucket) => {
 
 	// console.time('timer');
 	checking = true;
-	console.log('Checking opportunity: ' + pair);
+	// console.log('Checking opportunity: ' + pair);
 
-	// let data = await executor.getPriceByTicker();
-	let data = await executor.getBidAsk();
-
-	for (let i in pair) {
-		// latestPrice[pair[i]] = parseFloat(data[pair[i]]);
-		bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
-		bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
-	}
-	// pair[0] = [BTC/...] = [...BTC]
-	// pair[1] = [ETH/...] = [...ETH]
-	// pair[2] = [BTC/ETH] = [ETHBTC]
-
-	// BUY pair[0] Sell pair[1] Sell pair[2]
 	if (lastPair !== pair) {
+		let data = await executor.getBidAsk();
+
+		for (let i in pair) {
+			if (Object.keys(data).indexOf(pair[i]) === -1) {
+				data = await executor.getBidAsk();
+			}
+			// latestPrice[pair[i]] = parseFloat(data[pair[i]]);
+			bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
+			bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
+		}
+		// pair[0] = [BTC/...] = [...BTC]
+		// pair[1] = [ETH/...] = [...ETH]
+		// pair[2] = [BTC/ETH] = [ETHBTC]
+
+		// BUY pair[0] Sell pair[1] Sell pair[2]
+
 
 		let combo1 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / bidAsk[pair[0]].ask * (bidAsk[pair[1]].bid * (1 - TRADING_FEE)) * (bidAsk[pair[2]].bid * (1 - TRADING_FEE));
 		let combo2 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / bidAsk[pair[2]].ask / (bidAsk[pair[1]].ask * (1 + TRADING_FEE)) * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
