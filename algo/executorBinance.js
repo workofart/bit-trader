@@ -81,27 +81,62 @@ const getOpenOrdersByTicker = async (ticker) => {
 
 // Market Order
 const submitMarket = async (ticker, amount, side) => {
+	const flags = {
+		type: 'MARKET',
+		newOrderRespType: 'FULL'
+	};
 	console.log('Submitting market order: ' + JSON.stringify({ticker: ticker, price: '0.1', amount: amount.toString(), side: side, type: 'market'}));
 	return new Promise((resolve) => {
 		if (side === 'buy') {
-			binance.marketBuy(ticker, amount ,{type:'MARKET'}, (error, response) => {
+			binance.marketBuy(ticker, amount ,flags , (error, response) => {
 				if (error) console.error(JSON.stringify(error));
 				if (response.status === 'FILLED') {
 					console.log("MARKET Buy Success");
-					resolve(response);
+
+					let filledPrice, filledQty = 0, totalValue = 0;
+
+					_.forEach(response.fills, (fill) => {
+						totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+						filledQty += parseFloat(fill.qty);
+					});
+
+					filledPrice = totalValue / filledQty;
+
+					resolve({
+						priceBought: filledPrice,
+						qtyBought: filledQty
+					});
 				}
 			});
-			CONFIGS.test && resolve(1);
+			CONFIGS.test && resolve({
+				priceBought: -1,
+				qtyBought: amount
+			});
 		}
 		else if (side === 'sell') {
 			binance.marketSell(ticker, amount ,{type:'MARKET'}, (error, response) => {
 				if (error) console.error(JSON.stringify(error));
 				if (response.status === 'FILLED') {
 					console.log("MARKET Sell Success");
-					resolve(response);
+					let filledPrice, filledQty = 0, totalValue = 0;
+
+					_.forEach(response.fills, (fill) => {
+						totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+						filledQty += parseFloat(fill.qty);
+					});
+
+					filledPrice = totalValue / filledQty;
+
+					resolve({
+						priceSold: filledPrice,
+						qtySold: filledQty
+					});
 				}
 			});
-			CONFIGS.test && resolve(1);
+			CONFIGS.test && resolve({
+				priceSold: -1,
+				qtySold: amount
+			});
 		}
 	});
 }
@@ -154,6 +189,7 @@ const getHoldingPrice = async (ticker) => {
 		});
 	});
 }
+
 
 const getBidAsk = async () => {
 	return new Promise((resolve) => {
