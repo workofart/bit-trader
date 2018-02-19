@@ -20,7 +20,7 @@ let running = false,
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0003; // 0.03%
-const MIN_PROFIT_PERCENTAGE = 0.0035; // 0.055%
+const MIN_PROFIT_PERCENTAGE = 0.0055; // 0.055%
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -233,7 +233,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	// console.time('timer');
+	console.time('timer');
 	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
 	checking = true;
@@ -245,16 +245,17 @@ const checkOpportunity = async (symbol, bucket) => {
 			qtyStep2,
 			qtyStep3;
 
-		// for (let i in pair) {
-			// if (Object.keys(data).indexOf(pair[i]) === -1) {
-			// 	data = await executor.getBidAsk();
-			// }
-			// depths[pair[i]] = await executor.getDepth(pair[i]);
+		for (let i in pair) {
+			if (symbol !== pair[i]) {
+				depths[pair[i]] = await executor.getDepth(pair[i]);
+				// bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
+				// bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
+			}
+
 
 			// latestPrice[pair[i]] = parseFloat(data[pair[i]]);
-			// bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
-			// bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
-		// }
+
+		}
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
 		// pair[2] = [BTC/ETH] = [ETHBTC]
@@ -327,7 +328,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 	checking = false;
 	// running = false;
-	// console.timeEnd('timer');
+	console.timeEnd('timer');
 }
 
 (async() => {
