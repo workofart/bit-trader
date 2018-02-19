@@ -20,7 +20,7 @@ let running = false,
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0003; // 0.03%
-const MIN_PROFIT_PERCENTAGE = 0.0055; // 0.055%
+const MIN_PROFIT_PERCENTAGE = 0.003; // 0.3%
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -246,9 +246,9 @@ const checkOpportunity = async (symbol, bucket) => {
 			qtyStep3;
 
 		for (let i in pair) {
-			if (symbol !== pair[i]) {
-				depths[pair[i]] = await executor.getDepth(pair[i]);
-			}
+			// if (symbol !== pair[i]) {
+			depths[pair[i]] = await executor.getDepth(pair[i]);
+			// }
 		}
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
