@@ -241,13 +241,17 @@ const getBidAsk = async () => {
  * @param qty: qty for buying or selling
  */
 function getWeightedPriceFromDepth (obj, qty) {
+	let initQty = qty;
 	let prices = _.map(Object.keys(obj), (i) => parseFloat(i));
 	let qtys = _.map(obj, (i) => i);
+	let value = 0;
 
 	for (let pos in qtys) {
 		qty -= qtys[pos];
+		value += qtys[pos] * prices[pos];
 		if (qty <= 0) {
-			return prices[pos];
+			value += qty * prices[pos];
+			return value / initQty;
 		}
 	}
 }
