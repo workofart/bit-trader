@@ -19,8 +19,8 @@ let running = false,
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
-const TRADING_FEE = 0.0003;
-const MIN_PROFIT_PERCENTAGE = 0.00055;
+const TRADING_FEE = 0.0003; // 0.03%
+const MIN_PROFIT_PERCENTAGE = 0.0035; // 0.055%
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -50,9 +50,9 @@ const getTopPairs = async () => {
 	});
 }
 
-const createTradingBuckets = (bucket, limit = 100) => {
+const createTradingBuckets = (bucket, limit = 120) => {
 	for (let base in bucket) {
-		bucket[base] = bucket[base].slice(5, limit+5);
+		bucket[base] = bucket[base].slice(0, limit);
 	}
 
 	let ETH = _.map(bucket['ETH'], (i) => i.pair.substr(0, i.pair.length - 3)),
@@ -240,7 +240,7 @@ const checkOpportunity = async (symbol, bucket) => {
 
 
 	if (lastPair !== pair && depths[pair[0]] && depths[pair[1]] && depths[pair[2]]) {
-		console.log('Checking opportunity: ' + pair);
+		// console.log('Checking opportunity: ' + pair);
 		let qtyStep1,
 			qtyStep2,
 			qtyStep3;
@@ -347,6 +347,10 @@ const checkOpportunity = async (symbol, bucket) => {
 
 	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
 		depths[symbol] = depth;
+		checkOpportunity(symbol, tradingBucket)
+		.catch((e) => {
+			console.log(e.stack);
+		})
 		// let bids = binance.sortBids(depth.bids);
 		// let asks = binance.sortAsks(depth.asks);
 		// console.log(symbol+" depth cache update");
@@ -356,15 +360,15 @@ const checkOpportunity = async (symbol, bucket) => {
 		// console.log("best ask: "+binance.first(asks));
 	});
 
-	binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
-		let tick = binance.last(candlestickData);
-		const symbol = candlestickData.s;
-		const close = candlestickData[tick].c;
-		checkOpportunity(symbol, tradingBucket)
-		.catch((e) => {
-			console.log(e.stack);
-		})
-	});
+	// binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
+	// 	let tick = binance.last(candlestickData);
+	// 	const symbol = candlestickData.s;
+	// 	const close = candlestickData[tick].c;
+	// 	checkOpportunity(symbol, tradingBucket)
+	// 	.catch((e) => {
+	// 		console.log(e.stack);
+	// 	})
+	// });
 
 
 })()
