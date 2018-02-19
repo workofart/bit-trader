@@ -13,6 +13,7 @@ let latestPrice = {};
 let bidAsk = {};
 let currencyWallet = {};
 let lastPair;
+let depths = {};
 let running = false,
 	checking = false;
 // let wallet = 0.04;
@@ -232,31 +233,55 @@ const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	console.time('timer');
+	// console.time('timer');
 	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
 	checking = true;
-	// console.log('Checking opportunity: ' + pair);
 
-	if (lastPair !== pair) {
-		let data = await executor.getBidAsk();
 
-		for (let i in pair) {
-			if (Object.keys(data).indexOf(pair[i]) === -1) {
-				data = await executor.getBidAsk();
-			}
+	if (lastPair !== pair && depths[pair[0]] && depths[pair[1]] && depths[pair[2]]) {
+		console.log('Checking opportunity: ' + pair);
+		let qtyStep1,
+			qtyStep2,
+			qtyStep3;
+
+		// for (let i in pair) {
+			// if (Object.keys(data).indexOf(pair[i]) === -1) {
+			// 	data = await executor.getBidAsk();
+			// }
+			// depths[pair[i]] = await executor.getDepth(pair[i]);
+
 			// latestPrice[pair[i]] = parseFloat(data[pair[i]]);
-			bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
-			bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
-		}
+			// bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
+			// bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
+		// }
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
 		// pair[2] = [BTC/ETH] = [ETHBTC]
 
+		/**
+		 * COMBO 1
+		 */
 		// BUY pair[0] Sell pair[1] Sell pair[2]
+		qtyStep1 = currencyWallet['BTC'].qty;
+		bidAsk[pair[0]].ask = executor.getRealPriceFromDepth(depths[pair[0]], qtyStep1, 'buy');
+		qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[0]].ask;
+		bidAsk[pair[1]].bid = executor.getRealPriceFromDepth(depths[pair[1]], qtyStep2, 'sell');
+		qtyStep3 = qtyStep2 * (1 - TRADING_FEE) * bidAsk[pair[1]].bid;
+		bidAsk[pair[2]].bid = executor.getRealPriceFromDepth(depths[pair[2]], qtyStep3, 'sell');
+		let combo1 = qtyStep3 * (bidAsk[pair[2]].bid * (1 - TRADING_FEE));
 
-		let combo1 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / bidAsk[pair[0]].ask * (bidAsk[pair[1]].bid * (1 - TRADING_FEE)) * (bidAsk[pair[2]].bid * (1 - TRADING_FEE));
-		let combo2 = currencyWallet['BTC'].qty * (1 - TRADING_FEE) / bidAsk[pair[2]].ask / (bidAsk[pair[1]].ask * (1 + TRADING_FEE)) * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
+		/**
+		 * COMBO2
+		 */
+		// BUY pair[2] BUY pair[1] SELL pair[0]
+		qtyStep1 = currencyWallet['BTC'].qty;
+		bidAsk[pair[2]].ask = executor.getRealPriceFromDepth(depths[pair[2]], qtyStep1, 'buy');
+		qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[2]].ask;
+		bidAsk[pair[1]].ask = executor.getRealPriceFromDepth(depths[pair[1]], qtyStep2, 'buy');
+		qtyStep3 = qtyStep2 / ((1 + TRADING_FEE) * bidAsk[pair[1]].ask);
+		bidAsk[pair[0]].bid = executor.getRealPriceFromDepth(depths[pair[0]], qtyStep3, 'sell');
+		let combo2 = qtyStep3 * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
 
 		if (bidAsk[pair[0]].ask < bidAsk[pair[1]].bid * bidAsk[pair[2]].bid && combo1 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
 			console.log(`${pair[0]}: ${bidAsk[pair[0]].ask}`);
@@ -302,7 +327,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 	checking = false;
 	// running = false;
-	console.timeEnd('timer');
+	// console.timeEnd('timer');
 }
 
 (async() => {
@@ -319,38 +344,19 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 
 	await getInitialBalance();
-	// setInterval(() => {
-	// 	if (running) {
-	// 		return;
-	// 	}
-		// running = true
-		// executor.getPriceByTicker().then((data) => {
-		// 	for (let ticker of selectedPairs) {
-		// 		latestPrice[ticker] = parseFloat(data[ticker]);
-		// 	}
-			// console.log(counter);
 
-		// for (let bucket of tradingBucket) {
-		// 	checkOpportunity(bucket);
-		// }
-		// running = false;
-			// }
-		// })
-	// }, 10000);
-	// const mainFunc = _.throttle((candlestickData)=> {
-	// 	let tick = binance.last(candlestickData);
-	// 	const symbol = candlestickData.s;
-	// 	const close = candlestickData[tick].c;
-	// 	latestPrice[symbol] = parseFloat(close);
-	//
-	// 	let pair = _.find(tradingBucket, (i) => i.indexOf(symbol) !== -1);
-	// 	if (pair !== lastPair) {
-	// 		checkOpportunity(symbol, tradingBucket);
-	// 	}
-	// }, 1000);
+	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
+		depths[symbol] = depth;
+		// let bids = binance.sortBids(depth.bids);
+		// let asks = binance.sortAsks(depth.asks);
+		// console.log(symbol+" depth cache update");
+		// console.log("bids", bids);
+		// console.log("asks", asks);
+		// console.log("best bid: "+binance.first(bids));
+		// console.log("best ask: "+binance.first(asks));
+	});
 
 	binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
-		// mainFunc(candlestickData);
 		let tick = binance.last(candlestickData);
 		const symbol = candlestickData.s;
 		const close = candlestickData[tick].c;
@@ -360,32 +366,5 @@ const checkOpportunity = async (symbol, bucket) => {
 		})
 	});
 
-	// The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
-	// function balance_update(data) {
-	// 	console.log("Balance Update");
-	// 	for ( let obj of data.B ) {
-	// 		let { a:asset, f:available, l:onOrder } = obj;
-	// 		if ( available == "0.00000000" ) continue;
-	// 		if (currencyWallet[asset] === undefined) {
-	// 			currencyWallet[asset] = {};
-	// 		}
-	// 		currencyWallet[asset].qty = parseFloat(available);
-	// 		console.log(asset+"\tavailable: "+available+" ("+onOrder+" on order)");
-	// 	}
-	// }
-	// function execution_update(data) {
-	// 	let { x:executionType, s:symbol, p:price, q:quantity, S:side, o:orderType, i:orderId, X:orderStatus } = data;
-	// 	if ( executionType == "NEW" ) {
-	// 		if ( orderStatus == "REJECTED" ) {
-	// 			console.log("Order Failed! Reason: "+data.r);
-	// 		}
-	// 		console.log(symbol+" "+side+" "+orderType+" ORDER #"+orderId+" ("+orderStatus+")");
-	// 		console.log("..price: "+price+", quantity: "+quantity);
-	// 		return;
-	// 	}
-	// 	//NEW, CANCELED, REPLACED, REJECTED, TRADE, EXPIRED
-	// 	console.log(symbol+"\t"+side+" "+executionType+" "+orderType+" ORDER #"+orderId);
-	// }
-	// binance.websockets.userData(balance_update, execution_update);
 
 })()

@@ -141,6 +141,31 @@ const submitMarket = async (ticker, amount, side) => {
 	});
 }
 
+const getDepth = async (ticker) => {
+	return new Promise((resolve) => {
+		binance.depth(ticker, (error, depth, symbol) => {
+			resolve(depth);
+		})
+	});
+}
+
+const getRealPriceFromDepth = (depth, qty, side) => {
+	let price;
+	let max = 10; // Show 10 closest orders only
+
+	// Get the weighted price for a given qty based on
+	// the market depth for the ticker
+	if (side === 'buy') {
+		let asks = binance.sortAsks(depth.asks, max);
+		price = getWeightedPriceFromDepth(asks, qty);
+	}
+	else if (side === 'sell') {
+		let bids = binance.sortBids(depth.bids, max);
+		price = getWeightedPriceFromDepth(bids, qty);
+	}
+	return price;
+}
+
 const getHoldingPrice = async (ticker) => {
 
 	const MIN = _.find(MIN_AMOUNT, (item) => { return item.pair === ticker});
@@ -201,6 +226,31 @@ const getBidAsk = async () => {
 	})
 }
 
+/**
+ *
+ * @param obj:
+ * bids: {
+ * 		'0.00102670': 108.86,
+  		'0.00102660': 172.94
+ * }
+ * OR
+ * asks: {
+ * 		'0.00102770': 659.1,
+ * 		'0.00102780': 699.93
+ * }
+ * @param qty: qty for buying or selling
+ */
+function getWeightedPriceFromDepth (obj, qty) {
+	let prices = _.map(Object.keys(obj), (i) => parseFloat(i));
+	let qtys = _.map(obj, (i) => i);
+
+	for (let pos in qtys) {
+		qty -= qtys[pos];
+		if (qty <= 0) {
+			return prices[pos];
+		}
+	}
+}
 
 module.exports = {
 	binance: binance,
@@ -210,5 +260,7 @@ module.exports = {
 	getCurrentBalance: getCurrentBalance,
 	getHoldingPrice: getHoldingPrice,
 	getPriceByTicker: getPriceByTicker,
-	getBidAsk: getBidAsk
+	getBidAsk: getBidAsk,
+	getRealPriceFromDepth: getRealPriceFromDepth,
+	getDepth: getDepth
 };
