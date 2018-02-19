@@ -233,7 +233,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	// console.time('timer');
+	console.time('timer');
 	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
 	checking = true;
@@ -245,11 +245,11 @@ const checkOpportunity = async (symbol, bucket) => {
 			qtyStep2,
 			qtyStep3;
 
-		for (let i in pair) {
-			// if (symbol !== pair[i]) {
-			depths[pair[i]] = await executor.getDepth(pair[i]);
-			// }
-		}
+		await Promise.all([
+			depths[pair[0]] = executor.getDepth(pair[0]),
+			depths[pair[1]] = executor.getDepth(pair[1]),
+			depths[pair[2]] = executor.getDepth(pair[2])
+		])
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
 		// pair[2] = [BTC/ETH] = [ETHBTC]
@@ -331,7 +331,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 	checking = false;
 	// running = false;
-	// console.timeEnd('timer');
+	console.timeEnd('timer');
 }
 
 (async() => {
