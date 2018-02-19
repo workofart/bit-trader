@@ -246,9 +246,15 @@ const checkOpportunity = async (symbol, bucket) => {
 			qtyStep3;
 
 		await Promise.all([
-			depths[pair[0]] = executor.getDepth(pair[0]),
-			depths[pair[1]] = executor.getDepth(pair[1]),
-			depths[pair[2]] = executor.getDepth(pair[2])
+			executor.getDepth(pair[0]).then((data) => {
+				depths[pair[0]] = data;
+			}),
+			executor.getDepth(pair[1]).then((data) => {
+				depths[pair[1]] = data;
+			}),
+			executor.getDepth(pair[2]).then((data) => {
+				depths[pair[2]] = data;
+			})
 		])
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
