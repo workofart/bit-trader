@@ -70,7 +70,7 @@ const createTradingBuckets = (bucket, limit = 120) => {
 		let group = [];
 
 		for (let base of ['BTC', 'ETH']) {
-			console.log(`${coin}${base}`);
+			// console.log(`${coin}${base}`);
 			group.push(`${coin}${base}`);
 			setupWallet(coin);
 			bidAsk[coin+base] = {};
@@ -233,7 +233,7 @@ const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	console.time('timer');
+	// console.time('timer');
 	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
 	checking = true;
@@ -248,13 +248,7 @@ const checkOpportunity = async (symbol, bucket) => {
 		for (let i in pair) {
 			if (symbol !== pair[i]) {
 				depths[pair[i]] = await executor.getDepth(pair[i]);
-				// bidAsk[pair[i]].bid = parseFloat(data[pair[i]].bid);
-				// bidAsk[pair[i]].ask = parseFloat(data[pair[i]].ask);
 			}
-
-
-			// latestPrice[pair[i]] = parseFloat(data[pair[i]]);
-
 		}
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
@@ -283,6 +277,15 @@ const checkOpportunity = async (symbol, bucket) => {
 		qtyStep3 = qtyStep2 / ((1 + TRADING_FEE) * bidAsk[pair[1]].ask);
 		bidAsk[pair[0]].bid = executor.getRealPriceFromDepth(depths[pair[0]], qtyStep3, 'sell');
 		let combo2 = qtyStep3 * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
+
+		if (bidAsk[pair[0]].ask < bidAsk[pair[1]].bid * bidAsk[pair[2]].bid) {
+			let profitCombo1 = ((combo1 - currencyWallet['BTC'].qty) / currencyWallet['BTC'].qty * 100).toFixed(4);
+			console.log(`[${pair}] Combo1 Profit: ${profitCombo1}%`);
+		}
+		else if (bidAsk[pair[0]].bid > bidAsk[pair[1]].ask * bidAsk[pair[2]].ask) {
+			let profitCombo2 = ((combo2 - currencyWallet['BTC'].qty) / currencyWallet['BTC'].qty * 100).toFixed(4);
+			console.log(`[${pair}] Combo2 Profit: ${profitCombo2}%`);
+		}
 
 		if (bidAsk[pair[0]].ask < bidAsk[pair[1]].bid * bidAsk[pair[2]].bid && combo1 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
 			console.log(`${pair[0]}: ${bidAsk[pair[0]].ask}`);
@@ -328,10 +331,12 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 	checking = false;
 	// running = false;
-	console.timeEnd('timer');
+	// console.timeEnd('timer');
 }
 
 (async() => {
+	console.log(`Min Profit: ${MIN_PROFIT_PERCENTAGE * 100}%`);
+	console.log(`Trading Fee: ${TRADING_FEE * 100}%`);
 	let bucket = await getTopPairs();
 	let tradingBucket = createTradingBuckets(bucket);
 	let selectedPairs = _.uniq(_.flatten(tradingBucket));
@@ -360,16 +365,5 @@ const checkOpportunity = async (symbol, bucket) => {
 		// console.log("best bid: "+binance.first(bids));
 		// console.log("best ask: "+binance.first(asks));
 	});
-
-	// binance.websockets.candlesticks(_.uniq(_.flatten(tradingBucket)), '1m', (candlestickData) => {
-	// 	let tick = binance.last(candlestickData);
-	// 	const symbol = candlestickData.s;
-	// 	const close = candlestickData[tick].c;
-	// 	checkOpportunity(symbol, tradingBucket)
-	// 	.catch((e) => {
-	// 		console.log(e.stack);
-	// 	})
-	// });
-
 
 })()
