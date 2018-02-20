@@ -26,8 +26,8 @@ let running = false,
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0003; // 0.03%
-const MIN_PROFIT_PERCENTAGE = 0.003; // 0.3%
-const TIME_DIFF_THRESHOLD = 30;
+const MIN_PROFIT_PERCENTAGE = 0.00045; // 0.3%
+const TIME_DIFF_THRESHOLD = 38;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -214,7 +214,7 @@ const handleSubmitMarket = async (ticker, side, price, qtyBought) => {
 	else if (side === 'sell') {
 		let amount;
 		if (qtyBought) {
-			amount = qtyBought;
+			amount = roundAmount(ticker, qtyBought, price);
 		}
 		else {
 			amount = roundAmount(ticker, currencyWallet[coin].qty, price);
@@ -251,7 +251,7 @@ const checkOpportunity = async (symbol, bucket) => {
 
 	if (timeDiff0 < TIME_DIFF_THRESHOLD && timeDiff1 < TIME_DIFF_THRESHOLD && timeDiff2 < TIME_DIFF_THRESHOLD) {
 		checkCounter++;
-		console.log(`Within Time Diff Threshold ${(checkCounter/totalCounter * 100).toFixed(2)}%`)
+		// console.log(`Within Time Diff Threshold ${(checkCounter/totalCounter * 100).toFixed(2)}%`)
 		// console.log(`[${pair[0]}] time diff: ${timeDiff0}`);
 		// console.log(`[${pair[1]}] time diff: ${timeDiff1}`);
 		// console.log(`[${pair[2]}] time diff: ${timeDiff2}`);
