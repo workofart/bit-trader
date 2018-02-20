@@ -3,17 +3,23 @@ const binance = require('node-binance-api'),
 	CONFIGS = require('../config/creds_binance'),
 	MIN_AMOUNT = require('./minOrderBinance'),
 	db = require('./store'),
-	executor = require('./executorBinance');
+	executor = require('./executorBinance'),
+	moment = require('moment');
 
 binance.options(CONFIGS);
 
 db.clearTable('binance_transactions');
+
+let checkCounter = 0,
+	totalCounter = 0;
+
 
 let latestPrice = {};
 let bidAsk = {};
 let currencyWallet = {};
 let lastPair;
 let depths = {};
+let lastUpdate = {};
 let running = false,
 	checking = false;
 // let wallet = 0.04;
@@ -21,6 +27,7 @@ let running = false,
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.0003; // 0.03%
 const MIN_PROFIT_PERCENTAGE = 0.003; // 0.3%
+const TIME_DIFF_THRESHOLD = 30;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
 const getTopPairs = async () => {
@@ -233,111 +240,141 @@ const checkOpportunity = async (symbol, bucket) => {
 	if (checking) {
 		return;
 	}
-	console.time('timer');
+	totalCounter++;
 	let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
 
 	checking = true;
 
+	let timeDiff0 = moment().diff(moment(lastUpdate[pair[0]]));
+	let timeDiff1 = moment().diff(moment(lastUpdate[pair[1]]));
+	let timeDiff2 = moment().diff(moment(lastUpdate[pair[2]]));
 
-	if (lastPair !== pair && depths[pair[0]] && depths[pair[1]] && depths[pair[2]]) {
-		// console.log('Checking opportunity: ' + pair);
-		let qtyStep1,
-			qtyStep2,
-			qtyStep3;
+	if (timeDiff0 < TIME_DIFF_THRESHOLD && timeDiff1 < TIME_DIFF_THRESHOLD && timeDiff2 < TIME_DIFF_THRESHOLD) {
+		checkCounter++;
+		console.log(`Within Time Diff Threshold ${(checkCounter/totalCounter * 100).toFixed(2)}%`)
+		// console.log(`[${pair[0]}] time diff: ${timeDiff0}`);
+		// console.log(`[${pair[1]}] time diff: ${timeDiff1}`);
+		// console.log(`[${pair[2]}] time diff: ${timeDiff2}`);
 
-		await Promise.all([
-			executor.getDepth(pair[0]).then((data) => {
-				depths[pair[0]] = data;
-			}),
-			executor.getDepth(pair[1]).then((data) => {
-				depths[pair[1]] = data;
-			}),
-			executor.getDepth(pair[2]).then((data) => {
-				depths[pair[2]] = data;
-			})
-		])
-		// pair[0] = [BTC/...] = [...BTC]
-		// pair[1] = [ETH/...] = [...ETH]
-		// pair[2] = [BTC/ETH] = [ETHBTC]
+		if (lastPair !== pair && depths[pair[0]] && depths[pair[1]] &&
+			depths[pair[2]]) {
+			// console.log('Checking opportunity: ' + pair);
+			let qtyStep1,
+				qtyStep2,
+				qtyStep3;
 
-		/**
-		 * COMBO 1
-		 */
-		// BUY pair[0] Sell pair[1] Sell pair[2]
-		qtyStep1 = currencyWallet['BTC'].qty;
-		bidAsk[pair[0]].ask = executor.getRealPriceFromDepth(depths[pair[0]], qtyStep1, 'buy');
-		qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[0]].ask;
-		bidAsk[pair[1]].bid = executor.getRealPriceFromDepth(depths[pair[1]], qtyStep2, 'sell');
-		qtyStep3 = qtyStep2 * (1 - TRADING_FEE) * bidAsk[pair[1]].bid;
-		bidAsk[pair[2]].bid = executor.getRealPriceFromDepth(depths[pair[2]], qtyStep3, 'sell');
-		let combo1 = qtyStep3 * (bidAsk[pair[2]].bid * (1 - TRADING_FEE));
+			// await Promise.all([
+			// 	executor.getDepth(pair[0]).then((data) => {
+			// 		depths[pair[0]] = data;
+			// 	}),
+			// 	executor.getDepth(pair[1]).then((data) => {
+			// 		depths[pair[1]] = data;
+			// 	}),
+			// 	executor.getDepth(pair[2]).then((data) => {
+			// 		depths[pair[2]] = data;
+			// 	})
+			// ])
+			// pair[0] = [BTC/...] = [...BTC]
+			// pair[1] = [ETH/...] = [...ETH]
+			// pair[2] = [BTC/ETH] = [ETHBTC]
 
-		/**
-		 * COMBO2
-		 */
-		// BUY pair[2] BUY pair[1] SELL pair[0]
-		qtyStep1 = currencyWallet['BTC'].qty;
-		bidAsk[pair[2]].ask = executor.getRealPriceFromDepth(depths[pair[2]], qtyStep1, 'buy');
-		qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[2]].ask;
-		bidAsk[pair[1]].ask = executor.getRealPriceFromDepth(depths[pair[1]], qtyStep2, 'buy');
-		qtyStep3 = qtyStep2 / ((1 + TRADING_FEE) * bidAsk[pair[1]].ask);
-		bidAsk[pair[0]].bid = executor.getRealPriceFromDepth(depths[pair[0]], qtyStep3, 'sell');
-		let combo2 = qtyStep3 * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
+			/**
+			 * COMBO 1
+			 */
+			// BUY pair[0] Sell pair[1] Sell pair[2]
+			qtyStep1 = currencyWallet['BTC'].qty;
+			bidAsk[pair[0]].ask = executor.getRealPriceFromDepth(
+				depths[pair[0]], qtyStep1, 'buy');
+			qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[0]].ask;
+			bidAsk[pair[1]].bid = executor.getRealPriceFromDepth(
+				depths[pair[1]], qtyStep2, 'sell');
+			qtyStep3 = qtyStep2 * (1 - TRADING_FEE) * bidAsk[pair[1]].bid;
+			bidAsk[pair[2]].bid = executor.getRealPriceFromDepth(
+				depths[pair[2]], qtyStep3, 'sell');
+			let combo1 = qtyStep3 * (bidAsk[pair[2]].bid * (1 - TRADING_FEE));
 
-		if (bidAsk[pair[0]].ask < bidAsk[pair[1]].bid * bidAsk[pair[2]].bid) {
-			let profitCombo1 = ((combo1 - currencyWallet['BTC'].qty) / currencyWallet['BTC'].qty * 100).toFixed(4);
-			console.log(`[${pair}] Combo1 Profit: ${profitCombo1}%`);
-		}
-		else if (bidAsk[pair[0]].bid > bidAsk[pair[1]].ask * bidAsk[pair[2]].ask) {
-			let profitCombo2 = ((combo2 - currencyWallet['BTC'].qty) / currencyWallet['BTC'].qty * 100).toFixed(4);
-			console.log(`[${pair}] Combo2 Profit: ${profitCombo2}%`);
-		}
+			/**
+			 * COMBO2
+			 */
+			// BUY pair[2] BUY pair[1] SELL pair[0]
+			qtyStep1 = currencyWallet['BTC'].qty;
+			bidAsk[pair[2]].ask = executor.getRealPriceFromDepth(
+				depths[pair[2]], qtyStep1, 'buy');
+			qtyStep2 = qtyStep1 * (1 - TRADING_FEE) / bidAsk[pair[2]].ask;
+			bidAsk[pair[1]].ask = executor.getRealPriceFromDepth(
+				depths[pair[1]], qtyStep2, 'buy');
+			qtyStep3 = qtyStep2 / ((1 + TRADING_FEE) * bidAsk[pair[1]].ask);
+			bidAsk[pair[0]].bid = executor.getRealPriceFromDepth(
+				depths[pair[0]], qtyStep3, 'sell');
+			let combo2 = qtyStep3 * (bidAsk[pair[0]].bid * (1 - TRADING_FEE));
 
-		if (bidAsk[pair[0]].ask < bidAsk[pair[1]].bid * bidAsk[pair[2]].bid && combo1 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
-			console.log(`${pair[0]}: ${bidAsk[pair[0]].ask}`);
-			console.log(`${pair[1]}: ${bidAsk[pair[1]].bid}`);
-			console.log(`${pair[2]}: ${bidAsk[pair[2]].bid}`);
+			if (bidAsk[pair[0]].ask <
+				bidAsk[pair[1]].bid * bidAsk[pair[2]].bid) {
+				let profitCombo1 = ((combo1 - currencyWallet['BTC'].qty) /
+					currencyWallet['BTC'].qty * 100).toFixed(4);
+				console.log(`[${pair}] Combo1 Profit: ${profitCombo1}%`);
+			}
+			else if (bidAsk[pair[0]].bid >
+				bidAsk[pair[1]].ask * bidAsk[pair[2]].ask) {
+				let profitCombo2 = ((combo2 - currencyWallet['BTC'].qty) /
+					currencyWallet['BTC'].qty * 100).toFixed(4);
+				console.log(`[${pair}] Combo2 Profit: ${profitCombo2}%`);
+			}
 
-			// Buy Pair[0], buy coin sell base
-			console.log('Step 1')
-			let qtyBought = await handleSubmitMarket(pair[0], 'buy', bidAsk[pair[0]].ask);
+			if (bidAsk[pair[0]].ask <
+				bidAsk[pair[1]].bid * bidAsk[pair[2]].bid && combo1 >
+				currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
+				console.log(`${pair[0]}: ${bidAsk[pair[0]].ask}`);
+				console.log(`${pair[1]}: ${bidAsk[pair[1]].bid}`);
+				console.log(`${pair[2]}: ${bidAsk[pair[2]].bid}`);
 
-			// Sell Pair[1], sell coin buy base
-			console.log('Step 2')
-			await handleSubmitMarket(pair[1], 'sell', bidAsk[pair[1]].bid, qtyBought);
+				// Buy Pair[0], buy coin sell base
+				console.log('Step 1')
+				let qtyBought = await handleSubmitMarket(pair[0], 'buy',
+					bidAsk[pair[0]].ask);
 
-			// Sell Pair[2], sell coin buy base
-			console.log('Step 3')
-			await handleSubmitMarket(pair[2], 'sell', bidAsk[pair[2]].bid);
+				// Sell Pair[1], sell coin buy base
+				console.log('Step 2')
+				await handleSubmitMarket(pair[1], 'sell', bidAsk[pair[1]].bid,
+					qtyBought);
 
-			printProfit();
+				// Sell Pair[2], sell coin buy base
+				console.log('Step 3')
+				await handleSubmitMarket(pair[2], 'sell', bidAsk[pair[2]].bid);
 
-			lastPair = pair;
-		}
-		else if (bidAsk[pair[0]].bid > bidAsk[pair[1]].ask * bidAsk[pair[2]].ask && combo2 > currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
-			console.log(`${pair[0]}: ${bidAsk[pair[0]].bid}`);
-			console.log(`${pair[1]}: ${bidAsk[pair[1]].ask}`);
-			console.log(`${pair[2]}: ${bidAsk[pair[2]].ask}`);
+				printProfit();
 
-			// Buy Pair[2], buy coin sell base
-			console.log('Step 1')
-			await handleSubmitMarket(pair[2], 'buy', bidAsk[pair[2]].ask);
+				lastPair = pair;
+			}
+			else if (bidAsk[pair[0]].bid >
+				bidAsk[pair[1]].ask * bidAsk[pair[2]].ask && combo2 >
+				currencyWallet['BTC'].qty * (1 + MIN_PROFIT_PERCENTAGE)) {
+				console.log(`${pair[0]}: ${bidAsk[pair[0]].bid}`);
+				console.log(`${pair[1]}: ${bidAsk[pair[1]].ask}`);
+				console.log(`${pair[2]}: ${bidAsk[pair[2]].ask}`);
 
-			// Buy Pair[1], buy coin sell base
-			console.log('Step 2')
-			let qtyBought = await handleSubmitMarket(pair[1], 'buy', bidAsk[pair[1]].ask);
+				// Buy Pair[2], buy coin sell base
+				console.log('Step 1')
+				await handleSubmitMarket(pair[2], 'buy', bidAsk[pair[2]].ask);
 
-			// Sell Pair[0], sell coin buy base
-			console.log('Step 3')
-			await handleSubmitMarket(pair[0], 'sell', bidAsk[pair[0]].bid, qtyBought);
+				// Buy Pair[1], buy coin sell base
+				console.log('Step 2')
+				let qtyBought = await handleSubmitMarket(pair[1], 'buy',
+					bidAsk[pair[1]].ask);
 
-			printProfit();
-			lastPair = pair;
+				// Sell Pair[0], sell coin buy base
+				console.log('Step 3')
+				await handleSubmitMarket(pair[0], 'sell', bidAsk[pair[0]].bid,
+					qtyBought);
+
+				printProfit();
+				lastPair = pair;
+			}
 		}
 	}
 	checking = false;
 	// running = false;
-	console.timeEnd('timer');
+	// console.timeEnd('timer');
 }
 
 (async() => {
@@ -356,13 +393,16 @@ const checkOpportunity = async (symbol, bucket) => {
 	}
 
 	await getInitialBalance();
-
+	console.time('timer');
 	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
 		depths[symbol] = depth;
+		lastUpdate[symbol] = parseFloat(moment().format('x').valueOf());
 		checkOpportunity(symbol, tradingBucket)
 		.catch((e) => {
 			console.log(e.stack);
 		})
+		// console.timeEnd('timer');
+		// console.time('timer');
 		// let bids = binance.sortBids(depth.bids);
 		// let asks = binance.sortAsks(depth.asks);
 		// console.log(symbol+" depth cache update");
