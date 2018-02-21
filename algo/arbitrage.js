@@ -264,6 +264,8 @@ const checkOpportunity = async (pair) => {
 				depths[pair[2]] = data;
 			})
 		])
+
+		console.timeEnd('timer');
 		// pair[0] = [BTC/...] = [...BTC]
 		// pair[1] = [ETH/...] = [...ETH]
 		// pair[2] = [BTC/ETH] = [ETHBTC]
@@ -363,7 +365,6 @@ const checkOpportunity = async (pair) => {
 	}
 	checking = false;
 	// running = false;
-	console.timeEnd('timer');
 }
 
 (async() => {
@@ -386,15 +387,11 @@ const checkOpportunity = async (pair) => {
 	setInterval(() => {
 		let randomPair = tradingBucket[_.random(0, tradingBucket.length - 1)];
 		checkOpportunity(randomPair);
-	}, 100)
+	}, 5)
 
-	// binance.websockets.depth(selectedPairs, (depth) => {
-	// 	depths[symbol] = depth;
-	// 	lastUpdate[symbol] = parseFloat(moment().format('x').valueOf());
-	// 	checkOpportunity(symbol, tradingBucket)
-	// 	.catch((e) => {
-	// 		console.log(e.stack);
-	// 	})
+	binance.websockets.depth(selectedPairs, (symbol, depth) => {
+		depths[symbol] = depth;
+	});
 		// console.timeEnd('timer');
 		// console.time('timer');
 		// let bids = binance.sortBids(depth.bids);
