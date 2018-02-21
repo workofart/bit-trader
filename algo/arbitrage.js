@@ -22,6 +22,7 @@ let depths = {};
 let lastUpdate = {};
 let running = false,
 	checking = false;
+let index = 0;
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
@@ -236,15 +237,16 @@ const handleSubmitMarket = async (ticker, side, price, qtyBought) => {
 	}
 }
 
-const checkOpportunity = async (pair) => {
+const checkOpportunity = async (pair, buckets) => {
 	if (checking) {
 		return;
 	}
 	// let pair = _.find(bucket, (i) => i.indexOf(symbol) !== -1);
+	index = index < buckets.length - 1 ? index + 1 : 0;
 
 	checking = true;
+	index++;
 
-	checkCounter++;
 
 	if (lastPair !== pair) {
 		console.log('Checking opportunity: ' + pair);
@@ -385,11 +387,11 @@ const checkOpportunity = async (pair) => {
 	await getInitialBalance();
 
 	setInterval(() => {
-		let randomPair = tradingBucket[_.random(0, tradingBucket.length - 1)];
-		checkOpportunity(randomPair);
+		// let randomPair = tradingBucket[_.random(0, tradingBucket.length - 1)];
+		checkOpportunity(tradingBucket[index], tradingBucket);
 	}, 5)
 
-	binance.websockets.depth(selectedPairs, (symbol, depth) => {
+	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
 		depths[symbol] = depth;
 	});
 		// console.timeEnd('timer');
