@@ -27,7 +27,7 @@ let index = 0;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
 const TRADING_FEE = 0.00015; // 0.015%
-const MIN_PROFIT_PERCENTAGE = 0.001; // 0.1%
+const MIN_PROFIT_PERCENTAGE = 0.0005; // 0.05%
 const TIME_DIFF_THRESHOLD = 20;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
@@ -393,7 +393,7 @@ const checkOpportunity = async (pair, buckets) => {
 	setInterval(() => {
 		// let randomPair = tradingBucket[_.random(0, tradingBucket.length - 1)];
 		checkOpportunity(tradingBucket[index], tradingBucket);
-	}, 50)
+	}, 175)
 
 	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
 		depths[symbol] = depth;
