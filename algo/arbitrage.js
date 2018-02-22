@@ -26,8 +26,8 @@ let index = 0;
 // let wallet = 0.04;
 // let INITIAL_INVESTMENT = 0.04;
 let INITIAL_INVESTMENT;
-const TRADING_FEE = 0.0003; // 0.03%
-const MIN_PROFIT_PERCENTAGE = 0.0045; // 0.45%
+const TRADING_FEE = 0.00015; // 0.015%
+const MIN_PROFIT_PERCENTAGE = 0.001; // 0.1%
 const TIME_DIFF_THRESHOLD = 20;
 // const MIN_PROFIT_PERCENTAGE = 0;
 
@@ -41,6 +41,10 @@ const getTopPairs = async () => {
 	};
 	return new Promise((resolve, reject) => {
 		binance.prevDay(false, (error, prevDay) => {
+			if (error) {
+				console.error(JSON.stringify(error));
+				reject(error);
+			}
 			// console.log(prevDay); // view all data
 			for ( let obj of prevDay ) {
 				let symbol = obj.symbol;
@@ -389,11 +393,12 @@ const checkOpportunity = async (pair, buckets) => {
 	setInterval(() => {
 		// let randomPair = tradingBucket[_.random(0, tradingBucket.length - 1)];
 		checkOpportunity(tradingBucket[index], tradingBucket);
-	}, 5)
+	}, 50)
 
 	binance.websockets.depthCache(selectedPairs, (symbol, depth) => {
 		depths[symbol] = depth;
 	});
+
 		// console.timeEnd('timer');
 		// console.time('timer');
 		// let bids = binance.sortBids(depth.bids);
