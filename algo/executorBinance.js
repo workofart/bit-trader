@@ -72,9 +72,13 @@ const getOpenOrdersByTicker = async (ticker) => {
 // Market Order
 const submitMarket = async (ticker, amount, side) => {
 	console.log('Submitting market order: ' + JSON.stringify({ticker: ticker, price: '0.1', amount: amount.toString(), side: side, type: 'market'}));
+	const flags = {
+		type: 'MARKET',
+		newOrderRespType: 'FULL'
+	};
 	return new Promise((resolve) => {
 		if (side === 'buy') {
-			binance.marketBuy(ticker, amount ,{type:'MARKET'}, (error, response) => {
+			binance.marketBuy(ticker, amount ,flags, (error, response) => {
 				if (error) console.error(JSON.stringify(error));
 				if (response.status === 'FILLED') {
 					console.log("MARKET Buy Success");
@@ -84,7 +88,7 @@ const submitMarket = async (ticker, amount, side) => {
 
 		}
 		else if (side === 'sell') {
-			binance.marketSell(ticker, amount ,{type:'MARKET'}, (error, response) => {
+			binance.marketSell(ticker, amount ,flags, (error, response) => {
 				if (error) console.error(JSON.stringify(error));
 				if (response.status === 'FILLED') {
 					console.log("MARKET Sell Success");

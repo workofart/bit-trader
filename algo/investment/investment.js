@@ -169,11 +169,21 @@ class Investment {
         if (side === 'sell' && InvestmentReq.currencyBalanceReq(ticker)) {
             try {
                 let res = await executor.submitMarket(ticker, qty, side);
-				global.currencyWallet[ticker].qty -= qty;
-                global.wallet +=  qty * price * (1 - global.TRADING_FEE);
-                customUtil.printSell(ticker, price, qty);
+
+				let filledPrice, filledQty = 0, totalValue = 0;
+
+				_.forEach(res.fills, (fill) => {
+					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+					filledQty += parseFloat(fill.qty);
+				});
+
+				filledPrice = totalValue / filledQty;
+
+				global.currencyWallet[ticker].qty -= filledQty;
+                global.wallet += totalValue;
+                customUtil.printSell(ticker, filledPrice, filledQty);
                 customUtil.printOrderResponse(res);
-                await db.storeTransactionToDB(ticker, price, qty, 0);
+                await db.storeTransactionToDB(ticker, filledPrice, filledQty, 0);
                 InvestmentUtils.postSellTradeCleanup(ticker);
 				await db.storeWalletState();
             }
@@ -185,21 +195,31 @@ class Investment {
         else if (side === 'buy' && qty > 0) {
             try {
                 let res = await executor.submitMarket(ticker, qty, side);
-                InvestmentUtils.updateBearSellPrice(ticker, price);
 
-                global.wallet -= qty * price * (1 + global.TRADING_FEE);
-                global.currencyWallet[ticker].price = InvestmentUtils.weightedAvgPrice(ticker, price, qty);
-                global.currencyWallet[ticker].repeatedBuyPrice = price * (1 - global.REPEATED_BUY_MARGIN); // record last buy price
-                global.currencyWallet[ticker].qty += qty;
+				let filledPrice, filledQty = 0, totalValue = 0;
+
+				_.forEach(res.fills, (fill) => {
+					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+					filledQty += parseFloat(fill.qty);
+				});
+
+				filledPrice = totalValue / filledQty;
+
+                InvestmentUtils.updateBearSellPrice(ticker, filledPrice);
+
+                global.wallet -= totalValue * (1 + global.TRADING_FEE);
+                global.currencyWallet[ticker].price = InvestmentUtils.weightedAvgPrice(ticker, filledPrice, filledQty);
+                global.currencyWallet[ticker].repeatedBuyPrice = filledPrice * (1 - global.REPEATED_BUY_MARGIN); // record last buy price
+                global.currencyWallet[ticker].qty += filledQty;
                 global.currencyWallet[ticker].upTrendLimitPrice = 0;
                 global.currencyWallet[ticker].downTrendLimitPrice = 99999;
                 global.currencyWallet[ticker].isDownTrendBuy = false;
                 global.currencyWallet[ticker].downTrendCounter = 0;
-                customUtil.printBuy(ticker, qty, price);
+                customUtil.printBuy(ticker, filledQty, filledPrice);
                 // customUtil.printWalletStatus();
                 // customUtil.printPNL();
                 customUtil.printOrderResponse(res);
-                await db.storeTransactionToDB(ticker, price, qty, 1);
+                await db.storeTransactionToDB(ticker, filledPrice, filledQty, 1);
 				await db.storeWalletState();
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
             }
@@ -211,14 +231,25 @@ class Investment {
         else if (side === 'bearSell') {
             try {
                 let res = await executor.submitMarket(ticker, qty, 'sell');
-                global.wallet += qty * price * (1 - global.TRADING_FEE);
-                InvestmentUtils.updateRepeatedBuyPrice(ticker, price);
-                customUtil.printBearSell(ticker, qty, price);
-                await db.storeTransactionToDB(ticker, price, qty, 0);
-                let tempPrice = InvestmentUtils.weightedAvgPrice(ticker, price, -qty);
+
+				let filledPrice, filledQty = 0, totalValue = 0;
+
+				_.forEach(res.fills, (fill) => {
+					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+					filledQty += parseFloat(fill.qty);
+				});
+
+				filledPrice = totalValue / filledQty;
+
+
+				global.wallet += totalValue * (1 - global.TRADING_FEE);
+                InvestmentUtils.updateRepeatedBuyPrice(ticker, filledPrice);
+                customUtil.printBearSell(ticker, filledQty, filledPrice);
+                await db.storeTransactionToDB(ticker, filledPrice, filledQty, 0);
+                let tempPrice = InvestmentUtils.weightedAvgPrice(ticker, filledPrice, -filledQty);
                 global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
-                global.currencyWallet[ticker].qty -= qty;
-                global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
+                global.currencyWallet[ticker].qty -= filledQty;
+                global.currencyWallet[ticker].bearSellPrice = filledPrice * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
                 global.storedWeightedSignalScore[ticker] = 0; // clear score
 				await db.storeWalletState();
 				customUtil.printOrderResponse(res);

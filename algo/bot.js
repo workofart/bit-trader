@@ -102,7 +102,7 @@ binance.websockets.candlesticks(pairs, "1m", (candlesticks) => {
 // The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
 function balance_update(data) {
 	console.log("Currency Wallet Update");
-	executor.getCurrentBalance();
+	// executor.getCurrentBalance();
 	CustomUtil.printWalletStatus();
 	db.storeWalletState();
 }
