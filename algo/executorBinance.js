@@ -46,6 +46,7 @@ const getAccountSummary = () => {
 const getCurrentBalance = () => {
 	return new Promise ((resolve) => {
 		binance.balance((error, balances) => {
+			if (error) console.log(JSON.stringify(error));
 			Object.keys(balances).forEach((ticker) => {
 				if (mapping.indexOf(ticker) !== -1) {
 					global.currencyWallet[ticker+'BTC'].qty = parseFloat(balances[ticker].available);
@@ -53,6 +54,12 @@ const getCurrentBalance = () => {
 				}
 				if (ticker === 'BTC') {
 					global.wallet = parseFloat(balances[ticker].available);
+				}
+				if (ticker === 'BNB') {
+					global.currencyWallet['BNBBTC'].qty = parseFloat(balances[ticker].available);
+					binance.prices('BNBBTC', (error, ticker) => {
+						global.currencyWallet['BNBBTC'].price = parseFloat(ticker.BNBBTC);
+					})
 				}
 			});
 			resolve(1);
@@ -67,6 +74,14 @@ const getOpenOrdersByTicker = async (ticker) => {
 		});
 	})
 };
+
+const getLatestPrices = async () => {
+	return new Promise((resolve) => {
+		binance.prices((err, price) => {
+			resolve(price)
+		})
+	})
+}
 
 
 // Market Order
@@ -108,7 +123,7 @@ const getHoldingPrice = async (ticker) => {
 		let targetIndex = 0,
 			balance = 0;
 		_.forEach(entries, (item) => {
-			balance = item.isBuyer ? balance + parseFloat(item.qty ): balance - parseFloat(item.qty);
+			balance = item.isBuyer ? balance + parseFloat(item.qty): balance - parseFloat(item.qty);
 			// console.log(balance);
 			if (balance <= parseFloat(MIN.minimum_order_size)) {
 				targetIndex = _.sortedIndex(entries, item, 'time');
@@ -136,6 +151,7 @@ const getHoldingPrice = async (ticker) => {
 				return item.time;
 			})
 			// console.log(sortedRes);
+			sortedRes = sortedRes.slice(sortedRes.length -10, sortedRes.length);
 
 			let index = latestPriceReset(sortedRes);
 
@@ -143,7 +159,7 @@ const getHoldingPrice = async (ticker) => {
 			let remainingTrades = sortedRes.slice(index + 1);
 			// console.log(_.map(remainingTrades, (i) => {return {price: i.price, qty: i.qty, isBuy: i.isBuyer} } ));
 			let {price, qty} = weightedPrice(remainingTrades);
-			// console.log(`[${ticker}] Price: ${price}`);
+			console.log(`[${ticker}] Price: ${price}`);
 			resolve(price);
 		});
 	});
@@ -156,5 +172,6 @@ module.exports = {
 	getAccountSummary: getAccountSummary,
 	getOpenOrdersByTicker: getOpenOrdersByTicker,
 	getCurrentBalance: getCurrentBalance,
-	getHoldingPrice: getHoldingPrice
+	getHoldingPrice: getHoldingPrice,
+	getLatestPrices: getLatestPrices
 };

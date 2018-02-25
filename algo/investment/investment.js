@@ -169,22 +169,17 @@ class Investment {
         if (side === 'sell' && InvestmentReq.currencyBalanceReq(ticker)) {
             try {
                 let res = await executor.submitMarket(ticker, qty, side);
-
-				let filledPrice, filledQty = 0, totalValue = 0;
-
-				_.forEach(res.fills, (fill) => {
-					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
-					filledQty += parseFloat(fill.qty);
-				});
-
-				filledPrice = totalValue / filledQty;
+				let { filledQty, filledPrice, totalValue } = Investment.parseFillResponse(res);
 
 				global.currencyWallet[ticker].qty -= filledQty;
                 global.wallet += totalValue;
+
                 customUtil.printSell(ticker, filledPrice, filledQty);
                 customUtil.printOrderResponse(res);
-                await db.storeTransactionToDB(ticker, filledPrice, filledQty, 0);
+
                 InvestmentUtils.postSellTradeCleanup(ticker);
+
+				await db.storeTransactionToDB(ticker, filledPrice, filledQty, 0);
 				await db.storeWalletState();
             }
             catch(e) {
@@ -196,18 +191,11 @@ class Investment {
             try {
                 let res = await executor.submitMarket(ticker, qty, side);
 
-				let filledPrice, filledQty = 0, totalValue = 0;
-
-				_.forEach(res.fills, (fill) => {
-					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
-					filledQty += parseFloat(fill.qty);
-				});
-
-				filledPrice = totalValue / filledQty;
+				let { filledQty, filledPrice, totalValue } = Investment.parseFillResponse(res);
 
                 InvestmentUtils.updateBearSellPrice(ticker, filledPrice);
 
-                global.wallet -= totalValue * (1 + global.TRADING_FEE);
+                global.wallet -= totalValue;
                 global.currencyWallet[ticker].price = InvestmentUtils.weightedAvgPrice(ticker, filledPrice, filledQty);
                 global.currencyWallet[ticker].repeatedBuyPrice = filledPrice * (1 - global.REPEATED_BUY_MARGIN); // record last buy price
                 global.currencyWallet[ticker].qty += filledQty;
@@ -215,13 +203,15 @@ class Investment {
                 global.currencyWallet[ticker].downTrendLimitPrice = 99999;
                 global.currencyWallet[ticker].isDownTrendBuy = false;
                 global.currencyWallet[ticker].downTrendCounter = 0;
+				global.storedWeightedSignalScore[ticker] = 0; // clear score
+
                 customUtil.printBuy(ticker, filledQty, filledPrice);
                 // customUtil.printWalletStatus();
                 // customUtil.printPNL();
                 customUtil.printOrderResponse(res);
                 await db.storeTransactionToDB(ticker, filledPrice, filledQty, 1);
 				await db.storeWalletState();
-                global.storedWeightedSignalScore[ticker] = 0; // clear score
+
             }
             catch(e) {
                 util.error('!!!!!!!!!!!!!!!! Market Order Error !!!!!!!!!!!!!!!!');
@@ -232,21 +222,14 @@ class Investment {
             try {
                 let res = await executor.submitMarket(ticker, qty, 'sell');
 
-				let filledPrice, filledQty = 0, totalValue = 0;
+				let { filledQty, filledPrice, totalValue } = Investment.parseFillResponse(res);
 
-				_.forEach(res.fills, (fill) => {
-					totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
-					filledQty += parseFloat(fill.qty);
-				});
-
-				filledPrice = totalValue / filledQty;
-
-
-				global.wallet += totalValue * (1 - global.TRADING_FEE);
                 InvestmentUtils.updateRepeatedBuyPrice(ticker, filledPrice);
                 customUtil.printBearSell(ticker, filledQty, filledPrice);
                 await db.storeTransactionToDB(ticker, filledPrice, filledQty, 0);
                 let tempPrice = InvestmentUtils.weightedAvgPrice(ticker, filledPrice, -filledQty);
+
+				global.wallet += totalValue;
                 global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
                 global.currencyWallet[ticker].qty -= filledQty;
                 global.currencyWallet[ticker].bearSellPrice = filledPrice * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
@@ -258,29 +241,29 @@ class Investment {
                 console.error('There was a problem submitting a bear sell market order: ' + e.stack);
             }
         }
-        else if (side === 'short') {
-            try {
-                let res = await executor.submitMarket(ticker, qty, 'sell');
-                res = JSON.parse(res);
-                let executedPrice = parseFloat(res.price);
-                customUtil.sanitizeOrderResponse(res);
-
-                global.wallet -= qty * price * (1 - global.TRADING_FEE);
-                InvestmentUtils.updateRepeatedShortPrice(ticker, price);
-                customUtil.printShort(ticker, qty, price);
-                await db.storeTransactionToDB(ticker, price, qty, 0);
-                let tempPrice = InvestmentUtils.weightedAvgPrice(ticker, price, -qty);
-                global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;
-                global.currencyWallet[ticker].qty -= qty;
-                global.currencyWallet[ticker].bearSellPrice = price * (1 + global.TRADING_FEE + global.MIN_PROFIT_PERCENTAGE);
-                global.storedWeightedSignalScore[ticker] = 0; // clear score
-				await db.storeWalletState();
-            }
-            catch (e) {
-                console.error('There was a problem submitting a short market order: ' + e.stack);
-            }
-        }
     }
+
+    static parseFillResponse(res) {
+		let filledPrice, filledQty = 0, totalValue = 0;
+
+		_.forEach(res.fills, (fill) => {
+			totalValue += parseFloat(fill.price) * parseFloat(fill.qty);
+			filledQty += parseFloat(fill.qty);
+			if (fill.commissionAsset !== 'BTC') {
+				global.currencyWallet[fill.commissionAsset + 'BTC'].qty -= parseFloat(fill.commission);
+			}
+			else {
+				global.wallet -= parseFloat(fill.commission);
+			}
+		});
+
+		filledPrice = totalValue / filledQty;
+		return {
+			filledPrice: filledPrice,
+			filledQty: filledQty,
+			totalValue: totalValue
+		}
+	}
 
 }
 

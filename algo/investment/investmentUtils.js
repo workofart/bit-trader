@@ -8,7 +8,12 @@ class InvestmentUtils {
 
     // calculate the weighted average price of all positions
     static weightedAvgPrice (ticker, price, qty) {
-        return (price * qty +  global.currencyWallet[ticker].qty *  global.currencyWallet[ticker].price) / (qty + global.currencyWallet[ticker].qty);
+        if (global.currencyWallet[ticker].price === 0) {
+            return price;
+		}
+		else {
+			return (price * qty +  global.currencyWallet[ticker].qty *  global.currencyWallet[ticker].price) / (qty + global.currencyWallet[ticker].qty);
+        }
     }
 
     // if a bear sell occurred, then raise the repeatedBuy to profit % of bear sell
@@ -40,10 +45,10 @@ class InvestmentUtils {
 
     static async syncCurrencyWallet (isPrintStatus = false) {
         try {
-
         	mapping.forEach((ticker) => {
         		this.setupCurrencyWallet(ticker + 'BTC');
 			});
+        	this.setupCurrencyWallet('BNBBTC');
 			await executor.getCurrentBalance();
         }
         catch(e) {

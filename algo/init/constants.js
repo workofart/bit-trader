@@ -1,11 +1,11 @@
 let investment = {
-    INITIAL_INVESTMENT: 0.04,
-    INVEST_PERCENTAGE: 0.1,
+    INITIAL_INVESTMENT: 0.0166,
+    INVEST_PERCENTAGE: 0.15,
     BUY_SIGNAL_TRIGGER: 10, // if score > this, buy
     SELL_SIGNAL_TRIGGER: -10, // if score < this, sell
     SHORT_SIGNAL_TRIGGER: -11,
     TRADING_FEE: 0.0005, // 0.X% fors all buys/sells
-    MIN_PROFIT_PERCENTAGE: 0.01, // 0.X% for min profit to make a move
+    MIN_PROFIT_PERCENTAGE: 0.007, // 0.X% for min profit to make a move
     IS_BUY_IMMEDIATELY: false, // if entry point is carefully selected, enable this. Else, disable.
     STOP_LOSS: 0.9, // sell if lost more than X%
     REPEATED_BUY_MARGIN: 0.025, // for the same coin, repeated buys must be X% lower than the current book price

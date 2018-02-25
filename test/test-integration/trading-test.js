@@ -215,7 +215,7 @@ const performGS = async () => {
         // global.CORRELATION_PERIOD = 0;
 
 		// await processor(TickerProcessor.processTickerPrice, 'binance_short');
-		await processor(TickerProcessor.processTickerPrice, 'binance_sideway');
+		await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
 		// await processor(TickerProcessor.processTickerPrice, 'binance_down');
 		// await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
         // await processor(processTickerPrice, 'live_price_down_3');

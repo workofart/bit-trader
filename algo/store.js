@@ -1,4 +1,6 @@
 const db = require('../db/config');
+const copyTo = require('pg-copy-streams').to;
+const path = require('path');
 const moment = require('moment');
 const util = require('util');
 
@@ -81,28 +83,49 @@ exports.storeWalletState = (timestamp = moment().local().format('YYYY-MM-DD HH:m
 			let params = [totalValue, timestamp]
 
 			let query = `INSERT INTO BINANCE_WALLET (balance, timestamp) VALUES ($1, $2);`;
-			db.pool.connect((err, client, done) => {
-				if (err) throw err;
-				client.query(
-					query, params, (err, result) => {
-						done();
-						if (err && err.code !== 23505) {
-							util.error(err);
-							util.error('There was a error when inserting into live wallet table');
-							reject(1);
+			if (!isNaN(totalValue)) {
+				db.pool.connect((err, client, done) => {
+					if (err) throw err;
+					client.query(
+						query, params, (err, result) => {
+							done();
+							if (err && err.code !== 23505) {
+								util.error(err);
+								util.error('There was a error when inserting into live wallet table');
+								reject(1);
+							}
+							else {
+								util.log(`Stored Wallet State: ${totalValue.toFixed(6)}BTC`)
+								resolve(0);
+							}
 						}
-						else {
-							util.log(`Stored Wallet State: ${totalValue.toFixed(6)}BTC`)
-							resolve(0);
-						}
-					}
-				)
-			})
+					)
+				})
+			}
 		}
 		else {
     		resolve(0);
 		}
     })
+}
+
+exports.exportDBToCSV = () => {
+	let timestamp = moment().local().format('YYYYMMDD_HHmmss');
+	let outputPath = path.join(__dirname, '..', 'test', 'data', `binance_${timestamp}.csv`);
+	console.log(outputPath);
+
+	db.pool.connect(function(err, client, done) {
+		if (err) console.error(err);
+		var stream = client.query(copyTo(
+			`COPY binance_live_price TO '${outputPath}' DELIMITER ',' CSV HEADER;`));
+		stream.pipe(process.stdout);
+		stream.on('end', done);
+		stream.on('error', () => {
+			console.error('There was an error exporting the DB to csv ');
+			done();
+		});
+
+	});
 }
 
 // exports.storeWallet = (balance, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {

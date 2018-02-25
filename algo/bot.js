@@ -40,6 +40,7 @@ process.on('SIGINT', function () {
     process.exit();
 });
 
+store.exportDBToCSV();
 db.clearTable('binance_transactions');
 db.clearTable('binance_live_price');
 db.clearTable('binance_wallet');
@@ -48,32 +49,24 @@ db.clearTable('binance_wallet');
 if (global.isLive) {
     (async() => {
         await InvestmentUtils.syncCurrencyWallet();
-        Object.keys(global.currencyWallet).forEach((ticker) => {
-            if (global.currencyWallet[ticker].qty > 0) {
+        let prices = await executor.getLatestPrices();
+        for (let ticker of Object.keys(global.currencyWallet)) {
+			if (global.currencyWallet[ticker].qty > 0) {
+				global.currencyWallet[ticker].price = await executor.getHoldingPrice(ticker);
 				global.currencyWallet[ticker].repeatedBuyPrice = 0;
 				global.currencyWallet[ticker].bearSellPrice = 0;
-            }
-        });
-
-		let availableTickers = _.filter(Object.keys(global.currencyWallet), (ticker) => {
-			return global.currencyWallet[ticker].qty > 0;
-		});
-
-		console.log('Holding coins: ' + availableTickers);
-
-		for (let ticker of availableTickers) {
-			let price = await executor.getHoldingPrice(ticker);
-			global.currencyWallet[ticker].price = price;
+			}
+			global.latestPrice[ticker] = parseFloat(prices[ticker]);
 		}
 
         CustomUtil.printWalletStatus();
 
     })();
 
-    // Store wallet state after 20 seconds to get full price feeds
+    // Store wallet state after 30 seconds to get full price feeds
     setTimeout(() => {
     	db.storeWalletState();
-	}, 20000)
+	}, 30000)
 }
 
 /********************* BINANCE WEBSOCKET *******************/
@@ -104,7 +97,7 @@ function balance_update(data) {
 	console.log("Currency Wallet Update");
 	// executor.getCurrentBalance();
 	CustomUtil.printWalletStatus();
-	db.storeWalletState();
+	// db.storeWalletState();
 }
 
 function execution_update(data) {

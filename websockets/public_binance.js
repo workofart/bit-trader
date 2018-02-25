@@ -34,27 +34,27 @@ binance.options(CONFIGS);
 // });
 
 
-// binance.exchangeInfo(function(error, data) {
-// 	let minimums = [];
-// 	for ( let obj of data.symbols ) {
-// 		let filters = {pair: obj.symbol, minNotional:0.001,minimum_order_size:1,maxQty:10000000,stepSize:1,minPrice:0.00000001,maxPrice:100000};
-// 		for ( let filter of obj.filters ) {
-// 			if ( filter.filterType == "MIN_NOTIONAL" ) {
-// 				filters.minNotional = filter.minNotional;
-// 			} else if ( filter.filterType == "PRICE_FILTER" ) {
-// 				filters.minPrice = filter.minPrice;
-// 				filters.maxPrice = filter.maxPrice;
-// 			} else if ( filter.filterType == "LOT_SIZE" ) {
-// 				filters.minimum_order_size = filter.minQty;
-// 				filters.maxQty = filter.maxQty;
-// 				filters.stepSize = filter.stepSize;
-// 			}
-// 		}
-// 		minimums.push(filters);
-// 	}
-// 	// console.log(minimums);
-// 	fs.writeFile("minimums.json", JSON.stringify(minimums, null, 4), function(err){});
-// });
+binance.exchangeInfo(function(error, data) {
+	let minimums = [];
+	for ( let obj of data.symbols ) {
+		let filters = {pair: obj.symbol, minNotional:0.001,minimum_order_size:1,maxQty:10000000,stepSize:1,minPrice:0.00000001,maxPrice:100000};
+		for ( let filter of obj.filters ) {
+			if ( filter.filterType == "MIN_NOTIONAL" ) {
+				filters.minNotional = filter.minNotional;
+			} else if ( filter.filterType == "PRICE_FILTER" ) {
+				filters.minPrice = filter.minPrice;
+				filters.maxPrice = filter.maxPrice;
+			} else if ( filter.filterType == "LOT_SIZE" ) {
+				filters.minimum_order_size = filter.minQty;
+				filters.maxQty = filter.maxQty;
+				filters.stepSize = filter.stepSize;
+			}
+		}
+		minimums.push(filters);
+	}
+	// console.log(minimums);
+	fs.writeFile("minimums.json", JSON.stringify(minimums, null, 4), function(err){});
+});
 
 
 // The only time the user data (account balances) and order execution websockets will fire, is if you create or cancel an order, or an order gets filled or partially filled
@@ -106,7 +106,7 @@ const getCurrentBalance = () => {
 
 // executor.getHoldingPrice('ADABTC');
 
-getCurrentBalance()
+// getCurrentBalance()
 
 // const throlled = _.throttle((candlesticks) => {
 // 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
