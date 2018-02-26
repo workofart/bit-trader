@@ -26,15 +26,6 @@ const getAccountSummary = () => {
 	});
 };
 
-// Margin Trading N/A for Binance
-// const getActivePositionsByTicker = async (ticker) => {
-// 	return new Promise((resolve) => {
-// 		binance.openOrders(ticker, (err, res, symbol) => {
-// 			resolve(res);
-// 		});
-// 	})
-// };
-
 // const getActivePositions = async () => {
 // 	return new Promise((resolve) => {
 // 		binance.openOrders(false, (err, res) => {

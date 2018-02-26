@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Button, Divider, Grid } from 'semantic-ui-react';
-import logo from './logo.svg';
 import './App.css';
 import PriceChart from './components/charts/price';
 import CustomStats from './components/stats/Stats';
 import CustomTable from './components/table/Table';
 import SidePanel from './components/sidepanel/SidePanel'
-// import ReconnectingWebSocket from './reconnecting-websocket.min';
-// const ws = new ReconnectingWebSocket('ws://127.0.0.1:1338', null, {
-//   debug: true,
-//   reconnectInterval: 3000
-// })
 
-// const ws = new WebSocket('ws://127.0.0.1:1338')
 const $ = require('jquery');
 const _ = require('underscore');
+const Utils = require('./lib/utils');
+const mapping = require('./mapping_binance');
 
 const URL = 'http://127.0.0.1:3001/api/';
 var msgQ = [];
@@ -54,8 +49,11 @@ class App extends Component {
 
   // }
 
-  componentDidMount() {
 
+  componentDidMount() {
+    mapping.forEach((ticker) => {
+		this.getTradesByTicker(ticker);
+    })
   }
 
   getTradesByTicker(ticker) {

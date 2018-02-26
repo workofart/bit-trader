@@ -1,31 +1,10 @@
 import React, { Component } from 'react';
 import {Statistic} from 'semantic-ui-react';
-const $ = require('jquery');
-const moment = require('moment')
-const util = require('util');
-
-const calculateProfit = (data) => {
-    let netPosition = 0,
-        netQty = 0;
-    for (var i in data) {
-        if (data[i].side) {
-            netPosition -= data[i].qty * data[i].price;
-            netQty += data[i].qty;
-        }
-        else {
-            netPosition += data[i].qty * data[i].price;
-            netQty -= data[i].qty;
-        }
-    }
-    if (netQty > 0) {
-        netPosition += netQty * data[data.length - 1].price;
-    }
-    return netPosition;
-}
+const Utils = require('../../lib/utils');
 
 class PerformanceStats extends Component {
     render() {
-        var profit = calculateProfit(this.props.data);
+        var profit = Utils.calculateProfit(this.props.data);
 
         return (
             <Statistic.Group>
