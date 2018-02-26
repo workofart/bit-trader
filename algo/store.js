@@ -127,22 +127,3 @@ exports.exportDBToCSV = () => {
 
 	});
 }
-
-// exports.storeWallet = (balance, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {
-//     let params = [balance, timestamp];
-//     let query = `INSERT INTO bitfinex_live_wallet (balance, timestamp) VALUES ($1, $2);`;
-//     db.pool.connect((err, client, done) => {
-//         if (err) throw err;
-//         client.query(
-//             query, params, (err, result) => {
-//                 done()
-//                 if (err && err.code !== 23505) {
-//                     util.error(err);
-//                     util.error('There was a error when inserting into live wallet table');
-//                 }
-//                 else {
-//                     // util.log(`[${timestamp}] balance: $${price}`)
-//                 }
-//             })
-//     })
-// }

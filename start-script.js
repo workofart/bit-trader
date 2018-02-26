@@ -1,18 +1,7 @@
-const args = [ 'SocketServer.js', 'public.js', 'bot.js' ];
-const cwds = ['websockets', 'websockets', 'algo'];
-const stdios = ['inherit', 'inherit', 'pipe']
-const logStream = [ 'SocketServer', 'public', 'bot' ];
-
 const moment = require('moment');
 const child = require('child_process');
 const fs = require('fs');
-const path = require('path');
 const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
-
-// child.spawn('node', ['SocketServer.js'], {cwd: 'websockets', shell: true});
-
-// child.spawn('node', ['public.js'], {cwd: 'websockets', shell: true});
-
 
 /*******************************************/
 var logfile = `./logs/bot_${currentTime}.log`;

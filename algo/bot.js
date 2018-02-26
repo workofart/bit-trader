@@ -40,7 +40,7 @@ process.on('SIGINT', function () {
     process.exit();
 });
 
-store.exportDBToCSV();
+db.exportDBToCSV();
 db.clearTable('binance_transactions');
 db.clearTable('binance_live_price');
 db.clearTable('binance_wallet');

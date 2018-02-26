@@ -1,8 +1,7 @@
 /**
  * This file contains functions that will help perform tedious tasks in a split second
  */
-const userAPI = require('../api/user_functions'),
-      executor = require('./executor'),
+const executor = require('./executorBinance'),
       _ = require('underscore'),
       MIN_AMOUNT = require('./minOrder');
 

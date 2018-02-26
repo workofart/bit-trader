@@ -105,7 +105,9 @@ describe('Investment Unit Tests', () => {
     });
 
     describe('Order Quantity', () => {
-        beforeAll(() => {
+        let ticker = 'DGDBTC';
+        before(() => {
+            global.latestPrice[ticker] = 1000;
             global.currencyWallet = {};
             mapping.forEach((ticker) => {
 				global.currencyWallet[ticker+'BTC'] = {};
