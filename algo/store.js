@@ -5,22 +5,26 @@ const moment = require('moment');
 const util = require('util');
 
 exports.clearTable = (tableName) => {
-    let query = `delete from ${tableName};`
-    db.pool.connect((err, client, done) => {
-        if (err) throw err
-        client.query(
-            query, (err, result) => {
-                done()
-                if (err && err.code !== 23505) {
-                    util.error(err);
-                    util.error(`There was a error when clearing the ${tableName} table`)
-                }
-                else {
-                    util.log(`Success clearing ${tableName} table`);
-                }
-            }
-        )
-    })
+	return new Promise((resolve, reject) => {
+		let query = `delete from ${tableName};`
+		db.pool.connect((err, client, done) => {
+			if (err) throw err
+			client.query(
+				query, (err, result) => {
+					done()
+					if (err && err.code !== 23505) {
+						util.error(err);
+						util.error(`There was a error when clearing the ${tableName} table`)
+						reject(1)
+					}
+					else {
+						util.log(`Success clearing ${tableName} table`);
+						resolve(0);
+					}
+				}
+			)
+		})
+	})
 }
 
 exports.storeTransactionToDB = (ticker, price, qty, side, timestamp = moment().local().format('YYYY-MM-DD HH:mm:ss')) => {

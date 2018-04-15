@@ -5,12 +5,6 @@ var db_controller = require('./db');
 
 
 /*********************************************************
- *                  Order/Trade APIs
- *********************************************************/
-router.get('/getActivePositions', user_controller.getActivePositions);
-router.get('/getPastTrades', user_controller.getPastTrades);
-
-/*********************************************************
  *                  DB APIs
  *********************************************************/
 

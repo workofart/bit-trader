@@ -27,7 +27,7 @@ let indicatorFlags = {
 };
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
-global.isBacktest = true;
+global.isBacktest = false;
 
 
 /**
@@ -172,9 +172,9 @@ const performGS = async () => {
 (
     async () => {
         // global.isParamTune = true;
-		dbExecutor.clearTable('binance_transactions');
-		dbExecutor.clearTable('binance_live_price');
-		dbExecutor.clearTable('binance_wallet');
+		await dbExecutor.clearTable('binance_transactions');
+		await dbExecutor.clearTable('binance_live_price');
+		await dbExecutor.clearTable('binance_wallet');
 
         // dbExecutor.clearTable('bitfinex_transactions');
         // dbExecutor.clearTable('bitfinex_live_price');
