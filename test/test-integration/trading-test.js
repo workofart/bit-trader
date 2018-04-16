@@ -1,16 +1,16 @@
 const moment = require('moment'),
-      init = require('../../algo/init/init'),
-      dbExecutor = require('../../algo/store'),
-      customUtil = require('../../algo/custom_util'),
-      gridSearch = require('../lib/grid_search'),
-      mapping = require('../../websockets/mapping_binance'),
-      _ = require('underscore'),
-      Investment = require('../../algo/investment/investment'),
-      InvestmentUtils = require('../../algo/investment/investmentUtils'),
-      TickerProcessor = require('../../algo/DataProcessors/ticker');
-      indicators = require('../../algo/indicators'),
-      testUtil = require('../lib/testUtil'),
-      clusterManager = require('./clusterManager');
+    init = require('../../algo/init/init'),
+    dbExecutor = require('../../algo/store'),
+    customUtil = require('../../algo/custom_util'),
+    gridSearch = require('../lib/grid_search'),
+    mapping = require('../../websockets/mapping_binance'),
+    _ = require('underscore'),
+    Investment = require('../../algo/investment/investment'),
+    InvestmentUtils = require('../../algo/investment/investmentUtils'),
+    TickerProcessor = require('../../algo/DataProcessors/ticker');
+indicators = require('../../algo/indicators'),
+testUtil = require('../lib/testUtil'),
+clusterManager = require('./clusterManager');
 
 const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 
@@ -19,15 +19,15 @@ require('../../algo/init/init');
 let tickerPrices = {},
     storedCounts = {};
 
-let indicatorFlags = {
+const indicatorFlags = {
     ADX: true,
     RSI: true,
     DEMA_SMA_CROSS: true,
-    PSAR: true
+    PSAR: true,
 };
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
-global.isBacktest = false;
+global.isBacktest = true;
 
 
 /**
@@ -39,35 +39,35 @@ const processor = async (subprocessor, dataFile) => {
     console.time(`-- [${dataFile}] --`);
 
     try {
-        let counter = 0;
+        const counter = 0;
         let data = await testUtil.parseCSV(dataFile);
-        data = _.sortBy(data, (a) => { return a.timestamp});
+        data = _.sortBy(data, a => a.timestamp);
         // let pnl = (parseFloat(data[data.length - 1].price) - parseFloat(data[0].price) / parseFloat(data[0].price) * 100).toFixed(2);
         // console.log(`B&H: ${pnl}%`);
-		// dbExecutor.storeWalletState(data[0].timestamp);
-        for (var i = 0, len = data.length; i < len; i++) {
+        // dbExecutor.storeWalletState(data[0].timestamp);
+        for (let i = 0, len = data.length; i < len; i++) {
             // console.log(`${data[i].timestamp} | ${data[i].ticker}`);
             data[i].last_price = parseFloat(data[i].price);
             delete data[i].price;
             delete data[i].rsi;
             delete data[i].bb_lower;
             delete data[i].bb_upper;
-            let { ticker, last_price, high, low, volume, timestamp } = data[i];
+            const {
+                ticker, last_price, high, low, volume, timestamp,
+            } = data[i];
             // dbExecutor.storeWallet(global.wallet, timestamp);
             await subprocessor(ticker, data[i]);
         }
         // let profit = customUtil.printPNL();
-        let profit = customUtil.printBacktestSummary();
+        const profit = customUtil.printBacktestSummary();
         // console.log(JSON.stringify(global.currencyWallet, null, 2));
         resetVariables();
         console.timeEnd(`-- [${dataFile}] --`);
         return profit;
         // customUtil.printWalletStatus();
+    } catch (e) {
+        console.error(`Problem with parsing the csv file: ${e.stack}`);
     }
-    catch(e) {
-        console.error('Problem with parsing the csv file: ' + e.stack);
-    }
-
 };
 
 const resetVariables = () => {
@@ -88,7 +88,7 @@ const resetVariables = () => {
 const performGS = async () => {
     global.isParamTune = true;
     try {
-        let options = {
+        const options = {
             params: {
                 DATA: [
                     // 'live_price_down',
@@ -103,8 +103,8 @@ const performGS = async () => {
                     // 'live_price_sideway_huge',
                     // 'live_price_up'
                     'binance_sideway',
-					// 'binance_short',
-					'binance_down'
+                    // 'binance_short',
+                    'binance_down',
                 ],
                 CORRELATION: [30],
                 PROFIT: [0.004, 0.006, 0.008, 0.01],
@@ -118,7 +118,7 @@ const performGS = async () => {
                 LOW_RSI_OFFSET: [5],
                 LOW_BB_OFFSET: [0.95],
                 UP_STOP_LIMIT: [0.002],
-                DOWN_STOP_LIMIT: [0.002]
+                DOWN_STOP_LIMIT: [0.002],
                 // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
                 // CORRELATION: [30, 45, 60],
                 // PROFIT: [0.008, 0.01, 0.012],
@@ -145,47 +145,45 @@ const performGS = async () => {
                 global.UP_STOP_LIMIT = comb.UP_STOP_LIMIT;
                 global.DOWN_STOP_LIMIT = comb.DOWN_STOP_LIMIT;
 
-                let pnl = await processor(TickerProcessor.processTickerPrice, comb.DATA);
+                const pnl = await processor(TickerProcessor.processTickerPrice, comb.DATA);
 
                 // return the result - shape and content don't matter
-                return { pnl: pnl};
-            }
+                return { pnl };
+            },
         };
-        let grid_search = new gridSearch.GridSearch(options);
+        const grid_search = new gridSearch.GridSearch(options);
         await grid_search.run();
         await grid_search.displayTableOfResults(
             ['DATA'],
             [
-                "CORRELATION", "PROFIT", "INVEST", "REPEAT_BUY", "BEAR_LOSS", "RSI",
-                "UPPER_RSI", "LOWER_RSI", "BB_STD_DEV", "LOW_RSI_OFFSET", "LOW_BB_OFFSET",
-                "UP_STOP_LIMIT", "DOWN_STOP_LIMIT"
+                'CORRELATION', 'PROFIT', 'INVEST', 'REPEAT_BUY', 'BEAR_LOSS', 'RSI',
+                'UPPER_RSI', 'LOWER_RSI', 'BB_STD_DEV', 'LOW_RSI_OFFSET', 'LOW_BB_OFFSET',
+                'UP_STOP_LIMIT', 'DOWN_STOP_LIMIT',
             ],
-            x => +(x.results.pnl)   // this callback needs to return single number for each result
+            x => +(x.results.pnl), // this callback needs to return single number for each result
         );
+    } catch (e) {
+        console.error(`Error while grid searching: ${e.stack}`);
     }
-    catch(e) {
-        console.error('Error while grid searching: ' + e.stack);
-    }
-
-}
+};
 
 (
     async () => {
         // global.isParamTune = true;
-		await dbExecutor.clearTable('binance_transactions');
-		await dbExecutor.clearTable('binance_live_price');
-		await dbExecutor.clearTable('binance_wallet');
+        await dbExecutor.clearTable('binance_transactions');
+        await dbExecutor.clearTable('binance_live_price');
+        await dbExecutor.clearTable('binance_wallet');
 
         // dbExecutor.clearTable('bitfinex_transactions');
         // dbExecutor.clearTable('bitfinex_live_price');
         // dbExecutor.clearTable('bitfinex_live_wallet');
 
         // Simulate a half-way state
-		// InvestmentUtils.setupCurrencyWallet('EOSUSD');
-		// global.currencyWallet.XMRUSD.qty = 0.42;
-		// global.currencyWallet.XMRUSD.price = 330.42;
+        // InvestmentUtils.setupCurrencyWallet('EOSUSD');
+        // global.currencyWallet.XMRUSD.qty = 0.42;
+        // global.currencyWallet.XMRUSD.price = 330.42;
 
-		// await processor(TickerProcessor.processTickerPrice, 'test');
+        // await processor(TickerProcessor.processTickerPrice, 'test');
 
         // global.MIN_PROFIT_PERCENTAGE = 0.008;
         // global.INVEST_PERCENTAGE = 0.06;
@@ -199,10 +197,11 @@ const performGS = async () => {
         // global.DOWN_STOP_LIMIT = 0.002;
         // global.CORRELATION_PERIOD = 0;
 
-		// await processor(TickerProcessor.processTickerPrice, 'binance_short');
-		await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
-		// await processor(TickerProcessor.processTickerPrice, 'binance_down');
-		// await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_short');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_down');
+        await processor(TickerProcessor.processTickerPrice, 'binance_20180415_203651');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
         // await processor(processTickerPrice, 'live_price_down');
@@ -213,7 +212,7 @@ const performGS = async () => {
         // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');
         // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
 
-		// await performGS();
+        // await performGS();
     }
 )();
 

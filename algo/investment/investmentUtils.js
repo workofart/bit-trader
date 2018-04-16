@@ -41,6 +41,7 @@ class InvestmentUtils {
         global.currencyWallet[ticker].downTrendLimitPrice = global.currencyWallet[ticker].downTrendLimitPrice !== undefined ?  global.currencyWallet[ticker].downTrendLimitPrice : 99999;
         global.currencyWallet[ticker].isDownTrendBuy = global.currencyWallet[ticker].isDownTrendBuy !== undefined ? global.currencyWallet[ticker].isDownTrendBuy : false;
 		global.currencyWallet[ticker].upTrendLimitPrice = global.currencyWallet[ticker].upTrendLimitPrice !== undefined ? global.currencyWallet[ticker].upTrendLimitPrice : 0;
+		global.currencyWallet[ticker].immediateLossSignal = global.currencyWallet[ticker].immediateLossSignal !== undefined ? global.currencyWallet[ticker].immediateLossSignal : false;
     }
 
     static async syncCurrencyWallet (isPrintStatus = false) {
@@ -64,6 +65,7 @@ class InvestmentUtils {
         global.currencyWallet[ticker].upTrendLimitPrice = 0;
         global.currencyWallet[ticker].downTrendLimitPrice = 99999;
         global.currencyWallet[ticker].isDownTrendBuy = false;
+		global.currencyWallet[ticker].immediateLossSignal = false;
         global.storedWeightedSignalScore[ticker] = 0; // clear score
     }
 

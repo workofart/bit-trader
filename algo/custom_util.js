@@ -38,7 +38,7 @@ const printPNL = () => {
 
         // console.log(`Starting Value: $${INITIAL_INVESTMENT}`);
         let profit = currencyValue + global.wallet - global.INITIAL_INVESTMENT;
-        console.log(`Holding [${numCoins}] coins | $${profit.toFixed(8)} | ${(profit / global.INITIAL_INVESTMENT * 100).toFixed(8)}%`);
+        console.log(`Holding [${numCoins}] coins | ${profit.toFixed(8)} BTC | ${(profit / global.INITIAL_INVESTMENT * 100).toFixed(8)}%`);
         // console.log(`CurrencyValue: ${currencyValue}`);
         // console.log(`WalletValue: ${global.wallet}`);
         return (profit / global.INITIAL_INVESTMENT * 100).toFixed(8);

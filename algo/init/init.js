@@ -20,7 +20,7 @@ const {
 
 
 // Bot Global Variables
-// global.wallet = INITIAL_INVESTMENT;
+global.wallet = INITIAL_INVESTMENT;
 global.currencyWallet = {};
 global.latestPrice = {};
 global.tickerPrices = {};

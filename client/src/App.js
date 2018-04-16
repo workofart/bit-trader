@@ -20,40 +20,22 @@ const tickers = _.map(require('./mapping_binance'), (i) => i + 'BTC');
 class App extends Component {
   state = {
     trades: [],
+    prices: {},
     ticker: ''
   }
 
   ids = [];
 
-  // componentDidMount() {
-
-  // ws.onopen = () => {
-  //     console.log('Connected to local [Bot] websocket server');
-  // }
-
-  // ws.onmessage = (data) => {
-  //     var parsedData = JSON.parse(data.data);
-  //     // check if the data is the same
-  //       msgQ = [...msgQ, parsedData];
-  //       if (msgQ.length > queueThreshold) {
-  //           msgQ.shift();
-  //       }
-  //       // console.log(parsedData);
-  //       this.setState({data: msgQ});
-  // }
-
-  // ws.onclose = () => {
-  //   console.log('Client disconnected')
-  // }
-
-
-  // }
 
 
   componentDidMount() {
     mapping.forEach((ticker) => {
 		this.getTradesByTicker(ticker);
     })
+  }
+
+  setPrices(prices) {
+    this.setState({prices : prices});
   }
 
   getTradesByTicker(ticker) {
@@ -102,8 +84,8 @@ class App extends Component {
 			<Grid.Column width={13}>
         {/*<Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>*/}
 
-          <PriceChart ticker={this.state.ticker} data={this.state.trades}/>
-          <CustomStats data={this.state.trades} />
+          <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>
+          <CustomStats data={this.state.trades} prices={this.state.prices}/>
           <Divider />
           <CustomTable ticker={this.state.ticker} data={this.state.trades} />
         {/*</Container>*/}

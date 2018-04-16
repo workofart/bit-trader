@@ -18,7 +18,7 @@ const utilities = require('./custom_util'),
 require('./init/init');
 
 
-global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 /***************************************************/
 
 util.log('=======================');
@@ -40,10 +40,13 @@ process.on('SIGINT', function () {
     process.exit();
 });
 
-db.exportDBToCSV();
-db.clearTable('binance_transactions');
-db.clearTable('binance_live_price');
-db.clearTable('binance_wallet');
+(async() => {
+	await db.exportDBToCSV();
+	await db.clearTable('binance_transactions');
+	await db.clearTable('binance_live_price');
+	await db.clearTable('binance_wallet');
+})()
+
 
 
 if (global.isLive) {

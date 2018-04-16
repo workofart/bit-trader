@@ -40,6 +40,7 @@ var renderChart = (ticker, that, trades) => {
                         {
                             success: (data) => {
                                 if (data.length > 0) {
+									that.props.setPricesFunc(data);
                                     this.hideLoading();
                                     _.forEach(data, (price) => {
                                         series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
@@ -132,7 +133,7 @@ var renderChart = (ticker, that, trades) => {
         yAxis: [
             {
                 title: {
-                    text: 'Price (USD)'
+                    text: 'Price (BTC)'
                 },
                 opposite: false,
                 height: '60%',

@@ -5,10 +5,11 @@ const Utils = require('../../lib/utils');
 class PerformanceStats extends Component {
     render() {
         var profit = Utils.calculateProfit(this.props.data);
+        var bhProfit = Utils.calculateBHProfit(this.props.prices);
 
         return (
             <Statistic.Group>
-                {profit >= 0 ? 
+                {profit >= 0 && bhProfit >= 0 ?
                         <Statistic color='green'>
                             <Statistic.Value>{profit.toFixed(8)}BTC</Statistic.Value>
                             <Statistic.Label>Profitability</Statistic.Label>
@@ -19,6 +20,10 @@ class PerformanceStats extends Component {
                             <Statistic.Label>Profitability</Statistic.Label>
                         </Statistic>
                 }
+				<Statistic color='grey'>
+					<Statistic.Value>{(bhProfit * 100).toFixed(4)}%</Statistic.Value>
+					<Statistic.Label>Buy and Hold Profitability</Statistic.Label>
+				</Statistic>
             </Statistic.Group>
         )
     }

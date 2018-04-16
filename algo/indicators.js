@@ -195,7 +195,6 @@ exports.calculateBB_RSI = async (close, period = global.RSI) => {
             let bb_score = await BB(close, period, global.BB_STD_DEV);
             // console.timeEnd('BB_RSI');
             let { bb_lower, bb_upper } = bb_score;
-            // util.log(`low:${bb_lower} | high: ${bb_upper} | rsi: ${rsi}`)
             // Long position
             if (rsi > 0 && rsi < global.LOWER_RSI && close[close.length - 1] <= bb_lower * (1 + 0.002)) {
                 return { indicatorValue: 10, rsi: rsi, bb_lower: bb_lower, bb_upper: bb_upper};
