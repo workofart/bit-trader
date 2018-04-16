@@ -115,7 +115,7 @@ exports.exportDBToCSV = () => new Promise((resolve, reject) => {
         stream.on('error', () => {
             console.error('There was an error exporting the DB to csv ');
             done();
-            reject(1);
+            resolve(0);
         });
     });
 });

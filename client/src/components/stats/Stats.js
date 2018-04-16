@@ -9,7 +9,7 @@ class PerformanceStats extends Component {
 
         return (
             <Statistic.Group>
-                {profit >= 0 && bhProfit >= 0 ?
+                {profit >= 0 ?
                         <Statistic color='green'>
                             <Statistic.Value>{profit.toFixed(8)}BTC</Statistic.Value>
                             <Statistic.Label>Profitability</Statistic.Label>

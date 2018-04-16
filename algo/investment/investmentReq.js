@@ -66,7 +66,7 @@ class InvestmentReq {
 	 * @returns {boolean|*}
 	 */
     static conservativeSell(ticker, price) {
-        return global.currencyWallet[ticker].immediateLossSignal && (price > global.currencyWallet[ticker].price * (1 + 0.003 + global.TRADING_FEE));
+        return global.currencyWallet[ticker].immediateLossSignal && (price > global.currencyWallet[ticker].price * (1 + 0.002 + global.TRADING_FEE));
     }
 
     static maxProfitStopLimitReq(ticker) {
