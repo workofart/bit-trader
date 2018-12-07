@@ -171,56 +171,6 @@ module.exports.resetLivePriceFlag = function(req, res) {
     sendJsonResponse(res, 200, [])
 }
 
-// module.exports.getLivePrices = function(req, res) {
-//     var ticker = req.params.ticker;
-//     var query = `SELECT * FROM BITFINEX_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;
-//     console.log('getLivePrices api called')
-//     if(tickerCursors[ticker] === -1) {
-//         console.log('Nothing to load ' + ticker)
-//         sendJsonResponse(res, 200, []);
-//         return;
-//     }
-//     db.pool.connect((err, client, done) => {
-//         if (tickerCursors[ticker] === undefined) {
-//             console.log(`Started initial load for [${ticker}]`);
-//             const cursor = client.query(new Cursor(query))
-//             tickerCursors[ticker] = cursor;
-//         }
-//         // handle done
-//         // else if(tickerCursors[ticker] === -1) {
-//         //     console.log('Nothing to load ' + ticker)
-//         //     sendJsonResponse(res, 200, []);
-//         // }
-//         if (tickerCursors[ticker] != -1) {
-//             // console.log(tickerCursors);
-//             tickerCursors[ticker].read(3000, (err, rows) => {
-//                 done()
-//                 if(err) {
-//                     console.log(err);
-//                     sendJsonResponse(res, 500, 'DB error');
-//                     throw err;
-//                 }
-//                 if (rows.length > 0) {
-//                     console.log(`Row count: ${rows.length}`)
-//                     sendJsonResponse(res, 200, rows);
-//                 }
-//                 else {
-//                     console.log(`All data finished loading for [${ticker}]`)
-//                     sendJsonResponse(res, 200, []);
-//                     tickerCursors[ticker] = -1;
-//                     // tickerCursors[ticker].close((err) => {
-//                     //     if (err) {
-//                     //         console.log(err);
-//                     //     }
-//                     // });
-//                 }
-//             })
-            
-//         }
-//     });
-// }
-
-
 module.exports.getLivePrices = function(req, res) {
     var ticker = req.params.ticker;
     var query = `SELECT * FROM BINANCE_LIVE_PRICE WHERE TICKER='${ticker}' ORDER BY TIMESTAMP;`;

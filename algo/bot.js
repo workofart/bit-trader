@@ -18,7 +18,7 @@ const utilities = require('./custom_util'),
 require('./init/init');
 
 
-global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
+global.isLive = true; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 /** ************************************************ */
 
 util.log('=======================');
@@ -50,18 +50,21 @@ process.on('SIGINT', () => {
 
 if (global.isLive) {
     (async () => {
-        await InvestmentUtils.syncCurrencyWallet();
-        const prices = await executor.getLatestPrices();
-        for (const ticker of Object.keys(global.currencyWallet)) {
-            if (global.currencyWallet[ticker].qty > 0) {
-                global.currencyWallet[ticker].price = await executor.getHoldingPrice(ticker);
-                global.currencyWallet[ticker].repeatedBuyPrice = 0;
-                global.currencyWallet[ticker].bearSellPrice = 0;
-            }
-            global.latestPrice[ticker] = parseFloat(prices[ticker]);
-        }
+        binance.useServerTime(async () => {
+			await InvestmentUtils.syncCurrencyWallet();
+			const prices = await executor.getLatestPrices();
+			for (const ticker of Object.keys(global.currencyWallet)) {
+				if (global.currencyWallet[ticker].qty > 0) {
+					global.currencyWallet[ticker].price = await executor.getHoldingPrice(ticker);
+					global.currencyWallet[ticker].repeatedBuyPrice = 0;
+					global.currencyWallet[ticker].bearSellPrice = 0;
+				}
+				global.latestPrice[ticker] = parseFloat(prices[ticker]);
+			}
 
-        CustomUtil.printWalletStatus();
+			CustomUtil.printWalletStatus();
+        })
+
     })();
 
     // Store wallet state after 30 seconds to get full price feeds

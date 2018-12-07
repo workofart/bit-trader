@@ -118,7 +118,7 @@ class Investment {
     }
 
     static isImmediateLossSignal(ticker, price) {
-        if (global.currencyWallet[ticker].price > price && global.currencyWallet[ticker].qty > 0) {
+        if (global.currencyWallet[ticker].price * (1 - global.MIN_PROFIT_PERCENTAGE) > price && global.currencyWallet[ticker].qty > 0) {
             global.currencyWallet[ticker].immediateLossSignal = true;
         }
     }

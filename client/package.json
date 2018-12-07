@@ -6,8 +6,8 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.75.1"
+    "semantic-ui-css": "^2.3",
+    "semantic-ui-react": "^0.83.0"
   },
   "devDependencies": {
     "bufferutil": "^3.0.2",

@@ -36,15 +36,6 @@
     "maxPrice": "100000.00000000"
   },
   {
-    "pair": "123456",
-    "minNotional": "0.00100000",
-    "minimum_order_size": "0.00100000",
-    "maxQty": "100000.00000000",
-    "stepSize": "0.00100000",
-    "minPrice": "0.00000100",
-    "maxPrice": "100000.00000000"
-  },
-  {
     "pair": "QTUMETH",
     "minNotional": "0.01000000",
     "minimum_order_size": "0.01000000",
@@ -911,17 +902,17 @@
   {
     "pair": "YOYOBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
     "pair": "POWRBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -966,7 +957,7 @@
     "pair": "NULSBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -992,10 +983,10 @@
   {
     "pair": "RCNBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -1038,7 +1029,7 @@
     "pair": "RDNBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1065,7 +1056,7 @@
     "pair": "DLTBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1119,7 +1110,7 @@
     "pair": "AMBBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1173,7 +1164,7 @@
     "pair": "BATBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1200,7 +1191,7 @@
     "pair": "BCPTBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1334,10 +1325,10 @@
   {
     "pair": "QSPBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -1362,7 +1353,7 @@
     "pair": "BTSBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1515,7 +1506,7 @@
     "pair": "IOTABNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1542,7 +1533,7 @@
     "pair": "ADXBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1605,7 +1596,7 @@
     "pair": "CMTBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1632,7 +1623,7 @@
     "pair": "XLMBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1658,10 +1649,10 @@
   {
     "pair": "CNDBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -1704,7 +1695,7 @@
     "pair": "WABIBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1803,7 +1794,7 @@
     "pair": "GTOBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1830,7 +1821,7 @@
     "pair": "ICXBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1856,10 +1847,10 @@
   {
     "pair": "OSTBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -1902,7 +1893,7 @@
     "pair": "AIONBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1929,7 +1920,7 @@
     "pair": "NEBLBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1956,7 +1947,7 @@
     "pair": "BRDBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -1965,7 +1956,7 @@
     "pair": "MCOBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2028,7 +2019,7 @@
     "pair": "NAVBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2073,7 +2064,7 @@
     "pair": "TRIGBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2100,7 +2091,7 @@
     "pair": "APPCBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2145,7 +2136,7 @@
     "pair": "RLCBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2190,7 +2181,7 @@
     "pair": "PIVXBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2253,7 +2244,7 @@
     "pair": "STEEMBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2307,7 +2298,7 @@
     "pair": "VIABNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2334,7 +2325,7 @@
     "pair": "BLZBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2361,7 +2352,7 @@
     "pair": "AEBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2387,10 +2378,10 @@
   {
     "pair": "RPXBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -2414,10 +2405,10 @@
   {
     "pair": "NCASHBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -2442,7 +2433,7 @@
     "pair": "POABNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2468,10 +2459,10 @@
   {
     "pair": "ZILBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -2496,7 +2487,7 @@
     "pair": "ONTBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2522,17 +2513,17 @@
   {
     "pair": "STORMBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
     "pair": "QTUMBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2568,7 +2559,7 @@
     "pair": "XEMBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2595,7 +2586,7 @@
     "pair": "WANBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2658,7 +2649,7 @@
     "pair": "SYSBNB",
     "minNotional": "1.00000000",
     "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
+    "maxQty": "90000000.00000000",
     "stepSize": "0.01000000",
     "minPrice": "0.00001000",
     "maxPrice": "10000.00000000"
@@ -2666,10 +2657,10 @@
   {
     "pair": "QLCBNB",
     "minNotional": "1.00000000",
-    "minimum_order_size": "0.01000000",
-    "maxQty": "10000000.00000000",
-    "stepSize": "0.01000000",
-    "minPrice": "0.00001000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
     "maxPrice": "10000.00000000"
   },
   {
@@ -2689,5 +2680,536 @@
     "stepSize": "1.00000000",
     "minPrice": "0.00000001",
     "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ADAUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.10000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.10000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ADABNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "CLOAKBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00000010",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "CLOAKETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00000100",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "GNTBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "GNTETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "GNTBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "LOOMBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "LOOMETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "LOOMBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "XRPUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.10000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.10000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "BCNBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "BCNETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "BCNBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "REPBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00000100",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "REPETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "REPBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00100000",
+    "maxPrice": "10000000.00000000"
+  },
+  {
+    "pair": "TUSDBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "TUSDETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "TUSDBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "ZENBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00000100",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ZENETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ZENBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00100000",
+    "maxPrice": "10000000.00000000"
+  },
+  {
+    "pair": "SKYBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00000100",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "SKYETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "SKYBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00100000",
+    "maxPrice": "10000000.00000000"
+  },
+  {
+    "pair": "EOSUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "EOSBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "CVCBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "CVCETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "CVCBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "THETABTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "THETAETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "THETABNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "XRPBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "TUSDUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "IOTAUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "XLMUSDT",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "IOTXBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "IOTXETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "QKCBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "QKCETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "AGIBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "AGIETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "AGIBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "NXSBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00000010",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "NXSETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00000100",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "NXSBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ENJBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
+    "maxPrice": "10000.00000000"
+  },
+  {
+    "pair": "DATABTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "DATAETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ONTUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.00100000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.00100000",
+    "minPrice": "0.00100000",
+    "maxPrice": "10000000.00000000"
+  },
+  {
+    "pair": "TRXUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.10000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "0.10000000",
+    "minPrice": "0.00001000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ETCUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ETCBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "ICXUSDT",
+    "minNotional": "10.00000000",
+    "minimum_order_size": "0.01000000",
+    "maxQty": "10000000.00000000",
+    "stepSize": "0.01000000",
+    "minPrice": "0.00010000",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "SCBTC",
+    "minNotional": "0.00100000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "SCETH",
+    "minNotional": "0.01000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000001",
+    "maxPrice": "100000.00000000"
+  },
+  {
+    "pair": "SCBNB",
+    "minNotional": "1.00000000",
+    "minimum_order_size": "1.00000000",
+    "maxQty": "90000000.00000000",
+    "stepSize": "1.00000000",
+    "minPrice": "0.00000100",
+    "maxPrice": "10000.00000000"
   }
 ]

@@ -28,6 +28,7 @@ const indicatorFlags = {
 
 global.isLive = false; // CAUTION, SETTING THIS TO TRUE WILL SUBMIT MARKET ORDERS $$$$$$
 global.isBacktest = true;
+global.isParamTune = false;
 
 
 /**
@@ -102,9 +103,9 @@ const performGS = async () => {
                     // 'live_price_sideway4',
                     // 'live_price_sideway_huge',
                     // 'live_price_up'
-                    'binance_sideway',
+                    // 'binance_sideway',
                     // 'binance_short',
-                    'binance_down',
+                    // 'binance_down',
                 ],
                 CORRELATION: [30],
                 PROFIT: [0.004, 0.006, 0.008, 0.01],
@@ -170,9 +171,11 @@ const performGS = async () => {
 (
     async () => {
         // global.isParamTune = true;
-        await dbExecutor.clearTable('binance_transactions');
-        await dbExecutor.clearTable('binance_live_price');
-        await dbExecutor.clearTable('binance_wallet');
+        if (!global.isParamTune) {
+			await dbExecutor.clearTable('binance_transactions');
+			await dbExecutor.clearTable('binance_live_price');
+			await dbExecutor.clearTable('binance_wallet');
+        }
 
         // dbExecutor.clearTable('bitfinex_transactions');
         // dbExecutor.clearTable('bitfinex_live_price');
@@ -198,9 +201,9 @@ const performGS = async () => {
         // global.CORRELATION_PERIOD = 0;
 
         // await processor(TickerProcessor.processTickerPrice, 'binance_short');
-        // await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
+        await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
         // await processor(TickerProcessor.processTickerPrice, 'binance_down');
-        await processor(TickerProcessor.processTickerPrice, 'binance_20180415_203651');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_20180415_203651');
         // await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');
@@ -215,13 +218,3 @@ const performGS = async () => {
         // await performGS();
     }
 )();
-
-// clusterManager.initCluster(() => {
-//     try {
-//         processor(processTickerPrice)
-//     }
-//     catch(e) {
-//         console.error(e.stack)
-//     }
-//
-// });

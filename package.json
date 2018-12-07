@@ -36,7 +36,7 @@
     "socket.io-msgpack-parser": "^2.2.0",
     "socket.io-parser": "^3.1.2",
     "techan": "^0.8.0",
-    "tulind": "^0.8.7",
+    "tulind": "^0.8.13",
     "underscore": "^1.8.3",
     "util": "^0.10.3",
     "ws": "^3.1.0"
@@ -47,7 +47,7 @@
     "crypto-js": "^3.1.9-1",
     "express": "^4.15.4",
     "neataptic": "^1.4.7",
-    "node-binance-api": "^0.4.11",
+    "node-binance-api": "^0.4.29",
     "pg": "^7.3.0",
     "v8-profiler": "^5.7.0"
   }

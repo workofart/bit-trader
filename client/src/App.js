@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Button, Divider, Grid } from 'semantic-ui-react';
+import { Container, Button, Divider, Grid, Header, Icon} from 'semantic-ui-react';
 import './App.css';
 import PriceChart from './components/charts/price';
 import CustomStats from './components/stats/Stats';
 import CustomTable from './components/table/Table';
-import SidePanel from './components/sidepanel/SidePanel'
+import SidePanel from './components/sidepanel/SidePanel';
 
 const $ = require('jquery');
 const _ = require('underscore');
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   getTradesByTicker(ticker) {
-    console.log(ticker);
+    // console.log(ticker);
     var that = this;
       // that.setState({ticker: ticker})
       $.ajax(
@@ -68,6 +68,10 @@ class App extends Component {
 
     return (
       <div>
+		<Header size='huge' textAlign='center'>
+		  <Icon name='user secret' circular />
+          Back-testing Visualization
+        </Header>
         <Container fluid style={{ marginLeft: 60, marginRight: 60 }}>
         {
           tickers.map((item) => {
@@ -78,10 +82,10 @@ class App extends Component {
         }
         </Container>
 	    <Grid celled>
-			<Grid.Column width={3}>
+			<Grid.Column width={1}>
 				<SidePanel/>
 			</Grid.Column>
-			<Grid.Column width={13}>
+			<Grid.Column width={15}>
         {/*<Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>*/}
 
           <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>

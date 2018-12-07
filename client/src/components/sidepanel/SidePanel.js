@@ -25,25 +25,13 @@ class SidePanel extends Component {
 						console.log(data);
 						let basicItems = [
 							{
-								header: 'Initial Investment',
-								description: data[0].balance.toFixed(8) + ' BTC'
-							},
-							{
 								header: 'Balance',
 								description: data[data.length - 1].balance.toFixed(8) + ' BTC'
 							},
 							{
 								header: 'Profit',
-								description: (data[data.length - 1].balance - data[0].balance).toFixed(8) + ' BTC',
-								extra: ((data[data.length - 1].balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
-							},
-							{
-								header: '# Trades',
-								description: data.length,
-							},
-							{
-								header: 'Trading Duration',
-								description: moment().local().diff(moment(data[0].timestamp), 'hours', true).toFixed(2) + ' Hours'
+								extra: (data[data.length - 1].balance - data[0].balance).toFixed(8) + ' BTC',
+								description: ((data[data.length - 1].balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
 							}
 						]
 						let bestItems = [
@@ -53,8 +41,8 @@ class SidePanel extends Component {
 							},
 							{
 								header: 'Profit',
-								description: (_.max(data, (a) => a.balance).balance - data[0].balance).toFixed(8) + ' BTC',
-								extra: ((_.max(data, (a) => a.balance).balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
+								extra: (_.max(data, (a) => a.balance).balance - data[0].balance).toFixed(8) + ' BTC',
+								description: ((_.max(data, (a) => a.balance).balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
 							}
 						]
 
@@ -65,12 +53,27 @@ class SidePanel extends Component {
 							},
 							{
 								header: 'Profit',
-								description: (_.min(data, (a) => a.balance).balance - data[0].balance).toFixed(8) + ' BTC',
-								extra: ((_.min(data, (a) => a.balance).balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
+								extra: (_.min(data, (a) => a.balance).balance - data[0].balance).toFixed(8) + ' BTC',
+								description: ((_.min(data, (a) => a.balance).balance - data[0].balance) / data[0].balance * 100).toFixed(2) + '%'
 							}
 						]
 
-						that.setState({basicItems: basicItems, bestItems: bestItems, worstItems: worstItems});
+						let otherItems = [
+							{
+								header: 'Initial Investment',
+								description: data[0].balance.toFixed(8) + ' BTC'
+							},
+							{
+								header: '# Trades',
+								description: data.length,
+							},
+							{
+								header: 'Trading Duration',
+								description: moment(data[data.length - 1].timestamp).local().diff(moment(data[0].timestamp), 'hours', true).toFixed(2) + ' Hours'
+							}
+						]
+
+						that.setState({basicItems: basicItems, bestItems: bestItems, worstItems: worstItems, otherItems: otherItems});
 
 					}
 				},
@@ -93,6 +96,9 @@ class SidePanel extends Component {
 				<Divider />
 				<Header as='h2'>Worst</Header>
 				<Item.Group items={this.state.worstItems} />
+				<Divider />
+				<Header as='h2'>Other</Header>
+				<Item.Group items={this.state.otherItems} />
 			</Container>
         )
     }

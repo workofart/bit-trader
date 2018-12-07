@@ -82,7 +82,7 @@ var renderChart = (ticker, that, trades) => {
                     //         }
                     //     }
                     // )
-                    console.log('Render graph called.')
+                    // console.log('Render graph called.')
                     if (that.props.data != []) {
                         this.hideLoading();
                         that.props.data.forEach((item) => {
@@ -251,7 +251,7 @@ class PriceChart extends Component {
     componentDidUpdate(prevProps) {
         // check if the ticker has changed, if so, allow price reload
         if (prevProps.ticker != this.props.ticker) {
-            console.log('prepare for next ticker: ' + this.props.ticker)
+            // console.log('prepare for next ticker: ' + this.props.ticker)
             // console.log('Trade data: ' + JSON.stringify(this.props.data))
             this.refreshChart(this.props.ticker, this.props.data)
         }
@@ -259,7 +259,7 @@ class PriceChart extends Component {
 
     componentDidMount() {
         if (this.props.data !== [] && this.props.data.length > 0) {
-            console.log(this.props.data)
+            // console.log(this.props.data)
             renderChart(this.props.ticker, this, this.props.data);
 
         }

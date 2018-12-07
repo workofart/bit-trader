@@ -1,24 +1,33 @@
 const express = require('express');
-var router = express.Router();
 
-var db_controller = require('./db');
+const router = express.Router();
+
+const dbController = require('./db'),
+    configController = require('./config');
 
 
-/*********************************************************
+/** *******************************************************
  *                  DB APIs
- *********************************************************/
+ ******************************************************** */
 
-router.post('/insertCandlePrice', db_controller.insertCandlePrice);
-router.post('/insertTickerPrice', db_controller.insertTickerPrice);
-router.post('/insertBooks', db_controller.insertBooks);
+router.post('/insertCandlePrice', dbController.insertCandlePrice);
+router.post('/insertTickerPrice', dbController.insertTickerPrice);
+router.post('/insertBooks', dbController.insertBooks);
 
-router.get('/getCandlePrice/:ticker', db_controller.getCandlePrice);
-router.get('/getTickerPrice/:ticker', db_controller.getTickerPrice);
-router.get('/getBooks/:ticker', db_controller.getBooks);
+router.get('/getCandlePrice/:ticker', dbController.getCandlePrice);
+router.get('/getTickerPrice/:ticker', dbController.getTickerPrice);
+router.get('/getBooks/:ticker', dbController.getBooks);
 
-router.get('/getBotTrades/:ticker', db_controller.getBotTrades);
-router.get('/getLivePrices/:ticker', db_controller.getLivePrices);
-router.get('/getWalletState', db_controller.getWalletState);
+router.get('/getBotTrades/:ticker', dbController.getBotTrades);
+router.get('/getLivePrices/:ticker', dbController.getLivePrices);
+router.get('/getWalletState', dbController.getWalletState);
 // router.get('/getLiveWallet', db_controller.getLiveWallet);
-router.get('/resetLivePriceFlag', db_controller.resetLivePriceFlag);
+router.get('/resetLivePriceFlag', dbController.resetLivePriceFlag);
+
+/** *******************************************************
+ * 					Configuration APIs
+ ******************************************************* */
+router.get('/getTradingConfigs', configController.getTradingConfigs);
+router.put('/updateTradingConfigs', configController.updateTradingConfigs);
+
 module.exports = router;

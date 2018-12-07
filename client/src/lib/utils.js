@@ -17,7 +17,7 @@ const calculateProfit = (data) => {
 	return netPosition;
 }
 
-const calculateBHProfit = (data) => {
+const calculatePercentageProfit = (data) => {
 	if (data.length > 0) {
 		return (data[data.length - 1].price - data[0].price) / data[0].price
 	}
@@ -27,5 +27,5 @@ const calculateBHProfit = (data) => {
 
 module.exports = {
 	calculateProfit: calculateProfit,
-	calculateBHProfit: calculateBHProfit
+	calculatePercentageProfit: calculatePercentageProfit
 }
