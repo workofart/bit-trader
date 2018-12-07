@@ -10,13 +10,17 @@ class PerformanceStats extends Component {
 
         return (
           <Statistic.Group>
-              <Statistic color={profit >= 0 ? 'green' : 'red'}>
+            <Statistic color={profit >= 0 ? 'green' : 'red'}>
                     <Statistic.Value>{profit.toFixed(4)}%</Statistic.Value>
                     <Statistic.Label>Bot Profitability %</Statistic.Label>
-              </Statistic>
-                <Statistic color="grey">
+            </Statistic>
+            <Statistic color="grey">
                     <Statistic.Value>{(bhProfit * 100).toFixed(4)}%</Statistic.Value>
                     <Statistic.Label>Buy and Hold Profitability</Statistic.Label>
+            </Statistic>
+            <Statistic color="grey">
+                    <Statistic.Value>{this.props.data.length}</Statistic.Value>
+                    <Statistic.Label>Trades</Statistic.Label>
             </Statistic>
             </Statistic.Group>
         );

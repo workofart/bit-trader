@@ -1,13 +1,13 @@
 const moment = require('moment'),
-    init = require('../../algo/init/init'),
-    dbExecutor = require('../../algo/store'),
-    customUtil = require('../../algo/custom_util'),
-    gridSearch = require('../lib/grid_search'),
-    mapping = require('../../websockets/mapping_binance'),
-    _ = require('underscore'),
-    Investment = require('../../algo/investment/investment'),
-    InvestmentUtils = require('../../algo/investment/investmentUtils'),
-    TickerProcessor = require('../../algo/DataProcessors/ticker');
+init = require('../../algo/init/init'),
+dbExecutor = require('../../algo/store'),
+customUtil = require('../../algo/custom_util'),
+gridSearch = require('../lib/grid_search'),
+mapping = require('../../websockets/mapping_binance'),
+_ = require('underscore'),
+Investment = require('../../algo/investment/investment'),
+InvestmentUtils = require('../../algo/investment/investmentUtils'),
+TickerProcessor = require('../../algo/DataProcessors/ticker');
 indicators = require('../../algo/indicators'),
 testUtil = require('../lib/testUtil'),
 clusterManager = require('./clusterManager');
@@ -80,7 +80,6 @@ const resetVariables = () => {
     global.frozenTickers = {};
     global.MAX_SCORE_INTERVAL = {};
     global.tickerPrices = {};
-    global.MAX_SCORE_INTERVAL = {};
 
     close = {};
     storedCounts = {};
@@ -201,9 +200,9 @@ const performGS = async () => {
         // global.CORRELATION_PERIOD = 0;
 
         // await processor(TickerProcessor.processTickerPrice, 'binance_short');
-        await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
+        // await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
         // await processor(TickerProcessor.processTickerPrice, 'binance_down');
-        // await processor(TickerProcessor.processTickerPrice, 'binance_20180415_203651');
+        await processor(TickerProcessor.processTickerPrice, 'binance_20180227_234337');
         // await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
         // await processor(processTickerPrice, 'live_price_down_3');
         // await processor(processTickerPrice, 'live_price_down_2');

@@ -9,28 +9,22 @@ import SidePanel from './components/sidepanel/SidePanel';
 const $ = require('jquery');
 const _ = require('underscore');
 const Utils = require('./lib/utils');
-const mapping = require('./mapping_binance');
 
 const URL = 'http://127.0.0.1:3001/api/';
-var msgQ = [];
-const queueThreshold = 300;
-const tickers = _.map(require('./mapping_binance'), (i) => i + 'BTC');
-
 
 class App extends Component {
   state = {
     trades: [],
     prices: {},
-    ticker: ''
+    ticker: '',
+    allTickers: []
   }
 
   ids = [];
 
-
-
   componentDidMount() {
-    mapping.forEach((ticker) => {
-		this.getTradesByTicker(ticker);
+    this.getTradedTickers().then((mapping) => {
+        this.setState({allTickers: mapping})
     })
   }
 
@@ -38,12 +32,33 @@ class App extends Component {
     this.setState({prices : prices});
   }
 
+  getTradedTickers() {
+    return new Promise((resolve, reject) => {
+      $.ajax(
+        URL + 'getTradedTickers',
+        {
+          success: (data) => {
+            if (data.length > 0) {
+              resolve(data)
+            }
+            else {
+              reject('No Trades Available');
+            }
+          },
+          error: (data, status, err) => {
+            console.log(err);
+          }
+        }
+      )
+    })
+  }
+  
+
   getTradesByTicker(ticker) {
     // console.log(ticker);
     var that = this;
-      // that.setState({ticker: ticker})
       $.ajax(
-        URL + 'getBotTrades/' + ticker,
+        URL + 'getBotTradesByTicker/' + ticker,
         {
           success: (data) => {
             if (data.length > 0) {
@@ -65,36 +80,32 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div>
-		<Header size='huge' textAlign='center'>
-		  <Icon name='user secret' circular />
-          Back-testing Visualization
-        </Header>
-        <Container fluid style={{ marginLeft: 60, marginRight: 60 }}>
-        {
-          tickers.map((item) => {
-            return (
-              <Button style={{margin: 4}} key={item} onClick={(event, data) => { this.getTradesByTicker(data.children) }}>{item}</Button>
-            )
-          })
-        }
-        </Container>
-	    <Grid celled>
-			<Grid.Column width={1}>
-				<SidePanel/>
-			</Grid.Column>
-			<Grid.Column width={15}>
-        {/*<Container fluid style={{ marginLeft: 60, marginTop: 80, marginRight: 60 }}>*/}
-
-          <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>
-          <CustomStats data={this.state.trades} prices={this.state.prices}/>
-          <Divider />
-          <CustomTable ticker={this.state.ticker} data={this.state.trades} />
-        {/*</Container>*/}
-			</Grid.Column>
-		</Grid>
+        <Header size='huge' textAlign='center'>
+          <Icon name='user secret' circular />
+              Back-testing Visualization
+            </Header>
+            <Container fluid style={{ marginLeft: 60, marginRight: 60 }}>
+            {
+              this.state.allTickers.map((item) => {
+                return (
+                  <Button style={{margin: 4}} key={item.ticker} onClick={(event, data) => { this.getTradesByTicker(data.children) }}>{item.ticker}</Button>
+                )
+              })
+            }
+            </Container>
+          <Grid celled>
+          <Grid.Column width={1}>
+            <SidePanel/>
+          </Grid.Column>
+          <Grid.Column width={15}>
+              <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>
+              <CustomStats data={this.state.trades} prices={this.state.prices}/>
+              <Divider />
+              <CustomTable ticker={this.state.ticker} data={this.state.trades} />
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }

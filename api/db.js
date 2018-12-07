@@ -143,8 +143,28 @@ module.exports.insertBooks = function(req, res) {
     })
 }
 
-module.exports.getBotTrades = function(req, res) {
+module.exports.getBotTradesByTicker = function(req, res) {
     var query = `SELECT * FROM BINANCE_TRANSACTIONS WHERE TICKER='${req.params.ticker}';`;
+    console.log(query)
+    db.pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(
+            query, (err, result) => {
+                done();
+                if (err && err.code != 23505) {
+                    console.log(err)
+                    sendJsonResponse(res, 500, 'Server error');
+                }
+                else {
+                    console.log(`Returned [${result.rows.length}] bot trades`);
+                    sendJsonResponse(res, 200, result.rows);
+                }
+            })
+    })
+}
+
+module.exports.getTradedTickers = function(req, res) {
+    var query = `SELECT TICKER FROM BINANCE_TRANSACTIONS GROUP BY TICKER;`;
     console.log(query)
     db.pool.connect((err, client, done) => {
         if (err) throw err

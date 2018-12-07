@@ -18,7 +18,8 @@ router.get('/getCandlePrice/:ticker', dbController.getCandlePrice);
 router.get('/getTickerPrice/:ticker', dbController.getTickerPrice);
 router.get('/getBooks/:ticker', dbController.getBooks);
 
-router.get('/getBotTrades/:ticker', dbController.getBotTrades);
+router.get('/getBotTradesByTicker/:ticker', dbController.getBotTradesByTicker);
+router.get('/getTradedTickers', dbController.getTradedTickers);
 router.get('/getLivePrices/:ticker', dbController.getLivePrices);
 router.get('/getWalletState', dbController.getWalletState);
 // router.get('/getLiveWallet', db_controller.getLiveWallet);
