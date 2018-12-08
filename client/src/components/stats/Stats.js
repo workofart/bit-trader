@@ -5,8 +5,8 @@ const Utils = require('../../lib/utils');
 
 class PerformanceStats extends Component {
     render() {
-        const profit = Utils.calculatePercentageProfit(this.props.data);
-        const bhProfit = Utils.calculatePercentageProfit(this.props.prices);
+        const profit = Utils.calculatePercentageProfit(this.props.data, this.props.prices);
+        const bhProfit = Utils.calculateBHPercentageProfit(this.props.prices);
 
         return (
           <Statistic.Group>

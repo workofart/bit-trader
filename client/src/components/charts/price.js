@@ -43,11 +43,12 @@ var renderChart = (ticker, that, trades) => {
 									that.props.setPricesFunc(data);
                                     this.hideLoading();
                                     _.forEach(data, (price) => {
-                                        series.addPoint([moment(price.timestamp).local().valueOf(), price.price], false, false);
+                                        const timestamp = moment(price.timestamp).local().valueOf();
+                                        series.addPoint([timestamp, price.price], false, false);
                                         if (price.rsi && price.bb_lower && price.bb_upper) {
-                                            rsiSeries.addPoint([moment(price.timestamp).local().valueOf(), price.rsi], false, false);
-                                            upperBBSeries.addPoint([moment(price.timestamp).local().valueOf(), price.bb_upper], false, false);
-                                            lowerBBSeries.addPoint([moment(price.timestamp).local().valueOf(), price.bb_lower], false, false);
+                                            rsiSeries.addPoint([timestamp, price.rsi], false, false);
+                                            upperBBSeries.addPoint([timestamp, price.bb_upper], false, false);
+                                            lowerBBSeries.addPoint([timestamp, price.bb_lower], false, false);
                                         }
                                     });
                                     this.redraw();
@@ -169,6 +170,11 @@ var renderChart = (ticker, that, trades) => {
             text: `${ticker} Prices`
         },
 
+        boost: {
+            useGPUTranslations: true,
+            usePreallocated: true
+        },
+
         series: [
             {
                 type: 'line',
@@ -183,6 +189,7 @@ var renderChart = (ticker, that, trades) => {
                 id: 'Price',
                 yAxis: 0,
                 data: [],
+                dataGrouping: true
             },
             {
                 type: 'flags',
@@ -205,7 +212,8 @@ var renderChart = (ticker, that, trades) => {
                     x: -3
                 },
                 data: [],
-                yAxis: 1
+                yAxis: 1,
+                dataGrouping: true
             },
             {
                 type: 'line',
@@ -216,7 +224,8 @@ var renderChart = (ticker, that, trades) => {
                 dashStyle: 'shortdot',
                 color: '#646608',
                 data: [],
-                yAxis: 0
+                yAxis: 0,
+                dataGrouping: true
             },
             {
                 type: 'line',
@@ -227,7 +236,8 @@ var renderChart = (ticker, that, trades) => {
                 dashStyle: 'shortdot',
                 color: '#ff1c31',
                 data: [],
-                yAxis: 0
+                yAxis: 0,
+                dataGrouping: true
             }
         ]
         // {

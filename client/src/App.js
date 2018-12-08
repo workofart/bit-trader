@@ -96,10 +96,10 @@ class App extends Component {
             }
             </Container>
           <Grid celled>
-          <Grid.Column width={1}>
+          <Grid.Column width={2}>
             <SidePanel/>
           </Grid.Column>
-          <Grid.Column width={15}>
+          <Grid.Column width={14}>
               <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>
               <CustomStats data={this.state.trades} prices={this.state.prices}/>
               <Divider />

@@ -127,12 +127,12 @@ class Investment {
         if (side === 'sell') {
             global.wallet += global.currencyWallet[ticker].qty * price * (1 - global.TRADING_FEE);
             customUtil.printSell(ticker, price, global.currencyWallet[ticker].qty);
-            await db.storeTransactionToDB(ticker, price, global.currencyWallet[ticker].qty, 0, timestamp);
+            db.storeTransactionToDB(ticker, price, global.currencyWallet[ticker].qty, 0, timestamp);
             global.currencyWallet[ticker].qty = 0; // clear qty after sold, assuming always sell the same qty
             InvestmentUtils.postSellTradeCleanup(ticker);
             customUtil.printWalletStatus();
             !global.isParamTune && customUtil.printPNL();
-            await db.storeWalletState(timestamp);
+            db.storeWalletState(timestamp);
         } else if (side === 'buy') {
             InvestmentUtils.updateBearSellPrice(ticker, price);
 
@@ -147,13 +147,13 @@ class Investment {
             customUtil.printBuy(ticker, qty, price);
             customUtil.printWalletStatus();
             !global.isParamTune && customUtil.printPNL();
-            await db.storeTransactionToDB(ticker, price, qty, 1, timestamp);
+            db.storeTransactionToDB(ticker, price, qty, 1, timestamp);
             global.storedWeightedSignalScore[ticker] = 0; // clear score
             await db.storeWalletState(timestamp);
         } else if (side === 'bearSell') {
             global.wallet += qty * price * (1 - global.TRADING_FEE);
             customUtil.printBearSell(ticker, qty, price);
-            await db.storeTransactionToDB(ticker, price, qty, 0, timestamp);
+            db.storeTransactionToDB(ticker, price, qty, 0, timestamp);
             const tempPrice = InvestmentUtils.weightedAvgPrice(ticker, price, -qty);
             InvestmentUtils.updateRepeatedBuyPrice(ticker, price);
             global.currencyWallet[ticker].price = tempPrice !== null ? tempPrice : 0;

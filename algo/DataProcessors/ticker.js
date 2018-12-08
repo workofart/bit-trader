@@ -42,7 +42,7 @@ const processTickerPrice = async (ticker, data) => {
         processedData.bb_upper = obj ? obj.bb_upper : 0;
 
         if (!global.isParamTune) {
-            global.isBacktest ? await db.storeLivePrice(processedData, processedData.timestamp) : await db.storeLivePrice(processedData);
+            global.isBacktest ? db.storeLivePrice(processedData, processedData.timestamp) : db.storeLivePrice(processedData);
         }
 
         // Store the latest price into storage for investment decisions
