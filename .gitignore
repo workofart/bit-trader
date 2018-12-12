@@ -1,5 +1,7 @@
 /node_modules
 /logs
 /.idea
-/config
+/.vscode
+/config/*
 api/config.js
+
