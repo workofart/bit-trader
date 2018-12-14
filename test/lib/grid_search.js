@@ -1,5 +1,10 @@
 "use strict";
 
+// BSD 2-Clause License
+// Copyright (c) 2017, Viktor Jovanoski
+// Modified from original source: https://github.com/bergloman/JsGridSearch
+// All rights reserved.
+
 const fs = require("fs");
 const colors = require("colors");
 

@@ -9,31 +9,6 @@ const binance = require('node-binance-api'),
 
 binance.options(CONFIGS);
 
-// binance.prices('BNBBTC', (error, ticker) => {
-// 	console.log("Price of BNB: ", ticker.BNBBTC);
-// });
-
-// binance.prices((error, ticker) => {
-// 	console.log("prices()", ticker);
-// 	console.log("Price of BTC: ", ticker.BTCUSDT);
-// });
-
-// binance.balance((error, balances) => {
-// 	console.log("balances()", balances);
-// 	console.log("ETH balance: ", balances.ETH.available);
-// });
-
-// binance.websockets.depthCache(['BNBBTC'], (symbol, depth) => {
-// 	let bids = binance.sortBids(depth.bids);
-// 	let asks = binance.sortAsks(depth.asks);
-// 	// console.log(symbol+" depth cache update");
-// 	// console.log("bids", bids);
-// 	// console.log("asks", asks);
-// 	console.log("best bid: "+binance.first(bids));
-// 	console.log("best ask: "+binance.first(asks));
-// });
-
-
 binance.exchangeInfo((error, data) => {
     const minimums = [];
     for (const obj of data.symbols) {
@@ -54,7 +29,6 @@ binance.exchangeInfo((error, data) => {
         }
         minimums.push(filters);
     }
-    // console.log(minimums);
     fs.writeFile('minimums.json', JSON.stringify(minimums, null, 4), (err) => {});
 });
 
@@ -87,10 +61,6 @@ function execution_update(data) {
     console.log(`${symbol}\t${side} ${executionType} ${orderType} ORDER #${orderId}`);
 }
 
-// binance.websockets.userData(balance_update, execution_update);
-
-// executor.submitMarket('BNBBTC', 0.01, 'buy')
-
 const getCurrentBalance = () => new Promise((resolve) => {
     binance.balance((error, balances) => {
         Object.keys(balances).forEach((ticker) => {
@@ -103,12 +73,12 @@ const getCurrentBalance = () => new Promise((resolve) => {
     });
 });
 
-// getCurrentBalance();
+// Below are a few examples of common operations of using the Binance Node API
+// @Link: https://github.com/jaggedsoft/node-binance-api
 
+// binance.websockets.userData(balance_update, execution_update);
 
-// executor.getHoldingPrice('ADABTC');
-
-// getCurrentBalance()
+// executor.submitMarket('BNBBTC', 0.01, 'buy')
 
 // const throlled = _.throttle((candlesticks) => {
 // 	let { e:eventType, E:eventTime, s:symbol, k:ticks } = candlesticks;
@@ -119,8 +89,6 @@ const getCurrentBalance = () => new Promise((resolve) => {
 //
 // binance.websockets.candlesticks('BNBBTC', "1m", throlled);
 //
-
-//
 // binance.websockets.chart("BNBBTC", "1m", (symbol, interval, chart) => {
 // 	let tick = binance.last(chart);
 // 	const last = chart[tick].close;
@@ -130,12 +98,35 @@ const getCurrentBalance = () => new Promise((resolve) => {
 // 	// console.log(symbol, ohlc);
 // 	console.log(symbol+" last price: "+last)
 // });
-
-
+//
 // binance.historicalTrades("BNBBTC", (error, response)=>{
 // 	console.log("aggTrades", response);
 // });
-
+//
 // binance.recentTrades("BNBBTC", (error, response)=>{
 // 	console.log("recentTrades", response);
+// });
+//
+// binance.prices('BNBBTC', (error, ticker) => {
+// 	console.log("Price of BNB: ", ticker.BNBBTC);
+// });
+//
+// binance.prices((error, ticker) => {
+// 	console.log("prices()", ticker);
+// 	console.log("Price of BTC: ", ticker.BTCUSDT);
+// });
+//
+// binance.balance((error, balances) => {
+// 	console.log("balances()", balances);
+// 	console.log("ETH balance: ", balances.ETH.available);
+// });
+//
+// binance.websockets.depthCache(['BNBBTC'], (symbol, depth) => {
+// 	let bids = binance.sortBids(depth.bids);
+// 	let asks = binance.sortAsks(depth.asks);
+// 	// console.log(symbol+" depth cache update");
+// 	// console.log("bids", bids);
+// 	// console.log("asks", asks);
+// 	console.log("best bid: "+binance.first(bids));
+// 	console.log("best ask: "+binance.first(asks));
 // });

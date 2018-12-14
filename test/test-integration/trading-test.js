@@ -86,25 +86,11 @@ const resetVariables = () => {
 };
 
 const performGS = async () => {
-    global.isParamTune = true;
     try {
         const options = {
             params: {
                 DATA: [
-                    // 'live_price_down',
-                    // 'live_price_down2',
-                    // 'live_price_down3',
-                    // 'live_price_down4',
-                    // 'live_price_down_huge',
-                    // 'live_price_sideway',
-                    // 'live_price_sideway2',
-                    // 'live_price_sideway3',
-                    // 'live_price_sideway4',
-                    // 'live_price_sideway_huge',
-                    // 'live_price_up'
-                    // 'binance_sideway',
-                    // 'binance_short',
-                    // 'binance_down',
+                    'binance_sideway' // ../data/[filename].csv
                 ],
                 CORRELATION: [30],
                 PROFIT: [0.004, 0.006, 0.008, 0.01],
@@ -118,17 +104,7 @@ const performGS = async () => {
                 LOW_RSI_OFFSET: [5],
                 LOW_BB_OFFSET: [0.95],
                 UP_STOP_LIMIT: [0.002],
-                DOWN_STOP_LIMIT: [0.002],
-                // DATA: ['live_price_down', 'live_price_up', 'live_price_sideway'],
-                // CORRELATION: [30, 45, 60],
-                // PROFIT: [0.008, 0.01, 0.012],
-                // INVEST: [0.12, 0.15],
-                // REPEAT_BUY: [0.02, 0.025, 0.03],
-                // BEAR_LOSS: [0.02, 0.04]
-                // RSI: [31, 41]
-                // UPPER_RSI: [65, 70],
-                // LOWER_RSI: [23, 25, 27],
-                // BB_STD_DEV: [1.5, 1.75, 2]
+                DOWN_STOP_LIMIT: [0.002]
             },
             run_callback: async (comb) => {
                 global.CORRELATION_PERIOD = comb.CORRELATION;
@@ -169,51 +145,21 @@ const performGS = async () => {
 
 (
     async () => {
-        // global.isParamTune = true;
-        if (!global.isParamTune) {
-			await dbExecutor.clearTable('binance_transactions');
-			await dbExecutor.clearTable('binance_live_price');
-			await dbExecutor.clearTable('binance_wallet');
+        if (global.isParamTune) {
+            // Perform grid search parameter-tuning
+            await performGS();
         }
 
-        // dbExecutor.clearTable('bitfinex_transactions');
-        // dbExecutor.clearTable('bitfinex_live_price');
-        // dbExecutor.clearTable('bitfinex_live_wallet');
-
-        // Simulate a half-way state
-        // InvestmentUtils.setupCurrencyWallet('EOSUSD');
-        // global.currencyWallet.XMRUSD.qty = 0.42;
-        // global.currencyWallet.XMRUSD.price = 330.42;
-
-        // await processor(TickerProcessor.processTickerPrice, 'test');
-
-        // global.MIN_PROFIT_PERCENTAGE = 0.008;
-        // global.INVEST_PERCENTAGE = 0.06;
-        // global.REPEATED_BUY_MARGIN = 0.02;
-        // global.BEAR_LOSS_START = 0.03;
-        // global.RSI = 29;
-        // global.LOWER_RSI = 35;
-        // global.UPPER_RSI = 60;
-        // global.BB_STD_DEV = 2;
-        // global.UP_STOP_LIMIT = 0.004;
-        // global.DOWN_STOP_LIMIT = 0.002;
-        // global.CORRELATION_PERIOD = 0;
-
-        // await processor(TickerProcessor.processTickerPrice, 'binance');
-        // await processor(TickerProcessor.processTickerPrice, 'binance_sideway_2');
-        await processor(TickerProcessor.processTickerPrice, 'binance_down');
-        // await processor(TickerProcessor.processTickerPrice, 'binance_20180227_234337');
-        // await processor(TickerProcessor.processTickerPrice, 'binance_down_mini');
-        // await processor(processTickerPrice, 'live_price_down_3');
-        // await processor(processTickerPrice, 'live_price_down_2');
-        // await processor(processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_down6');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_sideway_huge');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_down');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_down_huge');
-        // await processor(TickerProcessor.processTickerPrice, 'live_price_up');
-
-        // await performGS();
+        else {
+            await dbExecutor.clearTable('binance_transactions');
+			await dbExecutor.clearTable('binance_live_price');
+            await dbExecutor.clearTable('binance_wallet');
+            /* Example of simulating an intermediary state
+             * InvestmentUtils.setupCurrencyWallet('XMRUSD');
+             * global.currencyWallet.XMRUSD.qty = 0.42;
+             * global.currencyWallet.XMRUSD.price = 330.42;
+            */
+            await processor(TickerProcessor.processTickerPrice, 'binance_down');
+        }
     }
 )();

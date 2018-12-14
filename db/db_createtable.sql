@@ -29,5 +29,5 @@ create table binance_live_price (
 );
 
 -- The two commands below are used to manually export existing data from DB to csv files
-COPY bitfinex_live_price TO '/live_price_sideway_long.csv' DELIMITER ',' CSV HEADER;
-COPY binance_live_price TO '/temp/binance.csv' DELIMITER ',' CSV HEADER;
+--COPY bitfinex_live_price TO '/live_price_sideway_long.csv' DELIMITER ',' CSV HEADER;
+--COPY binance_live_price TO '/temp/binance.csv' DELIMITER ',' CSV HEADER;

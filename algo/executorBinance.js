@@ -26,14 +26,6 @@ const getAccountSummary = () => {
     });
 };
 
-// const getActivePositions = async () => {
-// 	return new Promise((resolve) => {
-// 		binance.openOrders(false, (err, res) => {
-// 			resolve(res);
-// 		})
-// 	})
-// };
-
 const getCurrentBalance = () => new Promise((resolve) => {
     binance.balance((error, balances) => {
         if (error) console.log(JSON.stringify(error));

@@ -1,9 +1,10 @@
 /**
  * This file contains functions that will help perform tedious tasks in a split second
+ * such as racing other robots to maintain the top of the order book
  */
 const executor = require('./executorBinance'),
       _ = require('underscore'),
-      MIN_AMOUNT = require('./minOrder');
+      MIN_AMOUNT = require('./minOrderBinance');
 
 
 let latestActiveBuyOrders = {},
