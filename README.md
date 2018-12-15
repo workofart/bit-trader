@@ -1,6 +1,12 @@
 # Bit-trader - Automated Crypto-currency trading bot
 > Based on technical indicators and currently supports the [Bitfinex](https://www.bitfinex.com/) and [Binance](https://www.binance.com/en) exchanges
 
+## Branches 
+Temporary Branches for different versions:
+  - Binance Exchange arbitrage bot (cloud): https://github.com/workofart/bit-trader/tree/binance-arbitrage
+  - Binance Exchange bot (cloud): https://github.com/workofart/bit-trader/tree/binance-cloud
+  - Bitfinex Exchange Bot (local): https://github.com/workofart/bit-trader/tree/bitfinex
+  
 ## Installing / Getting started
 
 1. Install all the dependencies for the *bot* and create the necessary log folder.
@@ -134,10 +140,9 @@ test/env-setup.js
 - Repository: https://github.com/workofart/bit-trader
 - Issue tracker: https://github.com/workofart/bit-trader/issues
 - Temporary Branches for different versions:
-  - Binance Exchange bot (local): https://github.com/workofart/bit-trader/tree/binance
   - Binance Exchange arbitrage bot (cloud): https://github.com/workofart/bit-trader/tree/binance-arbitrage
   - Binance Exchange bot (cloud): https://github.com/workofart/bit-trader/tree/binance-cloud
-  - Bitfinex Exchange Bot (local): https://github.com/workofart/bit-trader/tree/master
+  - Bitfinex Exchange Bot (local): https://github.com/workofart/bit-trader/tree/bitfinex
 
 
 ## Licensing
