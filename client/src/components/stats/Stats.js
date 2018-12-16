@@ -5,7 +5,7 @@ const Utils = require('../../lib/utils');
 
 class PerformanceStats extends Component {
     render() {
-        const profit = Utils.calculatePercentageProfit(this.props.data, this.props.prices);
+        const profit = Utils.calculatePercentageProfit(this.props.data, this.props.prices, this.props.walletState);
         const bhProfit = Utils.calculateBHPercentageProfit(this.props.prices);
 
         return (

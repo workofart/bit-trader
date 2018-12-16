@@ -9,8 +9,7 @@ Investment = require('../../algo/investment/investment'),
 InvestmentUtils = require('../../algo/investment/investmentUtils'),
 TickerProcessor = require('../../algo/DataProcessors/ticker');
 indicators = require('../../algo/indicators'),
-testUtil = require('../lib/testUtil'),
-clusterManager = require('./clusterManager');
+testUtil = require('../lib/testUtil');
 
 const currentTime = moment().local().format('YYYY-MM-DD_HHmmss').toString();
 

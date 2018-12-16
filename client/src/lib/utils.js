@@ -17,9 +17,9 @@ const calculateProfit = (data) => {
 	return netPosition;
 }
 
-const calculatePercentageProfit = (trades, prices) => {
+const calculatePercentageProfit = (trades, prices, walletState) => {
 	if (trades.length > 0 && prices.length > 0) {
-		return calculateProfit(trades) / prices[0].price
+		return calculateProfit(trades) / walletState[0].balance;
 	}
 	else
 		return 0

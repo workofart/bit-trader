@@ -17,7 +17,8 @@ class App extends Component {
     trades: [],
     prices: {},
     ticker: '',
-    allTickers: []
+    allTickers: [],
+  	walletState: {}
   }
 
   ids = [];
@@ -26,11 +27,31 @@ class App extends Component {
     this.getTradedTickers().then((mapping) => {
         this.setState({allTickers: mapping})
     })
+  	this.getWalletState();
   }
 
   setPrices(prices) {
     this.setState({prices : prices});
   }
+	getWalletState() {
+  		let that = this;
+		$.ajax(
+			URL + 'getWalletState',
+			{
+				success: (data) => {
+				if (data.length > 0) {
+					data = _.filter(data, (i) => i.balance !== null);
+					that.setState({walletState: data});
+
+				}
+				},
+				error: (data, status, err) => {
+					console.log(err);
+				}
+			}
+		)
+	}
+
 
   getTradedTickers() {
     return new Promise((resolve, reject) => {
@@ -52,7 +73,7 @@ class App extends Component {
       )
     })
   }
-  
+
 
   getTradesByTicker(ticker) {
     // console.log(ticker);
@@ -97,11 +118,11 @@ class App extends Component {
             </Container>
           <Grid celled>
           <Grid.Column width={2}>
-            <SidePanel/>
+            <SidePanel data={this.state.walletState}/>
           </Grid.Column>
           <Grid.Column width={14}>
               <PriceChart ticker={this.state.ticker} data={this.state.trades} setPricesFunc={this.setPrices.bind(this)}/>
-              <CustomStats data={this.state.trades} prices={this.state.prices}/>
+              <CustomStats data={this.state.trades} prices={this.state.prices} walletState={this.state.walletState}/>
               <Divider />
               <CustomTable ticker={this.state.ticker} data={this.state.trades} />
           </Grid.Column>
