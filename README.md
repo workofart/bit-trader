@@ -2,6 +2,8 @@
 > Based on technical indicators and currently supports the [Bitfinex](https://www.bitfinex.com/) and [Binance](https://www.binance.com/en) exchanges
 
 ## Branches 
+**Current Master Branch is for Binance Exchange**
+
 Temporary Branches for different versions:
   - Binance Exchange arbitrage bot (cloud): https://github.com/workofart/bit-trader/tree/binance-arbitrage
   - Binance Exchange bot (cloud): https://github.com/workofart/bit-trader/tree/binance-cloud
@@ -43,11 +45,11 @@ Temporary Branches for different versions:
 Before running the bot, we need to make sure the exchange API keys are properly defined in:
 
 ```
-config/creds.json   ---> for bitfinex on master branch
+config/creds.json   ---> for bitfinex on bitfinex branch
 ```
 or
 ```
-config/creds_binance.json   ---> for binance on binance branch
+config/creds_binance.json   ---> for binance on master branch
 ```
 
 ## Developing
