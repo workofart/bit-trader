@@ -1,6 +1,9 @@
 # Bit-trader - Automated Crypto-currency trading bot
 > Based on technical indicators and currently supports the [Bitfinex](https://www.bitfinex.com/) and [Binance](https://www.binance.com/en) exchanges
 
+## Backtesting Demo:
+![Demo](https://raw.githubusercontent.com/workofart/bit-trader/master/backtest-demo.gif)
+
 ## Branches 
 **Current Master Branch is for Binance Exchange**
 
